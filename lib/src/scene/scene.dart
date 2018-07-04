@@ -1,6 +1,11 @@
+import 'package:hue_dart/src/core/bridge_object.dart';
 import 'package:hue_dart/src/light/light.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class Scene {
+part 'scene.g.dart';
+
+@JsonSerializable()
+class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   /// The id of the scene being modified or created.
   String id;
 
@@ -11,6 +16,7 @@ class Scene {
   ///
   /// When writing, lightstate of all lights in list will be overwritten with current light state.
   /// As of 1.15 when writing, lightstate of lights which are not yet in list will be created with current light state.
+  @JsonKey(fromJson: _mapFromJsonLights)
   List<Light> lights;
 
   /// Whitelist user that created or modified the content of the scene. Note that changing name does not change the owner.
@@ -25,6 +31,7 @@ class Scene {
   bool locked;
 
   /// UTC time the scene has been created or has been updated by a PUT. Will be null when unknown (legacy scenes).
+  @JsonKey(name: 'lastupdated')
   String lastUpdated;
 
   /// Version of scene document:
@@ -35,13 +42,82 @@ class Scene {
 
   /// App specific data linked to the scene.
   /// Each individual application should take responsibility for the data written in this field.
+  @JsonKey(name: 'appdata')
   AppData appData;
+
+  String picture;
+
+  Scene();
+
+  factory Scene.fromJson(Map<String, dynamic> json) => _$SceneFromJson(json);
+
+  Scene.fromJsonManually(String id, Map<String, dynamic> json) {
+    this.id = id;
+    lights = [];
+    for (String key in json['lights']) {
+      lights.add(new Light.withId(key));
+    }
+    owner = json['owner'];
+    recycle = json['recycle'];
+    locked = json['locked'];
+    appData = new AppData.fromJson(json['appdata']);
+    picture = json['picture'];
+    lastUpdated = json['lastupdated'];
+    version = json['version'];
+  }
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
+  @override
+  toBridgeObject({String action}) {
+    if ('create' == action) {
+      return {
+        'name' : name,
+        'recycle' : recycle,
+        'lights' : lights.map((Light light) => light.id.toString()).toList()
+      };
+    } else if ('attributes' == action) {
+      final body = {};
+      if (name != null) {
+        body['name'] = name;
+      }
+      if (lights != null) {
+        body['lights'] = lights.map((Light light) => light.id.toString()).toList();
+      }
+      return body;
+    }
+  }
 }
 
-class AppData {
+@JsonSerializable()
+class AppData extends Object with _$AppDataSerializerMixin {
   /// App specific version of the data field.
   int version;
 
   /// App specific data. Free format string.
   String data;
+
+  AppData();
+
+  factory AppData.fromJson(Map<String, dynamic> json) => _$AppDataFromJson(json);
+
+  AppData.fromJsonManually(Map<String, dynamic> json) {
+    version = json['version'];
+    data = json['data'];
+  }
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
+}
+
+List<Light> _mapFromJsonLights(dynamic lights) {
+  var source = lights as List<String>;
+  var result = source.map((String id) => new Light.withId(id));
+  return result;
 }

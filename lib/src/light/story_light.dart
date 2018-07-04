@@ -1,8 +1,8 @@
 
-import 'package:hue_dart/src/core/model.dart';
+import 'package:hue_dart/src/core/model_mixin.dart';
 import 'package:hue_dart/src/light/light.dart';
 
-class StoryLight extends Light with Model {
+class StoryLight extends Light with ModelMixin {
   @override
   String productName() => 'Disney Living Colors';
   

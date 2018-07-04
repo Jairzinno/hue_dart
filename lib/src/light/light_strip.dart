@@ -1,8 +1,8 @@
 
 import 'package:hue_dart/src/light/light.dart';
-import 'package:hue_dart/src/core/model.dart';
+import 'package:hue_dart/src/core/model_mixin.dart';
 
-class LightStrip extends Light with Model {
+class LightStrip extends Light with ModelMixin {
 
   @override
   String productName() => 'LST001' == modelId ? 'Hue LightStrip' : 'Hue LightStrip Plus';

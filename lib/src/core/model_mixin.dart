@@ -1,4 +1,4 @@
-abstract class Model {
+abstract class ModelMixin {
   String modelId;
 
   String productName();

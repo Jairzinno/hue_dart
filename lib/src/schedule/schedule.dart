@@ -1,13 +1,12 @@
-class Schedule {
+import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-  static const int MONDAY = 1 << 12;
-  static const int TUESDAY = 1 << 10;
-  static const int WEDNESDAY = 1 << 8;
-  static const int THURSDAY = 1 << 6;
-  static const int FRIDAY = 1 << 4;
-  static const int SATURDAY = 1 << 2;
-  static const int SUNDAY = 1;
-  
+part 'schedule.g.dart';
+
+@JsonSerializable()
+class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
+
+  String id;
   ///Name for the new schedule. If a name is not specified then the default name, “schedule”, is used.
   ///If the name is already taken a space and number will be appended by the bridge, e.g. “schedule 1”.
   String name;
@@ -35,11 +34,69 @@ class Schedule {
   String status;
 
   ///If set to true, the schedule will be removed automatically if expired, if set to false it will be disabled. Default is true. Only visible for non-recurring schedules.
+  @JsonKey(name: 'autodelete')
   bool autoDelete;
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only on creation of resource. “false” when omitted.
   bool recycle;
 
+  ///Date presentation of the time for the schedule
+  DateTime date;
+
+  Command command;
+
+  Schedule();
+
+  factory Schedule.fromJson(Map<String, dynamic> json) => _$ScheduleFromJson(json);
+
+  Schedule.fromJsonManually(String id, Map<String, dynamic> json) {
+    this.id = id;
+    name = json['name'];
+    description = json['description'];
+    time = json['time'];
+    status = json['status'];
+    recycle = json['recycle'];
+    command = new Command.fromJson(json['command']);
+  }
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+
+  @override
+  toBridgeObject({String action}) {
+    if ('create' == action) {
+      return {
+        'name' : name,
+        'description' :  description,
+        'localtime' : time,
+        'command' : command
+      };
+    } else if ('attributes' == action) {
+      Map<String, dynamic> body = {};
+      if (name != null) {
+        body['name'] = name;
+      }
+      if (description != null) {
+        body['description'] = description;
+      }
+      if (time != null) {
+        body['localtime'] = time;
+      }
+      if (command != null) {
+        body['command'] = command;
+      }
+      if (status != null) {
+        body['status'] = status;
+      }
+      return body;
+    }
+  }
+}
+
+@JsonSerializable()
+class Command extends Object with _$CommandSerializerMixin {
   ///Path to a light resource, a group resource or any other bridge resource (including "/api/<username>/")
   String address;
 
@@ -47,8 +104,21 @@ class Schedule {
   String method;
 
   ///JSON string to be sent to the relevant resource.
-  String body;
+  Map<String, dynamic> body;
 
-  ///Date presentation of the time for the schedule
-  DateTime date;
+
+  Command();
+
+  factory Command.fromJson(Map<String, dynamic> json) => _$CommandFromJson(json);
+
+  Command.fromJsonManually(String id, Map<String, dynamic> json) {
+    address = json['address'];
+    body = json['body'];
+    method = json['method'];
+  }
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }

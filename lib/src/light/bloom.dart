@@ -1,7 +1,7 @@
-import 'package:hue_dart/src/core/model.dart';
+import 'package:hue_dart/src/core/model_mixin.dart';
 import 'package:hue_dart/src/light/light.dart';
 
-class Bloom extends Light with Model {
+class Bloom extends Light with ModelMixin {
 
   @override
   String productName() => 'Hue Living Colors Bloom';

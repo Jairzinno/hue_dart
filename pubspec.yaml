@@ -1,14 +1,16 @@
 name: hue_dart
-description: A sdk for building Hue apps
+description: A library for building Hue apps
 # version: 1.0.0
 # homepage: https://www.jairzinno.nl/hue
 # author: jairzinno <jairzinnohenriquez@gmail.com>
 
 environment:
-  sdk: '>=2.0.0-dev.55.0 <2.0.0'
+  sdk: '>=2.0.0-dev.56.0 <2.0.0'
 
 dependencies:
  intl: "^0.15.6"
+ json_serializable: "^0.5.8"
+ http: "^0.11.3+16"
 #  path: ^1.4.1
 
 dev_dependencies:

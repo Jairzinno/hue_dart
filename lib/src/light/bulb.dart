@@ -1,8 +1,8 @@
 
-import 'package:hue_dart/src/core/model.dart';
+import 'package:hue_dart/src/core/model_mixin.dart';
 import 'package:hue_dart/src/light/light.dart';
 
-class Bulb extends Light with Model {
+class Bulb extends Light with ModelMixin {
 
   static final _defaultModels = ['LCT001', 'LCT007', 'LCT010', 'LCT014'];
   static final _luxModels = ['LWB004', 'LWB006', 'LWB007'];
