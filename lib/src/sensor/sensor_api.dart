@@ -19,7 +19,7 @@ class SensorApi extends Object with BridgeResponseHandler {
     final sensors = <Sensor>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final sensor = new Sensor.fromJson(response);
+      final sensor = new Sensor.fromJson(item);
       sensor.id = int.parse(id);
       sensors.add(sensor);
     }
