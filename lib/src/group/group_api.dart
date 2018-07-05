@@ -60,7 +60,7 @@ class GroupApi extends Object with BridgeResponseHandler {
   Future<String> create(Group group) async {
     String url = '$address/api/$username/groups';
     final response = await post(url, group.toBridgeObject(action: 'create'));
-    return result(response, key: 'id');
+    return result(response, 'id');
   }
 
   Future<Map<String, dynamic>> attributes(Group group) async {

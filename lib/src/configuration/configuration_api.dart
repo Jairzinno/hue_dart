@@ -16,7 +16,7 @@ class ConfigurationApi extends Object with BridgeResponseHandler {
   Future<String> createUser(String deviceType) async {
     String url = '$address/api/';
     final response = await post(url, {'devicetype' : deviceType});
-    return result(response, key: 'username');
+    return result(response, 'username');
   }
 
   Future<bool> deleteUser(String username, String deletingUsername) async {

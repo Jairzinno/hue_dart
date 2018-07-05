@@ -37,7 +37,7 @@ class ScheduleApi extends Object with BridgeResponseHandler {
     Future<Schedule> create(Schedule schedule) async {
       String url = '$address/api/$username/schedules';
       final response = await post(url, schedule.toBridgeObject(action: 'create'));
-      schedule.id = result(response, key: 'id');
+      schedule.id = result(response, 'id');
       return schedule;
     }
 

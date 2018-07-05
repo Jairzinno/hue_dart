@@ -37,7 +37,7 @@ class SensorApi extends Object with BridgeResponseHandler {
   Future<Sensor> create(Sensor sensor) async {
     String url = '$address/api/$username/scenes';
     final response = await post(url, sensor.toBridgeObject(action: 'create'));
-    sensor.id = result(response, key: 'id');
+    sensor.id = result(response, 'id');
     return sensor;
   }
 

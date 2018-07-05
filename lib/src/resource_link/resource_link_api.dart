@@ -37,7 +37,7 @@ class ResourceLinkApi extends Object with BridgeResponseHandler {
   Future<ResourceLink> create(ResourceLink resourceLink) async {
     String url = '$address/api/$username/resourcelinks';
     final response = await post(url, resourceLink);
-    resourceLink.id = result(response, key: 'id');
+    resourceLink.id = result(response, 'id');
     return resourceLink;
   }
 

@@ -58,7 +58,7 @@ class SceneApi extends Object with BridgeResponseHandler {
   Future<Scene> create(Scene scene) async {
     String url = '$address/api/$username/scenes';
     final response = await post(url, scene.toBridgeObject(action: 'create'));
-    scene.id = result(response, key: 'id');
+    scene.id = result(response, 'id');
     return scene;
   }
 

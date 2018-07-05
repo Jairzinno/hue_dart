@@ -37,7 +37,7 @@ class RuleApi extends Object with BridgeResponseHandler {
   Future<Rule> create(Rule rule) async {
     String url = '$address/api/$username/rules';
     final response = await post(url, rule);
-    rule.id = int.parse(result(response, key: 'id'));
+    rule.id = int.parse(result(response, 'id'));
     return rule;
   }
 
