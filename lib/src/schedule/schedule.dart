@@ -25,6 +25,7 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   ///Timers
   ///For a full description of the allowed time pattern formats please check the allowed time patterns.
   ///Incorrectly formatted dates will raise an error of type 7. If the time is in the past an error 7 will also be raised.
+  @JsonKey(name: 'localtime')
   String time;
 
 
@@ -49,16 +50,6 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
 
   factory Schedule.fromJson(Map<String, dynamic> json) => _$ScheduleFromJson(json);
 
-  Schedule.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.id = id;
-    name = json['name'];
-    description = json['description'];
-    time = json['time'];
-    status = json['status'];
-    recycle = json['recycle'];
-    command = new Command.fromJson(json['command']);
-  }
-
   @override
   String toString() {
     return toJson().toString();
@@ -69,9 +60,12 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
     if ('create' == action) {
       return {
         'name' : name,
-        'description' :  description,
+        'description' :  description ?? '',
         'localtime' : time,
-        'command' : command
+        'command' : command,
+        'status' : status ?? 'enabled',
+        'autodelete' : autoDelete ?? true,
+        'recycle' : recycle ?? false
       };
     } else if ('attributes' == action) {
       Map<String, dynamic> body = {};
@@ -108,6 +102,8 @@ class Command extends Object with _$CommandSerializerMixin {
 
 
   Command();
+
+  Command.forAddress(this.address, this.method, this.body);
 
   factory Command.fromJson(Map<String, dynamic> json) => _$CommandFromJson(json);
 

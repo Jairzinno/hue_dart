@@ -51,21 +51,6 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
 
   factory Scene.fromJson(Map<String, dynamic> json) => _$SceneFromJson(json);
 
-  Scene.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.id = id;
-    lights = [];
-    for (String key in json['lights']) {
-      lights.add(new Light.withId(key));
-    }
-    owner = json['owner'];
-    recycle = json['recycle'];
-    locked = json['locked'];
-    appData = new AppData.fromJson(json['appdata']);
-    picture = json['picture'];
-    lastUpdated = json['lastupdated'];
-    version = json['version'];
-  }
-
   @override
   String toString() {
     return toJson().toString();
@@ -76,7 +61,7 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
     if ('create' == action) {
       return {
         'name' : name,
-        'recycle' : recycle,
+        'recycle' : recycle ?? false,
         'lights' : lights.map((Light light) => light.id.toString()).toList()
       };
     } else if ('attributes' == action) {
@@ -118,6 +103,6 @@ class AppData extends Object with _$AppDataSerializerMixin {
 
 List<Light> _mapFromJsonLights(dynamic lights) {
   var source = lights as List<String>;
-  var result = source.map((String id) => new Light.withId(id));
+  var result = source.map((String id) => new Light.withId(id)).toList();
   return result;
 }

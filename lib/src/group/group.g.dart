@@ -19,7 +19,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) {
     ..uniqueId = json['uniqueid'] as String
     ..state = json['state'] == null
         ? null
-        : new State.fromJson(json['state'] as Map<String, dynamic>)
+        : new OnState.fromJson(json['state'] as Map<String, dynamic>)
     ..action = json['action'] == null
         ? null
         : new Action.fromJson(json['action'] as Map<String, dynamic>);
@@ -34,7 +34,7 @@ abstract class _$GroupSerializerMixin {
   bool get recycle;
   String get modelId;
   String get uniqueId;
-  State get state;
+  OnState get state;
   Action get action;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
@@ -60,13 +60,13 @@ abstract class _$GroupSerializerMixin {
   }
 }
 
-State _$StateFromJson(Map<String, dynamic> json) {
-  return new State()
+OnState _$OnStateFromJson(Map<String, dynamic> json) {
+  return new OnState()
     ..anyOn = json['any_on'] as bool
     ..allOn = json['all_on'] as bool;
 }
 
-abstract class _$StateSerializerMixin {
+abstract class _$OnStateSerializerMixin {
   bool get anyOn;
   bool get allOn;
   Map<String, dynamic> toJson() {

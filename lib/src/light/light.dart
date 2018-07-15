@@ -1,10 +1,11 @@
 import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/core/model_mixin.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'light.g.dart';
 
 @JsonSerializable()
-class Light extends Object with _$LightSerializerMixin, BridgeObject {
+class Light extends Object with ModelMixin, _$LightSerializerMixin, BridgeObject {
   /// id of the light in the bridge
   int id;
 
@@ -14,7 +15,7 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
   /// A unique, editable name given to the light.
   String name;
 
-  State state;
+  State state = new State();
 
   /// The hardware model of the light.
   @JsonKey(name: 'modelid')
@@ -44,17 +45,6 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
     this.id = int.parse(id);
   }
 
-  Light.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.id = int.parse(id);
-    type = json['type'];
-    name = json['name'];
-    modelId = json['modelid'];
-    manufacturerName = json['manufacturername'];
-    uniqueId = json['uniqueid'];
-    swVersion = json['swversion'];
-    state = new State.fromJson(json['state']);
-  }
-
   @override
   String toString() {
     return toJson().toString();
@@ -70,6 +60,17 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
       return state.toBridgeObject();
     }
   }
+
+  @override
+  int icon() {
+    // TODO: implement icon
+  }
+
+  @override
+  String productName() => 'Hue color lamp';
+
+  @override
+  List<String> types() => [];
 }
 
 @JsonSerializable()

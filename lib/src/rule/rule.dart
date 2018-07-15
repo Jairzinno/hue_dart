@@ -5,52 +5,39 @@ part 'rule.g.dart';
 @JsonSerializable()
 class Rule extends Object with _$RuleSerializerMixin {
 
+  @JsonKey(ignore: true)
   int id;
 
   /// Human readable name of the rule.
   String name;
 
-  @JsonKey(name: 'lasttriggered')
+  @JsonKey(name: 'lasttriggered', includeIfNull: false)
   String lastTriggered;
 
-  @JsonKey(name: 'creationtime')
+  @JsonKey(name: 'creationtime', includeIfNull: false)
   String creationTime;
 
-  @JsonKey(name: 'timestriggered')
+  @JsonKey(name: 'timestriggered', includeIfNull: false)
   int timesTriggered;
 
+  @JsonKey(includeIfNull: false)
   String owner;
 
+  @JsonKey(includeIfNull: false)
   String status;
 
+  @JsonKey(includeIfNull: false)
   List<Condition> conditions;
 
-  List<Action> actions;
+  @JsonKey(includeIfNull: false)
+  List<RuleAction> actions;
 
+  @JsonKey(includeIfNull: false)
   bool recycle;
 
   Rule();
 
   factory Rule.fromJson(Map<String, dynamic> json) => _$RuleFromJson(json);
-
-  Rule.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.id = int.parse(id);
-    name = json['name'];
-    owner = json['owner'];
-    creationTime = json['created'];
-    lastTriggered = json['lasttriggered'];
-    timesTriggered = json['timestriggered'];
-    status = json['status'];
-    recycle = json['recycle'];
-    conditions = [];
-    for (Map<String, dynamic> item in json['conditions']) {
-      conditions.add(new Condition.fromJsonManually(item));
-    }
-    actions = [];
-    for (Map<String, dynamic> item in json['actions']) {
-      actions.add(new Action.fromJsonManually(item));
-    }
-  }
 
   @override
   String toString() {
@@ -65,6 +52,8 @@ class Condition extends Object with _$ConditionSerializerMixin {
   String value;
 
   Condition();
+
+  Condition.forAddress(this.address, this.operator, this.value);
 
   factory Condition.fromJson(Map<String, dynamic> json) => _$ConditionFromJson(json);
 
@@ -81,16 +70,18 @@ class Condition extends Object with _$ConditionSerializerMixin {
 }
 
 @JsonSerializable()
-class Action extends Object with _$ActionSerializerMixin {
+class RuleAction extends Object with _$RuleActionSerializerMixin {
   String address;
   String method;
   Map<String, dynamic> body;
 
-  Action();
+  RuleAction();
 
-  factory Action.fromJson(Map<String, dynamic> json) => _$ActionFromJson(json);
+  RuleAction.forAddress(this.address, this.method, this.body);
 
-  Action.fromJsonManually(Map<String, dynamic> json) {
+  factory RuleAction.fromJson(Map<String, dynamic> json) => _$RuleActionFromJson(json);
+
+  RuleAction.fromJsonManually(Map<String, dynamic> json) {
     address = json['address'];
     method = json['method'];
     body = json['body'];

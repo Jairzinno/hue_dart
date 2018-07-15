@@ -5,11 +5,7 @@ import 'package:hue_dart/src/resource_link/resource_link.dart';
 import 'package:hue_dart/src/rule/rule.dart';
 import 'package:hue_dart/src/scene/scene.dart';
 import 'package:hue_dart/src/schedule/schedule.dart';
-import 'package:hue_dart/src/sensor/day_light.dart';
-import 'package:hue_dart/src/sensor/dimmer.dart';
-import 'package:hue_dart/src/sensor/motion.dart';
 import 'package:hue_dart/src/sensor/sensor.dart';
-import 'package:hue_dart/src/sensor/tap.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'configuration.g.dart';
@@ -23,7 +19,7 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
 
 
   /// Contains information related to software updates.
-  @JsonKey(name:'softwareupdate', includeIfNull: false)
+  @JsonKey(name:'swupdate2', includeIfNull: false)
   SoftwareUpdate softwareUpdate;
 
   /// A list of whitelisted user IDs.
@@ -77,8 +73,11 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   @JsonKey(name:'portalstate', includeIfNull: false)
   PortalState portalState;
 
+  @JsonKey(name:'portalconnection', includeIfNull: false)
+  String portalConnection;
+
   /// Current time stored on the bridge.
-  @JsonKey(includeIfNull: false)
+  @JsonKey(name: 'UTC', includeIfNull: false)
   String utc;
 
   /// The local time of the bridge. "none" if not available.
@@ -116,6 +115,18 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   ///  This field is Write-Only so it is not visible when retrieving the bridge Config JSON.
   @JsonKey(name:'touchlink', includeIfNull: false)
   bool touchLink;
+
+  @JsonKey(name:'datastoreversion', includeIfNull: false)
+  String dataStoreVersion;
+
+  @JsonKey(name:'internetservices', includeIfNull: false)
+  InternetServices internetServices;
+
+  @JsonKey(includeIfNull: false)
+  Backup backup;
+
+  @JsonKey(name:'starterkitid', includeIfNull: false)
+  String starterKitId;
 
   @JsonKey(name:'config', includeIfNull: false, fromJson: _mapFromJsonConfiguration)
   Configuration configuration;
@@ -198,6 +209,8 @@ class PortalState extends Object with _$PortalStateSerializerMixin {
   String communication;
   bool incoming;
   bool outgoing;
+
+  @JsonKey(name: 'signedon')
   bool signedOn;
 
   PortalState();
@@ -217,14 +230,21 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
   /// After the search attempt, this flag is set back to false.
   /// Requires portal connection to update server.
   /// See software update for more information.
-///
+
+  @JsonKey(name:'checkforupdate', includeIfNull: false)
   bool checkForUpdate;
-  bool updateBridge;
-  List<Light> lights;
-  int updateState;
-  String url;
-  String text;
-  bool notify;
+
+  @JsonKey(name:'lastchange', includeIfNull: false)
+  String lastChange;
+
+  @JsonKey(includeIfNull: false)
+  String state;
+
+  @JsonKey(includeIfNull: false)
+  SoftwareUpdateBridge bridge;
+
+  @JsonKey(name:'autoinstall', includeIfNull: false)
+  AutoInstall autoInstall;
 
   SoftwareUpdate();
 
@@ -234,6 +254,60 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
   String toString() {
     return toJson().toString();
   }
+}
+
+@JsonSerializable()
+class SoftwareUpdateBridge extends Object with _$SoftwareUpdateBridgeSerializerMixin {
+  String state;
+  @JsonKey(name:'lastinstall')
+  String lastInstall;
+
+
+  SoftwareUpdateBridge();
+
+  factory SoftwareUpdateBridge.fromJson(Map<String, dynamic> json) => _$SoftwareUpdateBridgeFromJson(json);
+}
+
+@JsonSerializable()
+class AutoInstall extends Object with _$AutoInstallSerializerMixin {
+  bool on;
+  @JsonKey(name:'updatetime')
+  String updateTime;
+
+
+  AutoInstall();
+
+  factory AutoInstall.fromJson(Map<String, dynamic> json) => _$AutoInstallFromJson(json);
+}
+
+@JsonSerializable()
+class InternetServices extends Object with _$InternetServicesSerializerMixin {
+
+  String internet;
+
+  @JsonKey(name: 'remoteaccess')
+  String remoteAccess;
+
+  String time;
+  @JsonKey(name: 'swupdate')
+  String swUpdate;
+
+  InternetServices();
+
+  factory InternetServices.fromJson(Map<String, dynamic> json) => _$InternetServicesFromJson(json);
+}
+
+@JsonSerializable()
+class Backup extends Object with _$BackupSerializerMixin {
+
+  String status;
+
+  @JsonKey(name: 'errorcode')
+  int errorCode;
+
+  Backup();
+
+  factory Backup.fromJson(Map<String, dynamic> json) => _$BackupFromJson(json);
 }
 
 Configuration _mapFromJsonConfiguration(dynamic json) {
@@ -253,76 +327,70 @@ List<UserId> _mapFromJsonWhitelist(dynamic whiteList) {
 
 List<Light> _mapFromJsonLights(dynamic lights) {
   var source = lights as Map<String, dynamic>;
-  var result = source.keys.map((String id) => new Light.fromJsonManually(id, source[id]));
+  var result = source.keys.map((String id) {
+    final item = new Light.fromJson(source[id]);
+    item.id = int.parse(id);
+    return item;
+  }).toList();
   return result;
 }
 
 List<Group> _mapFromJsonGroups(dynamic groups) {
   var source = groups as Map<String, dynamic>;
-  var result = <Group>[];
-  for (String key in source.keys) {
-    var item = new Group.fromJsonManually(key, source[key]);
-    result.add(item);
-  }
+  var result = source.keys.map((String id) {
+    final item = new Group.fromJson(source[id]);
+    item.id = int.parse(id);
+    return item;
+  }).toList();
   return result;
 }
 
 List<Schedule> _mapFromJsonSchedules(dynamic schedules) {
   var source = schedules as Map<String, dynamic>;
-  var result = <Schedule>[];
-  for (String key in source.keys) {
-    var item = new Schedule.fromJsonManually(key, source[key]);
-    result.add(item);
-  }
+  var result = source.keys.map((String id) {
+    final item = new Schedule.fromJson(source[id]);
+    item.id = id;
+    return item;
+  }).toList();
   return result;
 }
 
 List<Scene> _mapFromJsonScenes(dynamic scenes) {
   var source = scenes as Map<String, dynamic>;
-  var result = <Scene>[];
-  for (String key in source.keys) {
-    var item = new Scene.fromJsonManually(key, source[key]);
-    result.add(item);
-  }
+  var result = source.keys.map((String id) {
+    final item = new Scene.fromJson(source[id]);
+    item.id = id;
+    return item;
+  }).toList();
   return result;
 }
 
 List<Rule> _mapFromJsonRules(dynamic rules) {
   var source = rules as Map<String, dynamic>;
-  var result = <Rule>[];
-  for (String key in source.keys) {
-    var item = new Rule.fromJsonManually(key, source[key]);
-    result.add(item);
-  }
+  var result = source.keys.map((String id) {
+    final item = new Rule.fromJson(source[id]);
+    item.id = int.parse(id);
+    return item;
+  }).toList();
   return result;
 }
 
 List<Sensor> _mapFromJsonSensors(dynamic sensors) {
   var source = sensors as Map<String, dynamic>;
-  var result = <Sensor>[];
-  for (String key in source.keys) {
-    Sensor item;
-    String modelId = source[key]['modelid'];
-    if (DayLight.matchesModelId(modelId)) {
-      item = new DayLight.fromJsonManually(key, source[key]);
-    } else if (Dimmer.matchesModelId(modelId)) {
-      item = new Dimmer.fromJsonManually(key, source[key]);
-    } else if (Motion.matchesModelId(modelId)) {
-      item = new Motion.fromJsonManually(key, source[key]);
-    } else if (Tap.matchesModelId(modelId)) {
-      item = new Tap.fromJsonManually(key, source[key]);
-    }
-    result.add(item);
-  }
+  var result = source.keys.map((String id) {
+    Sensor item = new Sensor.fromJson(source[id]);
+    item.id = int.parse(id);
+    return item;
+  }).toList();
   return result;
 }
 
 List<ResourceLink> _mapFromJsonResourceLinks(dynamic resourceLinks) {
   var source = resourceLinks as Map<String, dynamic>;
-  var result = <ResourceLink>[];
-  for (String key in source.keys) {
-    var item = new ResourceLink.fromJsonManually(key, source[key]);
-    result.add(item);
-  }
+  var result = source.keys.map((String id) {
+    var item = new ResourceLink.fromJson(source[id]);
+    item.id = id;
+    return item;
+  }).toList();
   return result;
 }

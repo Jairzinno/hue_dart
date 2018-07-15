@@ -27,7 +27,7 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
   ///
   ///Light id can be null if a group has been automatically create by the bridge and a light source is not yet available
   @JsonKey(fromJson: _mapFromJsonLights)
-  List<Light> lights;
+  List<Light> lights = [];
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only on creation of resource. “false” when omitted.
   bool recycle;
@@ -41,28 +41,16 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
   String uniqueId;
 
   @JsonKey(includeIfNull: false)
-  State state;
+  OnState state = new OnState();
 
   @JsonKey(includeIfNull: false)
-  Action action;
+  Action action = new Action();
 
   Group();
 
-  factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
+  Group.namedWithLights(this.name, this.lights, [this.type = 'Room', this.className = 'Other']);
 
-  Group.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.id = int.parse(id);
-    name = json['name'];
-    type = json['type'];
-    recycle = json['recycle'];
-    lights = [];
-    for (String key in json['lights']) {
-      lights.add(new Light.withId(key));
-    }
-    className = json['class'];
-    state = new State.fromJsonManually(json['state']);
-    action = new Action.fromJsonManually(json['action']);
-  }
+  factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
 
   @override
   String toString() {
@@ -90,7 +78,7 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
 }
 
 @JsonSerializable()
-class State extends Object with _$StateSerializerMixin {
+class OnState extends Object with _$OnStateSerializerMixin {
   /// “false” if all lamps are off, “true” if at least one lamp is on
   @JsonKey(name: 'any_on', includeIfNull: false)
   bool anyOn;
@@ -99,11 +87,11 @@ class State extends Object with _$StateSerializerMixin {
   @JsonKey(name: 'all_on', includeIfNull: false)
   bool allOn;
 
-  State();
+  OnState();
 
-  factory State.fromJson(Map<String, dynamic> json) => _$StateFromJson(json);
+  factory OnState.fromJson(Map<String, dynamic> json) => _$OnStateFromJson(json);
 
-  State.fromJsonManually(Map<String, dynamic> json) {
+  OnState.fromJsonManually(Map<String, dynamic> json) {
     allOn = json != null ? json['all_on'] : false;
     anyOn = json != null ? json['any_on'] : false;
   }
@@ -219,5 +207,5 @@ class Action extends Object with _$ActionSerializerMixin, BridgeObject {
 
 List<Light> _mapFromJsonLights(dynamic lights) {
   var source = lights as List<String>;
-  return source.map((String id) => new Light.withId(id));
+  return source.map((String id) => new Light.withId(id)).toList();
 }

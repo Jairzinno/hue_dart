@@ -8,7 +8,6 @@ part of 'rule.dart';
 
 Rule _$RuleFromJson(Map<String, dynamic> json) {
   return new Rule()
-    ..id = json['id'] as int
     ..name = json['name'] as String
     ..lastTriggered = json['lasttriggered'] as String
     ..creationTime = json['creationtime'] as String
@@ -21,14 +20,14 @@ Rule _$RuleFromJson(Map<String, dynamic> json) {
             : new Condition.fromJson(e as Map<String, dynamic>))
         ?.toList()
     ..actions = (json['actions'] as List)
-        ?.map((e) =>
-            e == null ? null : new Action.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : new RuleAction.fromJson(e as Map<String, dynamic>))
         ?.toList()
     ..recycle = json['recycle'] as bool;
 }
 
 abstract class _$RuleSerializerMixin {
-  int get id;
   String get name;
   String get lastTriggered;
   String get creationTime;
@@ -36,20 +35,29 @@ abstract class _$RuleSerializerMixin {
   String get owner;
   String get status;
   List<Condition> get conditions;
-  List<Action> get actions;
+  List<RuleAction> get actions;
   bool get recycle;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'name': name,
-        'lasttriggered': lastTriggered,
-        'creationtime': creationTime,
-        'timestriggered': timesTriggered,
-        'owner': owner,
-        'status': status,
-        'conditions': conditions,
-        'actions': actions,
-        'recycle': recycle
-      };
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'name': name,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('lasttriggered', lastTriggered);
+    writeNotNull('creationtime', creationTime);
+    writeNotNull('timestriggered', timesTriggered);
+    writeNotNull('owner', owner);
+    writeNotNull('status', status);
+    writeNotNull('conditions', conditions);
+    writeNotNull('actions', actions);
+    writeNotNull('recycle', recycle);
+    return val;
+  }
 }
 
 Condition _$ConditionFromJson(Map<String, dynamic> json) {
@@ -70,14 +78,14 @@ abstract class _$ConditionSerializerMixin {
       };
 }
 
-Action _$ActionFromJson(Map<String, dynamic> json) {
-  return new Action()
+RuleAction _$RuleActionFromJson(Map<String, dynamic> json) {
+  return new RuleAction()
     ..address = json['address'] as String
     ..method = json['method'] as String
     ..body = json['body'] as Map<String, dynamic>;
 }
 
-abstract class _$ActionSerializerMixin {
+abstract class _$RuleActionSerializerMixin {
   String get address;
   String get method;
   Map<String, dynamic> get body;

@@ -9,10 +9,9 @@ part of 'configuration.dart';
 Configuration _$ConfigurationFromJson(Map<String, dynamic> json) {
   return new Configuration()
     ..name = json['name'] as String
-    ..softwareUpdate = json['softwareupdate'] == null
+    ..softwareUpdate = json['swupdate2'] == null
         ? null
-        : new SoftwareUpdate.fromJson(
-            json['softwareupdate'] as Map<String, dynamic>)
+        : new SoftwareUpdate.fromJson(json['swupdate2'] as Map<String, dynamic>)
     ..whitelist = json['whitelist'] == null
         ? null
         : _mapFromJsonWhitelist(json['whitelist'])
@@ -30,7 +29,8 @@ Configuration _$ConfigurationFromJson(Map<String, dynamic> json) {
     ..portalState = json['portalstate'] == null
         ? null
         : new PortalState.fromJson(json['portalstate'] as Map<String, dynamic>)
-    ..utc = json['utc'] as String
+    ..portalConnection = json['portalconnection'] as String
+    ..utc = json['UTC'] as String
     ..localTime = json['localtime'] as String
     ..timeZone = json['timezone'] as String
     ..zigbeeChannel = json['zigbeechannel'] as int
@@ -39,6 +39,15 @@ Configuration _$ConfigurationFromJson(Map<String, dynamic> json) {
     ..factoryNew = json['factorynew'] as bool
     ..replacesBridgeId = json['replacesbridgeid'] as String
     ..touchLink = json['touchlink'] as bool
+    ..dataStoreVersion = json['datastoreversion'] as String
+    ..internetServices = json['internetservices'] == null
+        ? null
+        : new InternetServices.fromJson(
+            json['internetservices'] as Map<String, dynamic>)
+    ..backup = json['backup'] == null
+        ? null
+        : new Backup.fromJson(json['backup'] as Map<String, dynamic>)
+    ..starterKitId = json['starterkitid'] as String
     ..configuration = json['config'] == null
         ? null
         : _mapFromJsonConfiguration(json['config'])
@@ -75,6 +84,7 @@ abstract class _$ConfigurationSerializerMixin {
   bool get dhcp;
   bool get portalServices;
   PortalState get portalState;
+  String get portalConnection;
   String get utc;
   String get localTime;
   String get timeZone;
@@ -84,6 +94,10 @@ abstract class _$ConfigurationSerializerMixin {
   bool get factoryNew;
   String get replacesBridgeId;
   bool get touchLink;
+  String get dataStoreVersion;
+  InternetServices get internetServices;
+  Backup get backup;
+  String get starterKitId;
   Configuration get configuration;
   List<Light> get lights;
   List<Group> get groups;
@@ -102,7 +116,7 @@ abstract class _$ConfigurationSerializerMixin {
     }
 
     writeNotNull('name', name);
-    writeNotNull('softwareupdate', softwareUpdate);
+    writeNotNull('swupdate2', softwareUpdate);
     writeNotNull('whitelist', whitelist);
     writeNotNull('apiversion', apiVersion);
     writeNotNull('swversion', swVersion);
@@ -116,7 +130,8 @@ abstract class _$ConfigurationSerializerMixin {
     writeNotNull('dhcp', dhcp);
     writeNotNull('portalservices', portalServices);
     writeNotNull('portalstate', portalState);
-    writeNotNull('utc', utc);
+    writeNotNull('portalconnection', portalConnection);
+    writeNotNull('UTC', utc);
     writeNotNull('localtime', localTime);
     writeNotNull('timezone', timeZone);
     writeNotNull('zigbeechannel', zigbeeChannel);
@@ -125,6 +140,10 @@ abstract class _$ConfigurationSerializerMixin {
     writeNotNull('factorynew', factoryNew);
     writeNotNull('replacesbridgeid', replacesBridgeId);
     writeNotNull('touchlink', touchLink);
+    writeNotNull('datastoreversion', dataStoreVersion);
+    writeNotNull('internetservices', internetServices);
+    writeNotNull('backup', backup);
+    writeNotNull('starterkitid', starterKitId);
     writeNotNull('config', configuration);
     writeNotNull('lights', lights);
     writeNotNull('groups', groups);
@@ -163,7 +182,7 @@ PortalState _$PortalStateFromJson(Map<String, dynamic> json) {
     ..communication = json['communication'] as String
     ..incoming = json['incoming'] as bool
     ..outgoing = json['outgoing'] as bool
-    ..signedOn = json['signedOn'] as bool;
+    ..signedOn = json['signedon'] as bool;
 }
 
 abstract class _$PortalStateSerializerMixin {
@@ -175,39 +194,104 @@ abstract class _$PortalStateSerializerMixin {
         'communication': communication,
         'incoming': incoming,
         'outgoing': outgoing,
-        'signedOn': signedOn
+        'signedon': signedOn
       };
 }
 
 SoftwareUpdate _$SoftwareUpdateFromJson(Map<String, dynamic> json) {
   return new SoftwareUpdate()
-    ..checkForUpdate = json['checkForUpdate'] as bool
-    ..updateBridge = json['updateBridge'] as bool
-    ..lights = (json['lights'] as List)
-        ?.map((e) =>
-            e == null ? null : new Light.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..updateState = json['updateState'] as int
-    ..url = json['url'] as String
-    ..text = json['text'] as String
-    ..notify = json['notify'] as bool;
+    ..checkForUpdate = json['checkforupdate'] as bool
+    ..lastChange = json['lastchange'] as String
+    ..state = json['state'] as String
+    ..bridge = json['bridge'] == null
+        ? null
+        : new SoftwareUpdateBridge.fromJson(
+            json['bridge'] as Map<String, dynamic>)
+    ..autoInstall = json['autoinstall'] == null
+        ? null
+        : new AutoInstall.fromJson(json['autoinstall'] as Map<String, dynamic>);
 }
 
 abstract class _$SoftwareUpdateSerializerMixin {
   bool get checkForUpdate;
-  bool get updateBridge;
-  List<Light> get lights;
-  int get updateState;
-  String get url;
-  String get text;
-  bool get notify;
+  String get lastChange;
+  String get state;
+  SoftwareUpdateBridge get bridge;
+  AutoInstall get autoInstall;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{};
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('checkforupdate', checkForUpdate);
+    writeNotNull('lastchange', lastChange);
+    writeNotNull('state', state);
+    writeNotNull('bridge', bridge);
+    writeNotNull('autoinstall', autoInstall);
+    return val;
+  }
+}
+
+SoftwareUpdateBridge _$SoftwareUpdateBridgeFromJson(Map<String, dynamic> json) {
+  return new SoftwareUpdateBridge()
+    ..state = json['state'] as String
+    ..lastInstall = json['lastinstall'] as String;
+}
+
+abstract class _$SoftwareUpdateBridgeSerializerMixin {
+  String get state;
+  String get lastInstall;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'state': state, 'lastinstall': lastInstall};
+}
+
+AutoInstall _$AutoInstallFromJson(Map<String, dynamic> json) {
+  return new AutoInstall()
+    ..on = json['on'] as bool
+    ..updateTime = json['updatetime'] as String;
+}
+
+abstract class _$AutoInstallSerializerMixin {
+  bool get on;
+  String get updateTime;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'on': on, 'updatetime': updateTime};
+}
+
+InternetServices _$InternetServicesFromJson(Map<String, dynamic> json) {
+  return new InternetServices()
+    ..internet = json['internet'] as String
+    ..remoteAccess = json['remoteaccess'] as String
+    ..time = json['time'] as String
+    ..swUpdate = json['swupdate'] as String;
+}
+
+abstract class _$InternetServicesSerializerMixin {
+  String get internet;
+  String get remoteAccess;
+  String get time;
+  String get swUpdate;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'checkForUpdate': checkForUpdate,
-        'updateBridge': updateBridge,
-        'lights': lights,
-        'updateState': updateState,
-        'url': url,
-        'text': text,
-        'notify': notify
+        'internet': internet,
+        'remoteaccess': remoteAccess,
+        'time': time,
+        'swupdate': swUpdate
       };
+}
+
+Backup _$BackupFromJson(Map<String, dynamic> json) {
+  return new Backup()
+    ..status = json['status'] as String
+    ..errorCode = json['errorcode'] as int;
+}
+
+abstract class _$BackupSerializerMixin {
+  String get status;
+  int get errorCode;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'status': status, 'errorcode': errorCode};
 }
