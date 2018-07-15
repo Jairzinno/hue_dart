@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:hue_dart/hue.dart';
+import 'package:hue_dart/hue_dart.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
