@@ -900,6 +900,46 @@ void main() {
       expect(sensor.uniqueId, '22:24:88:01:02:00:d2:ce-02-0406');
     });
 
+    test('test sensor model ids', () async {
+      testModelId(String modelId, String runtimeType, String productName) async {
+        mockGet(singleSensorModelIdPlaceholder.replaceFirst('<model_id>', modelId));
+        final sensor = await sut.sensor('1');
+        expect(sensor.modelId, modelId);
+        expect(sensor.runtimeType.toString(), runtimeType);
+        expect(sensor.productName(), productName);
+      }
+      List<Map<String, String>> models = [
+        {
+          'id' : 'PHDL00',
+          'runtimeType' : 'DayLight',
+          'productName' : 'DayLight'
+        },
+        {
+          'id' : 'RWL020',
+          'runtimeType' : 'Dimmer',
+          'productName' : 'Hue Wireless Dimmer'
+        },
+        {
+          'id' : 'RWL021',
+          'runtimeType' : 'Dimmer',
+          'productName' : 'Hue Wireless Dimmer'
+        },
+        {
+          'id' : 'SML001',
+          'runtimeType' : 'Motion',
+          'productName' : 'Hue Motion Sensor'
+        },
+        {
+          'id' : 'ZGPSWITCH',
+          'runtimeType' : 'Tap',
+          'productName' : 'Hue Tap'
+        }
+      ];
+      for (Map<String, String> model in models) {
+        testModelId(model['id'], model['runtimeType'], model['productName']);
+      }
+    });
+
     test('create sensor', () async {
       mockPost('[{"success":{"id":"10"}}]');
       final sensor = new Sensor();
@@ -2312,6 +2352,37 @@ const String singleSensor = """{
 		"name": "Hue motion sensor 1",
 		"type": "ZLLPresence",
 		"modelid": "SML001",
+		"manufacturername": "Philips",
+		"productname": "Hue motion sensor",
+		"swversion": "6.1.0.18912",
+		"uniqueid": "22:24:88:01:02:00:d2:ce-02-0406",
+		"capabilities": {
+			"certified": true
+		}
+	}""";
+const String singleSensorModelIdPlaceholder = """{
+		"state": {
+			"presence": false,
+			"lastupdated": "2018-07-13T06:43:41"
+		},
+		"swupdate": {
+			"state": "noupdates",
+			"lastinstall": null
+		},
+		"config": {
+			"on": true,
+			"battery": 100,
+			"reachable": true,
+			"alert": "none",
+			"ledindication": false,
+			"usertest": false,
+			"sensitivity": 2,
+			"sensitivitymax": 2,
+			"pending": []
+		},
+		"name": "Hue motion sensor 1",
+		"type": "ZLLPresence",
+		"modelid": "<model_id>",
 		"manufacturername": "Philips",
 		"productname": "Hue motion sensor",
 		"swversion": "6.1.0.18912",

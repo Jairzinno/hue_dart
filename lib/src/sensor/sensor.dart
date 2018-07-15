@@ -56,7 +56,25 @@ class Sensor extends Object with _$SensorSerializerMixin, BridgeObject {
 
   Sensor();
 
-  factory Sensor.fromJson(Map<String, dynamic> json) => _$SensorFromJson(json);
+  Sensor._withSensor(Sensor sensor) {
+    id = sensor.id;
+    type = sensor.type;
+    name = sensor.name;
+    modelId = sensor.modelId;
+    uniqueId = sensor.uniqueId;
+    manufacturerName = sensor.manufacturerName;
+    swVersion = sensor.swVersion;
+    recycle = sensor.recycle;
+    state = sensor.state;
+    config = sensor.config;
+  }
+
+  factory Sensor.fromJson(Map<String, dynamic> json) {
+    final sensor = _$SensorFromJson(json);
+    return _SensorFactory.create(sensor);
+  }
+
+  String productName() => 'Sensor';
 
   @override
   String toString() {
@@ -94,4 +112,61 @@ class SensorConfig extends Object with _$SensorConfigSerializerMixin {
   SensorConfig();
 
   factory SensorConfig.fromJson(Map<String, dynamic> json) => _$SensorConfigFromJson(json);
+}
+
+class DayLight extends Sensor {
+
+  DayLight._withSensor(Sensor sensor) : super._withSensor(sensor);
+
+  @override
+  String productName() => 'DayLight';
+}
+
+class Dimmer extends Sensor {
+
+  Dimmer._withSensor(Sensor sensor) : super._withSensor(sensor);
+
+  @override
+  String productName() => 'Hue Wireless Dimmer';
+}
+
+class Motion extends Sensor {
+
+  Motion._withSensor(Sensor sensor) : super._withSensor(sensor);
+
+  @override
+  String productName() => 'Hue Motion Sensor';
+}
+
+class Tap extends Sensor {
+
+  Tap._withSensor(Sensor sensor) : super._withSensor(sensor);
+
+  @override
+  String productName() => 'Hue Tap';
+}
+
+class _SensorFactory {
+
+  static Sensor create(Sensor sensor) {
+    final modelId = sensor.modelId;
+    if (_isDayLightSensor(modelId)) {
+      return new DayLight._withSensor(sensor);
+    } else if (_isDimmerSensor(modelId)) {
+      return new Dimmer._withSensor(sensor);
+    } else if (_isMotionSensor(modelId)) {
+      return new Motion._withSensor(sensor);
+    } else if (_isTapSensor(modelId)) {
+      return new Tap._withSensor(sensor);
+    }
+    return sensor;
+  }
+
+  static bool _isDayLightSensor(String modelId) => 'PHDL00' == modelId;
+
+  static bool _isDimmerSensor(String modelId) => ['RWL020', 'RWL021'].contains(modelId);
+
+  static bool _isMotionSensor(String modelId) => 'SML001' == modelId;
+
+  static bool _isTapSensor(String modelId) => 'ZGPSWITCH' == modelId;
 }
