@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'rule.g.dart';
@@ -14,8 +15,12 @@ class Rule extends Object with _$RuleSerializerMixin {
   @JsonKey(name: 'lasttriggered', includeIfNull: false)
   String lastTriggered;
 
+  DateTime get lastTriggeredDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
+
   @JsonKey(name: 'creationtime', includeIfNull: false)
   String creationTime;
+
+  DateTime get creationTimeDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
 
   @JsonKey(name: 'timestriggered', includeIfNull: false)
   int timesTriggered;

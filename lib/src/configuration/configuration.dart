@@ -6,6 +6,7 @@ import 'package:hue_dart/src/rule/rule.dart';
 import 'package:hue_dart/src/scene/scene.dart';
 import 'package:hue_dart/src/schedule/schedule.dart';
 import 'package:hue_dart/src/sensor/sensor.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'configuration.g.dart';
@@ -16,7 +17,6 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   /// Name of the bridge. This is also its uPnP name, so will reflect the actual uPnP name after any conflicts have been resolved.
   @JsonKey(includeIfNull: false)
   String name;
-
 
   /// Contains information related to software updates.
   @JsonKey(name:'swupdate2', includeIfNull: false)
@@ -80,9 +80,13 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   @JsonKey(name: 'UTC', includeIfNull: false)
   String utc;
 
+  DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
+
   /// The local time of the bridge. "none" if not available.
   @JsonKey(name:'localtime', includeIfNull: false)
   String localTime;
+
+  DateTime get localTimeDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
 
   /// Timezone of the bridge as OlsenIDs, like "Europe/Amsterdam" or "none" when not configured.
   @JsonKey(name:'timezone', includeIfNull: false)
@@ -185,7 +189,9 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
 class UserId extends Object with _$UserIdSerializerMixin {
   String id;
   String lastUsedDate;
+  DateTime get lastUsed => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
   String createDate;
+  DateTime get created => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
   String name;
 
   UserId();
@@ -259,8 +265,11 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
 @JsonSerializable()
 class SoftwareUpdateBridge extends Object with _$SoftwareUpdateBridgeSerializerMixin {
   String state;
+
   @JsonKey(name:'lastinstall')
   String lastInstall;
+
+  DateTime get lastInstallDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastInstall);
 
 
   SoftwareUpdateBridge();
@@ -271,9 +280,11 @@ class SoftwareUpdateBridge extends Object with _$SoftwareUpdateBridgeSerializerM
 @JsonSerializable()
 class AutoInstall extends Object with _$AutoInstallSerializerMixin {
   bool on;
+
   @JsonKey(name:'updatetime')
   String updateTime;
 
+  DateTime get updateDate => new DateFormat("'T'HH:m:s").parse(updateTime);
 
   AutoInstall();
 

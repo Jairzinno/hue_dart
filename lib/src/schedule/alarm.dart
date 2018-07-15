@@ -2,27 +2,62 @@ import 'package:hue_dart/src/schedule/schedule.dart';
 import 'package:intl/intl.dart';
 
 class Alarm extends Schedule {
-  static const String _ABSOLUTE_TIME_ALARM = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
-  static const String _RANDOMIZED_TIME_ALARM = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String _RECURRING_ALARM = "W\\d*/T\\d*:\\d*:\\d*";
-  static const String _RANDOM_RECURRING_TIME_ALARM = "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String _TIME_PATTERN = "HH:mm:ss";
-  static const String _DATE_PATTERN = "YYYY-MM-dd";
-  static const String _TIME_DIVIDER = "T";
-  static const String _RANDOM_TIME_DIVIDER = "A";
 
-  int recurrence;
+  /// days on which the alarm applies in a bitmask; 0MTWTFSS. Weekdays is 01111100 = 124. Tuesdays is 00100000 = 32
+  int weekDays;
 
+  /// end date/time for time interval alarms
+  DateTime endDate;
 
-  Alarm() {
+  Alarm();
+
+  Alarm.withSchedule(Schedule schedule) : super.withSchedule(schedule) {
     _parseAlarm();
   }
 
-  static bool isAlarm(String time) {
-    return RegExp(_ABSOLUTE_TIME_ALARM).hasMatch(time) ||
-        RegExp(_RANDOMIZED_TIME_ALARM).hasMatch(time) ||
-        RegExp(_RECURRING_ALARM).hasMatch(time) ||
-        RegExp(_RANDOM_RECURRING_TIME_ALARM).hasMatch(time);
+  void _parseAlarm() {
+    if (new RegExp(Schedule.RANDOM_RECURRING_TIME_ALARM).hasMatch(time)) {
+      _parseRandomRecurringTimeAlarm();
+    } else if (new RegExp(Schedule.RECURRING_ALARM).hasMatch(time)) {
+      _parseRecurringAlarm();
+    } else if (new RegExp(Schedule.RANDOMIZED_TIME_ALARM).hasMatch(time)) {
+      _parseRandomizedTimeAlarm();
+    } else if (new RegExp(Schedule.ABSOLUTE_TIME_ALARM).hasMatch(time)) {
+      _parseAbsoluteTimeAlarm();
+    } else if (new RegExp(Schedule.timeIntervalAlarm).hasMatch(time)) {
+      _parseTimeIntervalAlarm();
+    }
+  }
+
+  void _parseAbsoluteTimeAlarm() {
+    date = new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(time);
+  }
+
+  void _parseRandomizedTimeAlarm() {
+    String dateValue = time.substring(0, time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
+    String randomValue = time.substring(time.indexOf(Schedule.RANDOM_TIME_DIVIDER) + 1, time.length);
+    date = new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(dateValue);
+    randomTime = new DateFormat("HH:m:s").parse(randomValue);
+  }
+
+  void _parseRecurringAlarm() {
+    weekDays = int.parse(time.substring(1, time.indexOf("/")));
+    date = new DateFormat("W${weekDays}'/T'HH:m:s").parse(time);
+  }
+
+  void _parseRandomRecurringTimeAlarm() {
+    String dateValue = time.substring(0, time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
+    String randomValue = time.substring(time.indexOf(Schedule.RANDOM_TIME_DIVIDER) + 1, time.length);
+    weekDays = int.parse(time.substring(1, time.indexOf("/")));
+    date = new DateFormat("W${weekDays}'/T'HH:m:s").parse(dateValue);
+    randomTime = new DateFormat("HH:m:s").parse(randomValue);
+  }
+
+  void _parseTimeIntervalAlarm() {
+    String startTime = time.substring(0, time.indexOf('/T'));
+    String endTime = time.substring(time.indexOf('/T'));
+    date = new DateFormat("'T'HH:m:s").parse(startTime);
+    endDate = new DateFormat("'/T'HH:m:s").parse(endTime);
   }
 
   String getFormattedTime() {
@@ -34,73 +69,17 @@ class Alarm extends Schedule {
   }
 
   bool isRecurringAlarm() {
-    return getRecurrence() > 0;
+    return weekDays > 0;
   }
 
   String getRecurringTimeFormat() {
-    String formattedTime = DateFormat(_TIME_PATTERN).format(DateTime.now());
-    return "W${getRecurrence()}/T${formattedTime}";
+    String formattedTime = new DateFormat(Schedule.TIME_PATTERN).format(DateTime.now());
+    return "W${weekDays}/T${formattedTime}";
   }
 
   String getDefaultTimeFormat() {
-    String formattedDate = DateFormat(_DATE_PATTERN).format(DateTime.now());
-    String formattedTime = DateFormat(_TIME_PATTERN).format(DateTime.now());
-    return '${formattedDate}${_TIME_DIVIDER}${formattedTime}';
-  }
-
-  int getRecurrence() {
-    return recurrence;
-  }
-
-  void setRecurrence(int recurrence) {
-    this.recurrence = recurrence;
-  }
-
-  void _parseAlarm() {
-    if (RegExp(_ABSOLUTE_TIME_ALARM).hasMatch(time)) {
-      _parseAbsoluteTimeAlarm();
-    }
-    if (RegExp(_RANDOMIZED_TIME_ALARM).hasMatch(time)) {
-      _parseRandomizedTimeAlarm();
-    }
-    if (RegExp(_RECURRING_ALARM).hasMatch(time)) {
-      _parseRecurringAlarm();
-    }
-    if (RegExp(_RANDOM_RECURRING_TIME_ALARM).hasMatch(time)) {
-      _parseRandomRecurringTimeAlarm();
-    }
-  }
-
-  void _parseAbsoluteTimeAlarm() {
-    String dateValue = time.substring(0, time.indexOf(_TIME_DIVIDER));
-    String timeValue = time.substring(time.indexOf(_TIME_DIVIDER) + 1, time.length);
-    DateTime parsedDate = DateTime.parse(dateValue);
-    DateTime parsedTime = DateTime.parse(timeValue);
-    date = DateTime.fromMillisecondsSinceEpoch(parsedDate.millisecondsSinceEpoch + parsedTime.millisecondsSinceEpoch);
-  }
-
-  void _parseRandomizedTimeAlarm() {
-    String dateValue = time.substring(0, time.indexOf(_TIME_DIVIDER));
-    String timeValue = time.substring(time.indexOf(_TIME_DIVIDER) + 1, time.indexOf(_RANDOM_TIME_DIVIDER));
-    String randomValue = time.substring(time.indexOf(_RANDOM_TIME_DIVIDER) + 1, time.length);
-    DateTime parsedDate = DateTime.parse(dateValue);
-    DateTime parsedTime = DateTime.parse(timeValue);
-    DateTime parsedRandomTime = DateTime.parse(randomValue);
-    date = DateTime.fromMillisecondsSinceEpoch(parsedDate.millisecondsSinceEpoch + parsedTime.millisecondsSinceEpoch + parsedRandomTime.millisecondsSinceEpoch);
-  }
-
-  void _parseRecurringAlarm() {
-    this.recurrence = int.parse(time.substring(1, time.indexOf("/")));
-    String timeValue = time.substring(time.indexOf(_TIME_DIVIDER) + 1, time.length);
-    date = DateTime.parse(timeValue);
-  }
-
-  void _parseRandomRecurringTimeAlarm() {
-    this.recurrence = int.parse(time.substring(1, time.indexOf("/")));
-    String timeValue = time.substring(time.indexOf(_TIME_DIVIDER) + 1, time.indexOf(_RANDOM_TIME_DIVIDER));
-    String randomValue = time.substring(time.indexOf(_RANDOM_TIME_DIVIDER) + 1, time.length);
-    DateTime parsedTime = DateTime.parse(timeValue);
-    DateTime parsedRandomTime = DateTime.parse(randomValue);
-    date = DateTime.fromMillisecondsSinceEpoch(parsedTime.millisecondsSinceEpoch + parsedRandomTime.millisecondsSinceEpoch);
+    String formattedDate = new DateFormat(Schedule.DATE_PATTERN).format(DateTime.now());
+    String formattedTime = new DateFormat(Schedule.TIME_PATTERN).format(DateTime.now());
+    return '${formattedDate}${Schedule.TIME_DIVIDER}${formattedTime}';
   }
 }

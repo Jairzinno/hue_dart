@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:hue_dart/hue_dart.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
+import 'package:hue_dart/src/schedule/alarm.dart';
+import 'package:hue_dart/src/schedule/timer.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -33,6 +35,15 @@ void main() {
 
   mockPut(String responseBody) {
     when(client.put(typed(any), body: typed(any, named: 'body'))).thenReturn(new Response(responseBody, 200));
+  }
+
+  expectDate(DateTime date, int year, int month, int day, int hour, int minute, int second) {
+    expect(date.year, year);
+    expect(date.month, month);
+    expect(date.day, day);
+    expect(date.hour, hour);
+    expect(date.minute, minute);
+    expect(date.second, second);
   }
 
   group('discovery bridges', () {
@@ -146,7 +157,9 @@ void main() {
       expect(configuration.proxyAddress, 'none');
       expect(configuration.proxyPort, 0);
       expect(configuration.utc, '2018-07-13T08:55:22');
+      expectDate(configuration.utcDate, 2018, 7, 13, 8, 55, 22);
       expect(configuration.localTime, '2018-07-13T10:55:22');
+      expectDate(configuration.localTimeDate, 2018, 7, 13, 10, 55, 22);
       expect(configuration.timeZone, 'Europe/Amsterdam');
       expect(configuration.modelId, 'BSB002');
       expect(configuration.dataStoreVersion, '71');
@@ -156,8 +169,10 @@ void main() {
       expect(configuration.softwareUpdate.lastChange, '2018-06-29T21:53:49');
       expect(configuration.softwareUpdate.bridge.state, 'noupdates');
       expect(configuration.softwareUpdate.bridge.lastInstall, '2018-06-29T21:49:53');
+      expectDate(configuration.softwareUpdate.bridge.lastInstallDate, 2018, 6, 29, 21, 49, 53);
       expect(configuration.softwareUpdate.state, 'noupdates');
       expect(configuration.softwareUpdate.autoInstall.updateTime, 'T23:00:00');
+      expectDate(configuration.softwareUpdate.autoInstall.updateDate, 1970, 1, 1, 23, 0, 0);
       expect(configuration.softwareUpdate.autoInstall.on, true);
       expect(configuration.linkButton, false);
       expect(configuration.portalServices, true);
@@ -176,7 +191,9 @@ void main() {
       expect(configuration.whitelist.length, 3);
       expect(configuration.whitelist.first.id, '688a789c0bd6442e48969b1d945920');
       expect(configuration.whitelist.first.lastUsedDate, '2016-07-10T19:47:00');
+      expectDate(configuration.whitelist.first.lastUsed, 2016, 7, 10, 19, 47, 00);
       expect(configuration.whitelist.first.createDate, '2016-07-10T19:47:00');
+      expectDate(configuration.whitelist.first.created, 2016, 7, 10, 19, 47, 00);
       expect(configuration.whitelist.first.name, 'my_hue_app#test');
     });
   });
@@ -456,7 +473,9 @@ void main() {
       final rule = await sut.rule(1);
       expect(rule.name, 'Wall Switch Rule');
       expect(rule.lastTriggered, '2013-10-17T01:23:20');
+      expectDate(rule.lastTriggeredDate, 2013, 10, 17, 1, 23, 20);
       expect(rule.creationTime, '2013-10-10T21:11:45');
+      expectDate(rule.creationTimeDate, 2013, 10, 10, 21, 11, 45);
       expect(rule.timesTriggered, 27);
       expect(rule.owner, '78H56B12BA');
       expect(rule.status, 'enabled');
@@ -546,6 +565,7 @@ void main() {
       expect(scene.appData.data, '6iELK_r01_d01');
       expect(scene.picture, '');
       expect(scene.lastUpdated, '2017-04-30T15:14:42');
+      expectDate(scene.lastUpdatedDate, 2017, 4, 30, 15, 14, 42);
       expect(scene.version, 2);
       verify(client.get('http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6'));
     });
@@ -610,11 +630,97 @@ void main() {
   });
 
   group('schedule api', () {
+
+
     test('all schedules', () async {
       mockGet(allSchedules);
       final response = await sut.schedules();
-      expect(response.length, 2);
+      expect(response.length, 10);
       verify(client.get('http://127.0.0.1/api/username/schedules'));
+      var schedule = response[0];
+      //absolute alarm
+      expect(schedule.runtimeType.toString(), 'Alarm');
+      var alarm = schedule as Alarm;
+      expectDate(alarm.date, 2018, 7, 15, 5, 30, 0);
+      expect(alarm.randomTime, isNull);
+      expect(alarm.weekDays, isNull);
+      expect(alarm.endDate, isNull);
+
+      schedule = response[1];
+      // randomized absolute alarm
+      expect(schedule.runtimeType.toString(), 'Alarm');
+      alarm = schedule as Alarm;
+      expectDate(alarm.date, 2018, 7, 15, 5, 30, 0);
+      expectDate(alarm.randomTime, 1970, 1, 1, 20, 44, 53);
+      expect(alarm.weekDays, isNull);
+      expect(alarm.endDate, isNull);
+
+      schedule = response[2];
+      // recurring alarm
+      expect(schedule.runtimeType.toString(), 'Alarm');
+      alarm = schedule as Alarm;
+      expectDate(alarm.date, 1970, 1, 1, 5, 30, 0);
+      expect(alarm.randomTime, isNull);
+      expect(alarm.weekDays, 124);
+      expect(alarm.endDate, isNull);
+
+      schedule = response[3];
+      // recurring random alarm
+      expect(schedule.runtimeType.toString(), 'Alarm');
+      alarm = schedule as Alarm;
+      expectDate(alarm.date, 1970, 1, 1, 23, 30, 0);
+      expectDate(alarm.randomTime, 1970, 1, 1, 20, 13, 0);
+      expect(alarm.weekDays, 127);
+      expect(alarm.endDate, isNull);
+
+      schedule = response[4];
+      // time interval alarm
+      expect(schedule.runtimeType.toString(), 'Alarm');
+      alarm = schedule as Alarm;
+      expectDate(alarm.date, 1970, 1, 1, 3, 30, 0);
+      expectDate(alarm.endDate, 1970, 1, 1, 20, 13, 0);
+      expect(alarm.randomTime, isNull);
+      expect(alarm.weekDays, isNull);
+
+      schedule = response[5];
+      //expiring timer
+      expect(schedule.runtimeType.toString(), 'Timer');
+      var timer = schedule as Timer;
+      expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+      expect(timer.randomTime, isNull);
+      expect(timer.recurrence, isNull);
+
+      schedule = response[6];
+      //expiring random timer
+      expect(schedule.runtimeType.toString(), 'Timer');
+      timer = schedule as Timer;
+      expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+      expectDate(timer.randomTime, 1970, 1, 1, 2, 23, 0);
+      expect(timer.recurrence, isNull);
+
+      schedule = response[7];
+      //recurring timer 1
+      expect(schedule.runtimeType.toString(), 'Timer');
+      timer = schedule as Timer;
+      expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+      expect(timer.randomTime, isNull);
+      expect(timer.recurrence, 12);
+
+      schedule = response[8];
+      //recurring timer 1
+      expect(schedule.runtimeType.toString(), 'Timer');
+      timer = schedule as Timer;
+      expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+      expect(timer.randomTime, isNull);
+      expect(timer.recurrence, 0);
+
+      schedule = response[9];
+      //random recurring timer
+      expect(schedule.runtimeType.toString(), 'Timer');
+      timer = schedule as Timer;
+      expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+      expectDate(timer.randomTime, 1970, 1, 1, 2, 30, 0);
+      expect(timer.recurrence, 12);
     });
 
     test('single schedule', () async {
@@ -1259,7 +1365,7 @@ const String fullState = """
 			"recycle": false
 		},
 		"8457714839918082": {
-			"name": "Exercise weg",
+			"name": "Recurring Alarm weg",
 			"description": "",
 			"command": {
 				"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
@@ -1814,9 +1920,41 @@ const String singleScene = """{
 		"version": 2
 	}""";
 const String allSchedules = """{
+	"41803987474705890": {
+		"name": "Absolute Time Alarm",
+		"description": "Absolute Time Alarm",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "22227461b-on-0"
+			},
+			"method": "PUT"
+		},
+		"localtime": "2018-07-15T05:30:00",
+		"time": "2018-07-15T03:30:00",
+		"created": "2016-07-10T20:26:36",
+		"status": "disabled",
+		"recycle": false
+	},
+	"41803987474705891": {
+		"name": "Randomized Time Alarm",
+		"description": "Randomized Time Alarm",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "22227461b-on-0"
+			},
+			"method": "PUT"
+		},
+		"localtime": "2018-07-15T05:30:00A20:44:53",
+		"time": "2018-07-15T03:30:00A20:44:53",
+		"created": "2016-07-10T20:26:36",
+		"status": "disabled",
+		"recycle": false
+	},	
 	"4180398747470589": {
-		"name": "Exercise",
-		"description": "Exercise",
+		"name": "Recurring Alarm",
+		"description": "Recurring Alarm",
 		"command": {
 			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
 			"body": {
@@ -1831,7 +1969,7 @@ const String allSchedules = """{
 		"recycle": false
 	},
 	"7796503114448045": {
-		"name": "Sleep",
+		"name": "Recurring random alarm",
 		"description": "",
 		"command": {
 			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
@@ -1840,12 +1978,108 @@ const String allSchedules = """{
 			},
 			"method": "PUT"
 		},
-		"localtime": "W127/T23:30:00",
-		"time": "W127/T21:30:00",
+		"localtime": "W127/T23:30:00A20:13:00",
+		"time": "W127/T21:30:00A20:13:00",
 		"created": "2016-07-10T20:27:05",
 		"status": "disabled",
 		"recycle": false
-	}
+	},
+	"77965031148055": {
+		"name": "time interval alarm",
+		"description": "",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "04f61b745-off-5"
+			},
+			"method": "PUT"
+		},
+		"localtime": "T03:30:00/T20:13:00",
+		"time": "T03:30:00/T20:13:00",
+		"created": "2016-07-10T20:27:05",
+		"status": "disabled",
+		"recycle": false
+	},
+	"77965031148051": {
+		"name": "Expiring timer",
+		"description": "",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "04f61b745-off-5"
+			},
+			"method": "PUT"
+		},
+		"localtime": "PT20:13:00",
+		"time": "PT18:13:00",
+		"created": "2016-07-10T20:27:05",
+		"status": "disabled",
+		"recycle": false
+	},
+	"77965031148052": {
+		"name": "Expiring Random timer",
+		"description": "",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "04f61b745-off-5"
+			},
+			"method": "PUT"
+		},
+		"localtime": "PT20:13:00A02:23:00",
+		"time": "PT18:13:00A02:23:00",
+		"created": "2016-07-10T20:27:05",
+		"status": "disabled",
+		"recycle": false
+	},
+	"1122334455667788": {
+		"name": "Recurring timer 1",
+		"description": "",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "04f61b745-off-5"
+			},
+			"method": "PUT"
+		},
+		"localtime": "R12/PT20:13:00",
+		"time": "R12/PT18:13:00",
+		"created": "2016-07-10T20:27:05",
+		"status": "disabled",
+		"recycle": false
+	},
+	"1122334455667799": {
+		"name": "Recurring timer 2",
+		"description": "",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "04f61b745-off-5"
+			},
+			"method": "PUT"
+		},
+		"localtime": "R/PT20:13:00",
+		"time": "R/PT18:13:00",
+		"created": "2016-07-10T20:27:05",
+		"status": "disabled",
+		"recycle": false
+	},
+	"112233440099": {
+		"name": "Random recurring timer",
+		"description": "",
+		"command": {
+			"address": "/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action",
+			"body": {
+				"scene": "04f61b745-off-5"
+			},
+			"method": "PUT"
+		},
+		"localtime": "R12/PT20:13:00A02:30:00",
+		"time": "R12/PT18:13:00A02:30:00",
+		"created": "2016-07-10T20:27:05",
+		"status": "disabled",
+		"recycle": false
+	}		
 }""";
 const String singleSchedule = """{
 		"name": "Sleep",

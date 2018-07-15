@@ -1,5 +1,6 @@
 import 'package:hue_dart/src/core/bridge_object.dart';
 import 'package:hue_dart/src/light/light.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'scene.g.dart';
@@ -33,6 +34,8 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   /// UTC time the scene has been created or has been updated by a PUT. Will be null when unknown (legacy scenes).
   @JsonKey(name: 'lastupdated')
   String lastUpdated;
+
+  DateTime get lastUpdatedDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUpdated);
 
   /// Version of scene document:
   ///

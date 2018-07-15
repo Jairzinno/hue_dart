@@ -1,10 +1,27 @@
 import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/schedule/alarm.dart';
+import 'package:hue_dart/src/schedule/timer.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'schedule.g.dart';
 
 @JsonSerializable()
 class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
+
+  static const String ABSOLUTE_TIME_ALARM = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
+  static const String RANDOMIZED_TIME_ALARM = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String RECURRING_ALARM = "W\\d*/T\\d*:\\d*:\\d*";
+  static const String RANDOM_RECURRING_TIME_ALARM = "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String timeIntervalAlarm = "T\\d*:\\d*:\\d*/T\\d*:\\d*:\\d*";
+  static const String EXPIRING_TIMER = "PT\\d*:\\d*:\\d*";
+  static const String RANDOM_TIMER = "PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String RECURRING_TIMER_1 = "R\\d*/PT\\d*:\\d*:\\d*";
+  static const String RECURRING_TIMER_2 = "R/PT\\d*:\\d*:\\d*";
+  static const String RECURRING_RANDOM_TIMER = "R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String TIME_PATTERN = "HH:mm:ss";
+  static const String DATE_PATTERN = "YYYY-MM-dd";
+  static const String TIME_DIVIDER = "T";
+  static const String RANDOM_TIME_DIVIDER = "A";
 
   String id;
   ///Name for the new schedule. If a name is not specified then the default name, “schedule”, is used.
@@ -44,11 +61,49 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   ///Date presentation of the time for the schedule
   DateTime date;
 
+  /// value for randomized alarms
+  DateTime randomTime;
+
   Command command;
 
   Schedule();
 
-  factory Schedule.fromJson(Map<String, dynamic> json) => _$ScheduleFromJson(json);
+  Schedule.withSchedule(Schedule schedule) {
+    this.id = schedule.id;
+    this.name = schedule.name;
+    this.description = schedule.description;
+    this.time = schedule.time;
+    this.status = schedule.status;
+    this.autoDelete = schedule.autoDelete;
+    this.recycle = schedule.recycle;
+    this.command = schedule.command;
+  }
+
+  factory Schedule.fromJson(Map<String, dynamic> json) {
+    final schedule = _$ScheduleFromJson(json);
+    if (schedule._isAlarm()) {
+      return new Alarm.withSchedule(schedule);
+    } else if (schedule._isTimer()) {
+      return new Timer.withSchedule(schedule);
+    }
+    return schedule;
+  }
+
+  bool _isAlarm() {
+    return new RegExp(ABSOLUTE_TIME_ALARM).hasMatch(time) ||
+        new RegExp(RANDOMIZED_TIME_ALARM).hasMatch(time) ||
+        new RegExp(RECURRING_ALARM).hasMatch(time) ||
+        new RegExp(RANDOM_RECURRING_TIME_ALARM).hasMatch(time) ||
+        new RegExp(timeIntervalAlarm).hasMatch(time);
+  }
+
+  bool _isTimer() {
+    return new RegExp(RECURRING_RANDOM_TIMER).hasMatch(time) ||
+        new RegExp(RECURRING_TIMER_1).hasMatch(time) ||
+        new RegExp(RECURRING_TIMER_2).hasMatch(time) ||
+        new RegExp(RANDOM_TIMER).hasMatch(time) ||
+        new RegExp(EXPIRING_TIMER).hasMatch(time);
+  }
 
   @override
   String toString() {
