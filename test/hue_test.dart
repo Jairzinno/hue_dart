@@ -311,7 +311,97 @@ void main() {
       expect(light.name, 'Room 2');
       expect(light.modelId, 'LCT007');
       expect(light.manufacturerName, 'Philips');
-      expect(light.productName(), 'Hue color lamp');
+      expect(light.productName(), 'Hue bulb A19');
+    });
+
+    test('test light model ids', () async {
+      testModelId(String modelId, String runtimeType, String productName) async {
+      mockGet(singleLightModelIdPlaceholder.replaceFirst('<model_id>', modelId));
+      final light = await sut.light(1);
+      expect(light.modelId, modelId);
+      expect(light.runtimeType.toString(), runtimeType);
+      expect(light.productName(), productName);
+      }
+      List<Map<String, String>> models = [
+        {
+          'id' : 'LTP001',
+          'runtimeType' : 'Ambiance',
+          'productName' : 'Ambiance Pendant'
+        },
+        {
+          'id' : 'LLC014',
+          'runtimeType' : 'Aura',
+          'productName' : 'Living Colors Gen3 Aura'
+        },
+        {
+          'id' : 'HBL001',
+          'runtimeType' : 'Beyond',
+          'productName' : 'Hue Beyond Table'
+        },
+        {
+          'id' : 'LLC005',
+          'runtimeType' : 'Bloom',
+          'productName' : 'Hue Living Colors Bloom'
+        },
+        {
+          'id' : 'LCT001',
+          'runtimeType' : 'Bulb',
+          'productName' : 'Hue bulb A19'
+        },
+        {
+          'id' : 'LCT011',
+          'runtimeType' : 'DownLight',
+          'productName' : 'Hue BR30'
+        },
+        {
+          'id' : 'HEL001',
+          'runtimeType' : 'Entity',
+          'productName' : 'Hue Entity Table'
+        },
+        {
+          'id' : 'LLC020',
+          'runtimeType' : 'Go',
+          'productName' : 'Hue Go'
+        },
+        {
+          'id' : 'HIL001',
+          'runtimeType' : 'Impulse',
+          'productName' : 'Hue Impulse Table'
+        },
+        {
+          'id' : 'LLC010',
+          'runtimeType' : 'Iris',
+          'productName' : 'Hue Living Colors Iris'
+        },
+        {
+          'id' : 'LST001',
+          'runtimeType' : 'LightStrip',
+          'productName' : 'Hue LightStrip'
+        },
+        {
+          'id' : 'HML001',
+          'runtimeType' : 'Phoenix',
+          'productName' : 'Hue Phoenix Centerpiece'
+        },
+        {
+          'id' : 'LCT003',
+          'runtimeType' : 'Spot',
+          'productName' : 'Hue Spot GU10'
+        },
+        {
+          'id' : 'LLC013',
+          'runtimeType' : 'StoryLight',
+          'productName' : 'Disney Living Colors'
+        },
+        {
+          'id' : 'LDF002',
+          'runtimeType' : 'White',
+          'productName' : 'White'
+        }
+      ];
+      for (Map<String, String> model in models) {
+        testModelId(model['id'], model['runtimeType'], model['productName']);
+      }
     });
 
     test('calling attributes() expects a map with state', () async {
@@ -1643,6 +1733,7 @@ const String fullState = """
 }""";
 const String allLights = """{"1":{"modelid":"LCT001","name":"Crazy Name","swversion":"65003148","state":{"xy":[0.168,0.041],"ct":0,"alert":"none","sat":254,"effect":"none","bri":10,"hue":4444,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0a"},"2":{"modelid":"LCT001","name":"Hue Lamp 2","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":144,"effect":"none","bri":254,"hue":23536,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0b"},"3":{"modelid":"LCT001","name":"Hue Lamp 3","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":254,"effect":"none","bri":254,"hue":65136,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0c"},"4":{"modelid":"LWB004","name":"New white Light - 4","swversion":"65003148","state":{"alert":"none","bri":254,"reachable":true,"on":true},"type":"Dimmable light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"c6:52:89:2d:98:11:61:67-80"}}""";
 const String singleLight = '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575,0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"LCT007","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
+const String singleLightModelIdPlaceholder = '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575,0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"<model_id>","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
 const String allGroups = """{
 	"1": {
 		"name": "Room 2",

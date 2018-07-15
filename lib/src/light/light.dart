@@ -1,11 +1,10 @@
 import 'package:hue_dart/src/core/bridge_object.dart';
-import 'package:hue_dart/src/core/model_mixin.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'light.g.dart';
 
 @JsonSerializable()
-class Light extends Object with ModelMixin, _$LightSerializerMixin, BridgeObject {
+class Light extends Object with _$LightSerializerMixin, BridgeObject {
   /// id of the light in the bridge
   int id;
 
@@ -39,7 +38,22 @@ class Light extends Object with ModelMixin, _$LightSerializerMixin, BridgeObject
 
   Light();
 
-  factory Light.fromJson(Map<String, dynamic> json) => _$LightFromJson(json);
+  Light.withLight(Light light) {
+    id = light.id;
+    type = light.type;
+    name = light.name;
+    state = light.state;
+    modelId = light.modelId;
+    uniqueId = light.uniqueId;
+    manufacturerName = light.manufacturerName;
+    luminaireUniqueId = light.luminaireUniqueId;
+    swVersion = light.swVersion;
+  }
+
+  factory Light.fromJson(Map<String, dynamic> json) {
+    final light = _$LightFromJson(json);
+    return _LightFactory.create(light);
+  }
 
   Light.withId(String id) {
     this.id = int.parse(id);
@@ -61,16 +75,7 @@ class Light extends Object with ModelMixin, _$LightSerializerMixin, BridgeObject
     }
   }
 
-  @override
-  int icon() {
-    // TODO: implement icon
-  }
-
-  @override
   String productName() => 'Hue color lamp';
-
-  @override
-  List<String> types() => [];
 }
 
 @JsonSerializable()
@@ -168,4 +173,230 @@ class State extends Object with _$StateSerializerMixin, BridgeObject {
     }
     return body;
   }
+}
+
+class Ambiance extends Light {
+
+  Ambiance._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'Ambiance Pendant';
+}
+
+class Aura extends Light {
+
+  Aura._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'Living Colors Gen3 Aura';
+}
+
+class Beyond extends Light {
+
+  Beyond._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() {
+    String productName = 'Hue Beyond Table';
+    if ('HBL002' == modelId) {
+      productName = 'Hue Beyond Pendant';
+    } else if ('HBL003' == modelId) {
+      productName = 'Hue Beyond Ceiling';
+    }
+    return productName;
+  }
+}
+
+class Bloom extends Light {
+
+  Bloom._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'Hue Living Colors Bloom';
+}
+
+class Bulb extends Light {
+
+  Bulb._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() {
+    String productName = "Hue bulb A19";
+    if (_LightFactory.isLuxBulbModel(modelId)) {
+      productName = "Hue A19 Lux";
+    } else if (_LightFactory.isAmbianceBulbModel(modelId)) {
+      productName = "Hue A19 White Ambiance";
+    } else if (_LightFactory.isWhiteBulbModel(modelId)) {
+      productName = "Hue white lamp";
+    }
+    return productName;
+  }
+}
+
+class DownLight extends Light {
+
+  DownLight._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'LCT002' == modelId ? 'Hue Spot BR30' : 'Hue BR30';
+}
+
+class Entity extends Light {
+
+  Entity._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'HEL001' == modelId ? 'Hue Entity Table' : 'Hue Entity Pendant';
+}
+
+class Go extends Light {
+
+  Go._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'Hue Go';
+}
+
+class Impulse extends Light {
+
+  Impulse._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'HIL001' == modelId ? 'Hue Impulse Table' : 'Hue Impulse Pendant';
+}
+
+class Iris extends Light {
+
+  Iris._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'Hue Living Colors Iris';
+}
+
+class LightStrip extends Light {
+
+  LightStrip._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'LST001' == modelId ? 'Hue LightStrip' : 'Hue LightStrip Plus';
+}
+
+class Phoenix extends Light {
+
+  Phoenix._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() {
+    Map<String, String> mapping = {
+      "HML001": "Centerpiece",
+      "HML002": "Ceiling",
+      "HML003": "Pendant",
+      "HML004": "Wall",
+      "HML005": "Table",
+      "HML006": "Downlight"
+    };
+    return "Hue Phoenix ${mapping[modelId]}";
+  }
+}
+
+class Spot extends Light {
+
+  Spot._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'LCT003' == modelId ? 'Hue Spot GU10' : 'Hue Spot GU10 White Ambiance';
+}
+
+class StoryLight extends Light {
+
+  StoryLight._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'Disney Living Colors';
+}
+
+class White extends Light {
+
+  White._withLight(Light light) : super.withLight(light);
+
+  @override
+  String productName() => 'White';
+}
+
+class _LightFactory {
+
+  static Light create(Light light) {
+    String modelId = light.modelId;
+    if (isAmbianceModel(modelId)) {
+      return new Ambiance._withLight(light);
+    } else if (isAuraModel(modelId)) {
+      return new Aura._withLight(light);
+    } else if (isBeyondModel(modelId)) {
+      return new Beyond._withLight(light);
+    } else if (isBloomModel(modelId)) {
+      return new Bloom._withLight(light);
+    } else if (isDefaultBulbModel(modelId) || isLuxBulbModel(modelId) || isAmbianceBulbModel(modelId) || isWhiteBulbModel(modelId)) {
+      return new Bulb._withLight(light);
+    } else if (isDownLightModel(modelId)) {
+      return new DownLight._withLight(light);
+    } else if (isEntityModel(modelId)) {
+      return new Entity._withLight(light);
+    } else if (isGoModel(modelId)) {
+      return new Go._withLight(light);
+    } else if (isImpulseModel(modelId)) {
+      return new Impulse._withLight(light);
+    } else if (isIrisModel(modelId)) {
+      return new Iris._withLight(light);
+    } else if (isLightStripModel(modelId)) {
+      return new LightStrip._withLight(light);
+    } else if (isPhoenixModel(modelId)) {
+      return new Phoenix._withLight(light);
+    } else if (isSpotModel(modelId)) {
+      return new Spot._withLight(light);
+    } else if (isStoryLightModel(modelId)) {
+      return new StoryLight._withLight(light);
+    } else if (isWhiteModel(modelId)) {
+      return new White._withLight(light);
+    }
+   return light;
+  }
+
+  static bool isAmbianceModel(String modelId) => ['LTP001', 'LTP002', 'LTP003',
+  'LTD003', 'LDT001', 'LTF002',
+  'LTF001', 'LTC001', 'LTC002',
+  'LTC003', 'LTD001', 'LTD002'].contains(modelId);
+
+  static bool isAuraModel(String modelId) => 'LLC014' == modelId;
+
+  static bool isBeyondModel(String modelId) => ['HBL001', 'HBL002', 'HBL003'].contains(modelId);
+
+  static bool isBloomModel(String modelId) => ['LLC005', 'LLC011', 'LLC012', 'LLC007'].contains(modelId);
+
+  static bool isDefaultBulbModel(String modelId) => ['LCT001', 'LCT007', 'LCT010', 'LCT014'].contains(modelId);
+
+  static bool isLuxBulbModel(String modelId) => ['LWB004', 'LWB006', 'LWB007'].contains(modelId);
+
+  static bool isAmbianceBulbModel(String modelId) => ['LTW010', 'LTW001', 'LTW004', 'LTW015'].contains(modelId);
+
+  static bool isWhiteBulbModel(String modelId) => ['LWB010', 'LWB014'].contains(modelId);
+
+  static bool isDownLightModel(String modelId) => ['LCT011', 'LTW011', 'LCT002'].contains(modelId);
+  
+  static bool isEntityModel(String modelId) => ['HEL001', 'HEL002'].contains(modelId);
+  
+  static bool isGoModel(String modelId) => 'LLC020' == modelId;
+  
+  static bool isImpulseModel(String modelId) => ['HIL001', 'HIL002'].contains(modelId);
+  
+  static bool isIrisModel(String modelId) => ['LLC010', 'LLC006'].contains(modelId);
+  
+  static bool isLightStripModel(String modelId) => ['LST001', 'LST002'].contains(modelId);
+  
+  static bool isPhoenixModel(String modelId) =>["HML001", "HML002", "HML003", "HML004", "HML005", "HML006"].contains(modelId);
+  
+  static bool isSpotModel(String modelId) => ['LCT003', 'LTW013', 'LTW014'].contains(modelId);
+  
+  static bool isStoryLightModel(String modelId) => 'LLC013' == modelId;
+  
+  static bool isWhiteModel(String modelId) => ['LDF002', 'LDF001', 'LDD002', 'LDD001', 'MWM001'].contains(modelId);
 }
