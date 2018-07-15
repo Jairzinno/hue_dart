@@ -166,9 +166,6 @@ class State extends Object with _$StateSerializerMixin, BridgeObject {
     if (alert != null) {
       body['alert'] = alert;
     }
-    if (colorMode != null) {
-      body['colormode'] = colorMode;
-    }
     return body;
   }
 }
