@@ -1,17 +1,20 @@
 import 'dart:async';
 
-import 'package:hue_dart/src/core/bridge_response_handler.dart';
+import 'package:hue_dart/src/core/bridge_client.dart';
+import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/resource_link/resource_link.dart';
 
-class ResourceLinkApi extends Object with BridgeResponseHandler {
-  String address;
-  String username;
+class ResourceLinkApi {
+  BridgeClient _client;
+  String _username;
 
-  ResourceLinkApi(this.address, this.username);
+  ResourceLinkApi(this._client, [this._username]);
+
+  void set username(String username) => this._username = username;
 
   Future<List<ResourceLink>> all() async {
-    String url = '$address/api/$username/resourcelinks';
-    final response = await get(url);
+    String url = '/api/$_username/resourcelinks';
+    final response = await _client.get(url);
     return _responseToResourceLinks(response);
   }
 
@@ -27,28 +30,27 @@ class ResourceLinkApi extends Object with BridgeResponseHandler {
   }
 
   Future<ResourceLink> single(String id) async {
-    String url = '$address/api/$username/resourcelinks/$id';
-    final response = await get(url);
+    String url = '/api/$_username/resourcelinks/$id';
+    final response = await _client.get(url);
     final resourceLink = new ResourceLink.fromJson(response);
     resourceLink.id = id;
     return resourceLink;
   }
 
   Future<ResourceLink> create(ResourceLink resourceLink) async {
-    String url = '$address/api/$username/resourcelinks';
-    final response = await post(url, resourceLink);
-    resourceLink.id = result(response, 'id');
+    String url = '/api/$_username/resourcelinks';
+    final response = await _client.post(url, resourceLink, 'id');
+    resourceLink.id = response.key;
     return resourceLink;
   }
 
-  Future<Map<String, dynamic>> update(ResourceLink resourceLink) async {
-    String url = '$address/api/$username/resourcelinks/${resourceLink.id}';
-    final response = await put(url, resourceLink);
-    return result(response);
+  Future<BridgeResponse> update(ResourceLink resourceLink) async {
+    String url = '/api/$_username/resourcelinks/${resourceLink.id}';
+    return await _client.put(url, resourceLink);
   }
 
-  Future<void> delete(ResourceLink resourceLink) async {
-    String url = '$address/api/$username/resourcelinks/${resourceLink.id}';
-    return await deleteCall(url);
+  Future<BridgeResponse> delete(ResourceLink resourceLink) async {
+    String url = '/api/$_username/resourcelinks/${resourceLink.id}';
+    return await _client.delete(url);
   }
 }

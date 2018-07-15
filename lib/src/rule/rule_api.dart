@@ -1,17 +1,20 @@
 import 'dart:async';
 
-import 'package:hue_dart/src/core/bridge_response_handler.dart';
+import 'package:hue_dart/src/core/bridge_client.dart';
+import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/rule/rule.dart';
 
-class RuleApi extends Object with BridgeResponseHandler {
-  String address;
-  String username;
+class RuleApi {
+  BridgeClient _client;
+  String _username;
 
-  RuleApi(this.address, this.username);
+  RuleApi(this._client, [this._username]);
+
+  void set username(String username) => this._username = username;
 
   Future<List<Rule>> all() async {
-    String url = '$address/api/$username/rules';
-    final response = await get(url);
+    String url = '/api/$_username/rules';
+    final response = await _client.get(url);
     return _responseToRules(response);
   }
 
@@ -27,28 +30,27 @@ class RuleApi extends Object with BridgeResponseHandler {
   }
 
   Future<Rule> single(int id) async {
-    String url = '$address/api/$username/rules/$id';
-    final response = await get(url);
+    String url = '/api/$_username/rules/$id';
+    final response = await _client.get(url);
     final rule = new Rule.fromJson(response);
     rule.id = id;
     return rule;
   }
 
   Future<Rule> create(Rule rule) async {
-    String url = '$address/api/$username/rules';
-    final response = await post(url, rule);
-    rule.id = int.parse(result(response, 'id'));
+    String url = '/api/$_username/rules';
+    final response = await _client.post(url, rule, 'id');
+    rule.id = int.parse(response.key);
     return rule;
   }
 
-  Future<Map<String, dynamic>> update(Rule rule) async {
-    String url = '$address/api/$username/rules/${rule.id}';
-    final response = await put(url, rule);
-    return result(response);
+  Future<BridgeResponse> update(Rule rule) async {
+    String url = '/api/$_username/rules/${rule.id}';
+    return await _client.put(url, rule);
   }
 
-  Future<void> delete(Rule rule) async {
-    String url = '$address/api/$username/rules/${rule.id}';
-    return await deleteCall(url);
+  Future<BridgeResponse> delete(Rule rule) async {
+    String url = '/api/$_username/rules/${rule.id}';
+    return await _client.delete(url);
   }
 }

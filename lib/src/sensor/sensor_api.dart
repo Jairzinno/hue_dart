@@ -1,17 +1,20 @@
 import 'dart:async';
 
-import 'package:hue_dart/src/core/bridge_response_handler.dart';
+import 'package:hue_dart/src/core/bridge_client.dart';
+import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/sensor/sensor.dart';
 
-class SensorApi extends Object with BridgeResponseHandler {
-  String address;
-  String username;
+class SensorApi {
+  BridgeClient _client;
+  String _username;
 
-  SensorApi(this.address, this.username);
+  SensorApi(this._client, [this._username]);
+
+  void set username(String username) => this._username = username;
 
   Future<List<Sensor>> all() async {
-    String url = '$address/api/$username/sensors';
-    final response = await get(url);
+    String url = '/api/$_username/sensors';
+    final response = await _client.get(url);
     return _responseToSensors(response);
   }
 
@@ -27,57 +30,55 @@ class SensorApi extends Object with BridgeResponseHandler {
   }
 
   Future<Sensor> single(String id) async {
-    String url = '$address/api/$username/sensors/$id';
-    final response = await get(url);
+    String url = '/api/$_username/sensors/$id';
+    final response = await _client.get(url);
     final sensor = new Sensor.fromJson(response);
     sensor.id = int.parse(id);
     return sensor;
   }
 
   Future<Sensor> create(Sensor sensor) async {
-    String url = '$address/api/$username/scenes';
-    final response = await post(url, sensor.toBridgeObject(action: 'create'));
-    sensor.id = result(response, 'id');
+    String url = '/api/$_username/sensors';
+    final response = await _client.post(url, sensor.toBridgeObject(action: 'create'), 'id');
+    sensor.id = int.parse(response.key);
     return sensor;
   }
 
-  Future<Map<String, dynamic>> search() async {
-    String url = '$address/api/$username/sensors';
-    final response = await post(url);
-    return result(response);
+  Future<BridgeResponse> search() async {
+    String url = '/api/$_username/sensors';
+    return await _client.post(url);
   }
 
   Future<List<Sensor>> searchResults() async {
-    String url = '$address/api/$username/sensors/new';
-    final response = await get(url);
+    String url = '/api/$_username/sensors/new';
+    final response = await _client.get(url);
     final sensors = <Sensor>[];
     for (String id in response.keys) {
-      sensors.add(await single(id));
+      if ('lastscan' != id) {
+        sensors.add(await single(id));
+      }
     }
     return sensors;
   }
 
-  Future<Map<String, dynamic>> attributes(Sensor sensor) async {
-    String url = '$address/api/$username/sensors/${sensor.id}';
-    final response = await put(url, sensor.toBridgeObject(action: 'attributes'));
-    return result(response);
+  Future<BridgeResponse> attributes(Sensor sensor) async {
+    String url = '/api/$_username/sensors/${sensor.id}';
+    return await _client.put(url, sensor.toBridgeObject(action: 'attributes'));
   }
 
-  Future<Map<String, dynamic>> config(Sensor sensor) async {
-    String url = '$address/api/$username/sensors/${sensor.id}/config';
-    final response = await put(url, sensor.toBridgeObject(action: 'config'));
-    return result(response);
+  Future<BridgeResponse> config(Sensor sensor) async {
+    String url = '/api/$_username/sensors/${sensor.id}/config';
+    return await _client.put(url, sensor.toBridgeObject(action: 'config'));
   }
 
-  Future<Map<String, dynamic>> state(Sensor sensor) async {
-    String url = '$address/api/$username/sensors/${sensor.id}/state';
-    final response = await put(url, sensor.toBridgeObject(action: 'state'));
-    return result(response);
+  Future<BridgeResponse> state(Sensor sensor) async {
+    String url = '/api/$_username/sensors/${sensor.id}/state';
+    return await _client.put(url, sensor.toBridgeObject(action: 'state'));
   }
 
-  Future<void> delete(Sensor sensor) async {
-    String url = '$address/api/$username/sensors/${sensor.id}';
-    return await deleteCall(url);
+  Future<BridgeResponse> delete(Sensor sensor) async {
+    String url = '/api/$_username/sensors/${sensor.id}';
+    return await _client.delete(url);
   }
 
 }

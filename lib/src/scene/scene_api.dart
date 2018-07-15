@@ -1,18 +1,22 @@
 import 'dart:async';
 
-import 'package:hue_dart/src/core/bridge_response_handler.dart';
+import 'package:hue_dart/src/core/bridge_client.dart';
+import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/light/light.dart';
 import 'package:hue_dart/src/scene/scene.dart';
 
-class SceneApi extends Object with BridgeResponseHandler {
-  String address;
-  String username;
+class SceneApi {
+  BridgeClient _client;
+  String _username;
 
-  SceneApi(this.address, this.username);
+  SceneApi(this._client, [this._username]);
+
+  void set username(String username) => this._username = username;
+  void set address(String address) => this.address = address;
 
   Future<List<Scene>> all() async {
-    String url = '$address/api/$username/scenes';
-    final response = await get(url);
+    String url = '/api/$_username/scenes';
+    final response = await _client.get(url);
     return await _responseToScenes(response);
   }
 
@@ -39,16 +43,16 @@ class SceneApi extends Object with BridgeResponseHandler {
   }
 
   Future<Light> _completeLight(int id) async {
-    String url = '$address/api/$username/lights/$id';
-    final response = await get(url);
+    String url = '/api/$_username/lights/$id';
+    final response = await _client.get(url);
     var light = new Light.fromJson(response);
     light.id = id;
     return light;
   }
 
   Future<Scene> single(String id) async {
-    String url = '$address/api/$username/scenes/$id';
-    final response = await get(url);
+    String url = '/api/$_username/scenes/$id';
+    final response = await _client.get(url);
     var scene = new Scene.fromJson(response);
     scene.id = id;
     scene.lights = await _lights(scene.lights);
@@ -56,26 +60,24 @@ class SceneApi extends Object with BridgeResponseHandler {
   }
 
   Future<Scene> create(Scene scene) async {
-    String url = '$address/api/$username/scenes';
-    final response = await post(url, scene.toBridgeObject(action: 'create'));
-    scene.id = result(response, 'id');
+    String url = '/api/$_username/scenes';
+    final response = await _client.post(url, scene.toBridgeObject(action: 'create'), 'id');
+    scene.id = response.key;
     return scene;
   }
 
-  Future<Map<String, dynamic>> attributes(Scene scene) async {
-    String url = '$address/api/$username/scenes/${scene.id}';
-    final response = await put(url, scene.toBridgeObject(action: 'attributes'));
-    return result(response);
+  Future<BridgeResponse> attributes(Scene scene) async {
+    String url = '/api/$_username/scenes/${scene.id}';
+    return await _client.put(url, scene.toBridgeObject(action: 'attributes'));
   }
 
-  Future<Map<String, dynamic>> state(Scene scene, Light light) async {
-    String url = '$address/api/$username/scenes/${scene.id}/lightstates/${light.id}';
-    final response = await put(url, light.toBridgeObject(action: 'state'));
-    return result(response);
+  Future<BridgeResponse> state(Scene scene, Light light) async {
+    String url = '/api/$_username/scenes/${scene.id}/lightstates/${light.id}';
+    return await _client.put(url, light.toBridgeObject(action: 'state'));
   }
 
-  Future<void> delete(Scene scene) async {
-    String url = '$address/api/$username/scenes/${scene.id}';
-    return await deleteCall(url);
+  Future<BridgeResponse> delete(Scene scene) async {
+    String url = '/api/$_username/scenes/${scene.id}';
+    return await _client.delete(url);
   }
 }

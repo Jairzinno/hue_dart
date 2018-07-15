@@ -1,54 +1,56 @@
 import 'dart:async';
 
-import 'package:hue_dart/src/core/bridge_response_handler.dart';
+import 'package:hue_dart/src/core/bridge_client.dart';
+import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/schedule/schedule.dart';
 
-class ScheduleApi extends Object with BridgeResponseHandler {
-  String address;
-  String username;
+class ScheduleApi {
+  BridgeClient _client;
+  String _username;
 
-  ScheduleApi(this.address, this.username);
+  ScheduleApi(this._client, [this._username]);
 
-    Future<List<Schedule>> all() async {
-      String url = '$address/api/$username/schedules';
-      final response = await get(url);
-      return _responseToSchedules(response);
-    }
+  void set username(String username) => this._username = username;
 
-    List<Schedule> _responseToSchedules(Map<String, dynamic> response) {
-      final schedules = <Schedule>[];
-      for (String id in response.keys) {
-        Map<String, dynamic> item = response[id];
-        final schedule = new Schedule.fromJson(item);
-        schedule.id = id;
-        schedules.add(schedule);
-      }
-      return schedules;
-    }
+  Future<List<Schedule>> all() async {
+    String url = '/api/$_username/schedules';
+    final response = await _client.get(url);
+    return _responseToSchedules(response);
+  }
 
-    Future<Schedule> single(String id) async {
-      String url = '$address/api/$username/schedules/$id';
-      final response = await get(url);
-      final schedule = new Schedule.fromJson(response);
+  List<Schedule> _responseToSchedules(Map<String, dynamic> response) {
+    final schedules = <Schedule>[];
+    for (String id in response.keys) {
+      Map<String, dynamic> item = response[id];
+      final schedule = new Schedule.fromJson(item);
       schedule.id = id;
-      return schedule;
+      schedules.add(schedule);
     }
+    return schedules;
+  }
 
-    Future<Schedule> create(Schedule schedule) async {
-      String url = '$address/api/$username/schedules';
-      final response = await post(url, schedule.toBridgeObject(action: 'create'));
-      schedule.id = result(response, 'id');
-      return schedule;
-    }
+  Future<Schedule> single(String id) async {
+    String url = '/api/$_username/schedules/$id';
+    final response = await _client.get(url);
+    final schedule = new Schedule.fromJson(response);
+    schedule.id = id;
+    return schedule;
+  }
 
-    Future<Map<String, dynamic>> attributes(Schedule schedule) async {
-      String url = '$address/api/$username/schedules/${schedule.id}';
-      final response = await put(url, schedule.toBridgeObject(action: 'attributes'));
-      return result(response);
-    }
+  Future<Schedule> create(Schedule schedule) async {
+    String url = '/api/$_username/schedules';
+    final response = await _client.post(url, schedule.toBridgeObject(action: 'create'), 'id');
+    schedule.id = response.key;
+    return schedule;
+  }
 
-    Future<bool> delete(Schedule schedule) async {
-      String url = '$address/api/$username/schedules/${schedule.id}';
-      return await deleteCall(url);
-    }
+  Future<BridgeResponse> attributes(Schedule schedule) async {
+    String url = '/api/$_username/schedules/${schedule.id}';
+    return await _client.put(url, schedule.toBridgeObject(action: 'attributes'));
+  }
+
+  Future<BridgeResponse> delete(Schedule schedule) async {
+    String url = '/api/$_username/schedules/${schedule.id}';
+    return await _client.delete(url);
+  }
 }
