@@ -321,8 +321,7 @@ void main() {
         'effect': 'none',
         'xy': [0.168, 0.041],
         'ct': 0,
-        'alert': 'none',
-        'colormode': 'ct'
+        'alert': 'none'
       };
       verify(client.put('http://127.0.0.1/api/username/lights/1/state', body: json.encode(body)));
     });
