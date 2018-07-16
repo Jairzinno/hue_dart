@@ -8,13 +8,13 @@ part of 'light.dart';
 
 Light _$LightFromJson(Map<String, dynamic> json) {
   return new Light()
-    ..modelId = json['modelid'] as String
     ..id = json['id'] as int
     ..type = json['type'] as String
     ..name = json['name'] as String
     ..state = json['state'] == null
         ? null
-        : new State.fromJson(json['state'] as Map<String, dynamic>)
+        : new LightState.fromJson(json['state'] as Map<String, dynamic>)
+    ..modelId = json['modelid'] as String
     ..uniqueId = json['uniqueid'] as String
     ..manufacturerName = json['manufacturername'] as String
     ..luminaireUniqueId = json['luminaireuniqueid'] as String
@@ -22,21 +22,21 @@ Light _$LightFromJson(Map<String, dynamic> json) {
 }
 
 abstract class _$LightSerializerMixin {
-  String get modelId;
   int get id;
   String get type;
   String get name;
-  State get state;
+  LightState get state;
+  String get modelId;
   String get uniqueId;
   String get manufacturerName;
   String get luminaireUniqueId;
   String get swVersion;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'modelid': modelId,
         'id': id,
         'type': type,
         'name': name,
         'state': state,
+        'modelid': modelId,
         'uniqueid': uniqueId,
         'manufacturername': manufacturerName,
         'luminaireuniqueid': luminaireUniqueId,
@@ -44,8 +44,8 @@ abstract class _$LightSerializerMixin {
       };
 }
 
-State _$StateFromJson(Map<String, dynamic> json) {
-  return new State()
+LightState _$LightStateFromJson(Map<String, dynamic> json) {
+  return new LightState()
     ..on = json['on'] as bool
     ..brightness = json['bri'] as int
     ..hue = json['hue'] as int
@@ -59,7 +59,7 @@ State _$StateFromJson(Map<String, dynamic> json) {
     ..mode = json['mode'] as String;
 }
 
-abstract class _$StateSerializerMixin {
+abstract class _$LightStateSerializerMixin {
   bool get on;
   int get brightness;
   int get hue;

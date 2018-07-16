@@ -14,7 +14,7 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
   /// A unique, editable name given to the light.
   String name;
 
-  State state = new State();
+  LightState state = new LightState();
 
   /// The hardware model of the light.
   @JsonKey(name: 'modelid')
@@ -79,7 +79,7 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
 }
 
 @JsonSerializable()
-class State extends Object with _$StateSerializerMixin, BridgeObject {
+class LightState extends Object with _$LightStateSerializerMixin, BridgeObject {
   /// On/Off state of the light. On=true, Off=false.
   bool on;
 
@@ -121,23 +121,9 @@ class State extends Object with _$StateSerializerMixin, BridgeObject {
 
   String mode;
 
-  State();
+  LightState();
 
-  factory State.fromJson(Map<String, dynamic> json) => _$StateFromJson(json);
-
-  State.fromJsonManually(Map<String, dynamic> json) {
-    on = json['on'] as bool;
-    brightness = json['bri'];
-    hue = json['hue'];
-    saturation = json['sat'];
-    effect = json['effect'];
-    xy = json['xy'];
-    ct = json['ct'];
-    alert = json['alert'];
-    colorMode = json['colormode'];
-    mode = json['mode'];
-    reachable = json['reachable'];
-  }
+  factory LightState.fromJson(Map<String, dynamic> json) => _$LightStateFromJson(json);
 
   @override
   String toString() {
