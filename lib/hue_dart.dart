@@ -5,6 +5,7 @@ library hue_dart;
 export 'src/core/bridge.dart';
 export 'src/core/bridge_discovery.dart';
 export 'src/core/bridge_exception.dart';
+export 'src/core/color_helper.dart';
 export 'src/configuration/configuration.dart';
 export 'src/group/group.dart';
 export 'src/light/light.dart';
