@@ -1,7 +1,7 @@
 class BridgeResponse {
   dynamic key;
-  List<String> success = [];
-  List<String> errors = [];
+  List<dynamic> success = [];
+  List<dynamic> errors = [];
 
   BridgeResponse(dynamic response, [String key]) {
     if (response is List) {
