@@ -62,6 +62,7 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   DateTime date;
 
   /// value for randomized alarms
+  @JsonKey(ignore: true)
   DateTime randomTime;
 
   Command command;
