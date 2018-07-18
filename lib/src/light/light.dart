@@ -1,4 +1,5 @@
 import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/core/color_helper.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'light.g.dart';
@@ -76,6 +77,39 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
   }
 
   String productName() => 'Hue color lamp';
+
+  Light rgb({num red = 0, num green = 0, num blue = 0}) {
+    final colorHelper = new ColorHelper();
+    LightState newState = new LightState();
+    if (state.colorMode == 'ct') {
+       HueColor colors = colorHelper.rgbToColorTemperature(red, green, blue);
+       newState.ct = colors.temperature;
+    } else if (state.colorMode == 'hs') {
+      HueColor colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+      newState.hue = colors.hue;
+      newState.saturation = colors.saturation;
+      newState.brightness = colors.brightness;
+    } else if (state.colorMode == 'xy') {
+      HueColor colors = colorHelper.rgbToXY(red, green, blue);
+      newState.xy = colors.xy;
+    }
+    final newLight = new Light.withLight(this);
+    newLight.state = newState;
+    return newLight;
+  }
+
+  HueColor colors() {
+    HueColor color;
+    final colorHelper = new ColorHelper();
+    if (state.colorMode == 'ct') {
+      color = colorHelper.colorTemperatureToRGB(state.ct);
+    } else if (state.colorMode == 'hs') {
+      color = colorHelper.hueSaturationBrightnessToRGB(state.hue, state.saturation, state.brightness);
+    } else if (state.colorMode == 'xy') {
+      color = colorHelper.xyToRGB(state.xy[0], state.xy[1], state.brightness);
+    }
+    return color;
+  }
 }
 
 @JsonSerializable()
