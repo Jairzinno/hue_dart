@@ -18,10 +18,10 @@ main(List<String> arguments) async {
   var bridge = new Bridge(bridgeClient);
 
   /// create a user, press the push link button before calling this
-  final response = await bridge.createUser('dart_hue#example');
+  final whiteListItem = await bridge.createUser('dart_hue#example');
 
   // use username for consequent calls to the bridge
-  bridge.username = response.key;
+  bridge.username = whiteListItem.username;
 
   /// get lights
   List<Light> lights = await bridge.lights();

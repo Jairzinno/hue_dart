@@ -62,7 +62,7 @@ class Bridge {
 
   Future<Configuration> configuration() async => await _configurationApi.configuration(_username);
 
-  Future<BridgeResponse> createUser(String deviceType) async => await _configurationApi.createUser(deviceType);
+  Future<WhiteListItem> createUser(String deviceType) async => await _configurationApi.createUser(deviceType);
 
   Future<BridgeResponse> deleteUser(String deletingUsername) async => await _configurationApi.deleteUser(_username, deletingUsername);
 

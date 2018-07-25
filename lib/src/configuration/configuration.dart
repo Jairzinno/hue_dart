@@ -24,7 +24,7 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
 
   /// A list of whitelisted user IDs.
   @JsonKey(includeIfNull: false, fromJson: _mapFromJsonWhitelist)
-  List<UserId> whitelist;
+  List<WhiteListItem> whitelist;
 
   /// The version of the hue API in the format <major>.<minor>.<patch>, for example 1.2.1
   @JsonKey(name:'apiversion', includeIfNull: false )
@@ -186,20 +186,20 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
 }
 
 @JsonSerializable()
-class UserId extends Object with _$UserIdSerializerMixin {
-  String id;
+class WhiteListItem extends Object with _$WhiteListItemSerializerMixin {
+  String username;
   String lastUsedDate;
   DateTime get lastUsed => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
   String createDate;
   DateTime get created => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
   String name;
 
-  UserId();
+  WhiteListItem();
 
-  factory UserId.fromJson(Map<String, dynamic> json) => _$UserIdFromJson(json);
+  factory WhiteListItem.fromJson(Map<String, dynamic> json) => _$WhiteListItemFromJson(json);
 
-  UserId.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.id = id;
+  WhiteListItem.fromJsonManually(String id, Map<String, dynamic> json) {
+    this.username = id;
     name = json['name'];
     lastUsedDate = json['last use date'];
     createDate = json['create date'];
@@ -326,11 +326,11 @@ Configuration _mapFromJsonConfiguration(dynamic json) {
   return _$ConfigurationFromJson(source);
 }
 
-List<UserId> _mapFromJsonWhitelist(dynamic whiteList) {
+List<WhiteListItem> _mapFromJsonWhitelist(dynamic whiteList) {
   var source = whiteList as Map<String, dynamic>;
-  var result = <UserId>[];
+  var result = <WhiteListItem>[];
   for (String key in source.keys) {
-    var item = new UserId.fromJsonManually(key, source[key]);
+    var item = new WhiteListItem.fromJsonManually(key, source[key]);
     result.add(item);
   }
   return result;

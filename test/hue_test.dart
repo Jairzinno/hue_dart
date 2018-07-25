@@ -81,7 +81,8 @@ void main() {
     test('create user', () async {
       mockPost('[{"success":{"username":"19156256a1cc24112436792453e8ae7"}}]');
       final response = await sut.createUser('deviceType');
-      expect(response.key, '19156256a1cc24112436792453e8ae7');
+      expect(response.username, '19156256a1cc24112436792453e8ae7');
+      expect(response.name, 'deviceType');
       final body = {'devicetype': 'deviceType'};
       verify(client.post('http://127.0.0.1/api/', body: json.encode(body)));
     });
@@ -189,7 +190,7 @@ void main() {
       expect(configuration.replacesBridgeId, null);
       expect(configuration.starterKitId, '');
       expect(configuration.whitelist.length, 3);
-      expect(configuration.whitelist.first.id, '688a789c0bd6442e48969b1d945920');
+      expect(configuration.whitelist.first.username, '688a789c0bd6442e48969b1d945920');
       expect(configuration.whitelist.first.lastUsedDate, '2016-07-10T19:47:00');
       expectDate(configuration.whitelist.first.lastUsed, 2016, 7, 10, 19, 47, 00);
       expect(configuration.whitelist.first.createDate, '2016-07-10T19:47:00');

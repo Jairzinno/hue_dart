@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:hue_dart/src/configuration/configuration.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
 import 'package:hue_dart/src/core/bridge_response.dart';
+import 'package:intl/intl.dart';
 
 class ConfigurationApi {
 
@@ -15,9 +16,15 @@ class ConfigurationApi {
   /// The link button on the bridge must be pressed and this command executed within 30 seconds.
   /// Once a new user has been created, the user key is added to a ‘whitelist’, allowing access to API commands that require a whitelisted user.
   ///  At present, all other API commands require a whitelisted user.
-  Future<BridgeResponse> createUser(String deviceType) async {
+  Future<WhiteListItem> createUser(String deviceType) async {
     String url = '/api/';
-    return await _client.post(url, {'devicetype' : deviceType}, 'username');
+    final response = await _client.post(url, {'devicetype' : deviceType}, 'username');
+    final whiteListItem = new WhiteListItem();
+    whiteListItem.username = response.key;
+    whiteListItem.name = deviceType;
+    whiteListItem.createDate = new DateFormat("yyyy-MM-dd'T'HH:m:s").format(new DateTime.now());
+    whiteListItem.lastUsedDate = whiteListItem.createDate;
+    return whiteListItem;
   }
 
   Future<BridgeResponse> deleteUser(String username, String deletingUsername) async {

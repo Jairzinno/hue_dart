@@ -71,7 +71,7 @@ Configuration _$ConfigurationFromJson(Map<String, dynamic> json) {
 abstract class _$ConfigurationSerializerMixin {
   String get name;
   SoftwareUpdate get softwareUpdate;
-  List<UserId> get whitelist;
+  List<WhiteListItem> get whitelist;
   String get apiVersion;
   String get swVersion;
   String get proxyAddress;
@@ -156,21 +156,21 @@ abstract class _$ConfigurationSerializerMixin {
   }
 }
 
-UserId _$UserIdFromJson(Map<String, dynamic> json) {
-  return new UserId()
-    ..id = json['id'] as String
+WhiteListItem _$WhiteListItemFromJson(Map<String, dynamic> json) {
+  return new WhiteListItem()
+    ..username = json['username'] as String
     ..lastUsedDate = json['lastUsedDate'] as String
     ..createDate = json['createDate'] as String
     ..name = json['name'] as String;
 }
 
-abstract class _$UserIdSerializerMixin {
-  String get id;
+abstract class _$WhiteListItemSerializerMixin {
+  String get username;
   String get lastUsedDate;
   String get createDate;
   String get name;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
+        'username': username,
         'lastUsedDate': lastUsedDate,
         'createDate': createDate,
         'name': name
