@@ -1,4 +1,5 @@
 import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/core/color_helper.dart';
 import 'package:hue_dart/src/light/light.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -46,6 +47,9 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
   @JsonKey(includeIfNull: false)
   Action action = new Action();
 
+  @JsonKey(ignore: true)
+  HueColor color;
+
   Group();
 
   Group.namedWithLights(this.name, this.lights, [this.type = 'Room', this.className = 'Other']);
@@ -74,6 +78,34 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
       }
       return body;
     }
+  }
+
+  void changeColor({num red = 0, num green = 0, num blue = 0}) {
+    final colorHelper = new ColorHelper();
+    if (action.colorMode == 'ct') {
+      HueColor colors = colorHelper.rgbToCT(red, green, blue);
+      action.ct = colors.ct.toInt();
+    } else if (action.colorMode == 'hs') {
+      HueColor colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+      action.hue = colors.hue.toInt();
+      action.saturation = colors.saturation.toInt();
+      action.brightness = colors.brightness.toInt();
+    } else if (action.colorMode == 'xy') {
+      HueColor colors = colorHelper.rgbToXY(red, green, blue);
+      action.xy = colors.xy;
+    }
+  }
+
+  HueColor colors() {
+    final colorHelper = new ColorHelper();
+    if (action.colorMode == 'ct') {
+      color = colorHelper.ctToRGB(action.ct);
+    } else if (action.colorMode == 'hs') {
+      color = colorHelper.hueSaturationBrightnessToRGB(action.hue, action.saturation, action.brightness);
+    } else if (action.colorMode == 'xy') {
+      color = colorHelper.xyToRGB(action.xy[0], action.xy[1], action.brightness);
+    }
+    return color;
   }
 }
 

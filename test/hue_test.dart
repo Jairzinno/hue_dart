@@ -444,6 +444,87 @@ void main() {
       verify(client.put('http://127.0.0.1/api/username/lights/1', body: json.encode(body)));
     });
 
+    test('change color of light with color mode ct', () async {
+      mockGet(singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'ct'));
+      final light = await sut.light(1);
+      expect(light.state.colorMode, 'ct');
+      light.changeColor(red:0.8796791443850267, green: 0.8398430992614165, blue:0.711241233501953);
+      expect(light.state.ct, 230);
+    });
+
+    test('change color of light with color mode hs', () async {
+      mockGet(singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'hs'));
+      final light = await sut.light(1);
+      expect(light.state.colorMode, 'hs');
+      light.changeColor(red:0.8796791443850267, green: 0.8398430992614165, blue:0.711241233501953);
+      expect(light.state.hue, 8339);
+      expect(light.state.saturation, 49);
+      expect(light.state.brightness, 224);
+    });
+
+    test('change color of light with color mode xy', () async {
+      mockGet(singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'xy'));
+      final light = await sut.light(1);
+      expect(light.state.colorMode, 'xy');
+      light.changeColor(red: 1.0, blue: 1.0, green: 1.0);
+      expect(light.state.xy, [0.32272672086556803, 0.32902290955907926]);
+    });
+
+    test('convert color of light to rgb with color mode ct', () async {
+      mockGet(singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'ct'));
+      final light = await sut.light(1);
+      expect(light.state.colorMode, 'ct');
+      final colors = light.colors();
+
+      expect(colors.temperature, 2732);
+      expect(colors.ct, 366);
+      expect(colors.red, 0.7931550802139037);
+      expect(colors.green, 0.6583998112346192);
+      expect(colors.blue, 0.35289665824727007);
+      expect(colors.hue, 7579);
+      expect(colors.saturation, 142);
+      expect(colors.brightness, 202);
+      expect(colors.xy[0], 0.4550246766722201);
+      expect(colors.xy[1], 0.4201045778933856);
+
+    });
+
+    test('convert color of light to rgb with color mode hs', () async {
+      mockGet(singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'hs'));
+      final light = await sut.light(1);
+      expect(light.state.colorMode, 'hs');
+      final colors = light.colors();
+
+      expect(colors.hue, 48420);
+      expect(colors.saturation, 254);
+      expect(colors.brightness, 250);
+      expect(colors.red, 0.42673957909563304);
+      expect(colors.green, 0.003844675124951928);
+      expect(colors.blue, 0.9803921568627451);
+      expect(colors.temperature, 6500);
+      expect(colors.ct, 154);
+      expect(colors.xy[0], 0.19892897773136312);
+      expect(colors.xy[1], 0.06913836242163192);
+    });
+
+    test('convert color of light to rgb with color mode xy', () async {
+      mockGet(singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'xy'));
+      final light = await sut.light(1);
+      expect(light.state.colorMode, 'xy');
+      final colors = light.colors();
+
+      expect(colors.xy[0], 0.4575);
+      expect(colors.xy[1], 0.4101);
+      expect(colors.red, 0.9999999999999999);
+      expect(colors.green, 0.8108918043577206);
+      expect(colors.blue, 0.4688702585134064);
+      expect(colors.hue, 7596);
+      expect(colors.saturation, 135);
+      expect(colors.brightness, 203);
+      expect(colors.temperature, 2799);
+      expect(colors.ct, 357);
+    });
+
     test('searching for lights', () async {
       mockPost('[{"success":{"/lights":"Searching for new devices"}}]');
       var response = await sut.searchLights();
@@ -1772,7 +1853,8 @@ const String fullState = """
 	}
 }""";
 const String allLights = """{"1":{"modelid":"LCT001","name":"Crazy Name","swversion":"65003148","state":{"xy":[0.168,0.041],"ct":0,"alert":"none","sat":254,"effect":"none","bri":10,"hue":4444,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0a"},"2":{"modelid":"LCT001","name":"Hue Lamp 2","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":144,"effect":"none","bri":254,"hue":23536,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0b"},"3":{"modelid":"LCT001","name":"Hue Lamp 3","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":254,"effect":"none","bri":254,"hue":65136,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0c"},"4":{"modelid":"LWB004","name":"New white Light - 4","swversion":"65003148","state":{"alert":"none","bri":254,"reachable":true,"on":true},"type":"Dimmable light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"c6:52:89:2d:98:11:61:67-80"}}""";
-const String singleLight = '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575,0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"LCT007","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
+const String singleLight = '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575, 0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"LCT007","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
+const String singleLightColorModePlaceHolder = '{"state":{"on":false, "bri": 250, "hue": 48420, "sat": 254,"effect":"none","xy":[0.4575, 0.4101],"ct":366,"alert":"none","colormode":"<color_mode>","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"LCT007","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
 const String singleLightModelIdPlaceholder = '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575,0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"<model_id>","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
 const String allGroups = """{
 	"1": {

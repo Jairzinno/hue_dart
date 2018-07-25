@@ -37,6 +37,9 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
   @JsonKey(name: 'swversion')
   String swVersion;
 
+  @JsonKey(ignore: true)
+  HueColor color = new HueColor();
+
   Light();
 
   Light.withLight(Light light) {
@@ -78,31 +81,26 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
 
   String productName() => 'Hue color lamp';
 
-  Light rgb({num red = 0, num green = 0, num blue = 0}) {
+  void changeColor({num red = 0, num green = 0, num blue = 0}) {
     final colorHelper = new ColorHelper();
-    LightState newState = new LightState();
     if (state.colorMode == 'ct') {
-       HueColor colors = colorHelper.rgbToColorTemperature(red, green, blue);
-       newState.ct = colors.temperature;
+       HueColor colors = colorHelper.rgbToCT(red, green, blue);
+       state.ct = colors.ct.toInt();
     } else if (state.colorMode == 'hs') {
       HueColor colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
-      newState.hue = colors.hue;
-      newState.saturation = colors.saturation;
-      newState.brightness = colors.brightness;
+      state.hue = colors.hue.toInt();
+      state.saturation = colors.saturation.toInt();
+      state.brightness = colors.brightness.toInt();
     } else if (state.colorMode == 'xy') {
       HueColor colors = colorHelper.rgbToXY(red, green, blue);
-      newState.xy = colors.xy;
+      state.xy = colors.xy;
     }
-    final newLight = new Light.withLight(this);
-    newLight.state = newState;
-    return newLight;
   }
 
   HueColor colors() {
-    HueColor color;
     final colorHelper = new ColorHelper();
     if (state.colorMode == 'ct') {
-      color = colorHelper.colorTemperatureToRGB(state.ct);
+      color = colorHelper.ctToRGB(state.ct);
     } else if (state.colorMode == 'hs') {
       color = colorHelper.hueSaturationBrightnessToRGB(state.hue, state.saturation, state.brightness);
     } else if (state.colorMode == 'xy') {
