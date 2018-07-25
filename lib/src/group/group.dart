@@ -206,6 +206,6 @@ class Action extends Object with _$ActionSerializerMixin, BridgeObject {
 }
 
 List<Light> _mapFromJsonLights(dynamic lights) {
-  var source = lights as List<String>;
-  return source.map((String id) => new Light.withId(id)).toList();
+  var source = lights as List<dynamic>;
+  return source.map((dynamic id) => new Light.withId(id.toString())).toList();
 }
