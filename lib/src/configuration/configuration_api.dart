@@ -6,7 +6,6 @@ import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:intl/intl.dart';
 
 class ConfigurationApi {
-
   final BridgeClient _client;
 
   ConfigurationApi(this._client);
@@ -18,16 +17,19 @@ class ConfigurationApi {
   ///  At present, all other API commands require a whitelisted user.
   Future<WhiteListItem> createUser(String deviceType) async {
     String url = '/api/';
-    final response = await _client.post(url, {'devicetype' : deviceType}, 'username');
+    final response =
+    await _client.post(url, {'devicetype': deviceType}, 'username');
     final whiteListItem = new WhiteListItem();
     whiteListItem.username = response.key;
     whiteListItem.name = deviceType;
-    whiteListItem.createDate = new DateFormat("yyyy-MM-dd'T'HH:m:s").format(new DateTime.now());
+    whiteListItem.createDate =
+        new DateFormat("yyyy-MM-dd'T'HH:m:s").format(new DateTime.now());
     whiteListItem.lastUsedDate = whiteListItem.createDate;
     return whiteListItem;
   }
 
-  Future<BridgeResponse> deleteUser(String username, String deletingUsername) async {
+  Future<BridgeResponse> deleteUser(
+      String username, String deletingUsername) async {
     String url = '/api/$username/config/whitelist/$deletingUsername';
     return await _client.delete(url);
   }
@@ -48,9 +50,9 @@ class ConfigurationApi {
     return Configuration.fromJson(response);
   }
 
-
   /// Allows the user to set some configuration values.
-  Future<BridgeResponse> update(String username, Configuration configuration) async {
+  Future<BridgeResponse> update(
+      String username, Configuration configuration) async {
     String url = '/api/$username/config';
     return await _client.put(url, configuration.toBridgeObject());
   }

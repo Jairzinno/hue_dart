@@ -9,7 +9,6 @@ part 'bridge_discovery.g.dart';
 
 /// used the find bridges in the current local network
 class BridgeDiscovery {
-
   Client _client;
 
   BridgeDiscovery(this._client);
@@ -44,10 +43,8 @@ class BridgeDiscovery {
   }
 }
 
-
 @JsonSerializable()
 class DiscoveryResult extends Object with _$DiscoveryResultSerializerMixin {
-
   @JsonKey(includeIfNull: false)
   String id;
 
@@ -68,12 +65,11 @@ class DiscoveryResult extends Object with _$DiscoveryResultSerializerMixin {
 
   DiscoveryResult();
 
-  factory DiscoveryResult.fromJson(Map<String, dynamic> json) => _$DiscoveryResultFromJson(json);
+  factory DiscoveryResult.fromJson(Map<String, dynamic> json) =>
+      _$DiscoveryResultFromJson(json);
 
   @override
   String toString() {
     return toJson().toString();
   }
 }
-
-

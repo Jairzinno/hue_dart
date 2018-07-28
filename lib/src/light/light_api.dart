@@ -43,12 +43,9 @@ class LightApi {
     if (deviceIds.isEmpty) {
       return await _client.post(url);
     } else {
-      Map<String, dynamic> body = {
-        'deviceid' : deviceIds
-      };
+      Map<String, dynamic> body = {'deviceid': deviceIds};
       return await _client.post(url, body);
     }
-
   }
 
   Future<List<Light>> searchResults() async {

@@ -39,14 +39,16 @@ class ScheduleApi {
 
   Future<Schedule> create(Schedule schedule) async {
     String url = '/api/$_username/schedules';
-    final response = await _client.post(url, schedule.toBridgeObject(action: 'create'), 'id');
+    final response = await _client.post(
+        url, schedule.toBridgeObject(action: 'create'), 'id');
     schedule.id = response.key;
     return schedule;
   }
 
   Future<BridgeResponse> attributes(Schedule schedule) async {
     String url = '/api/$_username/schedules/${schedule.id}';
-    return await _client.put(url, schedule.toBridgeObject(action: 'attributes'));
+    return await _client.put(
+        url, schedule.toBridgeObject(action: 'attributes'));
   }
 
   Future<BridgeResponse> delete(Schedule schedule) async {

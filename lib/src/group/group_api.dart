@@ -6,7 +6,6 @@ import 'package:hue_dart/src/group/group.dart';
 import 'package:hue_dart/src/light/light.dart';
 
 class GroupApi {
-  
   final BridgeClient _client;
   String _username;
 
@@ -39,7 +38,8 @@ class GroupApi {
     var result = <Light>[];
     for (Light _light in lights) {
       result.add(await _completeLight(_light.id));
-    };
+    }
+    ;
     return result;
   }
 
@@ -63,7 +63,8 @@ class GroupApi {
 
   Future<Group> create(Group group) async {
     String url = '/api/$_username/groups';
-    final response = await _client.post(url, group.toBridgeObject(action: 'create'), 'id');
+    final response =
+    await _client.post(url, group.toBridgeObject(action: 'create'), 'id');
     group.id = int.parse(response.key);
     return group;
   }
@@ -82,5 +83,4 @@ class GroupApi {
     String url = '/api/$_username/groups/${group.id}';
     return await _client.delete(url);
   }
-
 }

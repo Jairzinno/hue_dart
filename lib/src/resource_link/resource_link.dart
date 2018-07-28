@@ -4,7 +4,6 @@ part 'resource_link.g.dart';
 
 @JsonSerializable()
 class ResourceLink extends Object with _$ResourceLinkSerializerMixin {
-
   @JsonKey(ignore: true)
   String id;
 
@@ -51,7 +50,8 @@ class ResourceLink extends Object with _$ResourceLinkSerializerMixin {
 
   ResourceLink();
 
-  factory ResourceLink.fromJson(Map<String, dynamic> json) => _$ResourceLinkFromJson(json);
+  factory ResourceLink.fromJson(Map<String, dynamic> json) =>
+      _$ResourceLinkFromJson(json);
 
   @override
   String toString() {

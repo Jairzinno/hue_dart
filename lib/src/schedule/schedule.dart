@@ -7,17 +7,19 @@ part 'schedule.g.dart';
 
 @JsonSerializable()
 class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
-
   static const String absoluteTimeAlarm = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
-  static const String randomizedTimeAlarm = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String randomizedTimeAlarm =
+      "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
   static const String recurringAlarm = "W\\d*/T\\d*:\\d*:\\d*";
-  static const String randomRecurringTimeAlarm = "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String randomRecurringTimeAlarm =
+      "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
   static const String timeIntervalAlarm = "T\\d*:\\d*:\\d*/T\\d*:\\d*:\\d*";
   static const String expiringTimer = "PT\\d*:\\d*:\\d*";
   static const String randomTimer = "PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
   static const String recurringTimer1 = "R\\d*/PT\\d*:\\d*:\\d*";
   static const String recurringTimer2 = "R/PT\\d*:\\d*:\\d*";
-  static const String recurringRandomTimer = "R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String recurringRandomTimer =
+      "R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
   static const String timePattern = "HH:mm:ss";
   static const String datePattern = "YYYY-MM-dd";
   static const String timeDivider = "T";
@@ -25,6 +27,7 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
 
   @JsonKey(ignore: true)
   String id;
+
   ///Name for the new schedule. If a name is not specified then the default name, “schedule”, is used.
   ///If the name is already taken a space and number will be appended by the bridge, e.g. “schedule 1”.
   String name;
@@ -45,7 +48,6 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   ///Incorrectly formatted dates will raise an error of type 7. If the time is in the past an error 7 will also be raised.
   @JsonKey(name: 'localtime')
   String time;
-
 
   ///"enabled"  Schedule is enabled
   ///"disabled"  Schedule is disabled by user.
@@ -116,13 +118,13 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   toBridgeObject({String action}) {
     if ('create' == action) {
       return {
-        'name' : name,
-        'description' :  description ?? '',
-        'localtime' : time,
-        'command' : command,
-        'status' : status ?? 'enabled',
-        'autodelete' : autoDelete ?? true,
-        'recycle' : recycle ?? false
+        'name': name,
+        'description': description ?? '',
+        'localtime': time,
+        'command': command,
+        'status': status ?? 'enabled',
+        'autodelete': autoDelete ?? true,
+        'recycle': recycle ?? false
       };
     } else if ('attributes' == action) {
       Map<String, dynamic> body = {};
@@ -157,12 +159,12 @@ class Command extends Object with _$CommandSerializerMixin {
   ///JSON string to be sent to the relevant resource.
   Map<String, dynamic> body;
 
-
   Command();
 
   Command.forAddress(this.address, this.method, this.body);
 
-  factory Command.fromJson(Map<String, dynamic> json) => _$CommandFromJson(json);
+  factory Command.fromJson(Map<String, dynamic> json) =>
+      _$CommandFromJson(json);
 
   Command.fromJsonManually(String id, Map<String, dynamic> json) {
     address = json['address'];

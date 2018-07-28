@@ -2,10 +2,8 @@ import 'package:hue_dart/src/schedule/schedule.dart';
 import 'package:intl/intl.dart';
 
 class Timer extends Schedule {
-
   ///Indicate how many times a timer is repeated
   int recurrence;
-
 
   Timer();
 
@@ -33,8 +31,10 @@ class Timer extends Schedule {
   }
 
   void _parseRandomTimer() {
-    String dateValue = time.substring(0, time.indexOf(Schedule.randomTimeDivider));
-    String randomValue = time.substring(time.indexOf(Schedule.randomTimeDivider));
+    String dateValue =
+    time.substring(0, time.indexOf(Schedule.randomTimeDivider));
+    String randomValue =
+    time.substring(time.indexOf(Schedule.randomTimeDivider));
     date = new DateFormat("'PT'HH:m:s").parse(dateValue);
     randomTime = new DateFormat("'A'HH:m:s").parse(randomValue);
   }
@@ -45,7 +45,8 @@ class Timer extends Schedule {
     if (repeatedValue.length > 0) {
       recurrence = int.parse(repeatedValue);
     }
-    String timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
+    String timeValue =
+    time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
     date = new DateFormat(Schedule.timePattern).parse(timeValue);
   }
 
@@ -56,8 +57,10 @@ class Timer extends Schedule {
 
   void _parseRecurringRandomTimer() {
     recurrence = int.parse(time.substring(1, time.indexOf("/")));
-    String timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1, time.indexOf(Schedule.randomTimeDivider));
-    String randomValue = time.substring(time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
+    String timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1,
+        time.indexOf(Schedule.randomTimeDivider));
+    String randomValue = time.substring(
+        time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
     date = new DateFormat(Schedule.timePattern).parse(timeValue);
     randomTime = new DateFormat(Schedule.timePattern).parse(randomValue);
   }
@@ -75,12 +78,14 @@ class Timer extends Schedule {
   }
 
   String getRepeatedFormattedTime() {
-    String formattedTime = new DateFormat(Schedule.timePattern).format(DateTime.now());
+    String formattedTime =
+    new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "R${recurrence}/PT${formattedTime}";
   }
 
   String getDefaultFormattedTime() {
-    String formattedTime = new DateFormat(Schedule.timePattern).format(DateTime.now());
+    String formattedTime =
+    new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "PT$formattedTime";
   }
 

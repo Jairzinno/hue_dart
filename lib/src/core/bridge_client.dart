@@ -37,7 +37,8 @@ class BridgeClient {
     }
   }
 
-  Future<BridgeResponse> post(String url, [dynamic body, String resultKey]) async {
+  Future<BridgeResponse> post(String url,
+      [dynamic body, String resultKey]) async {
     var response;
     if (body != null) {
       response = await _client.post('$_address$url', body: json.encode(body));
@@ -54,7 +55,8 @@ class BridgeClient {
   }
 
   Future<BridgeResponse> put(String url, dynamic body) async {
-    final response = await _client.put('$_address$url', body: json.encode(body));
+    final response =
+    await _client.put('$_address$url', body: json.encode(body));
     var responseMap = json.decode(response.body);
     _checkException(responseMap);
     return _result(responseMap);

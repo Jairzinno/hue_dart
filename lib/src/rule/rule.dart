@@ -5,7 +5,6 @@ part 'rule.g.dart';
 
 @JsonSerializable()
 class Rule extends Object with _$RuleSerializerMixin {
-
   @JsonKey(ignore: true)
   int id;
 
@@ -15,12 +14,14 @@ class Rule extends Object with _$RuleSerializerMixin {
   @JsonKey(name: 'lasttriggered', includeIfNull: false)
   String lastTriggered;
 
-  DateTime get lastTriggeredDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
+  DateTime get lastTriggeredDate =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
 
   @JsonKey(name: 'creationtime', includeIfNull: false)
   String creationTime;
 
-  DateTime get creationTimeDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
+  DateTime get creationTimeDate =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
 
   @JsonKey(name: 'timestriggered', includeIfNull: false)
   int timesTriggered;
@@ -60,7 +61,8 @@ class Condition extends Object with _$ConditionSerializerMixin {
 
   Condition.forAddress(this.address, this.operator, this.value);
 
-  factory Condition.fromJson(Map<String, dynamic> json) => _$ConditionFromJson(json);
+  factory Condition.fromJson(Map<String, dynamic> json) =>
+      _$ConditionFromJson(json);
 
   Condition.fromJsonManually(Map<String, dynamic> json) {
     address = json['address'];
@@ -84,7 +86,8 @@ class RuleAction extends Object with _$RuleActionSerializerMixin {
 
   RuleAction.forAddress(this.address, this.method, this.body);
 
-  factory RuleAction.fromJson(Map<String, dynamic> json) => _$RuleActionFromJson(json);
+  factory RuleAction.fromJson(Map<String, dynamic> json) =>
+      _$RuleActionFromJson(json);
 
   RuleAction.fromJsonManually(Map<String, dynamic> json) {
     address = json['address'];

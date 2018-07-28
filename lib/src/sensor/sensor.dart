@@ -7,9 +7,9 @@ part 'sensor.g.dart';
 
 @JsonSerializable()
 class Sensor extends Object with _$SensorSerializerMixin, BridgeObject {
-
   @JsonKey(ignore: true)
   int id;
+
   ///Type name of the sensor
   String type;
 
@@ -87,19 +87,18 @@ class Sensor extends Object with _$SensorSerializerMixin, BridgeObject {
       return this;
     } else if ('attributes' == action) {
       return {
-        'name' : name,
+        'name': name,
       };
     } else if ('config' == action) {
-        return config;
+      return config;
     } else if ('state' == action) {
-        return json.encode(state);
+      return json.encode(state);
     }
   }
 }
 
 @JsonSerializable()
 class SensorConfig extends Object with _$SensorConfigSerializerMixin {
-
   @JsonKey(includeIfNull: false)
   bool on;
 
@@ -111,11 +110,11 @@ class SensorConfig extends Object with _$SensorConfigSerializerMixin {
 
   SensorConfig();
 
-  factory SensorConfig.fromJson(Map<String, dynamic> json) => _$SensorConfigFromJson(json);
+  factory SensorConfig.fromJson(Map<String, dynamic> json) =>
+      _$SensorConfigFromJson(json);
 }
 
 class DayLight extends Sensor {
-
   DayLight._withSensor(Sensor sensor) : super._withSensor(sensor);
 
   @override
@@ -123,7 +122,6 @@ class DayLight extends Sensor {
 }
 
 class Dimmer extends Sensor {
-
   Dimmer._withSensor(Sensor sensor) : super._withSensor(sensor);
 
   @override
@@ -131,7 +129,6 @@ class Dimmer extends Sensor {
 }
 
 class Motion extends Sensor {
-
   Motion._withSensor(Sensor sensor) : super._withSensor(sensor);
 
   @override
@@ -139,7 +136,6 @@ class Motion extends Sensor {
 }
 
 class Tap extends Sensor {
-
   Tap._withSensor(Sensor sensor) : super._withSensor(sensor);
 
   @override
@@ -147,7 +143,6 @@ class Tap extends Sensor {
 }
 
 class _SensorFactory {
-
   static Sensor create(Sensor sensor) {
     final modelId = sensor.modelId;
     if (_isDayLightSensor(modelId)) {
@@ -164,7 +159,8 @@ class _SensorFactory {
 
   static bool _isDayLightSensor(String modelId) => 'PHDL00' == modelId;
 
-  static bool _isDimmerSensor(String modelId) => ['RWL020', 'RWL021'].contains(modelId);
+  static bool _isDimmerSensor(String modelId) =>
+      ['RWL020', 'RWL021'].contains(modelId);
 
   static bool _isMotionSensor(String modelId) => 'SML001' == modelId;
 

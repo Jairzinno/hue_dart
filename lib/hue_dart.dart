@@ -14,4 +14,3 @@ export 'src/rule/rule.dart';
 export 'src/scene/scene.dart';
 export 'src/schedule/schedule.dart';
 export 'src/sensor/sensor.dart';
-

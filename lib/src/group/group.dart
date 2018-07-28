@@ -52,7 +52,8 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
 
   Group();
 
-  Group.namedWithLights(this.name, this.lights, [this.type = 'Room', this.className = 'Other']);
+  Group.namedWithLights(this.name, this.lights,
+      [this.type = 'Room', this.className = 'Other']);
 
   factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
 
@@ -64,7 +65,12 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
   @override
   toBridgeObject({String action}) {
     if ('create' == action) {
-      return {'name': name, 'class': className, 'type': type, 'lights': lights.map((Light light) => light.id.toString()).toList()};
+      return {
+        'name': name,
+        'class': className,
+        'type': type,
+        'lights': lights.map((Light light) => light.id.toString()).toList()
+      };
     } else if ('attributes' == action) {
       Map<String, dynamic> body = {};
       if (name != null) {
@@ -74,12 +80,12 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
         body['class'] = className;
       }
       if (lights != null) {
-        body['lights'] = lights.map((Light light) => light.id.toString()).toList();
+        body['lights'] =
+            lights.map((Light light) => light.id.toString()).toList();
       }
       return body;
     }
   }
-
 
   /// change the color of the group on the bridge with rgb values ranging from 0 to 1
   void changeColor({num red = 0, num green = 0, num blue = 0}) {
@@ -88,7 +94,8 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
       HueColor colors = colorHelper.rgbToCT(red, green, blue);
       action.ct = colors.ct.toInt();
     } else if (action.colorMode == 'hs') {
-      HueColor colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+      HueColor colors =
+      colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       action.hue = colors.hue.toInt();
       action.saturation = colors.saturation.toInt();
       action.brightness = colors.brightness.toInt();
@@ -104,9 +111,11 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
     if (action.colorMode == 'ct') {
       color = colorHelper.ctToRGB(action.ct);
     } else if (action.colorMode == 'hs') {
-      color = colorHelper.hueSaturationBrightnessToRGB(action.hue, action.saturation, action.brightness);
+      color = colorHelper.hueSaturationBrightnessToRGB(
+          action.hue, action.saturation, action.brightness);
     } else if (action.colorMode == 'xy') {
-      color = colorHelper.xyToRGB(action.xy[0], action.xy[1], action.brightness);
+      color =
+          colorHelper.xyToRGB(action.xy[0], action.xy[1], action.brightness);
     }
     return color;
   }
@@ -124,7 +133,8 @@ class OnState extends Object with _$OnStateSerializerMixin {
 
   OnState();
 
-  factory OnState.fromJson(Map<String, dynamic> json) => _$OnStateFromJson(json);
+  factory OnState.fromJson(Map<String, dynamic> json) =>
+      _$OnStateFromJson(json);
 
   OnState.fromJsonManually(Map<String, dynamic> json) {
     allOn = json != null ? json['all_on'] : false;

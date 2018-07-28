@@ -35,7 +35,8 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   @JsonKey(name: 'lastupdated')
   String lastUpdated;
 
-  DateTime get lastUpdatedDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUpdated);
+  DateTime get lastUpdatedDate =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUpdated);
 
   /// Version of scene document:
   ///
@@ -63,9 +64,9 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   toBridgeObject({String action}) {
     if ('create' == action) {
       return {
-        'name' : name,
-        'recycle' : recycle ?? false,
-        'lights' : lights.map((Light light) => light.id.toString()).toList()
+        'name': name,
+        'recycle': recycle ?? false,
+        'lights': lights.map((Light light) => light.id.toString()).toList()
       };
     } else if ('attributes' == action) {
       final body = {};
@@ -73,7 +74,8 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
         body['name'] = name;
       }
       if (lights != null) {
-        body['lights'] = lights.map((Light light) => light.id.toString()).toList();
+        body['lights'] =
+            lights.map((Light light) => light.id.toString()).toList();
       }
       return body;
     }
@@ -90,7 +92,8 @@ class AppData extends Object with _$AppDataSerializerMixin {
 
   AppData();
 
-  factory AppData.fromJson(Map<String, dynamic> json) => _$AppDataFromJson(json);
+  factory AppData.fromJson(Map<String, dynamic> json) =>
+      _$AppDataFromJson(json);
 
   AppData.fromJsonManually(Map<String, dynamic> json) {
     version = json['version'];
@@ -101,11 +104,11 @@ class AppData extends Object with _$AppDataSerializerMixin {
   String toString() {
     return toJson().toString();
   }
-
 }
 
 List<Light> _mapFromJsonLights(dynamic lights) {
   var source = lights as List<dynamic>;
-  var result = source.map((dynamic id) => new Light.withId(id.toString())).toList();
+  var result =
+  source.map((dynamic id) => new Light.withId(id.toString())).toList();
   return result;
 }

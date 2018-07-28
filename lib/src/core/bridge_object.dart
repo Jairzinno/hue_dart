@@ -1,3 +1,3 @@
 abstract class BridgeObject {
-   dynamic toBridgeObject({String action});
+  dynamic toBridgeObject({String action});
 }

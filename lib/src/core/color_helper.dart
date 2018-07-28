@@ -51,10 +51,20 @@ class HueColor {
   ///  range is 0..1
   num blue = 0;
 
-  HueColor({this.hue, this.saturation, this.brightness, this.ct, this.temperature, this.xy, this.red, this.green, this.blue});
+  HueColor(
+      {this.hue,
+        this.saturation,
+        this.brightness,
+        this.ct,
+        this.temperature,
+        this.xy,
+        this.red,
+        this.green,
+        this.blue});
 
   @override
-  String toString() => 'rgb: ($red, $green, $blue). hsb: ($hue, $saturation, $brightness). ct: $ct, temperature: $temperature. xy: $xy';
+  String toString() =>
+      'rgb: ($red, $green, $blue). hsb: ($hue, $saturation, $brightness). ct: $ct, temperature: $temperature. xy: $xy';
 }
 
 class ColorHelper {
@@ -97,12 +107,14 @@ class ColorHelper {
   }
 
   /// Converts [hue], [saturation] and [brightness] to rgb values
-  HueColor hueSaturationBrightnessToRGB(num hue, num saturation, num brightness) {
+  HueColor hueSaturationBrightnessToRGB(
+      num hue, num saturation, num brightness) {
     var _hue = hue * 360 / 65535;
     var _saturation = saturation / 255;
     var _brightness = brightness / 255;
     final rgbColor = _hsbToRGB(_hue, _saturation, _brightness);
-    final temperatureColor = _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
+    final temperatureColor =
+    _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
     final ctColor = _colorTemperatureToCT(temperatureColor.temperature);
     final xyColor = rgbToXY(rgbColor.red, rgbColor.green, rgbColor.blue);
     rgbColor.hue = hue;
@@ -163,7 +175,13 @@ class ColorHelper {
           break;
       }
     }
-    return new HueColor(hue: hue, saturation: saturation, brightness: brightness, red: red, green: green, blue: blue);
+    return new HueColor(
+        hue: hue,
+        saturation: saturation,
+        brightness: brightness,
+        red: red,
+        green: green,
+        blue: blue);
   }
 
   /// Converts rgb values to a color temperature.
@@ -187,14 +205,16 @@ class ColorHelper {
         minTemperature = temperature;
       }
     }
-    return new HueColor(temperature: temperature.round(), red: red, green: green, blue: blue);
+    return new HueColor(
+        temperature: temperature.round(), red: red, green: green, blue: blue);
   }
 
   /// Converts [ct] to rgb values.
   HueColor ctToRGB(num ct) {
     final temperatureColor = _ctToColorTemperature(ct);
     final rgbColor = _colorTemperatureToRGB(temperatureColor.temperature);
-    final hsbColor = _colorTemperatureToHueSaturationBrightness(temperatureColor.temperature);
+    final hsbColor = _colorTemperatureToHueSaturationBrightness(
+        temperatureColor.temperature);
     final xyColor = rgbToXY(rgbColor.red, rgbColor.green, rgbColor.blue);
     rgbColor.ct = ct;
     rgbColor.temperature = temperatureColor.temperature;
@@ -269,7 +289,11 @@ class ColorHelper {
         }
       }
     }
-    return new HueColor(red: red / 255, green: green / 255, blue: blue / 255, temperature: temperature.toInt());
+    return new HueColor(
+        red: red / 255,
+        green: green / 255,
+        blue: blue / 255,
+        temperature: temperature.toInt());
   }
 
   /// Converts rgb values to xy
@@ -307,9 +331,11 @@ class ColorHelper {
   /// Converts [x],[y] with an optional [brightness] to rgb values
   HueColor xyToRGB(num x, num y, [num brightness]) {
     final rgbColor = _xyToRGB(x, y, brightness);
-    final temperatureColor = _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
+    final temperatureColor =
+    _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
     final ctColor = _colorTemperatureToCT(temperatureColor.temperature);
-    final hsbColor = _colorTemperatureToHueSaturationBrightness(temperatureColor.temperature);
+    final hsbColor = _colorTemperatureToHueSaturationBrightness(
+        temperatureColor.temperature);
     rgbColor.ct = ctColor.ct;
     rgbColor.temperature = temperatureColor.temperature;
     rgbColor.hue = hsbColor.hue;
