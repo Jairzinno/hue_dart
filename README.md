@@ -4,8 +4,8 @@ A library for creating Philips Hue apps in Flutter and/or AngularDart.
 
 This library aims to make it easier to handle with the Philips Hue bridge.
 
-##Using
-###Discovery
+## Using
+### Discovery
 Import the library and search for bridges. 
 
 ```dart
@@ -49,7 +49,7 @@ DiscoveryResult discoverResult = await discovery.manual('192.168.1.2');
 final bridge = new Bridge(client, discoveryResult.ipAddress);
 ```
 
-###Create a new user
+### Create a new user
 
 To create a user press the push link button before calling the `createUser` method 
 ```dart
@@ -58,7 +58,7 @@ final whiteListItem = bridge.createUser('hue_dart');
 bridge.username = whiteListItem.username;
 ```
 
-###Lights
+### Lights
 To get the current lights on the bridge, create a `Bridge`, set a username and 
 ```dart
 final lights = bridge.lights();
