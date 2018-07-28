@@ -5,7 +5,7 @@ homepage: https://github.com/Jairzinno/hue_dart
 author: Jairzinno Henriquez <jairzinnohenriquez@gmail.com>
 
 environment:
-  sdk: '>=2.0.0-dev.56.0 <2.0.0'
+  sdk: '>=2.0.0-dev.69.0 <3.0.0'
 
 dependencies:
  intl: "^0.15.6"
