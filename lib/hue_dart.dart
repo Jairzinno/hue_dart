@@ -3,7 +3,6 @@
 library hue_dart;
 
 export 'src/core/bridge.dart';
-export 'src/core/bridge_client.dart';
 export 'src/core/bridge_discovery.dart';
 export 'src/core/bridge_exception.dart';
 export 'src/core/color_helper.dart';

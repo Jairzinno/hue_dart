@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:hue_dart/hue_dart.dart';
-import 'package:hue_dart/src/core/bridge_client.dart';
 import 'package:hue_dart/src/schedule/alarm.dart';
 import 'package:hue_dart/src/schedule/timer.dart';
 import 'package:mockito/mockito.dart';
@@ -16,8 +15,7 @@ void main() {
 
   setUp(() {
     client = new MockClient();
-    BridgeClient bridgeClient = new BridgeClient(client, '127.0.0.1');
-    sut = new Bridge(bridgeClient, 'username');
+    sut = new Bridge(client, '127.0.0.1', 'username');
   });
 
   mockGet(String responseBody, [String url]) {

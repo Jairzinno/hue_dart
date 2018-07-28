@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:http/http.dart';
 import 'package:hue_dart/src/configuration/configuration.dart';
 import 'package:hue_dart/src/configuration/configuration_api.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
@@ -33,9 +34,17 @@ class Bridge {
   String _username;
 
   /// create a bridge with a platform specific [client]. Setting the optional [username] enables the use of calls on the bridge that require a username
-  Bridge(BridgeClient client, [String username])
-      : this._withApi(new ConfigurationApi(client), new GroupApi(client), new LightApi(client), new ResourceLinkApi(client), new RuleApi(client),
-            new SceneApi(client), new ScheduleApi(client), new SensorApi(client), username);
+  Bridge(Client client, String address, [String username])
+      : this._withApi(
+            new ConfigurationApi(new BridgeClient(client, address)),
+            new GroupApi(new BridgeClient(client, address)),
+            new LightApi(new BridgeClient(client, address)),
+            new ResourceLinkApi(new BridgeClient(client, address)),
+            new RuleApi(new BridgeClient(client, address)),
+            new SceneApi(new BridgeClient(client, address)),
+            new ScheduleApi(new BridgeClient(client, address)),
+            new SensorApi(new BridgeClient(client, address)),
+            username);
 
   Bridge._withApi(this._configurationApi, this._groupApi, this._lightApi, this._resourceLinkApi, this._ruleApi, this._sceneApi, this._scheduleApi,
       this._sensorApi,
