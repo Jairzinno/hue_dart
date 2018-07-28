@@ -438,7 +438,7 @@ void main() {
       mockPut('[{"success":{"/lights/1/name":"test name"}}]');
       final light = new Light.withId('1');
       light.name = 'test name';
-      final result = await sut.updateLightAttributes(light);
+      final result = await sut.renameLight(light);
       expect(result.success.length, 1);
       expect(result.errors.length, 0);
       final body = {'name': 'test name'};

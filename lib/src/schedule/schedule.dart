@@ -8,21 +8,22 @@ part 'schedule.g.dart';
 @JsonSerializable()
 class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
 
-  static const String ABSOLUTE_TIME_ALARM = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
-  static const String RANDOMIZED_TIME_ALARM = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String RECURRING_ALARM = "W\\d*/T\\d*:\\d*:\\d*";
-  static const String RANDOM_RECURRING_TIME_ALARM = "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String absoluteTimeAlarm = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
+  static const String randomizedTimeAlarm = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String recurringAlarm = "W\\d*/T\\d*:\\d*:\\d*";
+  static const String randomRecurringTimeAlarm = "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
   static const String timeIntervalAlarm = "T\\d*:\\d*:\\d*/T\\d*:\\d*:\\d*";
-  static const String EXPIRING_TIMER = "PT\\d*:\\d*:\\d*";
-  static const String RANDOM_TIMER = "PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String RECURRING_TIMER_1 = "R\\d*/PT\\d*:\\d*:\\d*";
-  static const String RECURRING_TIMER_2 = "R/PT\\d*:\\d*:\\d*";
-  static const String RECURRING_RANDOM_TIMER = "R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String TIME_PATTERN = "HH:mm:ss";
-  static const String DATE_PATTERN = "YYYY-MM-dd";
-  static const String TIME_DIVIDER = "T";
-  static const String RANDOM_TIME_DIVIDER = "A";
+  static const String expiringTimer = "PT\\d*:\\d*:\\d*";
+  static const String randomTimer = "PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String recurringTimer1 = "R\\d*/PT\\d*:\\d*:\\d*";
+  static const String recurringTimer2 = "R/PT\\d*:\\d*:\\d*";
+  static const String recurringRandomTimer = "R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
+  static const String timePattern = "HH:mm:ss";
+  static const String datePattern = "YYYY-MM-dd";
+  static const String timeDivider = "T";
+  static const String randomTimeDivider = "A";
 
+  @JsonKey(ignore: true)
   String id;
   ///Name for the new schedule. If a name is not specified then the default name, “schedule”, is used.
   ///If the name is already taken a space and number will be appended by the bridge, e.g. “schedule 1”.
@@ -91,19 +92,19 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   }
 
   bool _isAlarm() {
-    return new RegExp(ABSOLUTE_TIME_ALARM).hasMatch(time) ||
-        new RegExp(RANDOMIZED_TIME_ALARM).hasMatch(time) ||
-        new RegExp(RECURRING_ALARM).hasMatch(time) ||
-        new RegExp(RANDOM_RECURRING_TIME_ALARM).hasMatch(time) ||
+    return new RegExp(absoluteTimeAlarm).hasMatch(time) ||
+        new RegExp(randomizedTimeAlarm).hasMatch(time) ||
+        new RegExp(recurringAlarm).hasMatch(time) ||
+        new RegExp(randomRecurringTimeAlarm).hasMatch(time) ||
         new RegExp(timeIntervalAlarm).hasMatch(time);
   }
 
   bool _isTimer() {
-    return new RegExp(RECURRING_RANDOM_TIMER).hasMatch(time) ||
-        new RegExp(RECURRING_TIMER_1).hasMatch(time) ||
-        new RegExp(RECURRING_TIMER_2).hasMatch(time) ||
-        new RegExp(RANDOM_TIMER).hasMatch(time) ||
-        new RegExp(EXPIRING_TIMER).hasMatch(time);
+    return new RegExp(recurringRandomTimer).hasMatch(time) ||
+        new RegExp(recurringTimer1).hasMatch(time) ||
+        new RegExp(recurringTimer2).hasMatch(time) ||
+        new RegExp(randomTimer).hasMatch(time) ||
+        new RegExp(expiringTimer).hasMatch(time);
   }
 
   @override

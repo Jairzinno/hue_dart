@@ -13,13 +13,12 @@ part 'configuration.g.dart';
 
 @JsonSerializable()
 class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeObject {
-
   /// Name of the bridge. This is also its uPnP name, so will reflect the actual uPnP name after any conflicts have been resolved.
   @JsonKey(includeIfNull: false)
   String name;
 
   /// Contains information related to software updates.
-  @JsonKey(name:'swupdate2', includeIfNull: false)
+  @JsonKey(name: 'swupdate2', includeIfNull: false)
   SoftwareUpdate softwareUpdate;
 
   /// A list of whitelisted user IDs.
@@ -27,27 +26,27 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   List<WhiteListItem> whitelist;
 
   /// The version of the hue API in the format <major>.<minor>.<patch>, for example 1.2.1
-  @JsonKey(name:'apiversion', includeIfNull: false )
+  @JsonKey(name: 'apiversion', includeIfNull: false)
   String apiVersion;
 
   /// Software version of the bridge.
-  @JsonKey(name:'swversion', includeIfNull: false)
+  @JsonKey(name: 'swversion', includeIfNull: false)
   String swVersion;
 
   /// IP Address of the proxy server being used. A value of “none” indicates no proxy.
-  @JsonKey(name:'proxyaddress', includeIfNull: false)
+  @JsonKey(name: 'proxyaddress', includeIfNull: false)
   String proxyAddress;
 
   /// Port of the proxy being used by the bridge. If set to 0 then a proxy is not being used.
-  @JsonKey(name:'proxyport', includeIfNull: false)
+  @JsonKey(name: 'proxyport', includeIfNull: false)
   int proxyPort;
 
   /// Indicates whether the link button has been pressed within the last 30 seconds.
-  @JsonKey(name:'linkbutton', includeIfNull: false)
+  @JsonKey(name: 'linkbutton', includeIfNull: false)
   bool linkButton;
 
   /// IP address of the bridge.
-  @JsonKey(name:'ipaddress', includeIfNull: false)
+  @JsonKey(name: 'ipaddress', includeIfNull: false)
   String ipAddress;
 
   /// MAC address of the bridge.
@@ -55,7 +54,7 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   String mac;
 
   /// Network mask of the bridge.
-  @JsonKey(name:'netmask', includeIfNull: false)
+  @JsonKey(name: 'netmask', includeIfNull: false)
   String netMask;
 
   /// Gateway IP address of the bridge.
@@ -67,13 +66,13 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   bool dhcp;
 
   /// This indicates whether the bridge is registered to synchronize data with a portal account.
-  @JsonKey(name:'portalservices', includeIfNull: false)
+  @JsonKey(name: 'portalservices', includeIfNull: false)
   bool portalServices;
 
-  @JsonKey(name:'portalstate', includeIfNull: false)
+  @JsonKey(name: 'portalstate', includeIfNull: false)
   PortalState portalState;
 
-  @JsonKey(name:'portalconnection', includeIfNull: false)
+  @JsonKey(name: 'portalconnection', includeIfNull: false)
   String portalConnection;
 
   /// Current time stored on the bridge.
@@ -83,33 +82,33 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
 
   /// The local time of the bridge. "none" if not available.
-  @JsonKey(name:'localtime', includeIfNull: false)
+  @JsonKey(name: 'localtime', includeIfNull: false)
   String localTime;
 
   DateTime get localTimeDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
 
   /// Timezone of the bridge as OlsenIDs, like "Europe/Amsterdam" or "none" when not configured.
-  @JsonKey(name:'timezone', includeIfNull: false)
+  @JsonKey(name: 'timezone', includeIfNull: false)
   String timeZone;
 
   /// The current wireless frequency channel used by the bridge. It can take values of 11, 15, 20,25 or 0 if undefined (factory new).
-  @JsonKey(name:'zigbeechannel', includeIfNull: false)
+  @JsonKey(name: 'zigbeechannel', includeIfNull: false)
   int zigbeeChannel;
 
   /// This parameter uniquely identifies the hardware model of the bridge (BSB001, BSB002).
-  @JsonKey(name:'modelid', includeIfNull: false)
+  @JsonKey(name: 'modelid', includeIfNull: false)
   String modelId;
 
   /// The unique bridge id. This is currently generated from the bridge Ethernet mac address.
-  @JsonKey(name:'bridgeid', includeIfNull: false)
+  @JsonKey(name: 'bridgeid', includeIfNull: false)
   String bridgeId;
 
   /// Indicates if bridge settings are factory new.
-  @JsonKey(name:'factorynew', includeIfNull: false)
+  @JsonKey(name: 'factorynew', includeIfNull: false)
   bool factoryNew;
 
   /// If a bridge backup file has been restored on this bridge from a bridge with a different bridgeid, it will indicate that bridge id, otherwise it will be null.
-  @JsonKey(name:'replacesbridgeid', includeIfNull: false)
+  @JsonKey(name: 'replacesbridgeid', includeIfNull: false)
   String replacesBridgeId;
 
   /// As of 1.9. Perform a touchlink action if set to true, setting to false is ignored.
@@ -117,22 +116,22 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   /// When set to true a touchlink procedure starts which adds the closest lamp (within range) to the ZigBee network.
   /// You can then search for new lights and lamp will show up in the bridge.
   ///  This field is Write-Only so it is not visible when retrieving the bridge Config JSON.
-  @JsonKey(name:'touchlink', includeIfNull: false)
+  @JsonKey(name: 'touchlink', includeIfNull: false)
   bool touchLink;
 
-  @JsonKey(name:'datastoreversion', includeIfNull: false)
+  @JsonKey(name: 'datastoreversion', includeIfNull: false)
   String dataStoreVersion;
 
-  @JsonKey(name:'internetservices', includeIfNull: false)
+  @JsonKey(name: 'internetservices', includeIfNull: false)
   InternetServices internetServices;
 
   @JsonKey(includeIfNull: false)
   Backup backup;
 
-  @JsonKey(name:'starterkitid', includeIfNull: false)
+  @JsonKey(name: 'starterkitid', includeIfNull: false)
   String starterKitId;
 
-  @JsonKey(name:'config', includeIfNull: false, fromJson: _mapFromJsonConfiguration)
+  @JsonKey(name: 'config', includeIfNull: false, fromJson: _mapFromJsonConfiguration)
   Configuration configuration;
 
   @JsonKey(includeIfNull: false, fromJson: _mapFromJsonLights)
@@ -153,7 +152,7 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   @JsonKey(includeIfNull: false, fromJson: _mapFromJsonRules)
   List<Rule> rules;
 
-  @JsonKey(name:'resourcelinks', includeIfNull: false, fromJson: _mapFromJsonResourceLinks)
+  @JsonKey(name: 'resourcelinks', includeIfNull: false, fromJson: _mapFromJsonResourceLinks)
   List<ResourceLink> resourceLinks;
 
   Configuration();
@@ -170,7 +169,6 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
     var configuration = new Configuration();
     configuration.proxyPort = proxyPort;
     configuration.name = name;
-    //TODO: set swupdate
     configuration.proxyAddress = proxyAddress;
     configuration.linkButton = linkButton;
     configuration.ipAddress = ipAddress;
@@ -204,6 +202,7 @@ class WhiteListItem extends Object with _$WhiteListItemSerializerMixin {
     lastUsedDate = json['last use date'];
     createDate = json['create date'];
   }
+
   @override
   String toString() {
     return toJson().toString();
@@ -237,10 +236,10 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
   /// Requires portal connection to update server.
   /// See software update for more information.
 
-  @JsonKey(name:'checkforupdate', includeIfNull: false)
+  @JsonKey(name: 'checkforupdate', includeIfNull: false)
   bool checkForUpdate;
 
-  @JsonKey(name:'lastchange', includeIfNull: false)
+  @JsonKey(name: 'lastchange', includeIfNull: false)
   String lastChange;
 
   @JsonKey(includeIfNull: false)
@@ -249,7 +248,7 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
   @JsonKey(includeIfNull: false)
   SoftwareUpdateBridge bridge;
 
-  @JsonKey(name:'autoinstall', includeIfNull: false)
+  @JsonKey(name: 'autoinstall', includeIfNull: false)
   AutoInstall autoInstall;
 
   SoftwareUpdate();
@@ -266,11 +265,10 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
 class SoftwareUpdateBridge extends Object with _$SoftwareUpdateBridgeSerializerMixin {
   String state;
 
-  @JsonKey(name:'lastinstall')
+  @JsonKey(name: 'lastinstall')
   String lastInstall;
 
   DateTime get lastInstallDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastInstall);
-
 
   SoftwareUpdateBridge();
 
@@ -281,7 +279,7 @@ class SoftwareUpdateBridge extends Object with _$SoftwareUpdateBridgeSerializerM
 class AutoInstall extends Object with _$AutoInstallSerializerMixin {
   bool on;
 
-  @JsonKey(name:'updatetime')
+  @JsonKey(name: 'updatetime')
   String updateTime;
 
   DateTime get updateDate => new DateFormat("'T'HH:m:s").parse(updateTime);
@@ -293,7 +291,6 @@ class AutoInstall extends Object with _$AutoInstallSerializerMixin {
 
 @JsonSerializable()
 class InternetServices extends Object with _$InternetServicesSerializerMixin {
-
   String internet;
 
   @JsonKey(name: 'remoteaccess')
@@ -310,7 +307,6 @@ class InternetServices extends Object with _$InternetServicesSerializerMixin {
 
 @JsonSerializable()
 class Backup extends Object with _$BackupSerializerMixin {
-
   String status;
 
   @JsonKey(name: 'errorcode')

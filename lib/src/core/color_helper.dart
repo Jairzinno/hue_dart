@@ -24,31 +24,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import 'dart:math' as math;
 
 class HueColor {
-  //range is 0..65535
+  /// range is 0..65535
   num hue = 0;
 
-  //range is 0..255
+  /// range is 0..255
   num saturation = 0;
 
-  //range is 0..255
+  /// range is 0..255
   num brightness = 0;
 
-  //range is 2200..6500
+  /// range is 2200..6500
   num temperature = 0;
 
-  //Ct = 10^6 / color temperature, range is 153 (6500K) to 500 (2000K)
+  /// Ct = 10^6 / color temperature, range is 153 (6500K) to 500 (2000K)
   num ct = 0;
 
-  //range is [0..1, 0..1]
+  /// range is [0..1, 0..1]
   List<num> xy = [];
 
-  //range is 0..1
+  /// range is 0..1
   num red = 0;
 
-  //range is 0..1
+  /// range is 0..1
   num green = 0;
 
-  //range is 0..1
+  ///  range is 0..1
   num blue = 0;
 
   HueColor({this.hue, this.saturation, this.brightness, this.ct, this.temperature, this.xy, this.red, this.green, this.blue});

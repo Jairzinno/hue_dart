@@ -14,27 +14,27 @@ class Timer extends Schedule {
   }
 
   void _parseTimer() {
-    if (new RegExp(Schedule.RECURRING_RANDOM_TIMER).hasMatch(time)) {
+    if (new RegExp(Schedule.recurringRandomTimer).hasMatch(time)) {
       _parseRecurringRandomTimer();
-    } else if (new RegExp(Schedule.RECURRING_TIMER_1).hasMatch(time)) {
+    } else if (new RegExp(Schedule.recurringTimer1).hasMatch(time)) {
       _parseFirstTypeOfRecurringTimer();
-    } else if (new RegExp(Schedule.RECURRING_TIMER_2).hasMatch(time)) {
+    } else if (new RegExp(Schedule.recurringTimer2).hasMatch(time)) {
       _parseSecondTypeOfRecurringTimer();
-    } else if (new RegExp(Schedule.RANDOM_TIMER).hasMatch(time)) {
+    } else if (new RegExp(Schedule.randomTimer).hasMatch(time)) {
       _parseRandomTimer();
-    } else if (new RegExp(Schedule.EXPIRING_TIMER).hasMatch(time)) {
+    } else if (new RegExp(Schedule.expiringTimer).hasMatch(time)) {
       _parseExpiringTimer();
     }
   }
 
   void _parseExpiringTimer() {
     String timeValue = time.substring(2, time.length);
-    date = new DateFormat(Schedule.TIME_PATTERN).parse(timeValue);
+    date = new DateFormat(Schedule.timePattern).parse(timeValue);
   }
 
   void _parseRandomTimer() {
-    String dateValue = time.substring(0, time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
-    String randomValue = time.substring(time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
+    String dateValue = time.substring(0, time.indexOf(Schedule.randomTimeDivider));
+    String randomValue = time.substring(time.indexOf(Schedule.randomTimeDivider));
     date = new DateFormat("'PT'HH:m:s").parse(dateValue);
     randomTime = new DateFormat("'A'HH:m:s").parse(randomValue);
   }
@@ -45,21 +45,21 @@ class Timer extends Schedule {
     if (repeatedValue.length > 0) {
       recurrence = int.parse(repeatedValue);
     }
-    String timeValue = time.substring(time.indexOf(Schedule.TIME_DIVIDER) + 1, time.length);
-    date = new DateFormat(Schedule.TIME_PATTERN).parse(timeValue);
+    String timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
+    date = new DateFormat(Schedule.timePattern).parse(timeValue);
   }
 
   void _parseSecondTypeOfRecurringTimer() {
     String timeValue = time.substring(4, time.length);
-    date = new DateFormat(Schedule.TIME_PATTERN).parse(timeValue);
+    date = new DateFormat(Schedule.timePattern).parse(timeValue);
   }
 
   void _parseRecurringRandomTimer() {
     recurrence = int.parse(time.substring(1, time.indexOf("/")));
-    String timeValue = time.substring(time.indexOf(Schedule.TIME_DIVIDER) + 1, time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
-    String randomValue = time.substring(time.indexOf(Schedule.RANDOM_TIME_DIVIDER) + 1, time.length);
-    date = new DateFormat(Schedule.TIME_PATTERN).parse(timeValue);
-    randomTime = new DateFormat(Schedule.TIME_PATTERN).parse(randomValue);
+    String timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1, time.indexOf(Schedule.randomTimeDivider));
+    String randomValue = time.substring(time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
+    date = new DateFormat(Schedule.timePattern).parse(timeValue);
+    randomTime = new DateFormat(Schedule.timePattern).parse(randomValue);
   }
 
   String getFormattedTime() {
@@ -75,12 +75,12 @@ class Timer extends Schedule {
   }
 
   String getRepeatedFormattedTime() {
-    String formattedTime = new DateFormat(Schedule.TIME_PATTERN).format(DateTime.now());
+    String formattedTime = new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "R${recurrence}/PT${formattedTime}";
   }
 
   String getDefaultFormattedTime() {
-    String formattedTime = new DateFormat(Schedule.TIME_PATTERN).format(DateTime.now());
+    String formattedTime = new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "PT$formattedTime";
   }
 

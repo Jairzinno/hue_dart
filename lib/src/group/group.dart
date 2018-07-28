@@ -80,6 +80,8 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
     }
   }
 
+
+  /// change the color of the group on the bridge with rgb values ranging from 0 to 1
   void changeColor({num red = 0, num green = 0, num blue = 0}) {
     final colorHelper = new ColorHelper();
     if (action.colorMode == 'ct') {
@@ -96,6 +98,7 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
     }
   }
 
+  /// get the current color of the group in all possible means by the bridge
   HueColor colors() {
     final colorHelper = new ColorHelper();
     if (action.colorMode == 'ct') {

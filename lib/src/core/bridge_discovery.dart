@@ -7,15 +7,16 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'bridge_discovery.g.dart';
 
+/// used the find bridges in the current local network
 class BridgeDiscovery {
 
   Client _client;
 
   BridgeDiscovery(this._client);
 
-  /// Best practice is to wait a maximum of 8 seconds for receiving the N-UPnP repsonse back from the Hue portal before continuing.
+  /// Best practice is to wait a maximum of 8 seconds for receiving the N-UPnP response back from the Hue portal before continuing.
   Future<List<DiscoveryResult>> automatic() async {
-    final url = 'https://www.meethue.com/api/nupnp';
+    final url = 'https://discovery.meethue.com/';
     try {
       final response = await _client.get(url);
       List responseMap = json.decode(response.body);

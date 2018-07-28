@@ -16,13 +16,13 @@ class Alarm extends Schedule {
   }
 
   void _parseAlarm() {
-    if (new RegExp(Schedule.RANDOM_RECURRING_TIME_ALARM).hasMatch(time)) {
+    if (new RegExp(Schedule.randomRecurringTimeAlarm).hasMatch(time)) {
       _parseRandomRecurringTimeAlarm();
-    } else if (new RegExp(Schedule.RECURRING_ALARM).hasMatch(time)) {
+    } else if (new RegExp(Schedule.recurringAlarm).hasMatch(time)) {
       _parseRecurringAlarm();
-    } else if (new RegExp(Schedule.RANDOMIZED_TIME_ALARM).hasMatch(time)) {
+    } else if (new RegExp(Schedule.randomizedTimeAlarm).hasMatch(time)) {
       _parseRandomizedTimeAlarm();
-    } else if (new RegExp(Schedule.ABSOLUTE_TIME_ALARM).hasMatch(time)) {
+    } else if (new RegExp(Schedule.absoluteTimeAlarm).hasMatch(time)) {
       _parseAbsoluteTimeAlarm();
     } else if (new RegExp(Schedule.timeIntervalAlarm).hasMatch(time)) {
       _parseTimeIntervalAlarm();
@@ -34,8 +34,8 @@ class Alarm extends Schedule {
   }
 
   void _parseRandomizedTimeAlarm() {
-    String dateValue = time.substring(0, time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
-    String randomValue = time.substring(time.indexOf(Schedule.RANDOM_TIME_DIVIDER) + 1, time.length);
+    String dateValue = time.substring(0, time.indexOf(Schedule.randomTimeDivider));
+    String randomValue = time.substring(time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
     date = new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(dateValue);
     randomTime = new DateFormat("HH:m:s").parse(randomValue);
   }
@@ -46,8 +46,8 @@ class Alarm extends Schedule {
   }
 
   void _parseRandomRecurringTimeAlarm() {
-    String dateValue = time.substring(0, time.indexOf(Schedule.RANDOM_TIME_DIVIDER));
-    String randomValue = time.substring(time.indexOf(Schedule.RANDOM_TIME_DIVIDER) + 1, time.length);
+    String dateValue = time.substring(0, time.indexOf(Schedule.randomTimeDivider));
+    String randomValue = time.substring(time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
     weekDays = int.parse(time.substring(1, time.indexOf("/")));
     date = new DateFormat("W${weekDays}'/T'HH:m:s").parse(dateValue);
     randomTime = new DateFormat("HH:m:s").parse(randomValue);
@@ -73,13 +73,13 @@ class Alarm extends Schedule {
   }
 
   String getRecurringTimeFormat() {
-    String formattedTime = new DateFormat(Schedule.TIME_PATTERN).format(DateTime.now());
+    String formattedTime = new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "W${weekDays}/T${formattedTime}";
   }
 
   String getDefaultTimeFormat() {
-    String formattedDate = new DateFormat(Schedule.DATE_PATTERN).format(DateTime.now());
-    String formattedTime = new DateFormat(Schedule.TIME_PATTERN).format(DateTime.now());
-    return '${formattedDate}${Schedule.TIME_DIVIDER}${formattedTime}';
+    String formattedDate = new DateFormat(Schedule.datePattern).format(DateTime.now());
+    String formattedTime = new DateFormat(Schedule.timePattern).format(DateTime.now());
+    return '${formattedDate}${Schedule.timeDivider}${formattedTime}';
   }
 }

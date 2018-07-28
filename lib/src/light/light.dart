@@ -72,7 +72,7 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
   toBridgeObject({String action}) {
     if ('attributes' == action) {
       return {
-        'name' : name,
+        'name': name,
       };
     } else if ('state' == action) {
       return state.toBridgeObject();
@@ -81,11 +81,12 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
 
   String productName() => 'Hue color lamp';
 
+  /// change the color of the light on the bridge with rgb values ranging from 0 to 1
   void changeColor({num red = 0, num green = 0, num blue = 0}) {
     final colorHelper = new ColorHelper();
     if (state.colorMode == 'ct') {
-       HueColor colors = colorHelper.rgbToCT(red, green, blue);
-       state.ct = colors.ct.toInt();
+      HueColor colors = colorHelper.rgbToCT(red, green, blue);
+      state.ct = colors.ct.toInt();
     } else if (state.colorMode == 'hs') {
       HueColor colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       state.hue = colors.hue.toInt();
@@ -97,6 +98,7 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
     }
   }
 
+  /// get the current color of the light in all possible means by the bridge
   HueColor colors() {
     final colorHelper = new ColorHelper();
     if (state.colorMode == 'ct') {
@@ -194,7 +196,6 @@ class LightState extends Object with _$LightStateSerializerMixin, BridgeObject {
 }
 
 class Ambiance extends Light {
-
   Ambiance._withLight(Light light) : super.withLight(light);
 
   @override
@@ -202,7 +203,6 @@ class Ambiance extends Light {
 }
 
 class Aura extends Light {
-
   Aura._withLight(Light light) : super.withLight(light);
 
   @override
@@ -210,7 +210,6 @@ class Aura extends Light {
 }
 
 class Beyond extends Light {
-
   Beyond._withLight(Light light) : super.withLight(light);
 
   @override
@@ -226,7 +225,6 @@ class Beyond extends Light {
 }
 
 class Bloom extends Light {
-
   Bloom._withLight(Light light) : super.withLight(light);
 
   @override
@@ -234,7 +232,6 @@ class Bloom extends Light {
 }
 
 class Bulb extends Light {
-
   Bulb._withLight(Light light) : super.withLight(light);
 
   @override
@@ -252,7 +249,6 @@ class Bulb extends Light {
 }
 
 class DownLight extends Light {
-
   DownLight._withLight(Light light) : super.withLight(light);
 
   @override
@@ -260,7 +256,6 @@ class DownLight extends Light {
 }
 
 class Entity extends Light {
-
   Entity._withLight(Light light) : super.withLight(light);
 
   @override
@@ -268,7 +263,6 @@ class Entity extends Light {
 }
 
 class Go extends Light {
-
   Go._withLight(Light light) : super.withLight(light);
 
   @override
@@ -276,7 +270,6 @@ class Go extends Light {
 }
 
 class Impulse extends Light {
-
   Impulse._withLight(Light light) : super.withLight(light);
 
   @override
@@ -284,7 +277,6 @@ class Impulse extends Light {
 }
 
 class Iris extends Light {
-
   Iris._withLight(Light light) : super.withLight(light);
 
   @override
@@ -292,7 +284,6 @@ class Iris extends Light {
 }
 
 class LightStrip extends Light {
-
   LightStrip._withLight(Light light) : super.withLight(light);
 
   @override
@@ -300,7 +291,6 @@ class LightStrip extends Light {
 }
 
 class Phoenix extends Light {
-
   Phoenix._withLight(Light light) : super.withLight(light);
 
   @override
@@ -318,7 +308,6 @@ class Phoenix extends Light {
 }
 
 class Spot extends Light {
-
   Spot._withLight(Light light) : super.withLight(light);
 
   @override
@@ -326,7 +315,6 @@ class Spot extends Light {
 }
 
 class StoryLight extends Light {
-
   StoryLight._withLight(Light light) : super.withLight(light);
 
   @override
@@ -334,7 +322,6 @@ class StoryLight extends Light {
 }
 
 class White extends Light {
-
   White._withLight(Light light) : super.withLight(light);
 
   @override
@@ -342,7 +329,6 @@ class White extends Light {
 }
 
 class _LightFactory {
-
   static Light create(Light light) {
     String modelId = light.modelId;
     if (isAmbianceModel(modelId)) {
@@ -376,13 +362,11 @@ class _LightFactory {
     } else if (isWhiteModel(modelId)) {
       return new White._withLight(light);
     }
-   return light;
+    return light;
   }
 
-  static bool isAmbianceModel(String modelId) => ['LTP001', 'LTP002', 'LTP003',
-  'LTD003', 'LDT001', 'LTF002',
-  'LTF001', 'LTC001', 'LTC002',
-  'LTC003', 'LTD001', 'LTD002'].contains(modelId);
+  static bool isAmbianceModel(String modelId) =>
+      ['LTP001', 'LTP002', 'LTP003', 'LTD003', 'LDT001', 'LTF002', 'LTF001', 'LTC001', 'LTC002', 'LTC003', 'LTD001', 'LTD002'].contains(modelId);
 
   static bool isAuraModel(String modelId) => 'LLC014' == modelId;
 
@@ -399,22 +383,22 @@ class _LightFactory {
   static bool isWhiteBulbModel(String modelId) => ['LWB010', 'LWB014'].contains(modelId);
 
   static bool isDownLightModel(String modelId) => ['LCT011', 'LTW011', 'LCT002'].contains(modelId);
-  
+
   static bool isEntityModel(String modelId) => ['HEL001', 'HEL002'].contains(modelId);
-  
+
   static bool isGoModel(String modelId) => 'LLC020' == modelId;
-  
+
   static bool isImpulseModel(String modelId) => ['HIL001', 'HIL002'].contains(modelId);
-  
+
   static bool isIrisModel(String modelId) => ['LLC010', 'LLC006'].contains(modelId);
-  
+
   static bool isLightStripModel(String modelId) => ['LST001', 'LST002'].contains(modelId);
-  
-  static bool isPhoenixModel(String modelId) =>["HML001", "HML002", "HML003", "HML004", "HML005", "HML006"].contains(modelId);
-  
+
+  static bool isPhoenixModel(String modelId) => ["HML001", "HML002", "HML003", "HML004", "HML005", "HML006"].contains(modelId);
+
   static bool isSpotModel(String modelId) => ['LCT003', 'LTW013', 'LTW014'].contains(modelId);
-  
+
   static bool isStoryLightModel(String modelId) => 'LLC013' == modelId;
-  
+
   static bool isWhiteModel(String modelId) => ['LDF002', 'LDF001', 'LDD002', 'LDD001', 'MWM001'].contains(modelId);
 }

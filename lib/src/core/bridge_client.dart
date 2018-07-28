@@ -7,8 +7,10 @@ import 'package:hue_dart/src/core/bridge_response.dart';
 
 const protocol = 'http://';
 
+/// the [BridgeClient] handles all calls to the bridge.
+///
+/// It performs the request with a platform specific [Client], parses the responses and checks for exceptions
 class BridgeClient {
-
   Client _client;
   String _address;
 

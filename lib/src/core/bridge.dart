@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:hue_dart/src/configuration/configuration.dart';
 import 'package:hue_dart/src/configuration/configuration_api.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
@@ -20,7 +19,7 @@ import 'package:hue_dart/src/schedule/schedule_api.dart';
 import 'package:hue_dart/src/sensor/sensor.dart';
 import 'package:hue_dart/src/sensor/sensor_api.dart';
 
-
+/// a [Bridge] is used as a facade to the different api's
 class Bridge {
   final ConfigurationApi _configurationApi;
   final GroupApi _groupApi;
@@ -33,20 +32,18 @@ class Bridge {
 
   String _username;
 
-  Bridge(BridgeClient client, [String username]) : this._withApi(
-      new ConfigurationApi(client),
-      new GroupApi(client),
-      new LightApi(client),
-      new ResourceLinkApi(client),
-      new RuleApi(client),
-      new SceneApi(client),
-      new ScheduleApi(client),
-      new SensorApi(client), username);
+  /// create a bridge with a platform specific [client]. Setting the optional [username] enables the use of calls on the bridge that require a username
+  Bridge(BridgeClient client, [String username])
+      : this._withApi(new ConfigurationApi(client), new GroupApi(client), new LightApi(client), new ResourceLinkApi(client), new RuleApi(client),
+            new SceneApi(client), new ScheduleApi(client), new SensorApi(client), username);
 
-  Bridge._withApi(this._configurationApi , this._groupApi, this._lightApi, this._resourceLinkApi, this._ruleApi, this._sceneApi, this._scheduleApi, this._sensorApi, [String username]) {
+  Bridge._withApi(this._configurationApi, this._groupApi, this._lightApi, this._resourceLinkApi, this._ruleApi, this._sceneApi, this._scheduleApi,
+      this._sensorApi,
+      [String username]) {
     this.username = username;
   }
 
+  /// set a username to enable the use of cclls on the bridge that require a username
   void set username(String username) {
     this._username = username;
     _groupApi.username = username;
@@ -66,6 +63,7 @@ class Bridge {
 
   Future<BridgeResponse> deleteUser(String deletingUsername) async => await _configurationApi.deleteUser(_username, deletingUsername);
 
+  /// update the bridge's configuration. Check the docs to see what can be changed
   Future<BridgeResponse> updateConfiguration(Configuration configuration) async => await _configurationApi.update(_username, configuration);
 
   Future<List<Group>> groups() async => await _groupApi.all();
@@ -74,9 +72,11 @@ class Bridge {
 
   Future<Group> createGroup(Group group) async => await _groupApi.create(group);
 
+  /// change the name, class and/or lights of a [group].
   Future<BridgeResponse> updateGroupAttributes(Group group) async => await _groupApi.attributes(group);
 
-  Future<BridgeResponse> updateGroupState(Group group)  async => await _groupApi.state(group);
+  /// update the color state of the lights in the [group]
+  Future<BridgeResponse> updateGroupState(Group group) async => await _groupApi.state(group);
 
   Future<BridgeResponse> deleteGroup(Group group) async => await _groupApi.delete(group);
 
@@ -84,11 +84,13 @@ class Bridge {
 
   Future<Light> light(int id) async => await _lightApi.single(id);
 
+  /// initiate a search for new lights. Optional serial numbers can be sent as [deviceIds].
   Future<BridgeResponse> searchLights([List<String> deviceIds = const []]) async => await _lightApi.search(deviceIds);
 
+  /// return the lights found in the last search for new lights
   Future<List<Light>> lightSearchResults() async => await _lightApi.searchResults();
 
-  Future<BridgeResponse> updateLightAttributes(Light light) async => await _lightApi.attributes(light);
+  Future<BridgeResponse> renameLight(Light light) async => await _lightApi.attributes(light);
 
   Future<BridgeResponse> updateLightState(Light light) async => await _lightApi.state(light);
 
@@ -153,5 +155,4 @@ class Bridge {
   Future<BridgeResponse> updateSensorState(Sensor sensor) async => await _sensorApi.state(sensor);
 
   Future<BridgeResponse> deleteSensor(Sensor sensor) async => await _sensorApi.delete(sensor);
-
 }
