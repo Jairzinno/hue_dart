@@ -9,11 +9,10 @@ environment:
 
 dependencies:
  intl: "^0.15.6"
- json_serializable: "^0.5.8"
  http: "^0.11.3+16"
- math: "^0.9.0"
 
 dev_dependencies:
+  json_serializable: "^0.5.8"
   build_runner:
-  test: ^0.12.30
-  mockito: "^2.2.3"
+  test: "^1.2.0"
+  mockito: "^3.0.0"
