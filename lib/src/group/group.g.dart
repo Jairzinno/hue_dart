@@ -42,10 +42,7 @@ abstract class _$GroupSerializerMixin {
       'type': type,
       'name': name,
       'class': className,
-      'lights': lights,
-      'recycle': recycle,
-      'modelid': modelId,
-      'uniqueid': uniqueId,
+      'lights': lights == null ? null : _mapToJsonLights(lights),
     };
 
     void writeNotNull(String key, dynamic value) {
@@ -54,6 +51,9 @@ abstract class _$GroupSerializerMixin {
       }
     }
 
+    writeNotNull('recycle', recycle);
+    writeNotNull('modelid', modelId);
+    writeNotNull('uniqueid', uniqueId);
     writeNotNull('state', state);
     writeNotNull('action', action);
     return val;

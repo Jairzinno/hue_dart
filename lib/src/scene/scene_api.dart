@@ -63,7 +63,7 @@ class SceneApi {
   Future<Scene> create(Scene scene) async {
     String url = '/api/$_username/scenes';
     final response =
-    await _client.post(url, scene.toBridgeObject(action: 'create'), 'id');
+        await _client.post(url, scene.toBridgeObject(action: 'create'), 'id');
     scene.id = response.key;
     return scene;
   }

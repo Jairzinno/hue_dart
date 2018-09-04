@@ -40,7 +40,7 @@ class SensorApi {
   Future<Sensor> create(Sensor sensor) async {
     String url = '/api/$_username/sensors';
     final response =
-    await _client.post(url, sensor.toBridgeObject(action: 'create'), 'id');
+        await _client.post(url, sensor.toBridgeObject(action: 'create'), 'id');
     sensor.id = int.parse(response.key);
     return sensor;
   }

@@ -59,8 +59,47 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
     return _LightFactory.create(light);
   }
 
-  Light.withId(String id) {
+  Light.withId(
+    String id, {
+    String name,
+    String type,
+    bool on,
+    int brightness,
+    int hue,
+    int saturation,
+    List<num> xy,
+    int ct,
+    String alert,
+    String effect,
+    String colorMode,
+    bool reachable,
+    String mode,
+    String modelId,
+    String uniqueId,
+    String manufacturerName,
+    String productName,
+    String swVersion,
+  }) {
     this.id = int.parse(id);
+    this.name = name;
+    this.type = type;
+    final state = LightState();
+    state.on = on;
+    state.brightness = brightness;
+    state.hue = hue;
+    state.saturation = saturation;
+    state.xy = xy;
+    state.ct = ct;
+    state.alert = alert;
+    state.effect = effect;
+    state.colorMode = colorMode;
+    state.reachable = reachable;
+    state.mode = mode;
+    this.state = state;
+    this.modelId = modelId;
+    this.uniqueId = uniqueId;
+    this.manufacturerName = manufacturerName;
+    this.swVersion = swVersion;
   }
 
   @override
@@ -79,7 +118,8 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
     }
   }
 
-  String productName() => 'Hue color lamp';
+  @JsonKey(name: 'productname')
+  String productName = 'Hue color lamp';
 
   /// change the color of the light on the bridge with rgb values ranging from 0 to 1
   void changeColor({num red = 0, num green = 0, num blue = 0}) {
@@ -89,7 +129,7 @@ class Light extends Object with _$LightSerializerMixin, BridgeObject {
       state.ct = colors.ct.toInt();
     } else if (state.colorMode == 'hs') {
       HueColor colors =
-      colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+          colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       state.hue = colors.hue.toInt();
       state.saturation = colors.saturation.toInt();
       state.brightness = colors.brightness.toInt();
@@ -202,21 +242,21 @@ class Ambiance extends Light {
   Ambiance._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'Ambiance Pendant';
+  String get productName => 'Ambiance Pendant';
 }
 
 class Aura extends Light {
   Aura._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'Living Colors Gen3 Aura';
+  String get productName => 'Living Colors Gen3 Aura';
 }
 
 class Beyond extends Light {
   Beyond._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() {
+  String get productName {
     String productName = 'Hue Beyond Table';
     if ('HBL002' == modelId) {
       productName = 'Hue Beyond Pendant';
@@ -231,14 +271,14 @@ class Bloom extends Light {
   Bloom._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'Hue Living Colors Bloom';
+  String get productName => 'Hue Living Colors Bloom';
 }
 
 class Bulb extends Light {
   Bulb._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() {
+  String get productName {
     String productName = "Hue bulb A19";
     if (_LightFactory.isLuxBulbModel(modelId)) {
       productName = "Hue A19 Lux";
@@ -255,14 +295,14 @@ class DownLight extends Light {
   DownLight._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'LCT002' == modelId ? 'Hue Spot BR30' : 'Hue BR30';
+  String get productName => 'LCT002' == modelId ? 'Hue Spot BR30' : 'Hue BR30';
 }
 
 class Entity extends Light {
   Entity._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() =>
+  String get productName =>
       'HEL001' == modelId ? 'Hue Entity Table' : 'Hue Entity Pendant';
 }
 
@@ -270,14 +310,14 @@ class Go extends Light {
   Go._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'Hue Go';
+  String get productName => 'Hue Go';
 }
 
 class Impulse extends Light {
   Impulse._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() =>
+  String get productName =>
       'HIL001' == modelId ? 'Hue Impulse Table' : 'Hue Impulse Pendant';
 }
 
@@ -285,14 +325,14 @@ class Iris extends Light {
   Iris._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'Hue Living Colors Iris';
+  String get productName => 'Hue Living Colors Iris';
 }
 
 class LightStrip extends Light {
   LightStrip._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() =>
+  String get productName =>
       'LST001' == modelId ? 'Hue LightStrip' : 'Hue LightStrip Plus';
 }
 
@@ -300,7 +340,7 @@ class Phoenix extends Light {
   Phoenix._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() {
+  String get productName {
     Map<String, String> mapping = {
       "HML001": "Centerpiece",
       "HML002": "Ceiling",
@@ -317,7 +357,7 @@ class Spot extends Light {
   Spot._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() =>
+  String get productName =>
       'LCT003' == modelId ? 'Hue Spot GU10' : 'Hue Spot GU10 White Ambiance';
 }
 
@@ -325,14 +365,14 @@ class StoryLight extends Light {
   StoryLight._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'Disney Living Colors';
+  String get productName => 'Disney Living Colors';
 }
 
 class White extends Light {
   White._withLight(Light light) : super.withLight(light);
 
   @override
-  String productName() => 'White';
+  String get productName => 'White';
 }
 
 class _LightFactory {
@@ -376,19 +416,19 @@ class _LightFactory {
   }
 
   static bool isAmbianceModel(String modelId) => [
-    'LTP001',
-    'LTP002',
-    'LTP003',
-    'LTD003',
-    'LDT001',
-    'LTF002',
-    'LTF001',
-    'LTC001',
-    'LTC002',
-    'LTC003',
-    'LTD001',
-    'LTD002'
-  ].contains(modelId);
+        'LTP001',
+        'LTP002',
+        'LTP003',
+        'LTD003',
+        'LDT001',
+        'LTF002',
+        'LTF001',
+        'LTC001',
+        'LTC002',
+        'LTC003',
+        'LTD001',
+        'LTD002'
+      ].contains(modelId);
 
   static bool isAuraModel(String modelId) => 'LLC014' == modelId;
 
@@ -428,13 +468,13 @@ class _LightFactory {
       ['LST001', 'LST002'].contains(modelId);
 
   static bool isPhoenixModel(String modelId) => [
-    "HML001",
-    "HML002",
-    "HML003",
-    "HML004",
-    "HML005",
-    "HML006"
-  ].contains(modelId);
+        "HML001",
+        "HML002",
+        "HML003",
+        "HML004",
+        "HML005",
+        "HML006"
+      ].contains(modelId);
 
   static bool isSpotModel(String modelId) =>
       ['LCT003', 'LTW013', 'LTW014'].contains(modelId);

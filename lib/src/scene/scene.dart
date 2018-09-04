@@ -8,6 +8,7 @@ part 'scene.g.dart';
 @JsonSerializable()
 class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   /// The id of the scene being modified or created.
+  @JsonKey(ignore: true)
   String id;
 
   /// Human readable name of the scene. Is set to <id> if omitted on creation.
@@ -17,7 +18,7 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   ///
   /// When writing, lightstate of all lights in list will be overwritten with current light state.
   /// As of 1.15 when writing, lightstate of lights which are not yet in list will be created with current light state.
-  @JsonKey(fromJson: _mapFromJsonLights)
+  @JsonKey(fromJson: _mapFromJsonLights, toJson: _mapToJsonLights)
   List<Light> lights;
 
   /// Whitelist user that created or modified the content of the scene. Note that changing name does not change the owner.
@@ -85,9 +86,11 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
 @JsonSerializable()
 class AppData extends Object with _$AppDataSerializerMixin {
   /// App specific version of the data field.
+  @JsonKey(includeIfNull: false)
   int version;
 
   /// App specific data. Free format string.
+  @JsonKey(includeIfNull: false)
   String data;
 
   AppData();
@@ -109,6 +112,11 @@ class AppData extends Object with _$AppDataSerializerMixin {
 List<Light> _mapFromJsonLights(dynamic lights) {
   var source = lights as List<dynamic>;
   var result =
-  source.map((dynamic id) => new Light.withId(id.toString())).toList();
+      source.map((dynamic id) => new Light.withId(id.toString())).toList();
   return result;
+}
+
+List<String> _mapToJsonLights(dynamic lights) {
+  var source = lights as List<Light>;
+  return source.map((Light light) => light.id.toString()).toList();
 }

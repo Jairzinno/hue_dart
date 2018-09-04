@@ -21,7 +21,7 @@ class Sensor extends Object with _$SensorSerializerMixin, BridgeObject {
   String modelId;
 
   ///Unique id of the sensor. Should be the MAC address of the device.
-  @JsonKey(name: 'uniqueid')
+  @JsonKey(name: 'uniqueid', includeIfNull: false)
   String uniqueId;
 
   ///The name of the device manufacturer.

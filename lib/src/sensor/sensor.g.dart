@@ -42,9 +42,6 @@ abstract class _$SensorSerializerMixin {
       'type': type,
       'name': name,
       'modelid': modelId,
-      'uniqueid': uniqueId,
-      'manufacturername': manufacturerName,
-      'swversion': swVersion,
     };
 
     void writeNotNull(String key, dynamic value) {
@@ -53,6 +50,9 @@ abstract class _$SensorSerializerMixin {
       }
     }
 
+    writeNotNull('uniqueid', uniqueId);
+    val['manufacturername'] = manufacturerName;
+    val['swversion'] = swVersion;
     writeNotNull('recycle', recycle);
     writeNotNull('reachable', reachable);
     writeNotNull('on', on);

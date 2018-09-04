@@ -12,7 +12,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'configuration.g.dart';
 
 @JsonSerializable()
-class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeObject {
+class Configuration extends Object
+    with _$ConfigurationSerializerMixin, BridgeObject {
   /// Name of the bridge. This is also its uPnP name, so will reflect the actual uPnP name after any conflicts have been resolved.
   @JsonKey(includeIfNull: false)
   String name;
@@ -85,7 +86,8 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   @JsonKey(name: 'localtime', includeIfNull: false)
   String localTime;
 
-  DateTime get localTimeDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
+  DateTime get localTimeDate =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
 
   /// Timezone of the bridge as OlsenIDs, like "Europe/Amsterdam" or "none" when not configured.
   @JsonKey(name: 'timezone', includeIfNull: false)
@@ -131,7 +133,8 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   @JsonKey(name: 'starterkitid', includeIfNull: false)
   String starterKitId;
 
-  @JsonKey(name: 'config', includeIfNull: false, fromJson: _mapFromJsonConfiguration)
+  @JsonKey(
+      name: 'config', includeIfNull: false, fromJson: _mapFromJsonConfiguration)
   Configuration configuration;
 
   @JsonKey(includeIfNull: false, fromJson: _mapFromJsonLights)
@@ -152,12 +155,16 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
   @JsonKey(includeIfNull: false, fromJson: _mapFromJsonRules)
   List<Rule> rules;
 
-  @JsonKey(name: 'resourcelinks', includeIfNull: false, fromJson: _mapFromJsonResourceLinks)
+  @JsonKey(
+      name: 'resourcelinks',
+      includeIfNull: false,
+      fromJson: _mapFromJsonResourceLinks)
   List<ResourceLink> resourceLinks;
 
   Configuration();
 
-  static Configuration fromJson(Map<String, dynamic> json) => _$ConfigurationFromJson(json);
+  static Configuration fromJson(Map<String, dynamic> json) =>
+      _$ConfigurationFromJson(json);
 
   @override
   String toString() {
@@ -187,14 +194,17 @@ class Configuration extends Object with _$ConfigurationSerializerMixin, BridgeOb
 class WhiteListItem extends Object with _$WhiteListItemSerializerMixin {
   String username;
   String lastUsedDate;
-  DateTime get lastUsed => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
+  DateTime get lastUsed =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
   String createDate;
-  DateTime get created => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
+  DateTime get created =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
   String name;
 
   WhiteListItem();
 
-  factory WhiteListItem.fromJson(Map<String, dynamic> json) => _$WhiteListItemFromJson(json);
+  factory WhiteListItem.fromJson(Map<String, dynamic> json) =>
+      _$WhiteListItemFromJson(json);
 
   WhiteListItem.fromJsonManually(String id, Map<String, dynamic> json) {
     this.username = id;
@@ -220,7 +230,8 @@ class PortalState extends Object with _$PortalStateSerializerMixin {
 
   PortalState();
 
-  factory PortalState.fromJson(Map<String, dynamic> json) => _$PortalStateFromJson(json);
+  factory PortalState.fromJson(Map<String, dynamic> json) =>
+      _$PortalStateFromJson(json);
 
   @override
   String toString() {
@@ -253,7 +264,8 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
 
   SoftwareUpdate();
 
-  factory SoftwareUpdate.fromJson(Map<String, dynamic> json) => _$SoftwareUpdateFromJson(json);
+  factory SoftwareUpdate.fromJson(Map<String, dynamic> json) =>
+      _$SoftwareUpdateFromJson(json);
 
   @override
   String toString() {
@@ -262,17 +274,20 @@ class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
 }
 
 @JsonSerializable()
-class SoftwareUpdateBridge extends Object with _$SoftwareUpdateBridgeSerializerMixin {
+class SoftwareUpdateBridge extends Object
+    with _$SoftwareUpdateBridgeSerializerMixin {
   String state;
 
   @JsonKey(name: 'lastinstall')
   String lastInstall;
 
-  DateTime get lastInstallDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastInstall);
+  DateTime get lastInstallDate =>
+      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastInstall);
 
   SoftwareUpdateBridge();
 
-  factory SoftwareUpdateBridge.fromJson(Map<String, dynamic> json) => _$SoftwareUpdateBridgeFromJson(json);
+  factory SoftwareUpdateBridge.fromJson(Map<String, dynamic> json) =>
+      _$SoftwareUpdateBridgeFromJson(json);
 }
 
 @JsonSerializable()
@@ -286,7 +301,8 @@ class AutoInstall extends Object with _$AutoInstallSerializerMixin {
 
   AutoInstall();
 
-  factory AutoInstall.fromJson(Map<String, dynamic> json) => _$AutoInstallFromJson(json);
+  factory AutoInstall.fromJson(Map<String, dynamic> json) =>
+      _$AutoInstallFromJson(json);
 }
 
 @JsonSerializable()
@@ -302,7 +318,8 @@ class InternetServices extends Object with _$InternetServicesSerializerMixin {
 
   InternetServices();
 
-  factory InternetServices.fromJson(Map<String, dynamic> json) => _$InternetServicesFromJson(json);
+  factory InternetServices.fromJson(Map<String, dynamic> json) =>
+      _$InternetServicesFromJson(json);
 }
 
 @JsonSerializable()

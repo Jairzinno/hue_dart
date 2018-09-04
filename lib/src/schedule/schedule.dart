@@ -62,6 +62,7 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   bool recycle;
 
   ///Date presentation of the time for the schedule
+  @JsonKey(ignore: true)
   DateTime date;
 
   /// value for randomized alarms

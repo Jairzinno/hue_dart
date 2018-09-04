@@ -64,7 +64,7 @@ class GroupApi {
   Future<Group> create(Group group) async {
     String url = '/api/$_username/groups';
     final response =
-    await _client.post(url, group.toBridgeObject(action: 'create'), 'id');
+        await _client.post(url, group.toBridgeObject(action: 'create'), 'id');
     group.id = int.parse(response.key);
     return group;
   }

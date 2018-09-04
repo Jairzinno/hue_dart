@@ -8,7 +8,6 @@ part of 'scene.dart';
 
 Scene _$SceneFromJson(Map<String, dynamic> json) {
   return new Scene()
-    ..id = json['id'] as String
     ..name = json['name'] as String
     ..lights =
         json['lights'] == null ? null : _mapFromJsonLights(json['lights'])
@@ -24,7 +23,6 @@ Scene _$SceneFromJson(Map<String, dynamic> json) {
 }
 
 abstract class _$SceneSerializerMixin {
-  String get id;
   String get name;
   List<Light> get lights;
   String get owner;
@@ -35,9 +33,8 @@ abstract class _$SceneSerializerMixin {
   AppData get appData;
   String get picture;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
         'name': name,
-        'lights': lights,
+        'lights': lights == null ? null : _mapToJsonLights(lights),
         'owner': owner,
         'recycle': recycle,
         'locked': locked,
@@ -57,6 +54,17 @@ AppData _$AppDataFromJson(Map<String, dynamic> json) {
 abstract class _$AppDataSerializerMixin {
   int get version;
   String get data;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'version': version, 'data': data};
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{};
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('version', version);
+    writeNotNull('data', data);
+    return val;
+  }
 }

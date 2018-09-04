@@ -27,18 +27,19 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
   ///The ordered set of light ids from the lights which are  in the group. This resource shall contain an array of at least one element with the exception of the “Room” type: The Room type may contain an empty lights array. Each element can appear only once. Order of lights on creation is preserved. A light id must be an existing light resource in /lights. If an invalid lights resource is given, error 7 shall be returned and the group is not created. There shall be no change in the lights.
   ///
   ///Light id can be null if a group has been automatically create by the bridge and a light source is not yet available
-  @JsonKey(fromJson: _mapFromJsonLights)
+  @JsonKey(fromJson: _mapFromJsonLights, toJson: _mapToJsonLights)
   List<Light> lights = [];
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only on creation of resource. “false” when omitted.
+  @JsonKey(includeIfNull: false)
   bool recycle;
 
   ///As of 1.4. Uniquely identifies the hardware model of the luminaire. Only present for automatically created Luminaires.
-  @JsonKey(name: 'modelid')
+  @JsonKey(name: 'modelid', includeIfNull: false)
   String modelId;
 
   ///As of 1.9. Unique Id in AA:BB:CC:DD format for Luminaire groups or AA:BB:CC:DD-XX format for Lightsource groups, where XX is the lightsource position.
-  @JsonKey(name: 'uniqueid')
+  @JsonKey(name: 'uniqueid', includeIfNull: false)
   String uniqueId;
 
   @JsonKey(includeIfNull: false)
@@ -54,6 +55,43 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
 
   Group.namedWithLights(this.name, this.lights,
       [this.type = 'Room', this.className = 'Other']);
+
+  Group.withId(String id, List<Light> lights,
+      {String name,
+      String type,
+      String className,
+      bool on,
+      int brightness,
+      int hue,
+      int saturation,
+      List<num> xy,
+      int ct,
+      String alert,
+      String effect,
+      String colorMode,
+      bool allOn,
+      bool anyOn}) {
+    this.id = int.parse(id);
+    this.lights = lights;
+    this.name = name;
+    this.type = type;
+    this.className = className;
+    final action = Action();
+    action.on = on;
+    action.brightness = brightness;
+    action.hue = hue;
+    action.saturation = saturation;
+    action.xy = xy;
+    action.ct = ct;
+    action.alert = alert;
+    action.effect = effect;
+    action.colorMode = colorMode;
+    this.action = action;
+    final state = OnState();
+    state.anyOn = anyOn;
+    state.allOn = allOn;
+    this.state = state;
+  }
 
   factory Group.fromJson(Map<String, dynamic> json) => _$GroupFromJson(json);
 
@@ -95,7 +133,7 @@ class Group extends Object with _$GroupSerializerMixin, BridgeObject {
       action.ct = colors.ct.toInt();
     } else if (action.colorMode == 'hs') {
       HueColor colors =
-      colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+          colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       action.hue = colors.hue.toInt();
       action.saturation = colors.saturation.toInt();
       action.brightness = colors.brightness.toInt();
@@ -253,4 +291,9 @@ class Action extends Object with _$ActionSerializerMixin, BridgeObject {
 List<Light> _mapFromJsonLights(dynamic lights) {
   var source = lights as List<dynamic>;
   return source.map((dynamic id) => new Light.withId(id.toString())).toList();
+}
+
+List<String> _mapToJsonLights(dynamic lights) {
+  var source = lights as List<Light>;
+  return source.map((Light light) => light.id.toString()).toList();
 }

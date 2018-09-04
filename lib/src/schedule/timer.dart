@@ -32,9 +32,9 @@ class Timer extends Schedule {
 
   void _parseRandomTimer() {
     String dateValue =
-    time.substring(0, time.indexOf(Schedule.randomTimeDivider));
+        time.substring(0, time.indexOf(Schedule.randomTimeDivider));
     String randomValue =
-    time.substring(time.indexOf(Schedule.randomTimeDivider));
+        time.substring(time.indexOf(Schedule.randomTimeDivider));
     date = new DateFormat("'PT'HH:m:s").parse(dateValue);
     randomTime = new DateFormat("'A'HH:m:s").parse(randomValue);
   }
@@ -46,7 +46,7 @@ class Timer extends Schedule {
       recurrence = int.parse(repeatedValue);
     }
     String timeValue =
-    time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
+        time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
     date = new DateFormat(Schedule.timePattern).parse(timeValue);
   }
 
@@ -79,13 +79,13 @@ class Timer extends Schedule {
 
   String getRepeatedFormattedTime() {
     String formattedTime =
-    new DateFormat(Schedule.timePattern).format(DateTime.now());
+        new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "R${recurrence}/PT${formattedTime}";
   }
 
   String getDefaultFormattedTime() {
     String formattedTime =
-    new DateFormat(Schedule.timePattern).format(DateTime.now());
+        new DateFormat(Schedule.timePattern).format(DateTime.now());
     return "PT$formattedTime";
   }
 

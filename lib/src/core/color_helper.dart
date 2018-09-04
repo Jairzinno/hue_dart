@@ -53,14 +53,14 @@ class HueColor {
 
   HueColor(
       {this.hue,
-        this.saturation,
-        this.brightness,
-        this.ct,
-        this.temperature,
-        this.xy,
-        this.red,
-        this.green,
-        this.blue});
+      this.saturation,
+      this.brightness,
+      this.ct,
+      this.temperature,
+      this.xy,
+      this.red,
+      this.green,
+      this.blue});
 
   @override
   String toString() =>
@@ -68,6 +68,23 @@ class HueColor {
 }
 
 class ColorHelper {
+  HueColor rgb(num red, num green, num blue) {
+    final hsbColor = rgbToHueSaturationBrightness(red, green, blue);
+    final temperatureColor = _rgbToColorTemperature(red, green, blue);
+    final xyColor = rgbToXY(red, green, blue);
+    final ctColor = _colorTemperatureToCT(temperatureColor.temperature);
+    return HueColor(
+        hue: hsbColor.hue,
+        saturation: hsbColor.saturation,
+        brightness: hsbColor.brightness,
+        ct: ctColor.ct,
+        temperature: temperatureColor.temperature,
+        xy: xyColor.xy,
+        red: red,
+        green: green,
+        blue: blue);
+  }
+
   /// Converts rgb values to hue, saturation and brightness.
   ///
   /// returns an [HueColor] with the [red], [green], [blue] values ranging from 0 to 1 converted to
@@ -114,7 +131,7 @@ class ColorHelper {
     var _brightness = brightness / 255;
     final rgbColor = _hsbToRGB(_hue, _saturation, _brightness);
     final temperatureColor =
-    _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
+        _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
     final ctColor = _colorTemperatureToCT(temperatureColor.temperature);
     final xyColor = rgbToXY(rgbColor.red, rgbColor.green, rgbColor.blue);
     rgbColor.hue = hue;
@@ -332,7 +349,7 @@ class ColorHelper {
   HueColor xyToRGB(num x, num y, [num brightness]) {
     final rgbColor = _xyToRGB(x, y, brightness);
     final temperatureColor =
-    _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
+        _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
     final ctColor = _colorTemperatureToCT(temperatureColor.temperature);
     final hsbColor = _colorTemperatureToHueSaturationBrightness(
         temperatureColor.temperature);

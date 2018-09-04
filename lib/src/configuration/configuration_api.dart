@@ -18,7 +18,7 @@ class ConfigurationApi {
   Future<WhiteListItem> createUser(String deviceType) async {
     String url = '/api/';
     final response =
-    await _client.post(url, {'devicetype': deviceType}, 'username');
+        await _client.post(url, {'devicetype': deviceType}, 'username');
     final whiteListItem = new WhiteListItem();
     whiteListItem.username = response.key;
     whiteListItem.name = deviceType;

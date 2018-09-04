@@ -36,15 +36,15 @@ class Bridge {
   /// create a bridge with a platform specific [client]. Setting the optional [username] enables the use of calls on the bridge that require a username
   Bridge(Client client, String address, [String username])
       : this._withApi(
-      new ConfigurationApi(new BridgeClient(client, address)),
-      new GroupApi(new BridgeClient(client, address)),
-      new LightApi(new BridgeClient(client, address)),
-      new ResourceLinkApi(new BridgeClient(client, address)),
-      new RuleApi(new BridgeClient(client, address)),
-      new SceneApi(new BridgeClient(client, address)),
-      new ScheduleApi(new BridgeClient(client, address)),
-      new SensorApi(new BridgeClient(client, address)),
-      username);
+            new ConfigurationApi(new BridgeClient(client, address)),
+            new GroupApi(new BridgeClient(client, address)),
+            new LightApi(new BridgeClient(client, address)),
+            new ResourceLinkApi(new BridgeClient(client, address)),
+            new RuleApi(new BridgeClient(client, address)),
+            new SceneApi(new BridgeClient(client, address)),
+            new ScheduleApi(new BridgeClient(client, address)),
+            new SensorApi(new BridgeClient(client, address)),
+            username);
 
   Bridge._withApi(
       this._configurationApi,
@@ -85,7 +85,7 @@ class Bridge {
 
   /// update the bridge's configuration. Check the docs to see what can be changed
   Future<BridgeResponse> updateConfiguration(
-      Configuration configuration) async =>
+          Configuration configuration) async =>
       await _configurationApi.update(_username, configuration);
 
   Future<List<Group>> groups() async => await _groupApi.all();
@@ -111,7 +111,7 @@ class Bridge {
 
   /// initiate a search for new lights. Optional serial numbers can be sent as [deviceIds].
   Future<BridgeResponse> searchLights(
-      [List<String> deviceIds = const []]) async =>
+          [List<String> deviceIds = const []]) async =>
       await _lightApi.search(deviceIds);
 
   /// return the lights found in the last search for new lights
@@ -162,7 +162,7 @@ class Bridge {
       await _sceneApi.attributes(scene);
 
   Future<BridgeResponse> updateSceneLightState(
-      Scene scene, Light light) async =>
+          Scene scene, Light light) async =>
       await _sceneApi.state(scene, light);
 
   Future<Scene> createScene(Scene scene) async => await _sceneApi.create(scene);

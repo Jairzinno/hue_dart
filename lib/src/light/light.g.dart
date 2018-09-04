@@ -18,7 +18,8 @@ Light _$LightFromJson(Map<String, dynamic> json) {
     ..uniqueId = json['uniqueid'] as String
     ..manufacturerName = json['manufacturername'] as String
     ..luminaireUniqueId = json['luminaireuniqueid'] as String
-    ..swVersion = json['swversion'] as String;
+    ..swVersion = json['swversion'] as String
+    ..productName = json['productname'] as String;
 }
 
 abstract class _$LightSerializerMixin {
@@ -31,6 +32,7 @@ abstract class _$LightSerializerMixin {
   String get manufacturerName;
   String get luminaireUniqueId;
   String get swVersion;
+  String get productName;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'type': type,
@@ -40,7 +42,8 @@ abstract class _$LightSerializerMixin {
         'uniqueid': uniqueId,
         'manufacturername': manufacturerName,
         'luminaireuniqueid': luminaireUniqueId,
-        'swversion': swVersion
+        'swversion': swVersion,
+        'productname': productName
       };
 }
 
