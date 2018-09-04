@@ -1,6 +1,6 @@
 name: hue_dart
 description: A library for creating Philips Hue apps in Flutter and/or AngularDart.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/Jairzinno/hue_dart
 author: Jairzinno Henriquez <jairzinnohenriquez@gmail.com>
 
