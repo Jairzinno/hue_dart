@@ -22,8 +22,7 @@ class SensorApi {
     final sensors = <Sensor>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final sensor = new Sensor.fromJson(item);
-      sensor.id = int.parse(id);
+      final sensor = Sensor.fromJson(item, id: int.parse(id));
       sensors.add(sensor);
     }
     return sensors;
@@ -32,8 +31,7 @@ class SensorApi {
   Future<Sensor> single(String id) async {
     String url = '/api/$_username/sensors/$id';
     final response = await _client.get(url);
-    final sensor = new Sensor.fromJson(response);
-    sensor.id = int.parse(id);
+    final sensor = Sensor.fromJson(response, id: int.parse(id));
     return sensor;
   }
 
@@ -41,8 +39,7 @@ class SensorApi {
     String url = '/api/$_username/sensors';
     final response =
         await _client.post(url, sensor.toBridgeObject(action: 'create'), 'id');
-    sensor.id = int.parse(response.key);
-    return sensor;
+    return sensor.rebuild((b) => b..id = int.parse(response.key));
   }
 
   Future<BridgeResponse> search() async {

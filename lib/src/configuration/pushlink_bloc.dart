@@ -4,6 +4,7 @@ import 'package:hue_dart/src/configuration/pushlink_storage.dart';
 import 'package:hue_dart/src/core/bloc_base.dart';
 import 'package:hue_dart/src/core/bridge.dart';
 import 'package:hue_dart/src/core/bridge_discovery.dart';
+import 'package:hue_dart/src/core/discovery_result.dart';
 
 class PushlinkBloc extends BlocBase {
 

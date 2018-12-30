@@ -1,17 +1,12 @@
 import 'dart:async';
 
 import 'package:hue_dart/src/configuration/pushlink_bloc.dart';
-import 'package:hue_dart/src/configuration/pushlink_storage.dart';
-import 'package:hue_dart/src/core/bridge_discovery.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
+import 'package:hue_dart/src/core/discovery_result.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockPushlinkStorage extends Mock implements PushlinkStorage {}
-
-class MockBridgeDiscovery extends Mock implements BridgeDiscovery {}
-
-class MockDiscoveryResult extends Mock implements DiscoveryResult {}
+import 'mock.dart';
 
 void main() {
   PushlinkBloc sut;
@@ -28,13 +23,9 @@ void main() {
     when(storage.usernameExists()).thenAnswer((_) => Future.value(hasUsername));
   }
 
-  mockSaveUsername(bool username) {
-    when(storage.saveUsername(any)).thenAnswer((_) => Future.value(username));
-  }
-
   mockAutomaticBridgeResult(int amount) {
     final results = List.generate(amount, (index) {
-      return MockDiscoveryResult();
+      return DiscoveryResult();
     });
     when(bridgeDiscovery.automatic()).thenAnswer((_) {
       return Future.value(results);
@@ -43,7 +34,7 @@ void main() {
   }
 
   mockFailingAutomaticBridgeResult() {
-    final result = new BridgeException.fromDiscovery();
+    final result = BridgeException();
     when(bridgeDiscovery.automatic()).thenThrow(result);
     return result;
   }
@@ -57,7 +48,7 @@ void main() {
   }
 
   mockFailingManualBridgeResult(String ip) {
-    final result = new BridgeException.fromDiscovery(ip);
+    final result = new BridgeException();
     when(bridgeDiscovery.manual(ip)).thenThrow(result);
     return result;
   }

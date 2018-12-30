@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:hue_dart/src/configuration/configuration.dart';
 import 'package:hue_dart/src/configuration/configuration_api.dart';
+import 'package:hue_dart/src/configuration/whitelist_item.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
 import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/group/group.dart';

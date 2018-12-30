@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
-import 'package:json_annotation/json_annotation.dart';
-
-part 'bridge_discovery.g.dart';
+import 'package:hue_dart/src/core/discovery_result.dart';
 
 /// used the find bridges in the current local network
 class BridgeDiscovery {
@@ -21,11 +18,12 @@ class BridgeDiscovery {
       List responseMap = json.decode(response.body);
       final result = <DiscoveryResult>[];
       for (Map<String, dynamic> json in responseMap) {
-        result.add(new DiscoveryResult.fromJson(json));
+        result.add(DiscoveryResult.fromJson(json));
       }
       return result;
     } catch (e) {
-      throw new BridgeException.fromDiscovery();
+      print(e);
+      throw BridgeException();
     }
   }
 
@@ -34,42 +32,11 @@ class BridgeDiscovery {
     try {
       final response = await _client.get(url);
       Map responseMap = json.decode(response.body);
-      final result = new DiscoveryResult.fromJson(responseMap);
-      result.ipAddress = ipAddress;
+      final result = new DiscoveryResult.fromJson(responseMap)
+          .rebuild((b) => b..ipAddress = ipAddress);
       return result;
     } catch (e) {
-      throw new BridgeException.fromDiscovery(ipAddress);
+      throw BridgeException();
     }
-  }
-}
-
-@JsonSerializable()
-class DiscoveryResult extends Object with _$DiscoveryResultSerializerMixin {
-  @JsonKey(includeIfNull: false)
-  String id;
-
-  @JsonKey(includeIfNull: false)
-  String name;
-
-  @JsonKey(includeIfNull: false)
-  String mac;
-
-  @JsonKey(name: 'apiversion', includeIfNull: false)
-  String apiVersion;
-
-  @JsonKey(name: 'internalipaddress', includeIfNull: false)
-  String ipAddress;
-
-  @JsonKey(name: 'swversion', includeIfNull: false)
-  String swVersion;
-
-  DiscoveryResult();
-
-  factory DiscoveryResult.fromJson(Map<String, dynamic> json) =>
-      _$DiscoveryResultFromJson(json);
-
-  @override
-  String toString() {
-    return toJson().toString();
   }
 }

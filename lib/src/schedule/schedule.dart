@@ -1,12 +1,15 @@
+import 'package:built_value/built_value.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
-import 'package:hue_dart/src/schedule/alarm.dart';
-import 'package:hue_dart/src/schedule/timer.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:hue_dart/src/core/serializers.dart';
+import 'package:hue_dart/src/schedule/command.dart';
+import 'package:hue_dart/src/schedule/schedule_type.dart';
+import 'package:built_value/serializer.dart';
 
 part 'schedule.g.dart';
 
-@JsonSerializable()
-class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
+abstract class Schedule
+    with BridgeObject
+    implements Built<Schedule, ScheduleBuilder> {
   static const String absoluteTimeAlarm = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
   static const String randomizedTimeAlarm =
       "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
@@ -25,15 +28,17 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   static const String timeDivider = "T";
   static const String randomTimeDivider = "A";
 
-  @JsonKey(ignore: true)
-  String id;
+  @nullable
+  String get id;
 
   ///Name for the new schedule. If a name is not specified then the default name, “schedule”, is used.
   ///If the name is already taken a space and number will be appended by the bridge, e.g. “schedule 1”.
-  String name;
+  @nullable
+  String get name;
 
   ///Description of the new schedule. If the description is not specified it will be empty.
-  String description;
+  @nullable
+  String get description;
 
   ///Local time when the scheduled event will occur.
   ///
@@ -46,55 +51,52 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   ///Timers
   ///For a full description of the allowed time pattern formats please check the allowed time patterns.
   ///Incorrectly formatted dates will raise an error of type 7. If the time is in the past an error 7 will also be raised.
-  @JsonKey(name: 'localtime')
-  String time;
+  @BuiltValueField(wireName: 'localtime')
+  @nullable
+  String get time;
 
   ///"enabled"  Schedule is enabled
   ///"disabled"  Schedule is disabled by user.
   ///Application is only allowed to set “enabled” or “disabled”. Disabled causes a timer to reset when activated (i.e. stop & reset). “enabled” when not provided on creation.
-  String status;
+  @nullable
+  String get status;
 
   ///If set to true, the schedule will be removed automatically if expired, if set to false it will be disabled. Default is true. Only visible for non-recurring schedules.
-  @JsonKey(name: 'autodelete')
-  bool autoDelete;
+  @BuiltValueField(wireName: 'autodelete')
+  @nullable
+  bool get autoDelete;
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only on creation of resource. “false” when omitted.
-  bool recycle;
+  @nullable
+  bool get recycle;
 
-  ///Date presentation of the time for the schedule
-  @JsonKey(ignore: true)
-  DateTime date;
+  @nullable
+  Command get command;
 
-  /// value for randomized alarms
-  @JsonKey(ignore: true)
-  DateTime randomTime;
+  bool get isAlarm => _isAlarm(time);
 
-  Command command;
+  bool get isTimer => _isTimer(time);
 
-  Schedule();
-
-  Schedule.withSchedule(Schedule schedule) {
-    this.id = schedule.id;
-    this.name = schedule.name;
-    this.description = schedule.description;
-    this.time = schedule.time;
-    this.status = schedule.status;
-    this.autoDelete = schedule.autoDelete;
-    this.recycle = schedule.recycle;
-    this.command = schedule.command;
-  }
-
-  factory Schedule.fromJson(Map<String, dynamic> json) {
-    final schedule = _$ScheduleFromJson(json);
-    if (schedule._isAlarm()) {
-      return new Alarm.withSchedule(schedule);
-    } else if (schedule._isTimer()) {
-      return new Timer.withSchedule(schedule);
+  @memoized
+  ScheduleType get type {
+    if (isAlarm) {
+      return Alarm(this);
+    } else {
+      return Timer(this);
     }
-    return schedule;
   }
 
-  bool _isAlarm() {
+  static Serializer<Schedule> get serializer => _$scheduleSerializer;
+
+  Schedule._();
+
+  factory Schedule([updates(ScheduleBuilder b)]) = _$Schedule;
+
+  factory Schedule.fromJson(Map json, {String id}) {
+    return serializers.deserializeWith(Schedule.serializer, json).rebuild((b) => b..id = id);
+  }
+
+  static _isAlarm(String time) {
     return new RegExp(absoluteTimeAlarm).hasMatch(time) ||
         new RegExp(randomizedTimeAlarm).hasMatch(time) ||
         new RegExp(recurringAlarm).hasMatch(time) ||
@@ -102,7 +104,7 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
         new RegExp(timeIntervalAlarm).hasMatch(time);
   }
 
-  bool _isTimer() {
+  static _isTimer(String time) {
     return new RegExp(recurringRandomTimer).hasMatch(time) ||
         new RegExp(recurringTimer1).hasMatch(time) ||
         new RegExp(recurringTimer2).hasMatch(time) ||
@@ -111,18 +113,13 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
   }
 
   @override
-  String toString() {
-    return toJson().toString();
-  }
-
-  @override
-  toBridgeObject({String action}) {
+  Map toBridgeObject({String action}) {
     if ('create' == action) {
       return {
         'name': name,
         'description': description ?? '',
         'localtime': time,
-        'command': command,
+        'command': command.toBridgeObject(),
         'status': status ?? 'enabled',
         'autodelete': autoDelete ?? true,
         'recycle': recycle ?? false
@@ -146,35 +143,6 @@ class Schedule extends Object with _$ScheduleSerializerMixin, BridgeObject {
       }
       return body;
     }
-  }
-}
-
-@JsonSerializable()
-class Command extends Object with _$CommandSerializerMixin {
-  ///Path to a light resource, a group resource or any other bridge resource (including "/api/<username>/")
-  String address;
-
-  ///The HTTP method used to send the body to the given address. Either "POST", "PUT", "DELETE" for local addresses.
-  String method;
-
-  ///JSON string to be sent to the relevant resource.
-  Map<String, dynamic> body;
-
-  Command();
-
-  Command.forAddress(this.address, this.method, this.body);
-
-  factory Command.fromJson(Map<String, dynamic> json) =>
-      _$CommandFromJson(json);
-
-  Command.fromJsonManually(String id, Map<String, dynamic> json) {
-    address = json['address'];
-    body = json['body'];
-    method = json['method'];
-  }
-
-  @override
-  String toString() {
-    return toJson().toString();
+    return null;
   }
 }

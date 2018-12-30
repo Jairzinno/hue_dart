@@ -1,4 +1,11 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:hue_dart/src/configuration/backup.dart';
+import 'package:hue_dart/src/configuration/internet_services.dart';
+import 'package:hue_dart/src/configuration/portal_state.dart';
+import 'package:hue_dart/src/configuration/software_update.dart';
+import 'package:hue_dart/src/configuration/whitelist_item.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/core/serializers.dart';
 import 'package:hue_dart/src/group/group.dart';
 import 'package:hue_dart/src/light/light.dart';
 import 'package:hue_dart/src/resource_link/resource_link.dart';
@@ -6,415 +13,215 @@ import 'package:hue_dart/src/rule/rule.dart';
 import 'package:hue_dart/src/scene/scene.dart';
 import 'package:hue_dart/src/schedule/schedule.dart';
 import 'package:hue_dart/src/sensor/sensor.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:intl/intl.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'configuration.g.dart';
 
-@JsonSerializable()
-class Configuration extends Object
-    with _$ConfigurationSerializerMixin, BridgeObject {
-  /// Name of the bridge. This is also its uPnP name, so will reflect the actual uPnP name after any conflicts have been resolved.
-  @JsonKey(includeIfNull: false)
-  String name;
+abstract class Configuration
+    with BridgeObject
+    implements Built<Configuration, ConfigurationBuilder> {
+  @nullable
+  String get name;
 
   /// Contains information related to software updates.
-  @JsonKey(name: 'swupdate2', includeIfNull: false)
-  SoftwareUpdate softwareUpdate;
+  @nullable
+  @BuiltValueField(wireName: 'swupdate2')
+  SoftwareUpdate get softwareUpdate;
 
   /// A list of whitelisted user IDs.
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonWhitelist)
-  List<WhiteListItem> whitelist;
+  @nullable
+  BuiltMap<String, WhiteListItem> get whitelist;
 
   /// The version of the hue API in the format <major>.<minor>.<patch>, for example 1.2.1
-  @JsonKey(name: 'apiversion', includeIfNull: false)
-  String apiVersion;
+  @nullable
+  @BuiltValueField(wireName: 'apiversion')
+  String get apiVersion;
 
   /// Software version of the bridge.
-  @JsonKey(name: 'swversion', includeIfNull: false)
-  String swVersion;
+  @nullable
+  @BuiltValueField(wireName: 'swversion')
+  String get swVersion;
 
   /// IP Address of the proxy server being used. A value of “none” indicates no proxy.
-  @JsonKey(name: 'proxyaddress', includeIfNull: false)
-  String proxyAddress;
+  @nullable
+  @BuiltValueField(wireName: 'proxyaddress')
+  String get proxyAddress;
 
   /// Port of the proxy being used by the bridge. If set to 0 then a proxy is not being used.
-  @JsonKey(name: 'proxyport', includeIfNull: false)
-  int proxyPort;
+  @nullable
+  @BuiltValueField(wireName: 'proxyport')
+  int get proxyPort;
 
   /// Indicates whether the link button has been pressed within the last 30 seconds.
-  @JsonKey(name: 'linkbutton', includeIfNull: false)
-  bool linkButton;
+  @nullable
+  @BuiltValueField(wireName: 'linkbutton')
+  bool get linkButton;
 
   /// IP address of the bridge.
-  @JsonKey(name: 'ipaddress', includeIfNull: false)
-  String ipAddress;
+  @nullable
+  @BuiltValueField(wireName: 'ipaddress')
+  String get ipAddress;
 
   /// MAC address of the bridge.
-  @JsonKey(includeIfNull: false)
-  String mac;
+  @nullable
+  String get mac;
 
   /// Network mask of the bridge.
-  @JsonKey(name: 'netmask', includeIfNull: false)
-  String netMask;
+  @nullable
+  @BuiltValueField(wireName: 'netmask')
+  String get netMask;
 
   /// Gateway IP address of the bridge.
-  @JsonKey(includeIfNull: false)
-  String gateway;
+  @nullable
+  String get gateway;
 
   /// Whether the IP address of the bridge is obtained with DHCP.
-  @JsonKey(includeIfNull: false)
-  bool dhcp;
+  @nullable
+  bool get dhcp;
 
   /// This indicates whether the bridge is registered to synchronize data with a portal account.
-  @JsonKey(name: 'portalservices', includeIfNull: false)
-  bool portalServices;
+  @nullable
+  @BuiltValueField(wireName: 'portalservices')
+  bool get portalServices;
 
-  @JsonKey(name: 'portalstate', includeIfNull: false)
-  PortalState portalState;
+  @nullable
+  @BuiltValueField(wireName: 'portalstate')
+  PortalState get portalState;
 
-  @JsonKey(name: 'portalconnection', includeIfNull: false)
-  String portalConnection;
+  @nullable
+  @BuiltValueField(wireName: 'portalconnection')
+  String get portalConnection;
 
   /// Current time stored on the bridge.
-  @JsonKey(name: 'UTC', includeIfNull: false)
-  String utc;
+  @nullable
+  @BuiltValueField(wireName: 'UTC')
+  String get utc;
 
+  @memoized
   DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
 
-  /// The local time of the bridge. "none" if not available.
-  @JsonKey(name: 'localtime', includeIfNull: false)
-  String localTime;
+  // DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
 
+  /// The local time of the bridge. "none" if not available.
+  @nullable
+  @BuiltValueField(wireName: 'localtime')
+  String get localTime;
+
+  @memoized
   DateTime get localTimeDate =>
       new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
 
   /// Timezone of the bridge as OlsenIDs, like "Europe/Amsterdam" or "none" when not configured.
-  @JsonKey(name: 'timezone', includeIfNull: false)
-  String timeZone;
+  @nullable
+  @BuiltValueField(wireName: 'timezone')
+  String get timeZone;
 
   /// The current wireless frequency channel used by the bridge. It can take values of 11, 15, 20,25 or 0 if undefined (factory new).
-  @JsonKey(name: 'zigbeechannel', includeIfNull: false)
-  int zigbeeChannel;
+  @nullable
+  @BuiltValueField(wireName: 'zigbeechannel')
+  int get zigbeeChannel;
 
   /// This parameter uniquely identifies the hardware model of the bridge (BSB001, BSB002).
-  @JsonKey(name: 'modelid', includeIfNull: false)
-  String modelId;
+  @nullable
+  @BuiltValueField(wireName: 'modelid')
+  String get modelId;
 
   /// The unique bridge id. This is currently generated from the bridge Ethernet mac address.
-  @JsonKey(name: 'bridgeid', includeIfNull: false)
-  String bridgeId;
+  @nullable
+  @BuiltValueField(wireName: 'bridgeid')
+  String get bridgeId;
 
   /// Indicates if bridge settings are factory new.
-  @JsonKey(name: 'factorynew', includeIfNull: false)
-  bool factoryNew;
+  @nullable
+  @BuiltValueField(wireName: 'factorynew')
+  bool get factoryNew;
 
   /// If a bridge backup file has been restored on this bridge from a bridge with a different bridgeid, it will indicate that bridge id, otherwise it will be null.
-  @JsonKey(name: 'replacesbridgeid', includeIfNull: false)
-  String replacesBridgeId;
+  @nullable
+  @BuiltValueField(wireName: 'replacesbridgeid')
+  String get replacesBridgeId;
 
   /// As of 1.9. Perform a touchlink action if set to true, setting to false is ignored.
   ///
   /// When set to true a touchlink procedure starts which adds the closest lamp (within range) to the ZigBee network.
   /// You can then search for new lights and lamp will show up in the bridge.
   ///  This field is Write-Only so it is not visible when retrieving the bridge Config JSON.
-  @JsonKey(name: 'touchlink', includeIfNull: false)
-  bool touchLink;
+  @nullable
+  @BuiltValueField(wireName: 'touchlink')
+  bool get touchLink;
 
-  @JsonKey(name: 'datastoreversion', includeIfNull: false)
-  String dataStoreVersion;
+  @nullable
+  @BuiltValueField(wireName: 'datastoreversion')
+  String get dataStoreVersion;
 
-  @JsonKey(name: 'internetservices', includeIfNull: false)
-  InternetServices internetServices;
+  @nullable
+  @BuiltValueField(wireName: 'internetservices')
+  InternetServices get internetServices;
 
-  @JsonKey(includeIfNull: false)
-  Backup backup;
+  @nullable
+  BackUp get backup;
 
-  @JsonKey(name: 'starterkitid', includeIfNull: false)
-  String starterKitId;
+  @nullable
+  @BuiltValueField(wireName: 'starterkitid')
+  String get starterKitId;
 
-  @JsonKey(
-      name: 'config', includeIfNull: false, fromJson: _mapFromJsonConfiguration)
-  Configuration configuration;
+  @nullable
+  @BuiltValueField(wireName: 'config')
+  Configuration get configuration;
 
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonLights)
-  List<Light> lights;
+  @nullable
+  BuiltMap<String, Light> get lights;
 
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonGroups)
-  List<Group> groups;
+  @nullable
+  BuiltMap<String, Group> get groups;
 
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonScenes)
-  List<Scene> scenes;
+  @nullable
+  BuiltMap<String, Scene> get scenes;
 
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonSchedules)
-  List<Schedule> schedules;
+  @nullable
+  BuiltMap<String, Schedule> get schedules;
 
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonSensors)
-  List<Sensor> sensors;
+  @nullable
+  BuiltMap<String, Sensor> get sensors;
 
-  @JsonKey(includeIfNull: false, fromJson: _mapFromJsonRules)
-  List<Rule> rules;
+  @nullable
+  BuiltMap<String, Rule> get rules;
 
-  @JsonKey(
-      name: 'resourcelinks',
-      includeIfNull: false,
-      fromJson: _mapFromJsonResourceLinks)
-  List<ResourceLink> resourceLinks;
+  @nullable
+  @BuiltValueField(wireName: 'resourcelinks')
+  BuiltMap<String, ResourceLink> get resourceLinks;
 
-  Configuration();
+  static Serializer<Configuration> get serializer => _$configurationSerializer;
 
-  static Configuration fromJson(Map<String, dynamic> json) =>
-      _$ConfigurationFromJson(json);
+  Configuration._();
 
-  @override
-  String toString() {
-    return toJson().toString();
+  factory Configuration([updates(ConfigurationBuilder b)]) = _$Configuration;
+
+  factory Configuration.fromJson(Map json) {
+    return serializers.deserializeWith(Configuration.serializer, json);
   }
 
   @override
-  Configuration toBridgeObject({String action}) {
-    var configuration = new Configuration();
-    configuration.proxyPort = proxyPort;
-    configuration.name = name;
-    configuration.proxyAddress = proxyAddress;
-    configuration.linkButton = linkButton;
-    configuration.ipAddress = ipAddress;
-    configuration.netMask = netMask;
-    configuration.gateway = gateway;
-    configuration.dhcp = dhcp;
-    configuration.utc = utc;
-    configuration.timeZone = timeZone;
-    configuration.touchLink = touchLink;
-    configuration.zigbeeChannel = zigbeeChannel;
-    return configuration;
+  Map toBridgeObject({String action}) {
+    return serializers.serializeWith(
+      Configuration.serializer,
+      this.rebuild(
+        (c) => c
+          ..proxyPort = proxyPort
+          ..name = name
+          ..proxyAddress = proxyAddress
+          ..linkButton = linkButton
+          ..ipAddress = ipAddress
+          ..netMask = netMask
+          ..gateway = gateway
+          ..dhcp = dhcp
+          ..utc = utc
+          ..timeZone = timeZone
+          ..touchLink = touchLink
+          ..zigbeeChannel = zigbeeChannel,
+      ),
+    );
   }
-}
-
-@JsonSerializable()
-class WhiteListItem extends Object with _$WhiteListItemSerializerMixin {
-  String username;
-  String lastUsedDate;
-  DateTime get lastUsed =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
-  String createDate;
-  DateTime get created =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
-  String name;
-
-  WhiteListItem();
-
-  factory WhiteListItem.fromJson(Map<String, dynamic> json) =>
-      _$WhiteListItemFromJson(json);
-
-  WhiteListItem.fromJsonManually(String id, Map<String, dynamic> json) {
-    this.username = id;
-    name = json['name'];
-    lastUsedDate = json['last use date'];
-    createDate = json['create date'];
-  }
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-class PortalState extends Object with _$PortalStateSerializerMixin {
-  String communication;
-  bool incoming;
-  bool outgoing;
-
-  @JsonKey(name: 'signedon')
-  bool signedOn;
-
-  PortalState();
-
-  factory PortalState.fromJson(Map<String, dynamic> json) =>
-      _$PortalStateFromJson(json);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-class SoftwareUpdate extends Object with _$SoftwareUpdateSerializerMixin {
-  /// Setting this flag to true lets the bridge search for software updates in the portal.
-  ///
-  /// After the search attempt, this flag is set back to false.
-  /// Requires portal connection to update server.
-  /// See software update for more information.
-
-  @JsonKey(name: 'checkforupdate', includeIfNull: false)
-  bool checkForUpdate;
-
-  @JsonKey(name: 'lastchange', includeIfNull: false)
-  String lastChange;
-
-  @JsonKey(includeIfNull: false)
-  String state;
-
-  @JsonKey(includeIfNull: false)
-  SoftwareUpdateBridge bridge;
-
-  @JsonKey(name: 'autoinstall', includeIfNull: false)
-  AutoInstall autoInstall;
-
-  SoftwareUpdate();
-
-  factory SoftwareUpdate.fromJson(Map<String, dynamic> json) =>
-      _$SoftwareUpdateFromJson(json);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-class SoftwareUpdateBridge extends Object
-    with _$SoftwareUpdateBridgeSerializerMixin {
-  String state;
-
-  @JsonKey(name: 'lastinstall')
-  String lastInstall;
-
-  DateTime get lastInstallDate =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastInstall);
-
-  SoftwareUpdateBridge();
-
-  factory SoftwareUpdateBridge.fromJson(Map<String, dynamic> json) =>
-      _$SoftwareUpdateBridgeFromJson(json);
-}
-
-@JsonSerializable()
-class AutoInstall extends Object with _$AutoInstallSerializerMixin {
-  bool on;
-
-  @JsonKey(name: 'updatetime')
-  String updateTime;
-
-  DateTime get updateDate => new DateFormat("'T'HH:m:s").parse(updateTime);
-
-  AutoInstall();
-
-  factory AutoInstall.fromJson(Map<String, dynamic> json) =>
-      _$AutoInstallFromJson(json);
-}
-
-@JsonSerializable()
-class InternetServices extends Object with _$InternetServicesSerializerMixin {
-  String internet;
-
-  @JsonKey(name: 'remoteaccess')
-  String remoteAccess;
-
-  String time;
-  @JsonKey(name: 'swupdate')
-  String swUpdate;
-
-  InternetServices();
-
-  factory InternetServices.fromJson(Map<String, dynamic> json) =>
-      _$InternetServicesFromJson(json);
-}
-
-@JsonSerializable()
-class Backup extends Object with _$BackupSerializerMixin {
-  String status;
-
-  @JsonKey(name: 'errorcode')
-  int errorCode;
-
-  Backup();
-
-  factory Backup.fromJson(Map<String, dynamic> json) => _$BackupFromJson(json);
-}
-
-Configuration _mapFromJsonConfiguration(dynamic json) {
-  var source = json as Map<String, dynamic>;
-  return _$ConfigurationFromJson(source);
-}
-
-List<WhiteListItem> _mapFromJsonWhitelist(dynamic whiteList) {
-  var source = whiteList as Map<String, dynamic>;
-  var result = <WhiteListItem>[];
-  for (String key in source.keys) {
-    var item = new WhiteListItem.fromJsonManually(key, source[key]);
-    result.add(item);
-  }
-  return result;
-}
-
-List<Light> _mapFromJsonLights(dynamic lights) {
-  var source = lights as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    final item = new Light.fromJson(source[id]);
-    item.id = int.parse(id);
-    return item;
-  }).toList();
-  return result;
-}
-
-List<Group> _mapFromJsonGroups(dynamic groups) {
-  var source = groups as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    final item = new Group.fromJson(source[id]);
-    item.id = int.parse(id);
-    return item;
-  }).toList();
-  return result;
-}
-
-List<Schedule> _mapFromJsonSchedules(dynamic schedules) {
-  var source = schedules as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    final item = new Schedule.fromJson(source[id]);
-    item.id = id;
-    return item;
-  }).toList();
-  return result;
-}
-
-List<Scene> _mapFromJsonScenes(dynamic scenes) {
-  var source = scenes as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    final item = new Scene.fromJson(source[id]);
-    item.id = id;
-    return item;
-  }).toList();
-  return result;
-}
-
-List<Rule> _mapFromJsonRules(dynamic rules) {
-  var source = rules as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    final item = new Rule.fromJson(source[id]);
-    item.id = int.parse(id);
-    return item;
-  }).toList();
-  return result;
-}
-
-List<Sensor> _mapFromJsonSensors(dynamic sensors) {
-  var source = sensors as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    Sensor item = new Sensor.fromJson(source[id]);
-    item.id = int.parse(id);
-    return item;
-  }).toList();
-  return result;
-}
-
-List<ResourceLink> _mapFromJsonResourceLinks(dynamic resourceLinks) {
-  var source = resourceLinks as Map<String, dynamic>;
-  var result = source.keys.map((String id) {
-    var item = new ResourceLink.fromJson(source[id]);
-    item.id = id;
-    return item;
-  }).toList();
-  return result;
 }

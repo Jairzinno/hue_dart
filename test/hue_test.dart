@@ -1,10 +1,16 @@
 import 'dart:async' hide Timer;
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:http/http.dart';
 import 'package:hue_dart/hue_dart.dart';
-import 'package:hue_dart/src/schedule/alarm.dart';
-import 'package:hue_dart/src/schedule/timer.dart';
+import 'package:hue_dart/src/group/action.dart';
+import 'package:hue_dart/src/light/light_state.dart';
+import 'package:hue_dart/src/rule/condition.dart';
+import 'package:hue_dart/src/rule/rule_action.dart';
+import 'package:hue_dart/src/schedule/command.dart';
+import 'package:hue_dart/src/schedule/schedule_type.dart';
+import 'package:hue_dart/src/sensor/sensor_config.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -51,6 +57,7 @@ void main() {
     expect(date.second, second);
   }
 
+  group('hue tests', () {
   group('discovery bridges', () {
     test('automatic discovery returns single result', () async {
       BridgeDiscovery bridgeDiscovery = new BridgeDiscovery(client);
@@ -77,7 +84,6 @@ void main() {
         await bridgeDiscovery.automatic();
       } catch (e) {
         expect(e, isNotNull);
-        expect(e.type, -1);
       }
     });
   });
@@ -103,10 +109,10 @@ void main() {
     test('update configuration', () async {
       mockPut(
           '[{"success":{"/config/ipaddress":"192.168.1.3"}}, {"success":{"/config/netmask":"255.255.255.0"}}, {"success":{"/config/dhcp": false}}]');
-      final configuration = new Configuration();
-      configuration.ipAddress = '192.168.1.3';
-      configuration.netMask = '255.255.255.0';
-      configuration.dhcp = false;
+      final configuration = new Configuration((b) => b
+        ..ipAddress = '192.168.1.3'
+        ..netMask = '255.255.255.0'
+        ..dhcp = false);
       final response = await sut.updateConfiguration(configuration);
       expect(response.success.length, 3);
       final body = {
@@ -123,34 +129,34 @@ void main() {
       final fullConfig = await sut.completeConfiguration();
       verify(client.get('http://127.0.0.1/api/username'));
       expect(fullConfig.groups.length, 3);
-      expect(fullConfig.groups.first.id, 1);
-      expect(fullConfig.groups.first.name, 'Room 2');
+      expect(fullConfig.groups.keys.first, 1.toString());
+      expect(fullConfig.groups.values.first.name, 'Room 2');
       expect(fullConfig.lights.length, 3);
-      expect(fullConfig.lights.first.id, 1);
-      expect(fullConfig.lights.first.state.on, false);
-      expect(fullConfig.lights.first.state.brightness, 56);
+      expect(fullConfig.lights.keys.first, 1.toString());
+      expect(fullConfig.lights.values.first.state.on, false);
+      expect(fullConfig.lights.values.first.state.brightness, 56);
       expect(fullConfig.resourceLinks.length, 3);
-      expect(fullConfig.resourceLinks.first.id, '9910');
-      expect(fullConfig.resourceLinks.first.name, 'Tap toggle (2)');
-      expect(fullConfig.resourceLinks.first.classId, 2);
+      expect(fullConfig.resourceLinks.keys.first, '9910');
+      expect(fullConfig.resourceLinks.values.first.name, 'Tap toggle (2)');
+      expect(fullConfig.resourceLinks.values.first.classId, 2);
       expect(fullConfig.rules.length, 3);
-      expect(fullConfig.rules.first.id, 1);
-      expect(fullConfig.rules.first.name, '1:huelabs/tap-toggle');
-      expect(fullConfig.rules.first.conditions.first.address,
+      expect(fullConfig.rules.keys.first, 1.toString());
+      expect(fullConfig.rules.values.first.name, '1:huelabs/tap-toggle');
+      expect(fullConfig.rules.values.first.conditions.first.address,
           '/sensors/2/state/buttonevent');
       expect(fullConfig.scenes.length, 3);
-      expect(fullConfig.scenes.first.id, '497b50d84-on-0');
-      expect(fullConfig.scenes.first.name, 'Sunset on 0');
-      expect(fullConfig.scenes.first.lights.length, 3);
+      expect(fullConfig.scenes.keys.first, '497b50d84-on-0');
+      expect(fullConfig.scenes.values.first.name, 'Sunset on 0');
+      expect(fullConfig.scenes.values.first.lightIds.length, 3);
       expect(fullConfig.schedules.length, 3);
-      expect(fullConfig.schedules.first.id, '4180398747470589');
-      expect(fullConfig.schedules.first.name, 'Running');
-      expect(fullConfig.schedules.first.command.address,
+      expect(fullConfig.schedules.keys.first, '4180398747470589');
+      expect(fullConfig.schedules.values.first.name, 'Running');
+      expect(fullConfig.schedules.values.first.command.address,
           '/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action');
       expect(fullConfig.sensors.length, 3);
-      expect(fullConfig.sensors.first.id, 1);
-      expect(fullConfig.sensors.first.name, 'Daylight');
-      expect(fullConfig.sensors.first.config.on, true);
+      expect(fullConfig.sensors.keys.first, 1.toString());
+      expect(fullConfig.sensors.values.first.name, 'Daylight');
+      expect(fullConfig.sensors.values.first.config.on, true);
     });
 
     test('get config', () async {
@@ -203,15 +209,15 @@ void main() {
       expect(configuration.replacesBridgeId, null);
       expect(configuration.starterKitId, '');
       expect(configuration.whitelist.length, 3);
-      expect(configuration.whitelist.first.username,
+      expect(configuration.whitelist.keys.first,
           '688a789c0bd6442e48969b1d945920');
-      expect(configuration.whitelist.first.lastUsedDate, '2016-07-10T19:47:00');
+      expect(configuration.whitelist.values.first.lastUsedDate, '2016-07-10T19:47:00');
       expectDate(
-          configuration.whitelist.first.lastUsed, 2016, 7, 10, 19, 47, 00);
-      expect(configuration.whitelist.first.createDate, '2016-07-10T19:47:00');
+          configuration.whitelist.values.first.lastUsed, 2016, 7, 10, 19, 47, 00);
+      expect(configuration.whitelist.values.first.createDate, '2016-07-10T19:47:00');
       expectDate(
-          configuration.whitelist.first.created, 2016, 7, 10, 19, 47, 00);
-      expect(configuration.whitelist.first.name, 'my_hue_app#test');
+          configuration.whitelist.values.first.created, 2016, 7, 10, 19, 47, 00);
+      expect(configuration.whitelist.values.first.name, 'my_hue_app#test');
     });
   });
 
@@ -248,15 +254,18 @@ void main() {
 
     test('create group', () async {
       mockPost('[{"success":{"id":"1"}}]');
-      final group = new Group.namedWithLights(
-          'Room 2', [new Light.withId('1'), new Light.withId('2')]);
+      final group = Group((b) => b
+        ..name = 'Room 2'
+        ..className = 'Other'
+        ..type = 'Room'
+        ..lightIds = ListBuilder(['1', '2']));
       final response = await sut.createGroup(group);
       expect(response.id, 1);
       final body = {
         'name': 'Room 2',
         'class': 'Other',
         'type': 'Room',
-        'lights': ['1', '2']
+        'lights': ["1", "2"]
       };
       verify(client.post('http://127.0.0.1/api/username/groups',
           body: json.encode(body)));
@@ -265,10 +274,12 @@ void main() {
     test('update group attributes', () async {
       mockPut(
           '[{"success":{"/groups/1/lights":["1"]}},{"success":{"/groups/1/name":"Kitchen"}}]');
-      final group =
-          new Group.namedWithLights('Room 2', [new Light.withId('1')]);
-      group.id = 1;
-      group.className = 'Kitchen';
+      final group = Group((b) => b
+        ..id = 1
+        ..name = 'Room 2'
+        ..lightIds = ListBuilder(['1'])
+        ..className = 'Kitchen');
+
       final response = await sut.updateGroupAttributes(group);
       expect(response.success.length, 2);
       final body = {
@@ -283,12 +294,19 @@ void main() {
     test('update group state', () async {
       mockPut(
           '[{"success":{ "address": "/groups/1/action/on", "value": true}},{"success":{ "address": "/groups/1/action/effect", "value":"colorloop"}},{"success":{ "address": "/groups/1/action/hue", "value":6000}}]');
-      final group =
-          new Group.namedWithLights('Room 2', [new Light.withId('1')]);
-      group.id = 1;
-      group.action.on = true;
-      group.action.hue = 2000;
-      group.action.effect = 'colorloop';
+      final group = Group(
+        (b) => b
+          ..id = 1
+          ..name = 'Room 2'
+          ..lightIds = ListBuilder(['1'])
+          ..action.replace(
+            Action((b) => b
+              ..on = true
+              ..hue = 2000
+              ..effect = 'colorloop'),
+          ),
+      );
+
       final response = await sut.updateGroupState(group);
       expect(response.success.length, 3);
       final body = {'on': true, 'hue': 2000, 'effect': 'colorloop'};
@@ -298,9 +316,15 @@ void main() {
 
     test('delete group', () async {
       mockDelete('[{"success":"/groups/1 deleted"}]');
-      final group =
-          new Group.namedWithLights('Room 2', [new Light.withId('1')]);
-      group.id = 1;
+      final group = Group(
+        (b) => b
+          ..id = 1
+          ..name = 'Room 2'
+          ..lightIds = ListBuilder(
+            ['1'],
+          ),
+      );
+
       final response = await sut.deleteGroup(group);
       verify(client.delete('http://127.0.0.1/api/username/groups/1'));
       expect(response.success.length, 1);
@@ -345,9 +369,9 @@ void main() {
         mockGet(
             singleLightModelIdPlaceholder.replaceFirst('<model_id>', modelId));
         final light = await sut.light(1);
-        expect(light.modelId, modelId);
-        expect(light.runtimeType.toString(), runtimeType);
-        expect(light.productName, productName);
+        expect(light.model.modelId, modelId);
+        expect(light.model.runtimeType.toString(), runtimeType);
+        expect(light.model.productName, productName);
       }
 
       List<Map<String, String>> models = [
@@ -415,16 +439,18 @@ void main() {
     test('calling attributes() expects a map with state', () async {
       mockPut(
           '[{"success":{"/lights/1/state/xy":[0.168,0.041]}},{"success":{"/lights/1/state/ct":0}},{"success":{"/lights/1/state/alert":"none"}},{"success":{"/lights/1/state/sat":254}},{"success":{"/lights/1/state/effect":"none"}},{"success":{"/lights/1/state/bri":10}},{"success":{"/lights/1/state/hue":4444}},{"error":{"address":"/lights/1/state/colormode","description":"parameter, colormode, not available","type":6}},{"success":{"/lights/1/state/on":true}}]');
-      final light = new Light.withId('1');
-      light.state.on = true;
-      light.state.xy = [0.168, 0.041];
-      light.state.ct = 0;
-      light.state.brightness = 10;
-      light.state.alert = 'none';
-      light.state.effect = 'none';
-      light.state.saturation = 254;
-      light.state.hue = 4444;
-      light.state.colorMode = 'ct';
+      final light = Light((b) => b
+        ..id = 1
+        ..state.replace(LightState((b) => b
+          ..on = true
+          ..xy = ListBuilder([0.168, 0.041])
+          ..ct = 0
+          ..brightness = 10
+          ..alert = 'none'
+          ..effect = 'none'
+          ..saturation = 254
+          ..hue = 4444
+          ..colorMode = 'ct')));
       final result = await sut.updateLightState(light);
       expect(result.success.length, 8);
       expect(result.errors.length, 1);
@@ -433,10 +459,11 @@ void main() {
         'bri': 10,
         'hue': 4444,
         'sat': 254,
-        'effect': 'none',
         'xy': [0.168, 0.041],
         'ct': 0,
-        'alert': 'none'
+        'alert': 'none',
+        'effect': 'none',
+        'colormode' : 'ct'
       };
       verify(client.put('http://127.0.0.1/api/username/lights/1/state',
           body: json.encode(body)));
@@ -444,8 +471,9 @@ void main() {
 
     test('calling state() expects a map with name', () async {
       mockPut('[{"success":{"/lights/1/name":"test name"}}]');
-      final light = new Light.withId('1');
-      light.name = 'test name';
+      final light = Light((b) => b
+        ..id = 1
+        ..name = 'test name');
       final result = await sut.renameLight(light);
       expect(result.success.length, 1);
       expect(result.errors.length, 0);
@@ -457,9 +485,9 @@ void main() {
     test('change color of light with color mode ct', () async {
       mockGet(
           singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'ct'));
-      final light = await sut.light(1);
+      var light = await sut.light(1);
       expect(light.state.colorMode, 'ct');
-      light.changeColor(
+      light = light.changeColor(
           red: 0.8796791443850267,
           green: 0.8398430992614165,
           blue: 0.711241233501953);
@@ -469,9 +497,9 @@ void main() {
     test('change color of light with color mode hs', () async {
       mockGet(
           singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'hs'));
-      final light = await sut.light(1);
+      var light = await sut.light(1);
       expect(light.state.colorMode, 'hs');
-      light.changeColor(
+      light = light.changeColor(
           red: 0.8796791443850267,
           green: 0.8398430992614165,
           blue: 0.711241233501953);
@@ -483,9 +511,9 @@ void main() {
     test('change color of light with color mode xy', () async {
       mockGet(
           singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'xy'));
-      final light = await sut.light(1);
+      var light = await sut.light(1);
       expect(light.state.colorMode, 'xy');
-      light.changeColor(red: 1.0, blue: 1.0, green: 1.0);
+      light = light.changeColor(red: 1.0, blue: 1.0, green: 1.0);
       expect(light.state.xy, [0.32272672086556803, 0.32902290955907926]);
     });
 
@@ -494,7 +522,7 @@ void main() {
           singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'ct'));
       final light = await sut.light(1);
       expect(light.state.colorMode, 'ct');
-      final colors = light.colors();
+      final colors = light.colors;
 
       expect(colors.temperature, 2732);
       expect(colors.ct, 366);
@@ -513,7 +541,7 @@ void main() {
           singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'hs'));
       final light = await sut.light(1);
       expect(light.state.colorMode, 'hs');
-      final colors = light.colors();
+      final colors = light.colors;
 
       expect(colors.hue, 48420);
       expect(colors.saturation, 254);
@@ -532,7 +560,7 @@ void main() {
           singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'xy'));
       final light = await sut.light(1);
       expect(light.state.colorMode, 'xy');
-      final colors = light.colors();
+      final colors = light.colors;
 
       expect(colors.xy[0], 0.4575);
       expect(colors.xy[1], 0.4101);
@@ -580,7 +608,7 @@ void main() {
 
     test('delete light', () async {
       mockDelete('[{"success":"/lights/1 deleted"}]');
-      final light = new Light.withId('1');
+      final light = Light((b) => b..id = 1);
       final response = await sut.deleteLight(light);
       verify(client.delete('http://127.0.0.1/api/username/lights/1'));
       expect(response.success.length, 1);
@@ -614,19 +642,19 @@ void main() {
 
     test('create resourcelink', () async {
       mockPost('[{"success":{"id":"1"}}]');
-      final resourceLink = new ResourceLink();
-      resourceLink.name = 'Sunrise';
-      resourceLink.description = "Carla's wakeup experience";
-      resourceLink.type = 'Link';
-      resourceLink.classId = 1;
-      resourceLink.owner = '78H56B12BAABCDEF';
-      resourceLink.links = [
-        "/schedules/2",
-        "/schedules/3",
-        "/scenes/ABCD",
-        "/scenes/EFGH",
-        "/groups/8"
-      ];
+      final resourceLink = ResourceLink((b) => b
+        ..name = 'Sunrise'
+        ..description = "Carla's wakeup experience"
+        ..type = 'Link'
+        ..classId = 1
+        ..owner = '78H56B12BAABCDEF'
+        ..links = ListBuilder([
+          "/schedules/2",
+          "/schedules/3",
+          "/scenes/ABCD",
+          "/scenes/EFGH",
+          "/groups/8"
+        ]));
       final response = await sut.createResourceLink(resourceLink);
       expect(response.id, '1');
       final body = {
@@ -650,10 +678,10 @@ void main() {
     test('update resourcelink', () async {
       mockPut(
           """[{"success": {"/resourcelinks/1/name": "New Sunrise"}},{"success": {"/resourcelinks/1/description": "Some new wakeup experience"}}]""");
-      final resourceLink = new ResourceLink();
-      resourceLink.id = '1234';
-      resourceLink.name = 'New Sunrise';
-      resourceLink.description = 'Some new wakeup experience';
+      final resourceLink = ResourceLink((b) => b
+        ..id = '1234'
+        ..name = 'New Sunrise'
+        ..description = 'Some new wakeup experience');
       final response = await sut.updateResourceLink(resourceLink);
       expect(response.success.length, 2);
       final body = {
@@ -666,8 +694,7 @@ void main() {
 
     test('delete resourcelink', () async {
       mockDelete('[{"success":"/resourcelinks/12345 deleted"}]');
-      final resourceLink = new ResourceLink();
-      resourceLink.id = '12345';
+      final resourceLink = ResourceLink((b) => b..id = '12345');
       final response = await sut.deleteResourceLink(resourceLink);
       expect(response.success.length, 1);
       verify(
@@ -701,16 +728,20 @@ void main() {
 
     test('create rule', () async {
       mockPost('[{"success":{"id":"1"}}]');
-      final rule = new Rule();
-      rule.name = 'Wall Switch';
-      RuleAction action =
-          new RuleAction.forAddress('/groups/0/action', 'PUT', {'scene': 'S3'});
-      Condition condition =
-          new Condition.forAddress('/sensors/2/state/buttonevent', 'eq', '16');
-      rule.actions = [];
-      rule.actions.add(action);
-      rule.conditions = [];
-      rule.conditions.add(condition);
+      final rule = Rule((b) => b
+        ..name = 'Wall Switch'
+        ..actions = ListBuilder([
+          RuleAction((b) => b
+            ..address = '/groups/0/action'
+            ..method = 'PUT'
+            ..body = MapBuilder<String, String>({'scene': 'S3'}))
+        ])
+        ..conditions = ListBuilder([
+          Condition((b) => b
+            ..address = '/sensors/2/state/buttonevent'
+            ..operator = 'eq'
+            ..value = '16')
+        ]));
       final response = await sut.createRule(rule);
       expect(response.id, 1);
       final body = {
@@ -737,13 +768,16 @@ void main() {
     test('update rule', () async {
       mockPut(
           """[{"success": {"/rules/1/actions": [{"address": "/groups/0/action", "method": "PUT", "body": { "scene": "S3"}}]}}]""");
-      final rule = new Rule();
-      rule.id = 1;
-      rule.name = 'New Wall Switch';
-      RuleAction action =
-          new RuleAction.forAddress('/groups/0/action', 'PUT', {'scene': 'S3'});
-      rule.actions = [];
-      rule.actions.add(action);
+      final rule = Rule((b) => b
+        ..id = 1
+        ..name = 'New Wall Switch'
+        ..actions = ListBuilder([
+          RuleAction((b) => b
+            ..address = '/groups/0/action'
+            ..method = 'PUT'
+            ..body = MapBuilder<String, String>({'scene': 'S3'}))
+        ]));
+
       final response = await sut.updateRule(rule);
       expect(response.success.length, 1);
       final body = {
@@ -762,8 +796,7 @@ void main() {
 
     test('delete rule', () async {
       mockDelete('[{"success":"/rules/1 deleted"}]');
-      final rule = new Rule();
-      rule.id = 1;
+      final rule = Rule((b) => b..id = 1);
       final response = await sut.deleteRule(rule);
       expect(response.success.length, 1);
       verify(client.delete('http://127.0.0.1/api/username/rules/1'));
@@ -782,7 +815,7 @@ void main() {
       mockGet(singleScene);
       final scene = await sut.scene('42YARQOHMNIPia6');
       expect(scene.name, 'Relax');
-      expect(scene.lights.length, 2);
+      expect(scene.lightIds.length, 2);
       expect(scene.owner, 'MUSAY5n2PtInw1x3N0mqHEwt6eOBhQqaEucmqvgc');
       expect(scene.recycle, false);
       expect(scene.locked, false);
@@ -798,9 +831,9 @@ void main() {
 
     test('create scene', () async {
       mockPost('[{"success":{"id":"42YARQOHMNIPia6"}}]');
-      final scene = new Scene();
-      scene.name = 'Amazing Scene';
-      scene.lights = [new Light.withId('1'), new Light.withId('2')];
+      final scene = Scene((b) => b
+        ..name = 'Amazing Scene'
+        ..lightIds = ListBuilder(['1', '2']));
 
       final response = await sut.createScene(scene);
       expect(response.id, '42YARQOHMNIPia6');
@@ -816,10 +849,10 @@ void main() {
     test('update scene attributes', () async {
       mockPut(
           '[{"success":{"/scenes/42YARQOHMNIPia6":["1", "2"]}},{"success":{"/scenes/42YARQOHMNIPia6/name":"New Scene"}}]');
-      final scene = new Scene();
-      scene.id = '42YARQOHMNIPia6';
-      scene.name = 'New Scene';
-      scene.lights = [new Light.withId('1'), new Light.withId('2')];
+      final scene = Scene((b) => b
+        ..id = '42YARQOHMNIPia6'
+        ..name = 'New Scene'
+        ..lightIds = ListBuilder(['1', '2']));
 
       final response = await sut.updateSceneAttributes(scene);
       expect(response.success.length, 2);
@@ -834,13 +867,19 @@ void main() {
     test('update scene light state', () async {
       mockPut(
           '[{"success":{"address":"/scenes/ab341ef24/lights/1/state/on", "value":true}},{"success":{"address":"/scenes/ab341ef24/lights/1/state/hue", "value":144}}, {"success":{"address":"/scenes/ab341ef24/lights/1/state/effect", "value":"none"}}]');
-      final scene = new Scene();
-      scene.id = '42YARQOHMNIPia6';
-
-      final light = new Light.withId('1');
-      light.state.on = true;
-      light.state.hue = 144;
-      light.state.effect = 'none';
+      final light = Light(
+        (b) => b
+          ..id = 1
+          ..state.replace(
+            LightState((b) => b
+              ..on = true
+              ..hue = 144
+              ..effect = 'none'),
+          ),
+      );
+      final scene = Scene((b) => b
+        ..id = '42YARQOHMNIPia6'
+        ..lights = ListBuilder([light]));
 
       final response = await sut.updateSceneLightState(scene, light);
       expect(response.success.length, 3);
@@ -852,8 +891,7 @@ void main() {
 
     test('delete scene', () async {
       mockDelete('[{"success":"/scenes/42YARQOHMNIPia6 deleted"}]');
-      final scene = new Scene();
-      scene.id = '42YARQOHMNIPia6';
+      final scene = Scene((b) => b..id = '42YARQOHMNIPia6');
       final response = await sut.deleteScene(scene);
       expect(response.success.length, 1);
       verify(client
@@ -869,8 +907,8 @@ void main() {
       verify(client.get('http://127.0.0.1/api/username/schedules'));
       var schedule = response[0];
       //absolute alarm
-      expect(schedule.runtimeType.toString(), 'Alarm');
-      var alarm = schedule as Alarm;
+      expect(schedule.type.runtimeType.toString(), 'Alarm');
+      var alarm = schedule.type as Alarm;
       expectDate(alarm.date, 2018, 7, 15, 5, 30, 0);
       expect(alarm.randomTime, isNull);
       expect(alarm.weekDays, isNull);
@@ -878,8 +916,8 @@ void main() {
 
       schedule = response[1];
       // randomized absolute alarm
-      expect(schedule.runtimeType.toString(), 'Alarm');
-      alarm = schedule as Alarm;
+      expect(schedule.type.runtimeType.toString(), 'Alarm');
+      alarm = schedule.type as Alarm;
       expectDate(alarm.date, 2018, 7, 15, 5, 30, 0);
       expectDate(alarm.randomTime, 1970, 1, 1, 20, 44, 53);
       expect(alarm.weekDays, isNull);
@@ -887,8 +925,8 @@ void main() {
 
       schedule = response[2];
       // recurring alarm
-      expect(schedule.runtimeType.toString(), 'Alarm');
-      alarm = schedule as Alarm;
+      expect(schedule.type.runtimeType.toString(), 'Alarm');
+      alarm = schedule.type as Alarm;
       expectDate(alarm.date, 1970, 1, 1, 5, 30, 0);
       expect(alarm.randomTime, isNull);
       expect(alarm.weekDays, 124);
@@ -896,8 +934,8 @@ void main() {
 
       schedule = response[3];
       // recurring random alarm
-      expect(schedule.runtimeType.toString(), 'Alarm');
-      alarm = schedule as Alarm;
+      expect(schedule.type.runtimeType.toString(), 'Alarm');
+      alarm = schedule.type as Alarm;
       expectDate(alarm.date, 1970, 1, 1, 23, 30, 0);
       expectDate(alarm.randomTime, 1970, 1, 1, 20, 13, 0);
       expect(alarm.weekDays, 127);
@@ -905,8 +943,8 @@ void main() {
 
       schedule = response[4];
       // time interval alarm
-      expect(schedule.runtimeType.toString(), 'Alarm');
-      alarm = schedule as Alarm;
+      expect(schedule.type.runtimeType.toString(), 'Alarm');
+      alarm = schedule.type as Alarm;
       expectDate(alarm.date, 1970, 1, 1, 3, 30, 0);
       expectDate(alarm.endDate, 1970, 1, 1, 20, 13, 0);
       expect(alarm.randomTime, isNull);
@@ -914,40 +952,40 @@ void main() {
 
       schedule = response[5];
       //expiring timer
-      expect(schedule.runtimeType.toString(), 'Timer');
-      var timer = schedule as Timer;
+      expect(schedule.type.runtimeType.toString(), 'Timer');
+      var timer = schedule.type as Timer;
       expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
       expect(timer.randomTime, isNull);
       expect(timer.recurrence, isNull);
 
       schedule = response[6];
       //expiring random timer
-      expect(schedule.runtimeType.toString(), 'Timer');
-      timer = schedule as Timer;
+      expect(schedule.type.runtimeType.toString(), 'Timer');
+      timer = schedule.type as Timer;
       expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
       expectDate(timer.randomTime, 1970, 1, 1, 2, 23, 0);
       expect(timer.recurrence, isNull);
 
       schedule = response[7];
       //recurring timer 1
-      expect(schedule.runtimeType.toString(), 'Timer');
-      timer = schedule as Timer;
+      expect(schedule.type.runtimeType.toString(), 'Timer');
+      timer = schedule.type as Timer;
       expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
       expect(timer.randomTime, isNull);
       expect(timer.recurrence, 12);
 
       schedule = response[8];
       //recurring timer 1
-      expect(schedule.runtimeType.toString(), 'Timer');
-      timer = schedule as Timer;
+      expect(schedule.type.runtimeType.toString(), 'Timer');
+      timer = schedule.type as Timer;
       expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
       expect(timer.randomTime, isNull);
       expect(timer.recurrence, 0);
 
       schedule = response[9];
       //random recurring timer
-      expect(schedule.runtimeType.toString(), 'Timer');
-      timer = schedule as Timer;
+      expect(schedule.type.runtimeType.toString(), 'Timer');
+      timer = schedule.type as Timer;
       expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
       expectDate(timer.randomTime, 1970, 1, 1, 2, 30, 0);
       expect(timer.recurrence, 12);
@@ -961,7 +999,7 @@ void main() {
       expect(schedule.command.address,
           '/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action');
       expect(schedule.command.method, 'PUT');
-      expect(schedule.command.body, {"scene": "04f61b745-off-5"});
+      expect(schedule.command.body.toMap(), {"scene": "04f61b745-off-5"});
       expect(schedule.time, 'W127/T23:30:00');
       expect(schedule.status, 'disabled');
       expect(schedule.recycle, false);
@@ -971,11 +1009,16 @@ void main() {
 
     test('create schedule', () async {
       mockPost('[{"success":{"id":"7796503114448045"}}]');
-      final schedule = new Schedule();
-      schedule.name = 'Super Schedule';
-      schedule.command = new Command.forAddress(
-          '/api/username/groups/0/action', 'PUT', {"scene": "22227461b-on-0"});
-      schedule.time = 'W124/T05:30:00';
+      final schedule = Schedule((b) => b
+        ..name = 'Super Schedule'
+        ..time = 'W124/T05:30:00'
+        ..command.replace(
+          Command((b) => b
+            ..address = '/api/username/groups/0/action'
+            ..method = 'PUT'
+            ..body = BuiltMap<String, String>({"scene": "22227461b-on-0"}).toBuilder()),
+        ));
+
       final response = await sut.createSchedule(schedule);
       expect(response.id, '7796503114448045');
       final body = {
@@ -998,9 +1041,9 @@ void main() {
     test('update schedule', () async {
       mockPut(
           '[{"success":{"/schedules/7796503114448045/name": "New Schedule"}}]');
-      final schedule = new Schedule();
-      schedule.id = '7796503114448045';
-      schedule.name = 'New Schedule';
+      final schedule = Schedule((b) => b
+        ..id = '7796503114448045'
+        ..name = 'New Schedule');
 
       final response = await sut.updateScheduleAttributes(schedule);
       expect(response.success.length, 1);
@@ -1012,8 +1055,7 @@ void main() {
 
     test('delete schedule', () async {
       mockDelete('[{"success":"/schedules/7796503114448045 deleted"}]');
-      final schedule = new Schedule();
-      schedule.id = '7796503114448045';
+      final schedule = Schedule((b) => b..id = '7796503114448045');
       final response = await sut.deleteSchedule(schedule);
       expect(response.success.length, 1);
       verify(client
@@ -1038,8 +1080,8 @@ void main() {
       expect(sensor.config.on, true);
       expect(sensor.config.battery, 100);
       expect(sensor.config.reachable, true);
-      expect(sensor.state['presence'], false);
-      expect(sensor.state['lastupdated'], '2018-07-13T06:43:41');
+      expect(sensor.state.presence, false);
+      expect(sensor.state.lastUpdated, '2018-07-13T06:43:41');
       expect(sensor.name, 'Hue motion sensor 1');
       expect(sensor.type, 'ZLLPresence');
       expect(sensor.modelId, 'SML001');
@@ -1054,9 +1096,9 @@ void main() {
         mockGet(
             singleSensorModelIdPlaceholder.replaceFirst('<model_id>', modelId));
         final sensor = await sut.sensor('1');
-        expect(sensor.modelId, modelId);
-        expect(sensor.runtimeType.toString(), runtimeType);
-        expect(sensor.productName(), productName);
+        expect(sensor.model.modelId, modelId);
+        expect(sensor.model.runtimeType.toString(), runtimeType);
+        expect(sensor.model.productName, productName);
       }
 
       List<Map<String, String>> models = [
@@ -1085,13 +1127,14 @@ void main() {
 
     test('create sensor', () async {
       mockPost('[{"success":{"id":"10"}}]');
-      final sensor = new Sensor();
-      sensor.name = 'Super Tap';
-      sensor.modelId = 'modelid';
-      sensor.swVersion = '1.0.0';
-      sensor.type = 'sensor type';
-      sensor.uniqueId = 'very_unique_id';
-      sensor.manufacturerName = 'Jairzinno';
+      final sensor = Sensor((b) => b
+        ..name = 'Super Tap'
+        ..modelId = 'modelid'
+        ..swVersion = '1.0.0'
+        ..type = 'sensor type'
+        ..uniqueId = 'very_unique_id'
+        ..manufacturerName = 'Jairzinno');
+
       final response = await sut.createSensor(sensor);
       expect(response.id, 10);
       final body = {
@@ -1108,9 +1151,10 @@ void main() {
 
     test('update sensor attributes', () async {
       mockPut('[{"success":{"/sensors/2/name":"Room 1 Tap"}}]');
-      final sensor = new Sensor();
-      sensor.id = 4;
-      sensor.name = 'Room 1 Tap';
+      final sensor = Sensor((b) => b
+        ..id = 4
+        ..name = 'Room 1 Tap'
+      );
       final result = await sut.updateSensorAttributes(sensor);
       expect(result.success.length, 1);
       expect(result.errors.length, 0);
@@ -1121,10 +1165,13 @@ void main() {
 
     test('update sensor config', () async {
       mockPut('[{"success":{"/sensors/4/config/on": true}}]');
-      final sensor = new Sensor();
-      sensor.id = 4;
-      sensor.config = new SensorConfig();
-      sensor.config.on = true;
+      final sensor = Sensor((b) => b
+        ..id = 4
+        ..config.replace(SensorConfig((b) => b
+          ..on = true
+        ))
+      );
+    
       final result = await sut.updateSensorConfig(sensor);
       expect(result.success.length, 1);
       expect(result.errors.length, 0);
@@ -1151,13 +1198,15 @@ void main() {
 
     test('delete sensor', () async {
       mockDelete('[{"success":"/sensors/4 deleted"}]');
-      final sensor = new Sensor();
-      sensor.id = 4;
+      final sensor = Sensor((b) => b
+        ..id = 4
+      );
       final response = await sut.deleteSensor(sensor);
       verify(client.delete('http://127.0.0.1/api/username/sensors/4'));
       expect(response.success.length, 1);
     });
   });
+});
 }
 
 const String config = """
@@ -1741,7 +1790,7 @@ const String fullState = """
 					"address": "/groups/5/action",
 					"method": "PUT",
 					"body": {
-						"on": true
+						"on": "true"
 					}
 				}
 			]
@@ -1770,7 +1819,7 @@ const String fullState = """
 					"address": "/groups/0/action",
 					"method": "PUT",
 					"body": {
-						"on": false
+						"on": "false"
 					}
 				}
 			]

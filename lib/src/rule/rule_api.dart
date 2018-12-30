@@ -22,8 +22,7 @@ class RuleApi {
     final rules = <Rule>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final rule = new Rule.fromJson(item);
-      rule.id = int.parse(id);
+      final rule = Rule.fromJson(item, id: int.parse(id));
       rules.add(rule);
     }
     return rules;
@@ -32,21 +31,19 @@ class RuleApi {
   Future<Rule> single(int id) async {
     String url = '/api/$_username/rules/$id';
     final response = await _client.get(url);
-    final rule = new Rule.fromJson(response);
-    rule.id = id;
+    final rule = new Rule.fromJson(response, id: id);
     return rule;
   }
 
   Future<Rule> create(Rule rule) async {
     String url = '/api/$_username/rules';
-    final response = await _client.post(url, rule, 'id');
-    rule.id = int.parse(response.key);
-    return rule;
+    final response = await _client.post(url, rule.toBridgeObject(), 'id');
+    return rule.rebuild((b) => b..id = int.parse(response.key));
   }
 
   Future<BridgeResponse> update(Rule rule) async {
     String url = '/api/$_username/rules/${rule.id}';
-    return await _client.put(url, rule);
+    return await _client.put(url, rule.toBridgeObject());
   }
 
   Future<BridgeResponse> delete(Rule rule) async {

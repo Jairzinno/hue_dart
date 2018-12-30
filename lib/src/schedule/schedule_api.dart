@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:async' hide Timer;
 
 import 'package:hue_dart/src/core/bridge_client.dart';
 import 'package:hue_dart/src/core/bridge_response.dart';
@@ -22,8 +22,7 @@ class ScheduleApi {
     final schedules = <Schedule>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final schedule = new Schedule.fromJson(item);
-      schedule.id = id;
+      final schedule = Schedule.fromJson(item, id: id);
       schedules.add(schedule);
     }
     return schedules;
@@ -32,8 +31,7 @@ class ScheduleApi {
   Future<Schedule> single(String id) async {
     String url = '/api/$_username/schedules/$id';
     final response = await _client.get(url);
-    final schedule = new Schedule.fromJson(response);
-    schedule.id = id;
+    final schedule = Schedule.fromJson(response, id: id);
     return schedule;
   }
 
@@ -41,8 +39,7 @@ class ScheduleApi {
     String url = '/api/$_username/schedules';
     final response = await _client.post(
         url, schedule.toBridgeObject(action: 'create'), 'id');
-    schedule.id = response.key;
-    return schedule;
+    return schedule.rebuild((b) => b..id = response.key);
   }
 
   Future<BridgeResponse> attributes(Schedule schedule) async {

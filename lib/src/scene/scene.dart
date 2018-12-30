@@ -1,40 +1,52 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/core/serializers.dart';
 import 'package:hue_dart/src/light/light.dart';
+import 'package:hue_dart/src/scene/app_data.dart';
 import 'package:intl/intl.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'scene.g.dart';
 
-@JsonSerializable()
-class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
+abstract class Scene with BridgeObject implements Built<Scene, SceneBuilder> {
   /// The id of the scene being modified or created.
-  @JsonKey(ignore: true)
-  String id;
+  @nullable
+  String get id;
 
   /// Human readable name of the scene. Is set to <id> if omitted on creation.
-  String name;
+  @nullable
+  String get name;
 
   /// The light ids which are in the scene. This array can empty. As of 1.11 it must contain at least 1 element. If an invalid lights resource is given, error 7 is returned and the scene is not created.
   ///
   /// When writing, lightstate of all lights in list will be overwritten with current light state.
   /// As of 1.15 when writing, lightstate of lights which are not yet in list will be created with current light state.
-  @JsonKey(fromJson: _mapFromJsonLights, toJson: _mapToJsonLights)
-  List<Light> lights;
+  @BuiltValueField(wireName: 'lights')
+  @nullable
+  BuiltList<String> get lightIds;
+
+  @nullable
+  BuiltList<Light> get lights;
 
   /// Whitelist user that created or modified the content of the scene. Note that changing name does not change the owner.
-  String owner;
+  @nullable
+  String get owner;
 
   /// Indicates whether the scene can be automatically deleted by the bridge.
   /// Only available by POST. Set to 'false' when omitted.
   /// Legacy scenes created by PUT are defaulted to true. When set to 'false' the bridge keeps the scene until deleted by an application.
-  bool recycle;
+  @nullable
+  bool get recycle;
 
   /// Indicates that the scene is locked by a rule or a schedule and cannot be deleted until all resources requiring or that reference the scene are deleted.
-  bool locked;
+  @nullable
+  bool get locked;
 
   /// UTC time the scene has been created or has been updated by a PUT. Will be null when unknown (legacy scenes).
-  @JsonKey(name: 'lastupdated')
-  String lastUpdated;
+  @BuiltValueField(wireName: 'lastupdated')
+  @nullable
+  String get lastUpdated;
 
   DateTime get lastUpdatedDate =>
       new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUpdated);
@@ -43,80 +55,48 @@ class Scene extends Object with _$SceneSerializerMixin, BridgeObject {
   ///
   /// 1 - Scene created via PUT, lightstates will be empty.
   /// 2 - Scene created via POST lightstates available.
-  int version;
+  @nullable
+  int get version;
 
   /// App specific data linked to the scene.
   /// Each individual application should take responsibility for the data written in this field.
-  @JsonKey(name: 'appdata')
-  AppData appData;
+  @BuiltValueField(wireName: 'appdata')
+  @nullable
+  AppData get appData;
 
-  String picture;
-
-  Scene();
-
-  factory Scene.fromJson(Map<String, dynamic> json) => _$SceneFromJson(json);
+  @nullable
+  String get picture;
 
   @override
-  String toString() {
-    return toJson().toString();
-  }
-
-  @override
-  toBridgeObject({String action}) {
+  Map toBridgeObject({String action}) {
     if ('create' == action) {
       return {
         'name': name,
         'recycle': recycle ?? false,
-        'lights': lights.map((Light light) => light.id.toString()).toList()
+        'lights': lightIds.toList()
       };
     } else if ('attributes' == action) {
       final body = {};
       if (name != null) {
         body['name'] = name;
       }
-      if (lights != null) {
-        body['lights'] =
-            lights.map((Light light) => light.id.toString()).toList();
+      if (lightIds != null) {
+        body['lights'] = lightIds.toList();
       }
       return body;
     }
-  }
-}
-
-@JsonSerializable()
-class AppData extends Object with _$AppDataSerializerMixin {
-  /// App specific version of the data field.
-  @JsonKey(includeIfNull: false)
-  int version;
-
-  /// App specific data. Free format string.
-  @JsonKey(includeIfNull: false)
-  String data;
-
-  AppData();
-
-  factory AppData.fromJson(Map<String, dynamic> json) =>
-      _$AppDataFromJson(json);
-
-  AppData.fromJsonManually(Map<String, dynamic> json) {
-    version = json['version'];
-    data = json['data'];
+    return {};
   }
 
-  @override
-  String toString() {
-    return toJson().toString();
+  static Serializer<Scene> get serializer => _$sceneSerializer;
+
+  Scene._();
+
+  factory Scene([updates(SceneBuilder b)]) = _$Scene;
+
+  factory Scene.fromJson(Map json, {String id}) {
+    return serializers
+        .deserializeWith(Scene.serializer, json)
+        .rebuild((b) => b..id = id);
   }
-}
-
-List<Light> _mapFromJsonLights(dynamic lights) {
-  var source = lights as List<dynamic>;
-  var result =
-      source.map((dynamic id) => new Light.withId(id.toString())).toList();
-  return result;
-}
-
-List<String> _mapToJsonLights(dynamic lights) {
-  var source = lights as List<Light>;
-  return source.map((Light light) => light.id.toString()).toList();
 }

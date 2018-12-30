@@ -24,39 +24,34 @@ class SceneApi {
     final scenes = <Scene>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      var scene = new Scene.fromJson(item);
-      scene.id = id;
+      final scene = Scene.fromJson(item, id: id);          
+      final lights = await _lights(scene);
+      scene.rebuild((b) => b..lights.replace(lights));
       scenes.add(scene);
-    }
-    for (Scene scene in scenes) {
-      scene.lights = await _lights(scene.lights);
     }
     return scenes;
   }
 
-  Future<List<Light>> _lights(List<Light> lights) async {
-    var result = <Light>[];
-    for (Light _light in lights) {
-      result.add(await _completeLight(_light.id));
+  Future<List<Light>> _lights(Scene scene) async {
+    final result = <Light>[];
+    for (String _id in scene.lightIds) {
+      result.add(await _completeLight(int.parse(_id)));
     }
-    ;
     return result;
   }
 
   Future<Light> _completeLight(int id) async {
     String url = '/api/$_username/lights/$id';
     final response = await _client.get(url);
-    var light = new Light.fromJson(response);
-    light.id = id;
-    return light;
+    return Light.fromJson(response, id: id);
   }
 
   Future<Scene> single(String id) async {
     String url = '/api/$_username/scenes/$id';
     final response = await _client.get(url);
-    var scene = new Scene.fromJson(response);
-    scene.id = id;
-    scene.lights = await _lights(scene.lights);
+    final scene = Scene.fromJson(response, id: id);
+    final lights = await _lights(scene);
+    scene.rebuild((b) => b..lights.replace(lights));
     return scene;
   }
 
@@ -64,8 +59,7 @@ class SceneApi {
     String url = '/api/$_username/scenes';
     final response =
         await _client.post(url, scene.toBridgeObject(action: 'create'), 'id');
-    scene.id = response.key;
-    return scene;
+    return scene.rebuild((b) => b..id = response.key);
   }
 
   Future<BridgeResponse> attributes(Scene scene) async {

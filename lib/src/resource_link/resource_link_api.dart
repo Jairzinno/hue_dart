@@ -22,8 +22,7 @@ class ResourceLinkApi {
     final resourceLinks = <ResourceLink>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final resourceLink = new ResourceLink.fromJson(item);
-      resourceLink.id = id;
+      final resourceLink = ResourceLink.fromJson(item, id: id);
       resourceLinks.add(resourceLink);
     }
     return resourceLinks;
@@ -32,21 +31,19 @@ class ResourceLinkApi {
   Future<ResourceLink> single(String id) async {
     String url = '/api/$_username/resourcelinks/$id';
     final response = await _client.get(url);
-    final resourceLink = new ResourceLink.fromJson(response);
-    resourceLink.id = id;
+    final resourceLink = ResourceLink.fromJson(response, id: id);
     return resourceLink;
   }
 
   Future<ResourceLink> create(ResourceLink resourceLink) async {
     String url = '/api/$_username/resourcelinks';
-    final response = await _client.post(url, resourceLink, 'id');
-    resourceLink.id = response.key;
-    return resourceLink;
+    final response = await _client.post(url, resourceLink.toBridgeObject(), 'id');
+    return resourceLink.rebuild((b) => b..id = response.key);
   }
 
   Future<BridgeResponse> update(ResourceLink resourceLink) async {
     String url = '/api/$_username/resourcelinks/${resourceLink.id}';
-    return await _client.put(url, resourceLink);
+    return await _client.put(url, resourceLink.toBridgeObject());
   }
 
   Future<BridgeResponse> delete(ResourceLink resourceLink) async {

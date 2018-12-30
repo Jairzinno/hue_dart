@@ -1,168 +1,96 @@
-import 'dart:convert';
-
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:hue_dart/src/core/serializers.dart';
+import 'package:hue_dart/src/sensor/sensor_config.dart';
+import 'package:hue_dart/src/sensor/sensor_model.dart';
+import 'package:hue_dart/src/sensor/sensor_state.dart';
 
 part 'sensor.g.dart';
 
-@JsonSerializable()
-class Sensor extends Object with _$SensorSerializerMixin, BridgeObject {
-  @JsonKey(ignore: true)
-  int id;
+abstract class Sensor
+    with BridgeObject
+    implements Built<Sensor, SensorBuilder> {
+  @nullable
+  int get id;
 
   ///Type name of the sensor
-  String type;
+  @nullable
+  String get type;
 
   ///The human readable name of the sensor, can be changed by the user
-  String name;
+  @nullable
+  String get name;
 
   ///This parameter uniquely identifies the hardware model of the device for the given manufaturer.
-  @JsonKey(name: 'modelid')
-  String modelId;
+  @BuiltValueField(wireName: 'modelid')
+  @nullable
+  String get modelId;
 
   ///Unique id of the sensor. Should be the MAC address of the device.
-  @JsonKey(name: 'uniqueid', includeIfNull: false)
-  String uniqueId;
+  @BuiltValueField(wireName: 'uniqueid')
+  @nullable
+  String get uniqueId;
 
   ///The name of the device manufacturer.
-  @JsonKey(name: 'manufacturername')
-  String manufacturerName;
+  @BuiltValueField(wireName: 'manufacturername')
+  @nullable
+  String get manufacturerName;
 
   ///This parameter uniquely identifies the software version running in the hardware.
-  @JsonKey(name: 'swversion')
-  String swVersion;
+  @BuiltValueField(wireName: 'swversion')
+  @nullable
+  String get swVersion;
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only for CLIP sensors on creation of resource. “false” when omitted.
-  @JsonKey(includeIfNull: false)
-  bool recycle;
+  @nullable
+  bool get recycle;
 
   ///Indicates whether communication with devices is possible. CLIP Sensors do not yet support reachable verification.Mandatory for all Sensors except ZGPSwitch, Daylight
-  @JsonKey(includeIfNull: false)
-  bool reachable;
+  @nullable
+  bool get reachable;
 
   ///Turns the sensor on/off. When off, state changes of the sensor are not reflected in the sensor resource. Default is "true"
-  @JsonKey(includeIfNull: false)
-  bool on;
+  @nullable
+  bool get on;
 
   ///The current battery state in percent, only for battery powered devices. Not present when not provided on creation (CLIP sensors).
-  @JsonKey(includeIfNull: false)
-  int battery;
+  @nullable
+  int get battery;
 
-  @JsonKey(includeIfNull: false)
-  Map<String, dynamic> state;
+  @nullable
+  SensorState get state;
 
-  @JsonKey(includeIfNull: false)
-  SensorConfig config;
+  @nullable
+  SensorConfig get config;
 
-  Sensor();
+  static Serializer<Sensor> get serializer => _$sensorSerializer;
 
-  Sensor._withSensor(Sensor sensor) {
-    id = sensor.id;
-    type = sensor.type;
-    name = sensor.name;
-    modelId = sensor.modelId;
-    uniqueId = sensor.uniqueId;
-    manufacturerName = sensor.manufacturerName;
-    swVersion = sensor.swVersion;
-    recycle = sensor.recycle;
-    state = sensor.state;
-    config = sensor.config;
+  Sensor._();
+
+  factory Sensor([updates(SensorBuilder b)]) = _$Sensor;
+
+  factory Sensor.fromJson(Map json, {int id}) {
+    return serializers
+        .deserializeWith(Sensor.serializer, json)
+        .rebuild((b) => b..id = id);
   }
 
-  factory Sensor.fromJson(Map<String, dynamic> json) {
-    final sensor = _$SensorFromJson(json);
-    return _SensorFactory.create(sensor);
-  }
-
-  String productName() => 'Sensor';
+  SensorModel get model => SensorModelFactory.create(this);
 
   @override
-  String toString() {
-    return toJson().toString();
-  }
-
-  @override
-  toBridgeObject({String action}) {
+  Map toBridgeObject({String action}) {
     if ('create' == action) {
-      return this;
+      return serializers.serializeWith(Sensor.serializer, this);
     } else if ('attributes' == action) {
       return {
         'name': name,
       };
     } else if ('config' == action) {
-      return config;
+      return config.toBridgeObject();
     } else if ('state' == action) {
-      return json.encode(state);
+      return serializers.serializeWith(serializer, state);
     }
-  }
-}
-
-@JsonSerializable()
-class SensorConfig extends Object with _$SensorConfigSerializerMixin {
-  @JsonKey(includeIfNull: false)
-  bool on;
-
-  @JsonKey(includeIfNull: false)
-  bool reachable;
-
-  @JsonKey(includeIfNull: false)
-  int battery;
-
-  SensorConfig();
-
-  factory SensorConfig.fromJson(Map<String, dynamic> json) =>
-      _$SensorConfigFromJson(json);
-}
-
-class DayLight extends Sensor {
-  DayLight._withSensor(Sensor sensor) : super._withSensor(sensor);
-
-  @override
-  String productName() => 'DayLight';
-}
-
-class Dimmer extends Sensor {
-  Dimmer._withSensor(Sensor sensor) : super._withSensor(sensor);
-
-  @override
-  String productName() => 'Hue Wireless Dimmer';
-}
-
-class Motion extends Sensor {
-  Motion._withSensor(Sensor sensor) : super._withSensor(sensor);
-
-  @override
-  String productName() => 'Hue Motion Sensor';
-}
-
-class Tap extends Sensor {
-  Tap._withSensor(Sensor sensor) : super._withSensor(sensor);
-
-  @override
-  String productName() => 'Hue Tap';
-}
-
-class _SensorFactory {
-  static Sensor create(Sensor sensor) {
-    final modelId = sensor.modelId;
-    if (_isDayLightSensor(modelId)) {
-      return new DayLight._withSensor(sensor);
-    } else if (_isDimmerSensor(modelId)) {
-      return new Dimmer._withSensor(sensor);
-    } else if (_isMotionSensor(modelId)) {
-      return new Motion._withSensor(sensor);
-    } else if (_isTapSensor(modelId)) {
-      return new Tap._withSensor(sensor);
-    }
-    return sensor;
-  }
-
-  static bool _isDayLightSensor(String modelId) => 'PHDL00' == modelId;
-
-  static bool _isDimmerSensor(String modelId) =>
-      ['RWL020', 'RWL021'].contains(modelId);
-
-  static bool _isMotionSensor(String modelId) => 'SML001' == modelId;
-
-  static bool _isTapSensor(String modelId) => 'ZGPSWITCH' == modelId;
+    return null;
+  }  
 }

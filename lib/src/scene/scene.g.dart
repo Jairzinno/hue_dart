@@ -3,68 +3,381 @@
 part of 'scene.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// BuiltValueGenerator
 // **************************************************************************
 
-Scene _$SceneFromJson(Map<String, dynamic> json) {
-  return new Scene()
-    ..name = json['name'] as String
-    ..lights =
-        json['lights'] == null ? null : _mapFromJsonLights(json['lights'])
-    ..owner = json['owner'] as String
-    ..recycle = json['recycle'] as bool
-    ..locked = json['locked'] as bool
-    ..lastUpdated = json['lastupdated'] as String
-    ..version = json['version'] as int
-    ..appData = json['appdata'] == null
-        ? null
-        : new AppData.fromJson(json['appdata'] as Map<String, dynamic>)
-    ..picture = json['picture'] as String;
-}
+Serializer<Scene> _$sceneSerializer = new _$SceneSerializer();
 
-abstract class _$SceneSerializerMixin {
-  String get name;
-  List<Light> get lights;
-  String get owner;
-  bool get recycle;
-  bool get locked;
-  String get lastUpdated;
-  int get version;
-  AppData get appData;
-  String get picture;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'name': name,
-        'lights': lights == null ? null : _mapToJsonLights(lights),
-        'owner': owner,
-        'recycle': recycle,
-        'locked': locked,
-        'lastupdated': lastUpdated,
-        'version': version,
-        'appdata': appData,
-        'picture': picture
-      };
-}
+class _$SceneSerializer implements StructuredSerializer<Scene> {
+  @override
+  final Iterable<Type> types = const [Scene, _$Scene];
+  @override
+  final String wireName = 'Scene';
 
-AppData _$AppDataFromJson(Map<String, dynamic> json) {
-  return new AppData()
-    ..version = json['version'] as int
-    ..data = json['data'] as String;
-}
+  @override
+  Iterable serialize(Serializers serializers, Scene object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[];
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(String)));
+    }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.lightIds != null) {
+      result
+        ..add('lights')
+        ..add(serializers.serialize(object.lightIds,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    if (object.lights != null) {
+      result
+        ..add('lights')
+        ..add(serializers.serialize(object.lights,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Light)])));
+    }
+    if (object.owner != null) {
+      result
+        ..add('owner')
+        ..add(serializers.serialize(object.owner,
+            specifiedType: const FullType(String)));
+    }
+    if (object.recycle != null) {
+      result
+        ..add('recycle')
+        ..add(serializers.serialize(object.recycle,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.locked != null) {
+      result
+        ..add('locked')
+        ..add(serializers.serialize(object.locked,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.lastUpdated != null) {
+      result
+        ..add('lastupdated')
+        ..add(serializers.serialize(object.lastUpdated,
+            specifiedType: const FullType(String)));
+    }
+    if (object.version != null) {
+      result
+        ..add('version')
+        ..add(serializers.serialize(object.version,
+            specifiedType: const FullType(int)));
+    }
+    if (object.appData != null) {
+      result
+        ..add('appdata')
+        ..add(serializers.serialize(object.appData,
+            specifiedType: const FullType(AppData)));
+    }
+    if (object.picture != null) {
+      result
+        ..add('picture')
+        ..add(serializers.serialize(object.picture,
+            specifiedType: const FullType(String)));
+    }
 
-abstract class _$AppDataSerializerMixin {
-  int get version;
-  String get data;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{};
+    return result;
+  }
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
+  @override
+  Scene deserialize(Serializers serializers, Iterable serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new SceneBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'lights':
+          result.lightIds.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList);
+          break;
+        case 'lights':
+          result.lights.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(Light)]))
+              as BuiltList);
+          break;
+        case 'owner':
+          result.owner = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'recycle':
+          result.recycle = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'locked':
+          result.locked = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'lastupdated':
+          result.lastUpdated = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'version':
+          result.version = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'appdata':
+          result.appData.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AppData)) as AppData);
+          break;
+        case 'picture':
+          result.picture = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
-    writeNotNull('version', version);
-    writeNotNull('data', data);
-    return val;
+    return result.build();
   }
 }
+
+class _$Scene extends Scene {
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final BuiltList<String> lightIds;
+  @override
+  final BuiltList<Light> lights;
+  @override
+  final String owner;
+  @override
+  final bool recycle;
+  @override
+  final bool locked;
+  @override
+  final String lastUpdated;
+  @override
+  final int version;
+  @override
+  final AppData appData;
+  @override
+  final String picture;
+
+  factory _$Scene([void updates(SceneBuilder b)]) =>
+      (new SceneBuilder()..update(updates)).build();
+
+  _$Scene._(
+      {this.id,
+      this.name,
+      this.lightIds,
+      this.lights,
+      this.owner,
+      this.recycle,
+      this.locked,
+      this.lastUpdated,
+      this.version,
+      this.appData,
+      this.picture})
+      : super._();
+
+  @override
+  Scene rebuild(void updates(SceneBuilder b)) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  SceneBuilder toBuilder() => new SceneBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is Scene &&
+        id == other.id &&
+        name == other.name &&
+        lightIds == other.lightIds &&
+        lights == other.lights &&
+        owner == other.owner &&
+        recycle == other.recycle &&
+        locked == other.locked &&
+        lastUpdated == other.lastUpdated &&
+        version == other.version &&
+        appData == other.appData &&
+        picture == other.picture;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                        lightIds.hashCode),
+                                    lights.hashCode),
+                                owner.hashCode),
+                            recycle.hashCode),
+                        locked.hashCode),
+                    lastUpdated.hashCode),
+                version.hashCode),
+            appData.hashCode),
+        picture.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('Scene')
+          ..add('id', id)
+          ..add('name', name)
+          ..add('lightIds', lightIds)
+          ..add('lights', lights)
+          ..add('owner', owner)
+          ..add('recycle', recycle)
+          ..add('locked', locked)
+          ..add('lastUpdated', lastUpdated)
+          ..add('version', version)
+          ..add('appData', appData)
+          ..add('picture', picture))
+        .toString();
+  }
+}
+
+class SceneBuilder implements Builder<Scene, SceneBuilder> {
+  _$Scene _$v;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  ListBuilder<String> _lightIds;
+  ListBuilder<String> get lightIds =>
+      _$this._lightIds ??= new ListBuilder<String>();
+  set lightIds(ListBuilder<String> lightIds) => _$this._lightIds = lightIds;
+
+  ListBuilder<Light> _lights;
+  ListBuilder<Light> get lights => _$this._lights ??= new ListBuilder<Light>();
+  set lights(ListBuilder<Light> lights) => _$this._lights = lights;
+
+  String _owner;
+  String get owner => _$this._owner;
+  set owner(String owner) => _$this._owner = owner;
+
+  bool _recycle;
+  bool get recycle => _$this._recycle;
+  set recycle(bool recycle) => _$this._recycle = recycle;
+
+  bool _locked;
+  bool get locked => _$this._locked;
+  set locked(bool locked) => _$this._locked = locked;
+
+  String _lastUpdated;
+  String get lastUpdated => _$this._lastUpdated;
+  set lastUpdated(String lastUpdated) => _$this._lastUpdated = lastUpdated;
+
+  int _version;
+  int get version => _$this._version;
+  set version(int version) => _$this._version = version;
+
+  AppDataBuilder _appData;
+  AppDataBuilder get appData => _$this._appData ??= new AppDataBuilder();
+  set appData(AppDataBuilder appData) => _$this._appData = appData;
+
+  String _picture;
+  String get picture => _$this._picture;
+  set picture(String picture) => _$this._picture = picture;
+
+  SceneBuilder();
+
+  SceneBuilder get _$this {
+    if (_$v != null) {
+      _id = _$v.id;
+      _name = _$v.name;
+      _lightIds = _$v.lightIds?.toBuilder();
+      _lights = _$v.lights?.toBuilder();
+      _owner = _$v.owner;
+      _recycle = _$v.recycle;
+      _locked = _$v.locked;
+      _lastUpdated = _$v.lastUpdated;
+      _version = _$v.version;
+      _appData = _$v.appData?.toBuilder();
+      _picture = _$v.picture;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(Scene other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$Scene;
+  }
+
+  @override
+  void update(void updates(SceneBuilder b)) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$Scene build() {
+    _$Scene _$result;
+    try {
+      _$result = _$v ??
+          new _$Scene._(
+              id: id,
+              name: name,
+              lightIds: _lightIds?.build(),
+              lights: _lights?.build(),
+              owner: owner,
+              recycle: recycle,
+              locked: locked,
+              lastUpdated: lastUpdated,
+              version: version,
+              appData: _appData?.build(),
+              picture: picture);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'lightIds';
+        _lightIds?.build();
+        _$failedField = 'lights';
+        _lights?.build();
+
+        _$failedField = 'appData';
+        _appData?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'Scene', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

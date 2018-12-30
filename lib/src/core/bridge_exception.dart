@@ -1,30 +1,29 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:hue_dart/src/core/serializers.dart';
 
 part 'bridge_exception.g.dart';
 
-@JsonSerializable()
-class BridgeException extends Object
-    with _$BridgeExceptionSerializerMixin
-    implements Exception {
-  String address;
-  String description;
-  dynamic type;
+abstract class BridgeException implements Built<BridgeException, BridgeExceptionBuilder> {
 
-  BridgeException();
+  @nullable
+  String get address;
 
-  BridgeException.fromDiscovery([String ipAddress]) {
-    address = '/${ipAddress ?? 'nupnp'}';
-    description = ipAddress != null
-        ? 'failed to find bridge at $ipAddress'
-        : 'failed to find bridge via nupnp';
-    type = -1;
-  }
+  @nullable
+  String get description;
 
-  factory BridgeException.fromJson(Map<String, dynamic> json) =>
-      _$BridgeExceptionFromJson(json);
+  @nullable
+  Object get type;
 
-  @override
-  String toString() {
-    return toJson().toString();
+  static Serializer<BridgeException> get serializer => _$bridgeExceptionSerializer;
+
+  BridgeException._();
+
+  factory BridgeException([updates(BridgeExceptionBuilder b)]) = _$BridgeException;
+
+  factory BridgeException.fromJson(Map json) {
+    return serializers.deserializeWith(
+      BridgeException.serializer, json
+    );
   }
 }

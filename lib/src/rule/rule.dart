@@ -1,102 +1,71 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:hue_dart/src/core/bridge_object.dart';
+import 'package:hue_dart/src/core/serializers.dart';
+import 'package:hue_dart/src/rule/condition.dart';
+import 'package:hue_dart/src/rule/rule_action.dart';
 import 'package:intl/intl.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'rule.g.dart';
 
-@JsonSerializable()
-class Rule extends Object with _$RuleSerializerMixin {
-  @JsonKey(ignore: true)
-  int id;
+abstract class Rule with BridgeObject implements Built<Rule, RuleBuilder> {
+  @nullable
+  int get id;
 
   /// Human readable name of the rule.
-  String name;
+  @nullable
+  String get name;
 
-  @JsonKey(name: 'lasttriggered', includeIfNull: false)
-  String lastTriggered;
+  @BuiltValueField(wireName: 'lasttriggered')
+  @nullable
+  String get lastTriggered;
 
   DateTime get lastTriggeredDate =>
       new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
 
-  @JsonKey(name: 'creationtime', includeIfNull: false)
-  String creationTime;
+  @BuiltValueField(wireName: 'creationtime')
+  @nullable
+  String get creationTime;
 
   DateTime get creationTimeDate =>
       new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
 
-  @JsonKey(name: 'timestriggered', includeIfNull: false)
-  int timesTriggered;
+  @BuiltValueField(wireName: 'timestriggered')
+  @nullable
+  int get timesTriggered;
 
-  @JsonKey(includeIfNull: false)
-  String owner;
+  @nullable
+  String get owner;
 
-  @JsonKey(includeIfNull: false)
-  String status;
+  @nullable
+  String get status;
 
-  @JsonKey(includeIfNull: false)
-  List<Condition> conditions;
+  @nullable
+  BuiltList<Condition> get conditions;
 
-  @JsonKey(includeIfNull: false)
-  List<RuleAction> actions;
+  @nullable
+  BuiltList<RuleAction> get actions;
 
-  @JsonKey(includeIfNull: false)
-  bool recycle;
+  @nullable
+  bool get recycle;
 
-  Rule();
+  static Serializer<Rule> get serializer => _$ruleSerializer;
 
-  factory Rule.fromJson(Map<String, dynamic> json) => _$RuleFromJson(json);
+  Rule._();
 
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
+  factory Rule([updates(RuleBuilder b)]) = _$Rule;
 
-@JsonSerializable()
-class Condition extends Object with _$ConditionSerializerMixin {
-  String address;
-  String operator;
-  String value;
-
-  Condition();
-
-  Condition.forAddress(this.address, this.operator, this.value);
-
-  factory Condition.fromJson(Map<String, dynamic> json) =>
-      _$ConditionFromJson(json);
-
-  Condition.fromJsonManually(Map<String, dynamic> json) {
-    address = json['address'];
-    operator = json['operator'];
-    value = json['value'];
+  factory Rule.fromJson(Map json, {int id}) {
+    return serializers
+        .deserializeWith(Rule.serializer, json)
+        .rebuild((b) => b..id = id);
   }
 
   @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-class RuleAction extends Object with _$RuleActionSerializerMixin {
-  String address;
-  String method;
-  Map<String, dynamic> body;
-
-  RuleAction();
-
-  RuleAction.forAddress(this.address, this.method, this.body);
-
-  factory RuleAction.fromJson(Map<String, dynamic> json) =>
-      _$RuleActionFromJson(json);
-
-  RuleAction.fromJsonManually(Map<String, dynamic> json) {
-    address = json['address'];
-    method = json['method'];
-    body = json['body'];
-  }
-
-  @override
-  String toString() {
-    return toJson().toString();
+  Map toBridgeObject({String action}) {
+    Map result = serializers.serializeWith(Rule.serializer, this);
+    result.remove('id');
+    return result;
   }
 }

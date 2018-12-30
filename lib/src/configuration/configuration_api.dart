@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:hue_dart/src/configuration/configuration.dart';
+import 'package:hue_dart/src/configuration/whitelist_item.dart';
 import 'package:hue_dart/src/core/bridge_client.dart';
 import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:intl/intl.dart';
@@ -19,13 +20,12 @@ class ConfigurationApi {
     String url = '/api/';
     final response =
         await _client.post(url, {'devicetype': deviceType}, 'username');
-    final whiteListItem = new WhiteListItem();
-    whiteListItem.username = response.key;
-    whiteListItem.name = deviceType;
-    whiteListItem.createDate =
-        new DateFormat("yyyy-MM-dd'T'HH:m:s").format(new DateTime.now());
-    whiteListItem.lastUsedDate = whiteListItem.createDate;
-    return whiteListItem;
+    final createDate = new DateFormat("yyyy-MM-dd'T'HH:m:s").format(new DateTime.now());    
+    return WhiteListItem((w) => w
+    ..username = response.key
+    ..name = deviceType
+    ..createDate = createDate        
+    ..lastUsedDate = createDate);
   }
 
   Future<BridgeResponse> deleteUser(
