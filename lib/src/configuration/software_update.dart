@@ -6,9 +6,9 @@ import 'package:hue_dart/src/core/serializers.dart';
 
 part 'software_update.g.dart';
 
-abstract class SoftwareUpdate implements Built<SoftwareUpdate, SoftwareUpdateBuilder> {
-
-    /// Setting this flag to true lets the bridge search for software updates in the portal.
+abstract class SoftwareUpdate
+    implements Built<SoftwareUpdate, SoftwareUpdateBuilder> {
+  /// Setting this flag to true lets the bridge search for software updates in the portal.
   ///
   /// After the search attempt, this flag is set back to false.
   /// Requires portal connection to update server.
@@ -32,15 +32,14 @@ abstract class SoftwareUpdate implements Built<SoftwareUpdate, SoftwareUpdateBui
   @BuiltValueField(wireName: 'autoinstall')
   AutoInstall get autoInstall;
 
-  static Serializer<SoftwareUpdate> get serializer => _$softwareUpdateSerializer;
+  static Serializer<SoftwareUpdate> get serializer =>
+      _$softwareUpdateSerializer;
 
   SoftwareUpdate._();
 
   factory SoftwareUpdate([updates(SoftwareUpdateBuilder b)]) = _$SoftwareUpdate;
 
   factory SoftwareUpdate.fromJson(Map json) {
-    return serializers.deserializeWith(
-      SoftwareUpdate.serializer, json
-    );
+    return serializers.deserializeWith(SoftwareUpdate.serializer, json);
   }
 }

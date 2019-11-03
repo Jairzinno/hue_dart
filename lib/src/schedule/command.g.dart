@@ -15,7 +15,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
   final String wireName = 'Command';
 
   @override
-  Iterable serialize(Serializers serializers, Command object,
+  Iterable<Object> serialize(Serializers serializers, Command object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'address',
@@ -34,7 +34,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
   }
 
   @override
-  Command deserialize(Serializers serializers, Iterable serialized,
+  Command deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CommandBuilder();
 
@@ -57,7 +57,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(String)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
       }
     }
@@ -74,7 +74,7 @@ class _$Command extends Command {
   @override
   final BuiltMap<String, String> body;
 
-  factory _$Command([void updates(CommandBuilder b)]) =>
+  factory _$Command([void Function(CommandBuilder) updates]) =>
       (new CommandBuilder()..update(updates)).build();
 
   _$Command._({this.address, this.method, this.body}) : super._() {
@@ -90,7 +90,7 @@ class _$Command extends Command {
   }
 
   @override
-  Command rebuild(void updates(CommandBuilder b)) =>
+  Command rebuild(void Function(CommandBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -158,7 +158,7 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   }
 
   @override
-  void update(void updates(CommandBuilder b)) {
+  void update(void Function(CommandBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -184,4 +184,4 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

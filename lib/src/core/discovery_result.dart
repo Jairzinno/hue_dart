@@ -4,8 +4,8 @@ import 'package:hue_dart/src/core/serializers.dart';
 
 part 'discovery_result.g.dart';
 
-abstract class DiscoveryResult implements Built<DiscoveryResult, DiscoveryResultBuilder> {
-
+abstract class DiscoveryResult
+    implements Built<DiscoveryResult, DiscoveryResultBuilder> {
   @nullable
   String get id;
 
@@ -27,15 +27,15 @@ abstract class DiscoveryResult implements Built<DiscoveryResult, DiscoveryResult
   @BuiltValueField(wireName: 'swversion')
   String get swVersion;
 
-  static Serializer<DiscoveryResult> get serializer => _$discoveryResultSerializer;
+  static Serializer<DiscoveryResult> get serializer =>
+      _$discoveryResultSerializer;
 
   DiscoveryResult._();
 
-  factory DiscoveryResult([updates(DiscoveryResultBuilder b)]) = _$DiscoveryResult;
+  factory DiscoveryResult([updates(DiscoveryResultBuilder b)]) =
+      _$DiscoveryResult;
 
   factory DiscoveryResult.fromJson(Map json) {
-    return serializers.deserializeWith(
-      DiscoveryResult.serializer, json
-    );
+    return serializers.deserializeWith(DiscoveryResult.serializer, json);
   }
 }

@@ -11,7 +11,7 @@ class GroupApi {
 
   GroupApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
+  set username(String username) => this._username = username;
 
   /// Gets a list of all groups that have been added to the bridge
   Future<List<Group>> all() async {
@@ -26,7 +26,7 @@ class GroupApi {
       Map<String, dynamic> item = response[key];
       final group = Group.fromJson(item, id: int.parse(key));
       final lights = await _lights(group);
-      groups.add(group.rebuild((b) => b..lights.replace(lights)));
+      groups.add(group.rebuild((b) => b..groupLights.replace(lights)));
     }
     return groups;
   }
@@ -42,7 +42,7 @@ class GroupApi {
   Future<Light> _completeLight(int id) async {
     String url = '/api/$_username/lights/$id';
     final response = await _client.get(url);
-    var light = new Light.fromJson(response, id: id);
+    var light = Light.fromJson(response, id: id);
     return light;
   }
 
@@ -50,9 +50,9 @@ class GroupApi {
   Future<Group> single(int id) async {
     String url = '/api/$_username/groups/$id';
     final response = await _client.get(url);
-    final group = new Group.fromJson(response, id: id);
+    final group = Group.fromJson(response, id: id);
     final lights = await _lights(group);
-    return group.rebuild((b) => b..lights.replace(lights));
+    return group.rebuild((b) => b..groupLights.replace(lights));
   }
 
   Future<Group> create(Group group) async {

@@ -4,8 +4,8 @@ import 'package:hue_dart/src/core/serializers.dart';
 
 part 'bridge_exception.g.dart';
 
-abstract class BridgeException implements Built<BridgeException, BridgeExceptionBuilder> {
-
+abstract class BridgeException
+    implements Built<BridgeException, BridgeExceptionBuilder> {
   @nullable
   String get address;
 
@@ -15,15 +15,15 @@ abstract class BridgeException implements Built<BridgeException, BridgeException
   @nullable
   Object get type;
 
-  static Serializer<BridgeException> get serializer => _$bridgeExceptionSerializer;
+  static Serializer<BridgeException> get serializer =>
+      _$bridgeExceptionSerializer;
 
   BridgeException._();
 
-  factory BridgeException([updates(BridgeExceptionBuilder b)]) = _$BridgeException;
+  factory BridgeException([updates(BridgeExceptionBuilder b)]) =
+      _$BridgeException;
 
   factory BridgeException.fromJson(Map json) {
-    return serializers.deserializeWith(
-      BridgeException.serializer, json
-    );
+    return serializers.deserializeWith(BridgeException.serializer, json);
   }
 }

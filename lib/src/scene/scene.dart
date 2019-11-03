@@ -27,7 +27,7 @@ abstract class Scene with BridgeObject implements Built<Scene, SceneBuilder> {
   BuiltList<String> get lightIds;
 
   @nullable
-  BuiltList<Light> get lights;
+  BuiltList<Light> get sceneLights;
 
   /// Whitelist user that created or modified the content of the scene. Note that changing name does not change the owner.
   @nullable
@@ -49,7 +49,7 @@ abstract class Scene with BridgeObject implements Built<Scene, SceneBuilder> {
   String get lastUpdated;
 
   DateTime get lastUpdatedDate =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUpdated);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUpdated);
 
   /// Version of scene document:
   ///

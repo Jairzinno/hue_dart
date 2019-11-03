@@ -93,23 +93,25 @@ abstract class Schedule
   factory Schedule([updates(ScheduleBuilder b)]) = _$Schedule;
 
   factory Schedule.fromJson(Map json, {String id}) {
-    return serializers.deserializeWith(Schedule.serializer, json).rebuild((b) => b..id = id);
+    return serializers
+        .deserializeWith(Schedule.serializer, json)
+        .rebuild((b) => b..id = id);
   }
 
   static _isAlarm(String time) {
-    return new RegExp(absoluteTimeAlarm).hasMatch(time) ||
-        new RegExp(randomizedTimeAlarm).hasMatch(time) ||
-        new RegExp(recurringAlarm).hasMatch(time) ||
-        new RegExp(randomRecurringTimeAlarm).hasMatch(time) ||
-        new RegExp(timeIntervalAlarm).hasMatch(time);
+    return RegExp(absoluteTimeAlarm).hasMatch(time) ||
+        RegExp(randomizedTimeAlarm).hasMatch(time) ||
+        RegExp(recurringAlarm).hasMatch(time) ||
+        RegExp(randomRecurringTimeAlarm).hasMatch(time) ||
+        RegExp(timeIntervalAlarm).hasMatch(time);
   }
 
   static _isTimer(String time) {
-    return new RegExp(recurringRandomTimer).hasMatch(time) ||
-        new RegExp(recurringTimer1).hasMatch(time) ||
-        new RegExp(recurringTimer2).hasMatch(time) ||
-        new RegExp(randomTimer).hasMatch(time) ||
-        new RegExp(expiringTimer).hasMatch(time);
+    return RegExp(recurringRandomTimer).hasMatch(time) ||
+        RegExp(recurringTimer1).hasMatch(time) ||
+        RegExp(recurringTimer2).hasMatch(time) ||
+        RegExp(randomTimer).hasMatch(time) ||
+        RegExp(expiringTimer).hasMatch(time);
   }
 
   @override

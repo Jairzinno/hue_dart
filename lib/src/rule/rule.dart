@@ -22,14 +22,14 @@ abstract class Rule with BridgeObject implements Built<Rule, RuleBuilder> {
   String get lastTriggered;
 
   DateTime get lastTriggeredDate =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
 
   @BuiltValueField(wireName: 'creationtime')
   @nullable
   String get creationTime;
 
   DateTime get creationTimeDate =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
 
   @BuiltValueField(wireName: 'timestriggered')
   @nullable

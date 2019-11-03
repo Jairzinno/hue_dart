@@ -5,7 +5,6 @@ import 'package:hue_dart/src/core/serializers.dart';
 part 'backup.g.dart';
 
 abstract class BackUp implements Built<BackUp, BackUpBuilder> {
-
   String get status;
 
   @BuiltValueField(wireName: 'errorcode')
@@ -18,8 +17,6 @@ abstract class BackUp implements Built<BackUp, BackUpBuilder> {
   factory BackUp([updates(BackUpBuilder b)]) = _$BackUp;
 
   factory BackUp.fromJson(Map json) {
-    return serializers.deserializeWith(
-      BackUp.serializer, json
-    );
+    return serializers.deserializeWith(BackUp.serializer, json);
   }
 }

@@ -41,13 +41,13 @@ class SensorModelFactory {
   static SensorModel create(Sensor sensor) {
     final modelId = sensor.modelId;
     if (_isDayLightSensor(modelId)) {
-      return new DayLight._withSensor(sensor);
+      return DayLight._withSensor(sensor);
     } else if (_isDimmerSensor(modelId)) {
-      return new Dimmer._withSensor(sensor);
+      return Dimmer._withSensor(sensor);
     } else if (_isMotionSensor(modelId)) {
-      return new Motion._withSensor(sensor);
+      return Motion._withSensor(sensor);
     } else if (_isTapSensor(modelId)) {
-      return new Tap._withSensor(sensor);
+      return Tap._withSensor(sensor);
     }
     return null;
   }

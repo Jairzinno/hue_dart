@@ -6,7 +6,6 @@ import 'package:hue_dart/src/core/serializers.dart';
 part 'hue_color.g.dart';
 
 abstract class HueColor implements Built<HueColor, HueColorBuilder> {
-
   /// range is 0..65535
   @nullable
   num get hue;
@@ -50,8 +49,6 @@ abstract class HueColor implements Built<HueColor, HueColorBuilder> {
   factory HueColor([updates(HueColorBuilder b)]) = _$HueColor;
 
   factory HueColor.fromJson(Map json) {
-    return serializers.deserializeWith(
-      HueColor.serializer, json
-    );
+    return serializers.deserializeWith(HueColor.serializer, json);
   }
 }

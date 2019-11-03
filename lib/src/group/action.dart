@@ -8,9 +8,10 @@ import 'package:hue_dart/src/core/serializers.dart';
 
 part 'action.g.dart';
 
-abstract class Action with BridgeObject implements Built<Action, ActionBuilder> {
-
-    ///On/Off state of the group. On=true, Off=false.
+abstract class Action
+    with BridgeObject
+    implements Built<Action, ActionBuilder> {
+  ///On/Off state of the group. On=true, Off=false.
   @nullable
   bool get on;
 
@@ -67,8 +68,7 @@ abstract class Action with BridgeObject implements Built<Action, ActionBuilder> 
 
   static Action fromJson(String jsonString) {
     return serializers.deserializeWith(
-      Action.serializer, json.decode(jsonString)
-    );
+        Action.serializer, json.decode(jsonString));
   }
 
   @override

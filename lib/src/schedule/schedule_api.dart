@@ -10,7 +10,7 @@ class ScheduleApi {
 
   ScheduleApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
+  set username(String username) => this._username = username;
 
   Future<List<Schedule>> all() async {
     String url = '/api/$_username/schedules';

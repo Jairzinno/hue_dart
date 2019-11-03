@@ -100,7 +100,7 @@ abstract class Configuration
   String get utc;
 
   @memoized
-  DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
+  DateTime get utcDate => DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
 
   // DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
 
@@ -111,7 +111,7 @@ abstract class Configuration
 
   @memoized
   DateTime get localTimeDate =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(localTime);
 
   /// Timezone of the bridge as OlsenIDs, like "Europe/Amsterdam" or "none" when not configured.
   @nullable

@@ -10,7 +10,7 @@ class LightApi {
 
   LightApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
+  set username(String username) => this._username = username;
 
   Future<List<Light>> all() async {
     String url = '/api/$_username/lights';
@@ -22,7 +22,7 @@ class LightApi {
     final lights = <Light>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final light = new Light.fromJson(item, id: int.parse(id));
+      final light = Light.fromJson(item, id: int.parse(id));
       lights.add(light);
     }
     return lights;
@@ -32,7 +32,7 @@ class LightApi {
     String url = '/api/$_username/lights/$id';
     final response = await _client.get(url);
 
-    final light = new Light.fromJson(response, id: id);
+    final light = Light.fromJson(response, id: id);
     return light;
   }
 

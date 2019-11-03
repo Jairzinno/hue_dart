@@ -10,7 +10,7 @@ class SensorApi {
 
   SensorApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
+  set username(String username) => this._username = username;
 
   Future<List<Sensor>> all() async {
     String url = '/api/$_username/sensors';

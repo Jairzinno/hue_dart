@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 
 part 'whitelist_item.g.dart';
 
-abstract class WhiteListItem implements Built<WhiteListItem, WhiteListItemBuilder> {
-
+abstract class WhiteListItem
+    implements Built<WhiteListItem, WhiteListItemBuilder> {
   @nullable
   String get username;
 
@@ -16,18 +16,17 @@ abstract class WhiteListItem implements Built<WhiteListItem, WhiteListItemBuilde
 
   @memoized
   DateTime get lastUsed =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastUsedDate);
 
   @BuiltValueField(wireName: 'create date')
   @nullable
   String get createDate;
 
   @memoized
-  DateTime get created =>
-      new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
-  
+  DateTime get created => DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate);
+
   @nullable
-  String get name;  
+  String get name;
 
   static Serializer<WhiteListItem> get serializer => _$whiteListItemSerializer;
 
@@ -36,8 +35,6 @@ abstract class WhiteListItem implements Built<WhiteListItem, WhiteListItemBuilde
   factory WhiteListItem([updates(WhiteListItemBuilder b)]) = _$WhiteListItem;
 
   factory WhiteListItem.fromJson(Map json) {
-    return serializers.deserializeWith(
-      WhiteListItem.serializer, json
-    );
+    return serializers.deserializeWith(WhiteListItem.serializer, json);
   }
 }

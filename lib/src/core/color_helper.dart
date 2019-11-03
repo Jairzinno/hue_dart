@@ -75,7 +75,7 @@ class ColorHelper {
       hue = hue + 360;
     }
     hue = hue % 360;
-    return new HueColor(
+    return HueColor(
       (c) => c
         ..hue = (hue / 360 * 65535).round()
         ..saturation = (saturation * 255).round()
@@ -157,7 +157,7 @@ class ColorHelper {
           break;
       }
     }
-    return new HueColor(
+    return HueColor(
       (c) => c
         ..hue = hue
         ..saturation = saturation
@@ -189,7 +189,7 @@ class ColorHelper {
         minTemperature = temperature;
       }
     }
-    return new HueColor(
+    return HueColor(
       (c) => c
         ..temperature = temperature.round()
         ..red = red
@@ -281,7 +281,7 @@ class ColorHelper {
         }
       }
     }
-    return new HueColor(
+    return HueColor(
       (c) => c
         ..red = red / 255
         ..green = green / 255
@@ -317,11 +317,11 @@ class ColorHelper {
     var z = red * 0.000088 + green * 0.072310 + blue * 0.986039;
     // But we don't want Capital X,Y,Z you want lowercase [x,y] (called the color point) as per:
     if ((x + y + z) == 0) {
-      return new HueColor(
+      return HueColor(
         (c) => c.xy = ListBuilder([0, 0]),
       );
     }
-    return new HueColor(
+    return HueColor(
       (c) => c.xy = ListBuilder([x / (x + y + z), y / (x + y + z)]),
     );
   }
@@ -430,7 +430,7 @@ class ColorHelper {
     if (blue < 0) {
       blue = 0;
     }
-    return new HueColor(
+    return HueColor(
       (c) => c
         ..red = red
         ..green = green
@@ -452,13 +452,13 @@ class ColorHelper {
   ///
   /// returns a [HueColor] with [ct] converted to a color temperature
   HueColor _ctToColorTemperature(num ct) {
-    return new HueColor((c) => c.temperature = (1000000 / ct).round());
+    return HueColor((c) => c.temperature = (1000000 / ct).round());
   }
 
   /// Converts a color temperature to CT in Mired (micro reciprocal degree)
   ///
   /// returns a [HueColor] with color [temperature] to CT in Mired (micro reciprocal degree)
   HueColor _colorTemperatureToCT(num temperature) {
-    return new HueColor((c) => c.ct = (1000000 / temperature).round());
+    return HueColor((c) => c.ct = (1000000 / temperature).round());
   }
 }

@@ -15,7 +15,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
   final String wireName = 'LightState';
 
   @override
-  Iterable serialize(Serializers serializers, LightState object,
+  Iterable<Object> serialize(Serializers serializers, LightState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.on != null) {
@@ -85,12 +85,11 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
         ..add(serializers.serialize(object.mode,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  LightState deserialize(Serializers serializers, Iterable serialized,
+  LightState deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LightStateBuilder();
 
@@ -120,7 +119,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(num)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'ct':
           result.ct = serializers.deserialize(value,
@@ -177,7 +176,7 @@ class _$LightState extends LightState {
   @override
   final String mode;
 
-  factory _$LightState([void updates(LightStateBuilder b)]) =>
+  factory _$LightState([void Function(LightStateBuilder) updates]) =>
       (new LightStateBuilder()..update(updates)).build();
 
   _$LightState._(
@@ -195,7 +194,7 @@ class _$LightState extends LightState {
       : super._();
 
   @override
-  LightState rebuild(void updates(LightStateBuilder b)) =>
+  LightState rebuild(void Function(LightStateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -336,7 +335,7 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
   }
 
   @override
-  void update(void updates(LightStateBuilder b)) {
+  void update(void Function(LightStateBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -373,4 +372,4 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

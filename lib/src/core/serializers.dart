@@ -31,7 +31,7 @@ import 'package:hue_dart/src/sensor/sensor_state.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor(const [
+@SerializersFor([
   BridgeException,
   HueColor,
   ResourceLink,
@@ -58,7 +58,7 @@ part 'serializers.g.dart';
   PortalState,
   SoftwareUpdate,
   SoftwareUpdateBridge,
-  WhiteListItem,  
+  WhiteListItem,
 ])
-final Serializers serializers = (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
-
+final Serializers serializers =
+    (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

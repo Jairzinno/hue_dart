@@ -7,8 +7,7 @@ import 'package:hue_dart/src/core/serializers.dart';
 part 'group_state.g.dart';
 
 abstract class GroupState implements Built<GroupState, GroupStateBuilder> {
-
-    /// “false” if all lamps are off, “true” if at least one lamp is on
+  /// “false” if all lamps are off, “true” if at least one lamp is on
   @nullable
   @BuiltValueField(wireName: 'any_on')
   bool get anyOn;
@@ -26,7 +25,6 @@ abstract class GroupState implements Built<GroupState, GroupStateBuilder> {
 
   static GroupState fromJson(String jsonString) {
     return serializers.deserializeWith(
-      GroupState.serializer, json.decode(jsonString)
-    );
+        GroupState.serializer, json.decode(jsonString));
   }
 }

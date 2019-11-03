@@ -12,9 +12,9 @@ import 'package:hue_dart/src/light/light.dart';
 part 'group.g.dart';
 
 abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
-
   @nullable
   int get id;
+
   ///Type of the Group. If not provided on creation a “LightGroup” is created. Supported types:
   ///
   ///LightGroup, 1.4, Default
@@ -41,7 +41,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
   BuiltList<String> get lightIds;
 
   @nullable
-  BuiltList<Light> get lights;
+  BuiltList<Light> get groupLights;
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only on creation of resource. “false” when omitted.
   @nullable
@@ -63,10 +63,10 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
   @nullable
   Action get action;
 
-    /// get the current color of the light in all possible means by the bridge
+  /// get the current color of the light in all possible means by the bridge
   @memoized
   HueColor get colors {
-    final colorHelper = new ColorHelper();
+    final colorHelper = ColorHelper();
     if (action.colorMode == 'ct') {
       return colorHelper.ctToRGB(action.ct);
     } else if (action.colorMode == 'hs') {
@@ -85,9 +85,9 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
   factory Group([updates(GroupBuilder b)]) = _$Group;
 
   factory Group.fromJson(Map json, {int id}) {
-    return serializers.deserializeWith(
-      Group.serializer, json
-    ).rebuild((b) => b..id = id);
+    return serializers
+        .deserializeWith(Group.serializer, json)
+        .rebuild((b) => b..id = id);
   }
 
   @override
@@ -117,7 +117,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
 
   /// change the color of the group on the bridge with rgb values ranging from 0 to 1
   Group changeColor({num red = 0, num green = 0, num blue = 0}) {
-    final colorHelper = new ColorHelper();
+    final colorHelper = ColorHelper();
     if (action.colorMode == 'ct') {
       HueColor colors = colorHelper.rgbToCT(red, green, blue);
       return rebuild(

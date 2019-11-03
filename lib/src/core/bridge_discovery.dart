@@ -32,7 +32,7 @@ class BridgeDiscovery {
     try {
       final response = await _client.get(url);
       Map responseMap = json.decode(response.body);
-      final result = new DiscoveryResult.fromJson(responseMap)
+      final result = DiscoveryResult.fromJson(responseMap)
           .rebuild((b) => b..ipAddress = ipAddress);
       return result;
     } catch (e) {

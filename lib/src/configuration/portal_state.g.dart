@@ -15,7 +15,7 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
   final String wireName = 'PortalState';
 
   @override
-  Iterable serialize(Serializers serializers, PortalState object,
+  Iterable<Object> serialize(Serializers serializers, PortalState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'communication',
@@ -36,7 +36,7 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
   }
 
   @override
-  PortalState deserialize(Serializers serializers, Iterable serialized,
+  PortalState deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new PortalStateBuilder();
 
@@ -79,7 +79,7 @@ class _$PortalState extends PortalState {
   @override
   final bool signedOn;
 
-  factory _$PortalState([void updates(PortalStateBuilder b)]) =>
+  factory _$PortalState([void Function(PortalStateBuilder) updates]) =>
       (new PortalStateBuilder()..update(updates)).build();
 
   _$PortalState._(
@@ -100,7 +100,7 @@ class _$PortalState extends PortalState {
   }
 
   @override
-  PortalState rebuild(void updates(PortalStateBuilder b)) =>
+  PortalState rebuild(void Function(PortalStateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -177,7 +177,7 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
   }
 
   @override
-  void update(void updates(PortalStateBuilder b)) {
+  void update(void Function(PortalStateBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -194,4 +194,4 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

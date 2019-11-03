@@ -15,7 +15,7 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
   final String wireName = 'Action';
 
   @override
-  Iterable serialize(Serializers serializers, Action object,
+  Iterable<Object> serialize(Serializers serializers, Action object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.on != null) {
@@ -79,12 +79,11 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
         ..add(serializers.serialize(object.scene,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  Action deserialize(Serializers serializers, Iterable serialized,
+  Action deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ActionBuilder();
 
@@ -114,7 +113,7 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(num)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'ct':
           result.ct = serializers.deserialize(value,
@@ -165,7 +164,7 @@ class _$Action extends Action {
   @override
   final String scene;
 
-  factory _$Action([void updates(ActionBuilder b)]) =>
+  factory _$Action([void Function(ActionBuilder) updates]) =>
       (new ActionBuilder()..update(updates)).build();
 
   _$Action._(
@@ -182,7 +181,7 @@ class _$Action extends Action {
       : super._();
 
   @override
-  Action rebuild(void updates(ActionBuilder b)) =>
+  Action rebuild(void Function(ActionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -314,7 +313,7 @@ class ActionBuilder implements Builder<Action, ActionBuilder> {
   }
 
   @override
-  void update(void updates(ActionBuilder b)) {
+  void update(void Function(ActionBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -350,4 +349,4 @@ class ActionBuilder implements Builder<Action, ActionBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

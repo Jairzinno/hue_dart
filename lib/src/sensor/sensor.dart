@@ -92,5 +92,5 @@ abstract class Sensor
       return serializers.serializeWith(serializer, state);
     }
     return null;
-  }  
+  }
 }

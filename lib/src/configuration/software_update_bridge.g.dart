@@ -20,7 +20,8 @@ class _$SoftwareUpdateBridgeSerializer
   final String wireName = 'SoftwareUpdateBridge';
 
   @override
-  Iterable serialize(Serializers serializers, SoftwareUpdateBridge object,
+  Iterable<Object> serialize(
+      Serializers serializers, SoftwareUpdateBridge object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'state',
@@ -35,7 +36,8 @@ class _$SoftwareUpdateBridgeSerializer
   }
 
   @override
-  SoftwareUpdateBridge deserialize(Serializers serializers, Iterable serialized,
+  SoftwareUpdateBridge deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SoftwareUpdateBridgeBuilder();
 
@@ -68,7 +70,7 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
   DateTime __lastInstallDate;
 
   factory _$SoftwareUpdateBridge(
-          [void updates(SoftwareUpdateBridgeBuilder b)]) =>
+          [void Function(SoftwareUpdateBridgeBuilder) updates]) =>
       (new SoftwareUpdateBridgeBuilder()..update(updates)).build();
 
   _$SoftwareUpdateBridge._({this.state, this.lastInstall}) : super._() {
@@ -84,7 +86,8 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
   DateTime get lastInstallDate => __lastInstallDate ??= super.lastInstallDate;
 
   @override
-  SoftwareUpdateBridge rebuild(void updates(SoftwareUpdateBridgeBuilder b)) =>
+  SoftwareUpdateBridge rebuild(
+          void Function(SoftwareUpdateBridgeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -145,7 +148,7 @@ class SoftwareUpdateBridgeBuilder
   }
 
   @override
-  void update(void updates(SoftwareUpdateBridgeBuilder b)) {
+  void update(void Function(SoftwareUpdateBridgeBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -158,4 +161,4 @@ class SoftwareUpdateBridgeBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

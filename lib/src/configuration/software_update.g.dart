@@ -17,7 +17,7 @@ class _$SoftwareUpdateSerializer
   final String wireName = 'SoftwareUpdate';
 
   @override
-  Iterable serialize(Serializers serializers, SoftwareUpdate object,
+  Iterable<Object> serialize(Serializers serializers, SoftwareUpdate object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.checkForUpdate != null) {
@@ -50,12 +50,12 @@ class _$SoftwareUpdateSerializer
         ..add(serializers.serialize(object.autoInstall,
             specifiedType: const FullType(AutoInstall)));
     }
-
     return result;
   }
 
   @override
-  SoftwareUpdate deserialize(Serializers serializers, Iterable serialized,
+  SoftwareUpdate deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SoftwareUpdateBuilder();
 
@@ -105,7 +105,7 @@ class _$SoftwareUpdate extends SoftwareUpdate {
   @override
   final AutoInstall autoInstall;
 
-  factory _$SoftwareUpdate([void updates(SoftwareUpdateBuilder b)]) =>
+  factory _$SoftwareUpdate([void Function(SoftwareUpdateBuilder) updates]) =>
       (new SoftwareUpdateBuilder()..update(updates)).build();
 
   _$SoftwareUpdate._(
@@ -117,7 +117,7 @@ class _$SoftwareUpdate extends SoftwareUpdate {
       : super._();
 
   @override
-  SoftwareUpdate rebuild(void updates(SoftwareUpdateBuilder b)) =>
+  SoftwareUpdate rebuild(void Function(SoftwareUpdateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -208,7 +208,7 @@ class SoftwareUpdateBuilder
   }
 
   @override
-  void update(void updates(SoftwareUpdateBuilder b)) {
+  void update(void Function(SoftwareUpdateBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -241,4 +241,4 @@ class SoftwareUpdateBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

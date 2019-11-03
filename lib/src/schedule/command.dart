@@ -6,8 +6,9 @@ import 'package:hue_dart/src/core/serializers.dart';
 
 part 'command.g.dart';
 
-abstract class Command with BridgeObject implements Built<Command, CommandBuilder> {
-
+abstract class Command
+    with BridgeObject
+    implements Built<Command, CommandBuilder> {
   ///Path to a light resource, a group resource or any other bridge resource (including "/api/<username>/")
   String get address;
 
@@ -24,13 +25,11 @@ abstract class Command with BridgeObject implements Built<Command, CommandBuilde
   factory Command([updates(CommandBuilder b)]) = _$Command;
 
   factory Command.fromJson(Map json) {
-    return serializers.deserializeWith(
-      Command.serializer, json
-    );
+    return serializers.deserializeWith(Command.serializer, json);
   }
 
   @override
-    Map toBridgeObject({String action}) {
-      return serializers.serializeWith(serializer, this);
-    }
+  Map toBridgeObject({String action}) {
+    return serializers.serializeWith(serializer, this);
+  }
 }

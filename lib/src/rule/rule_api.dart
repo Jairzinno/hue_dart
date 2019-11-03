@@ -10,7 +10,7 @@ class RuleApi {
 
   RuleApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
+  set username(String username) => this._username = username;
 
   Future<List<Rule>> all() async {
     String url = '/api/$_username/rules';
@@ -31,7 +31,7 @@ class RuleApi {
   Future<Rule> single(int id) async {
     String url = '/api/$_username/rules/$id';
     final response = await _client.get(url);
-    final rule = new Rule.fromJson(response, id: id);
+    final rule = Rule.fromJson(response, id: id);
     return rule;
   }
 

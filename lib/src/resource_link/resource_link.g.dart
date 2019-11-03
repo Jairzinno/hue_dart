@@ -16,7 +16,7 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
   final String wireName = 'ResourceLink';
 
   @override
-  Iterable serialize(Serializers serializers, ResourceLink object,
+  Iterable<Object> serialize(Serializers serializers, ResourceLink object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -68,12 +68,11 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
         ..add(serializers.serialize(object.recycle,
             specifiedType: const FullType(bool)));
     }
-
     return result;
   }
 
   @override
-  ResourceLink deserialize(Serializers serializers, Iterable serialized,
+  ResourceLink deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ResourceLinkBuilder();
 
@@ -111,7 +110,7 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
           result.links.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
@@ -142,7 +141,7 @@ class _$ResourceLink extends ResourceLink {
   @override
   final bool recycle;
 
-  factory _$ResourceLink([void updates(ResourceLinkBuilder b)]) =>
+  factory _$ResourceLink([void Function(ResourceLinkBuilder) updates]) =>
       (new ResourceLinkBuilder()..update(updates)).build();
 
   _$ResourceLink._(
@@ -157,7 +156,7 @@ class _$ResourceLink extends ResourceLink {
       : super._();
 
   @override
-  ResourceLink rebuild(void updates(ResourceLinkBuilder b)) =>
+  ResourceLink rebuild(void Function(ResourceLinkBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -270,7 +269,7 @@ class ResourceLinkBuilder
   }
 
   @override
-  void update(void updates(ResourceLinkBuilder b)) {
+  void update(void Function(ResourceLinkBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -304,4 +303,4 @@ class ResourceLinkBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

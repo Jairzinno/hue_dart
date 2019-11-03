@@ -15,7 +15,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
   final String wireName = 'RuleAction';
 
   @override
-  Iterable serialize(Serializers serializers, RuleAction object,
+  Iterable<Object> serialize(Serializers serializers, RuleAction object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.address != null) {
@@ -37,12 +37,11 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(String)])));
     }
-
     return result;
   }
 
   @override
-  RuleAction deserialize(Serializers serializers, Iterable serialized,
+  RuleAction deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RuleActionBuilder();
 
@@ -65,7 +64,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(String)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
       }
     }
@@ -82,13 +81,13 @@ class _$RuleAction extends RuleAction {
   @override
   final BuiltMap<String, String> body;
 
-  factory _$RuleAction([void updates(RuleActionBuilder b)]) =>
+  factory _$RuleAction([void Function(RuleActionBuilder) updates]) =>
       (new RuleActionBuilder()..update(updates)).build();
 
   _$RuleAction._({this.address, this.method, this.body}) : super._();
 
   @override
-  RuleAction rebuild(void updates(RuleActionBuilder b)) =>
+  RuleAction rebuild(void Function(RuleActionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -156,7 +155,7 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
   }
 
   @override
-  void update(void updates(RuleActionBuilder b)) {
+  void update(void Function(RuleActionBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -183,4 +182,4 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

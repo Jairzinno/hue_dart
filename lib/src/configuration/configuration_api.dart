@@ -20,12 +20,12 @@ class ConfigurationApi {
     String url = '/api/';
     final response =
         await _client.post(url, {'devicetype': deviceType}, 'username');
-    final createDate = new DateFormat("yyyy-MM-dd'T'HH:m:s").format(new DateTime.now());    
+    final createDate = DateFormat("yyyy-MM-dd'T'HH:m:s").format(DateTime.now());
     return WhiteListItem((w) => w
-    ..username = response.key
-    ..name = deviceType
-    ..createDate = createDate        
-    ..lastUsedDate = createDate);
+      ..username = response.key
+      ..name = deviceType
+      ..createDate = createDate
+      ..lastUsedDate = createDate);
   }
 
   Future<BridgeResponse> deleteUser(

@@ -15,7 +15,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   final String wireName = 'HueColor';
 
   @override
-  Iterable serialize(Serializers serializers, HueColor object,
+  Iterable<Object> serialize(Serializers serializers, HueColor object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.hue != null) {
@@ -73,12 +73,11 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
         ..add(serializers.serialize(object.blue,
             specifiedType: const FullType(num)));
     }
-
     return result;
   }
 
   @override
-  HueColor deserialize(Serializers serializers, Iterable serialized,
+  HueColor deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new HueColorBuilder();
 
@@ -112,7 +111,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(num)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'red':
           result.red = serializers.deserialize(value,
@@ -153,7 +152,7 @@ class _$HueColor extends HueColor {
   @override
   final num blue;
 
-  factory _$HueColor([void updates(HueColorBuilder b)]) =>
+  factory _$HueColor([void Function(HueColorBuilder) updates]) =>
       (new HueColorBuilder()..update(updates)).build();
 
   _$HueColor._(
@@ -169,7 +168,7 @@ class _$HueColor extends HueColor {
       : super._();
 
   @override
-  HueColor rebuild(void updates(HueColorBuilder b)) =>
+  HueColor rebuild(void Function(HueColorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -290,7 +289,7 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
   }
 
   @override
-  void update(void updates(HueColorBuilder b)) {
+  void update(void Function(HueColorBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -325,4 +324,4 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

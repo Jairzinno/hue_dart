@@ -15,7 +15,7 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
   final String wireName = 'Sensor';
 
   @override
-  Iterable serialize(Serializers serializers, Sensor object,
+  Iterable<Object> serialize(Serializers serializers, Sensor object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -96,12 +96,11 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
         ..add(serializers.serialize(object.config,
             specifiedType: const FullType(SensorConfig)));
     }
-
     return result;
   }
 
   @override
-  Sensor deserialize(Serializers serializers, Iterable serialized,
+  Sensor deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SensorBuilder();
 
@@ -198,7 +197,7 @@ class _$Sensor extends Sensor {
   @override
   final SensorConfig config;
 
-  factory _$Sensor([void updates(SensorBuilder b)]) =>
+  factory _$Sensor([void Function(SensorBuilder) updates]) =>
       (new SensorBuilder()..update(updates)).build();
 
   _$Sensor._(
@@ -218,7 +217,7 @@ class _$Sensor extends Sensor {
       : super._();
 
   @override
-  Sensor rebuild(void updates(SensorBuilder b)) =>
+  Sensor rebuild(void Function(SensorBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -379,7 +378,7 @@ class SensorBuilder implements Builder<Sensor, SensorBuilder> {
   }
 
   @override
-  void update(void updates(SensorBuilder b)) {
+  void update(void Function(SensorBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -420,4 +419,4 @@ class SensorBuilder implements Builder<Sensor, SensorBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

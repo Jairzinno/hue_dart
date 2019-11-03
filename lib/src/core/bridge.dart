@@ -37,14 +37,14 @@ class Bridge {
   /// create a bridge with a platform specific [client]. Setting the optional [username] enables the use of calls on the bridge that require a username
   Bridge(Client client, String address, [String username])
       : this._withApi(
-            new ConfigurationApi(new BridgeClient(client, address)),
-            new GroupApi(new BridgeClient(client, address)),
-            new LightApi(new BridgeClient(client, address)),
-            new ResourceLinkApi(new BridgeClient(client, address)),
-            new RuleApi(new BridgeClient(client, address)),
-            new SceneApi(new BridgeClient(client, address)),
-            new ScheduleApi(new BridgeClient(client, address)),
-            new SensorApi(new BridgeClient(client, address)),
+            ConfigurationApi(BridgeClient(client, address)),
+            GroupApi(BridgeClient(client, address)),
+            LightApi(BridgeClient(client, address)),
+            ResourceLinkApi(BridgeClient(client, address)),
+            RuleApi(BridgeClient(client, address)),
+            SceneApi(BridgeClient(client, address)),
+            ScheduleApi(BridgeClient(client, address)),
+            SensorApi(BridgeClient(client, address)),
             username);
 
   Bridge._withApi(
@@ -61,7 +61,7 @@ class Bridge {
   }
 
   /// set a username to enable the use of cclls on the bridge that require a username
-  void set username(String username) {
+  set username(String username) {
     this._username = username;
     _groupApi.username = username;
     _lightApi.username = username;

@@ -7,7 +7,6 @@ import 'package:hue_dart/src/core/bridge_discovery.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
 
 class PushlinkBloc extends BlocBase {
-
   final PushlinkStorage _pushlinkStorage;
   final BridgeDiscovery _discovery;
 
@@ -15,9 +14,9 @@ class PushlinkBloc extends BlocBase {
   Stream<bool> get hasUsername => _hasUsername.stream;
 
   StreamController<List<DiscoveryResult>> _discoveryResults =
-  StreamController();
-  Stream<List<DiscoveryResult>> get discoveryResults => _discoveryResults
-      .stream;
+      StreamController();
+  Stream<List<DiscoveryResult>> get discoveryResults =>
+      _discoveryResults.stream;
 
   StreamController<String> _manualSearch = StreamController();
   Sink<String> get manualSearch => _manualSearch.sink;
@@ -51,7 +50,7 @@ class PushlinkBloc extends BlocBase {
         final results = await _discovery.automatic();
         print('automatic search found ${results.length} bridges');
         _discoveryResults.add(results);
-      } catch(error, stacktrace) {
+      } catch (error, stacktrace) {
         print('automatic search for bridges failed');
         _discoveryResults.addError(error, stacktrace);
       }
@@ -61,7 +60,7 @@ class PushlinkBloc extends BlocBase {
       try {
         final result = await _discovery.manual(ipAddress);
         _manualSearchResult.add(result);
-      } catch(error, stacktrace) {
+      } catch (error, stacktrace) {
         _manualSearchResult.addError(error, stacktrace);
       }
     });
@@ -76,8 +75,8 @@ class PushlinkBloc extends BlocBase {
       final response = await bridge.createUser(deviceType);
       final hasUsername = response.username != null;
       if (hasUsername) {
-        final savedUsername = await _pushlinkStorage.saveUsername(response
-        .username);
+        final savedUsername =
+            await _pushlinkStorage.saveUsername(response.username);
         _hasUsername.add(savedUsername);
         return;
       }

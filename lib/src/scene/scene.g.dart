@@ -15,7 +15,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
   final String wireName = 'Scene';
 
   @override
-  Iterable serialize(Serializers serializers, Scene object,
+  Iterable<Object> serialize(Serializers serializers, Scene object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -37,10 +37,10 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    if (object.lights != null) {
+    if (object.sceneLights != null) {
       result
-        ..add('lights')
-        ..add(serializers.serialize(object.lights,
+        ..add('sceneLights')
+        ..add(serializers.serialize(object.sceneLights,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Light)])));
     }
@@ -86,12 +86,11 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
         ..add(serializers.serialize(object.picture,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  Scene deserialize(Serializers serializers, Iterable serialized,
+  Scene deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SceneBuilder();
 
@@ -113,13 +112,13 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
           result.lightIds.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
-        case 'lights':
-          result.lights.replace(serializers.deserialize(value,
+        case 'sceneLights':
+          result.sceneLights.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Light)]))
-              as BuiltList);
+              as BuiltList<dynamic>);
           break;
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -164,7 +163,7 @@ class _$Scene extends Scene {
   @override
   final BuiltList<String> lightIds;
   @override
-  final BuiltList<Light> lights;
+  final BuiltList<Light> sceneLights;
   @override
   final String owner;
   @override
@@ -180,14 +179,14 @@ class _$Scene extends Scene {
   @override
   final String picture;
 
-  factory _$Scene([void updates(SceneBuilder b)]) =>
+  factory _$Scene([void Function(SceneBuilder) updates]) =>
       (new SceneBuilder()..update(updates)).build();
 
   _$Scene._(
       {this.id,
       this.name,
       this.lightIds,
-      this.lights,
+      this.sceneLights,
       this.owner,
       this.recycle,
       this.locked,
@@ -198,7 +197,7 @@ class _$Scene extends Scene {
       : super._();
 
   @override
-  Scene rebuild(void updates(SceneBuilder b)) =>
+  Scene rebuild(void Function(SceneBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -211,7 +210,7 @@ class _$Scene extends Scene {
         id == other.id &&
         name == other.name &&
         lightIds == other.lightIds &&
-        lights == other.lights &&
+        sceneLights == other.sceneLights &&
         owner == other.owner &&
         recycle == other.recycle &&
         locked == other.locked &&
@@ -233,7 +232,7 @@ class _$Scene extends Scene {
                                 $jc(
                                     $jc($jc($jc(0, id.hashCode), name.hashCode),
                                         lightIds.hashCode),
-                                    lights.hashCode),
+                                    sceneLights.hashCode),
                                 owner.hashCode),
                             recycle.hashCode),
                         locked.hashCode),
@@ -249,7 +248,7 @@ class _$Scene extends Scene {
           ..add('id', id)
           ..add('name', name)
           ..add('lightIds', lightIds)
-          ..add('lights', lights)
+          ..add('sceneLights', sceneLights)
           ..add('owner', owner)
           ..add('recycle', recycle)
           ..add('locked', locked)
@@ -277,9 +276,11 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
       _$this._lightIds ??= new ListBuilder<String>();
   set lightIds(ListBuilder<String> lightIds) => _$this._lightIds = lightIds;
 
-  ListBuilder<Light> _lights;
-  ListBuilder<Light> get lights => _$this._lights ??= new ListBuilder<Light>();
-  set lights(ListBuilder<Light> lights) => _$this._lights = lights;
+  ListBuilder<Light> _sceneLights;
+  ListBuilder<Light> get sceneLights =>
+      _$this._sceneLights ??= new ListBuilder<Light>();
+  set sceneLights(ListBuilder<Light> sceneLights) =>
+      _$this._sceneLights = sceneLights;
 
   String _owner;
   String get owner => _$this._owner;
@@ -316,7 +317,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
       _id = _$v.id;
       _name = _$v.name;
       _lightIds = _$v.lightIds?.toBuilder();
-      _lights = _$v.lights?.toBuilder();
+      _sceneLights = _$v.sceneLights?.toBuilder();
       _owner = _$v.owner;
       _recycle = _$v.recycle;
       _locked = _$v.locked;
@@ -338,7 +339,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
   }
 
   @override
-  void update(void updates(SceneBuilder b)) {
+  void update(void Function(SceneBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -351,7 +352,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
               id: id,
               name: name,
               lightIds: _lightIds?.build(),
-              lights: _lights?.build(),
+              sceneLights: _sceneLights?.build(),
               owner: owner,
               recycle: recycle,
               locked: locked,
@@ -364,8 +365,8 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
       try {
         _$failedField = 'lightIds';
         _lightIds?.build();
-        _$failedField = 'lights';
-        _lights?.build();
+        _$failedField = 'sceneLights';
+        _sceneLights?.build();
 
         _$failedField = 'appData';
         _appData?.build();
@@ -380,4 +381,4 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

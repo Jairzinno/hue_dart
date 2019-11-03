@@ -64,7 +64,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
   /// get the current color of the light in all possible means by the bridge
   @memoized
   HueColor get colors {
-    final colorHelper = new ColorHelper();
+    final colorHelper = ColorHelper();
     if (state.colorMode == 'ct') {
       return colorHelper.ctToRGB(state.ct);
     } else if (state.colorMode == 'hs') {
@@ -105,7 +105,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
 
   /// change the color of the light on the bridge with rgb values ranging from 0 to 1
   Light changeColor({num red = 0, num green = 0, num blue = 0}) {
-    final colorHelper = new ColorHelper();
+    final colorHelper = ColorHelper();
     if (state.colorMode == 'ct') {
       HueColor colors = colorHelper.rgbToCT(red, green, blue);
       return rebuild(
@@ -137,6 +137,4 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
     }
     return this;
   }
-
-
 }

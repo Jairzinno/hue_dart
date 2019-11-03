@@ -15,7 +15,7 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
   final String wireName = 'BackUp';
 
   @override
-  Iterable serialize(Serializers serializers, BackUp object,
+  Iterable<Object> serialize(Serializers serializers, BackUp object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'status',
@@ -30,7 +30,7 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
   }
 
   @override
-  BackUp deserialize(Serializers serializers, Iterable serialized,
+  BackUp deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new BackUpBuilder();
 
@@ -61,7 +61,7 @@ class _$BackUp extends BackUp {
   @override
   final int errorCode;
 
-  factory _$BackUp([void updates(BackUpBuilder b)]) =>
+  factory _$BackUp([void Function(BackUpBuilder) updates]) =>
       (new BackUpBuilder()..update(updates)).build();
 
   _$BackUp._({this.status, this.errorCode}) : super._() {
@@ -74,7 +74,7 @@ class _$BackUp extends BackUp {
   }
 
   @override
-  BackUp rebuild(void updates(BackUpBuilder b)) =>
+  BackUp rebuild(void Function(BackUpBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -133,7 +133,7 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
   }
 
   @override
-  void update(void updates(BackUpBuilder b)) {
+  void update(void Function(BackUpBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -146,4 +146,4 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

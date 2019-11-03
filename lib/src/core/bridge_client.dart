@@ -31,7 +31,7 @@ class BridgeClient {
       Map<String, dynamic> resultMap = response.first;
       if (resultMap.containsKey('error')) {
         Map<String, dynamic> errorMap = resultMap['error'];
-        var exception = new BridgeException.fromJson(errorMap);
+        var exception = BridgeException.fromJson(errorMap);
         throw exception;
       }
     }
@@ -51,7 +51,7 @@ class BridgeClient {
   }
 
   BridgeResponse _result(dynamic response, [String key]) {
-    return new BridgeResponse(response, key);
+    return BridgeResponse(response, key);
   }
 
   Future<BridgeResponse> put(String url, dynamic body) async {
@@ -69,7 +69,7 @@ class BridgeClient {
       _checkException(responseMap);
       return _result(responseMap);
     } else {
-      return new BridgeResponse([]);
+      return BridgeResponse([]);
     }
   }
 }

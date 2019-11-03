@@ -1,3 +1,8 @@
+## [0.2.0] - 03-11-2019
+
+- Updated dependencies
+- Use `built_value` instead of `json_serializable`
+
 ## [0.1.2] - 04-09-2018
 
 - Fixed dependencies and formatting

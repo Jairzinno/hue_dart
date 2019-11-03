@@ -6,8 +6,9 @@ import 'package:hue_dart/src/core/serializers.dart';
 
 part 'light_state.g.dart';
 
-abstract class LightState with BridgeObject implements Built<LightState, LightStateBuilder> {
-
+abstract class LightState
+    with BridgeObject
+    implements Built<LightState, LightStateBuilder> {
   /// On/Off state of the light. On=true, Off=false.
   @nullable
   bool get on;
@@ -66,11 +67,9 @@ abstract class LightState with BridgeObject implements Built<LightState, LightSt
   factory LightState([updates(LightStateBuilder b)]) = _$LightState;
 
   factory LightState.fromJson(Map json) {
-    return serializers.deserializeWith(
-      LightState.serializer, json
-    );
+    return serializers.deserializeWith(LightState.serializer, json);
   }
-  
+
   @override
   Map toBridgeObject({String action}) {
     return serializers.serializeWith(serializer, this);

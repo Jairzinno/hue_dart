@@ -15,7 +15,7 @@ class _$LightSerializer implements StructuredSerializer<Light> {
   final String wireName = 'Light';
 
   @override
-  Iterable serialize(Serializers serializers, Light object,
+  Iterable<Object> serialize(Serializers serializers, Light object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -72,12 +72,11 @@ class _$LightSerializer implements StructuredSerializer<Light> {
         ..add(serializers.serialize(object.swVersion,
             specifiedType: const FullType(String)));
     }
-
     return result;
   }
 
   @override
-  Light deserialize(Serializers serializers, Iterable serialized,
+  Light deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LightBuilder();
 
@@ -153,7 +152,7 @@ class _$Light extends Light {
   HueColor __colors;
   LightModel __model;
 
-  factory _$Light([void updates(LightBuilder b)]) =>
+  factory _$Light([void Function(LightBuilder) updates]) =>
       (new LightBuilder()..update(updates)).build();
 
   _$Light._(
@@ -178,7 +177,7 @@ class _$Light extends Light {
   LightModel get model => __model ??= super.model;
 
   @override
-  Light rebuild(void updates(LightBuilder b)) =>
+  Light rebuild(void Function(LightBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -301,7 +300,7 @@ class LightBuilder implements Builder<Light, LightBuilder> {
   }
 
   @override
-  void update(void updates(LightBuilder b)) {
+  void update(void Function(LightBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -336,4 +335,4 @@ class LightBuilder implements Builder<Light, LightBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

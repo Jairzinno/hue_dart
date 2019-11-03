@@ -1,17 +1,15 @@
 import 'package:hue_dart/src/light/light.dart';
 
 abstract class LightModel {
-
   LightModel.withLight(Light light) {
     modelId = light.modelId;
   }
-  
+
   String modelId;
   String get productName;
 }
 
 class Ambiance extends LightModel {
-
   Ambiance._withLight(Light light) : super.withLight(light);
 
   @override
@@ -19,7 +17,6 @@ class Ambiance extends LightModel {
 }
 
 class Aura extends LightModel {
-
   Aura._withLight(Light light) : super.withLight(light);
 
   @override
@@ -150,42 +147,41 @@ class White extends LightModel {
 }
 
 abstract class LightModelFactory {
-
   static LightModel create(Light light) {
     String modelId = light.modelId;
     if (isAmbianceModel(modelId)) {
-      return new Ambiance._withLight(light);
+      return Ambiance._withLight(light);
     } else if (isAuraModel(modelId)) {
-      return new Aura._withLight(light);
+      return Aura._withLight(light);
     } else if (isBeyondModel(modelId)) {
-      return new Beyond._withLight(light);
+      return Beyond._withLight(light);
     } else if (isBloomModel(modelId)) {
-      return new Bloom._withLight(light);
+      return Bloom._withLight(light);
     } else if (isDefaultBulbModel(modelId) ||
         isLuxBulbModel(modelId) ||
         isAmbianceBulbModel(modelId) ||
         isWhiteBulbModel(modelId)) {
-      return new Bulb._withLight(light);
+      return Bulb._withLight(light);
     } else if (isDownLightModel(modelId)) {
-      return new DownLight._withLight(light);
+      return DownLight._withLight(light);
     } else if (isEntityModel(modelId)) {
-      return new Entity._withLight(light);
+      return Entity._withLight(light);
     } else if (isGoModel(modelId)) {
-      return new Go._withLight(light);
+      return Go._withLight(light);
     } else if (isImpulseModel(modelId)) {
-      return new Impulse._withLight(light);
+      return Impulse._withLight(light);
     } else if (isIrisModel(modelId)) {
-      return new Iris._withLight(light);
+      return Iris._withLight(light);
     } else if (isLightStripModel(modelId)) {
-      return new LightStrip._withLight(light);
+      return LightStrip._withLight(light);
     } else if (isPhoenixModel(modelId)) {
-      return new Phoenix._withLight(light);
+      return Phoenix._withLight(light);
     } else if (isSpotModel(modelId)) {
-      return new Spot._withLight(light);
+      return Spot._withLight(light);
     } else if (isStoryLightModel(modelId)) {
-      return new StoryLight._withLight(light);
+      return StoryLight._withLight(light);
     } else if (isWhiteModel(modelId)) {
-      return new White._withLight(light);
+      return White._withLight(light);
     }
     return null;
   }

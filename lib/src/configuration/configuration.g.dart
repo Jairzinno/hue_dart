@@ -16,7 +16,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
   final String wireName = 'Configuration';
 
   @override
-  Iterable serialize(Serializers serializers, Configuration object,
+  Iterable<Object> serialize(Serializers serializers, Configuration object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.name != null) {
@@ -251,12 +251,12 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(ResourceLink)])));
     }
-
     return result;
   }
 
   @override
-  Configuration deserialize(Serializers serializers, Iterable serialized,
+  Configuration deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ConfigurationBuilder();
 
@@ -279,7 +279,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(WhiteListItem)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'apiversion':
           result.apiVersion = serializers.deserialize(value,
@@ -395,49 +395,49 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(Light)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'groups':
           result.groups.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(Group)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'scenes':
           result.scenes.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(Scene)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'schedules':
           result.schedules.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(Schedule)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'sensors':
           result.sensors.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(Sensor)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'rules':
           result.rules.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(Rule)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
         case 'resourcelinks':
           result.resourceLinks.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(ResourceLink)
-              ])) as BuiltMap);
+              ])) as BuiltMap<dynamic, dynamic>);
           break;
       }
     }
@@ -524,7 +524,7 @@ class _$Configuration extends Configuration {
   DateTime __utcDate;
   DateTime __localTimeDate;
 
-  factory _$Configuration([void updates(ConfigurationBuilder b)]) =>
+  factory _$Configuration([void Function(ConfigurationBuilder) updates]) =>
       (new ConfigurationBuilder()..update(updates)).build();
 
   _$Configuration._(
@@ -574,7 +574,7 @@ class _$Configuration extends Configuration {
   DateTime get localTimeDate => __localTimeDate ??= super.localTimeDate;
 
   @override
-  Configuration rebuild(void updates(ConfigurationBuilder b)) =>
+  Configuration rebuild(void Function(ConfigurationBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -939,7 +939,7 @@ class ConfigurationBuilder
   }
 
   @override
-  void update(void updates(ConfigurationBuilder b)) {
+  void update(void Function(ConfigurationBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -1029,4 +1029,4 @@ class ConfigurationBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

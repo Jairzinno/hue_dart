@@ -11,8 +11,8 @@ class SceneApi {
 
   SceneApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
-  void set address(String address) => this.address = address;
+  set username(String username) => this._username = username;
+  set address(String address) => this.address = address;
 
   Future<List<Scene>> all() async {
     String url = '/api/$_username/scenes';
@@ -24,9 +24,9 @@ class SceneApi {
     final scenes = <Scene>[];
     for (String id in response.keys) {
       Map<String, dynamic> item = response[id];
-      final scene = Scene.fromJson(item, id: id);          
+      final scene = Scene.fromJson(item, id: id);
       final lights = await _lights(scene);
-      scene.rebuild((b) => b..lights.replace(lights));
+      scene.rebuild((b) => b..sceneLights.replace(lights));
       scenes.add(scene);
     }
     return scenes;
@@ -51,7 +51,7 @@ class SceneApi {
     final response = await _client.get(url);
     final scene = Scene.fromJson(response, id: id);
     final lights = await _lights(scene);
-    scene.rebuild((b) => b..lights.replace(lights));
+    scene.rebuild((b) => b..sceneLights.replace(lights));
     return scene;
   }
 

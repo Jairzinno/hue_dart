@@ -15,7 +15,7 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
   final String wireName = 'Rule';
 
   @override
-  Iterable serialize(Serializers serializers, Rule object,
+  Iterable<Object> serialize(Serializers serializers, Rule object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -80,12 +80,11 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
         ..add(serializers.serialize(object.recycle,
             specifiedType: const FullType(bool)));
     }
-
     return result;
   }
 
   @override
-  Rule deserialize(Serializers serializers, Iterable serialized,
+  Rule deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RuleBuilder();
 
@@ -125,13 +124,15 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
           break;
         case 'conditions':
           result.conditions.replace(serializers.deserialize(value,
-              specifiedType: const FullType(
-                  BuiltList, const [const FullType(Condition)])) as BuiltList);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Condition)]))
+              as BuiltList<dynamic>);
           break;
         case 'actions':
           result.actions.replace(serializers.deserialize(value,
-              specifiedType: const FullType(
-                  BuiltList, const [const FullType(RuleAction)])) as BuiltList);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(RuleAction)]))
+              as BuiltList<dynamic>);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
@@ -166,7 +167,7 @@ class _$Rule extends Rule {
   @override
   final bool recycle;
 
-  factory _$Rule([void updates(RuleBuilder b)]) =>
+  factory _$Rule([void Function(RuleBuilder) updates]) =>
       (new RuleBuilder()..update(updates)).build();
 
   _$Rule._(
@@ -183,7 +184,7 @@ class _$Rule extends Rule {
       : super._();
 
   @override
-  Rule rebuild(void updates(RuleBuilder b)) =>
+  Rule rebuild(void Function(RuleBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -318,7 +319,7 @@ class RuleBuilder implements Builder<Rule, RuleBuilder> {
   }
 
   @override
-  void update(void updates(RuleBuilder b)) {
+  void update(void Function(RuleBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -356,4 +357,4 @@ class RuleBuilder implements Builder<Rule, RuleBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

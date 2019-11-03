@@ -5,7 +5,6 @@ import 'package:hue_dart/src/core/serializers.dart';
 part 'app_data.g.dart';
 
 abstract class AppData implements Built<AppData, AppDataBuilder> {
-
   /// App specific version of the data field.
   @nullable
   int get version;
@@ -21,8 +20,6 @@ abstract class AppData implements Built<AppData, AppDataBuilder> {
   factory AppData([updates(AppDataBuilder b)]) = _$AppData;
 
   static AppData fromJson(Map json) {
-    return serializers.deserializeWith(
-      AppData.serializer, json
-    );
+    return serializers.deserializeWith(AppData.serializer, json);
   }
 }

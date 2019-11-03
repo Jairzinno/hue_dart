@@ -10,7 +10,7 @@ class ResourceLinkApi {
 
   ResourceLinkApi(this._client, [this._username]);
 
-  void set username(String username) => this._username = username;
+  set username(String username) => this._username = username;
 
   Future<List<ResourceLink>> all() async {
     String url = '/api/$_username/resourcelinks';
@@ -37,7 +37,8 @@ class ResourceLinkApi {
 
   Future<ResourceLink> create(ResourceLink resourceLink) async {
     String url = '/api/$_username/resourcelinks';
-    final response = await _client.post(url, resourceLink.toBridgeObject(), 'id');
+    final response =
+        await _client.post(url, resourceLink.toBridgeObject(), 'id');
     return resourceLink.rebuild((b) => b..id = response.key);
   }
 
