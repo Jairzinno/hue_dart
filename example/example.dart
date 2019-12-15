@@ -2,7 +2,9 @@ import 'package:http/http.dart';
 import 'package:hue_dart/src/core/bridge.dart';
 import 'package:hue_dart/src/core/bridge_discovery.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
+import 'package:hue_dart/src/core/shared_functions.dart';
 import 'package:hue_dart/src/light/light.dart';
+import 'package:hue_dart/src/light/light_state.dart';
 
 main(List<String> arguments) async {
   final client = Client();
@@ -26,11 +28,14 @@ main(List<String> arguments) async {
   List<Light> lights = await bridge.lights();
 
   // update light state
-  final light = lights.first;
-  await bridge.updateLightState(light.rebuild((l) => l)
-    ..state.rebuild(
-      (s) => s
-        ..on = true
-        ..brightness = 10,
-    ));
+  final light = lights.first.changeColor(red: 1.0, green: 0.5, blue: 1.0);
+  LightState state = lightStateForColorOnly(light);
+  state = state.rebuild(
+    (s) => s
+      ..on = true
+      ..brightness = 10,
+  );
+  await bridge.updateLightState(light.rebuild(
+    (l) => l..state = state.toBuilder(),
+  ));
 }
