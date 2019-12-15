@@ -11,7 +11,7 @@ import 'package:hue_dart/src/configuration/whitelist_item.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
 import 'package:hue_dart/src/core/hue_color.dart';
-import 'package:hue_dart/src/group/action.dart';
+import 'package:hue_dart/src/group/group_action.dart';
 import 'package:hue_dart/src/group/group.dart';
 import 'package:hue_dart/src/group/group_state.dart';
 import 'package:hue_dart/src/light/light.dart';
@@ -45,7 +45,7 @@ part 'serializers.g.dart';
   Command,
   Scene,
   AppData,
-  Action,
+  GroupAction,
   GroupState,
   Group,
   LightState,

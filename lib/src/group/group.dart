@@ -5,7 +5,7 @@ import 'package:hue_dart/src/core/hue_color.dart';
 import 'package:hue_dart/src/core/serializers.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
 import 'package:hue_dart/src/core/color_helper.dart';
-import 'package:hue_dart/src/group/action.dart';
+import 'package:hue_dart/src/group/group_action.dart';
 import 'package:hue_dart/src/group/group_state.dart';
 import 'package:hue_dart/src/light/light.dart';
 
@@ -61,7 +61,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
   GroupState get state;
 
   @nullable
-  Action get action;
+  GroupAction get action;
 
   /// get the current color of the light in all possible means by the bridge
   @memoized
@@ -143,7 +143,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
       return rebuild(
         (b) => b
           ..action.update(
-            (a) => a..xy = ListBuilder(colors.xy),
+            (a) => a..xy = ListBuilder<double>(colors.xy),
           ),
       );
     }

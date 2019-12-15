@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'action.dart';
+part of 'group_action.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Action> _$actionSerializer = new _$ActionSerializer();
+Serializer<GroupAction> _$groupActionSerializer = new _$GroupActionSerializer();
 
-class _$ActionSerializer implements StructuredSerializer<Action> {
+class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
   @override
-  final Iterable<Type> types = const [Action, _$Action];
+  final Iterable<Type> types = const [GroupAction, _$GroupAction];
   @override
-  final String wireName = 'Action';
+  final String wireName = 'GroupAction';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Action object,
+  Iterable<Object> serialize(Serializers serializers, GroupAction object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.on != null) {
@@ -47,7 +47,7 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
         ..add('xy')
         ..add(serializers.serialize(object.xy,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(num)])));
+                const FullType(BuiltList, const [const FullType(double)])));
     }
     if (object.ct != null) {
       result
@@ -83,9 +83,9 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
   }
 
   @override
-  Action deserialize(Serializers serializers, Iterable<Object> serialized,
+  GroupAction deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ActionBuilder();
+    final result = new GroupActionBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -112,7 +112,7 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
         case 'xy':
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(num)]))
+                      const FullType(BuiltList, const [const FullType(double)]))
               as BuiltList<dynamic>);
           break;
         case 'ct':
@@ -142,7 +142,7 @@ class _$ActionSerializer implements StructuredSerializer<Action> {
   }
 }
 
-class _$Action extends Action {
+class _$GroupAction extends GroupAction {
   @override
   final bool on;
   @override
@@ -152,7 +152,7 @@ class _$Action extends Action {
   @override
   final int saturation;
   @override
-  final BuiltList<num> xy;
+  final BuiltList<double> xy;
   @override
   final int ct;
   @override
@@ -164,10 +164,10 @@ class _$Action extends Action {
   @override
   final String scene;
 
-  factory _$Action([void Function(ActionBuilder) updates]) =>
-      (new ActionBuilder()..update(updates)).build();
+  factory _$GroupAction([void Function(GroupActionBuilder) updates]) =>
+      (new GroupActionBuilder()..update(updates)).build();
 
-  _$Action._(
+  _$GroupAction._(
       {this.on,
       this.brightness,
       this.hue,
@@ -181,16 +181,16 @@ class _$Action extends Action {
       : super._();
 
   @override
-  Action rebuild(void Function(ActionBuilder) updates) =>
+  GroupAction rebuild(void Function(GroupActionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ActionBuilder toBuilder() => new ActionBuilder()..replace(this);
+  GroupActionBuilder toBuilder() => new GroupActionBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Action &&
+    return other is GroupAction &&
         on == other.on &&
         brightness == other.brightness &&
         hue == other.hue &&
@@ -227,7 +227,7 @@ class _$Action extends Action {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Action')
+    return (newBuiltValueToStringHelper('GroupAction')
           ..add('on', on)
           ..add('brightness', brightness)
           ..add('hue', hue)
@@ -242,8 +242,8 @@ class _$Action extends Action {
   }
 }
 
-class ActionBuilder implements Builder<Action, ActionBuilder> {
-  _$Action _$v;
+class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
+  _$GroupAction _$v;
 
   bool _on;
   bool get on => _$this._on;
@@ -261,9 +261,9 @@ class ActionBuilder implements Builder<Action, ActionBuilder> {
   int get saturation => _$this._saturation;
   set saturation(int saturation) => _$this._saturation = saturation;
 
-  ListBuilder<num> _xy;
-  ListBuilder<num> get xy => _$this._xy ??= new ListBuilder<num>();
-  set xy(ListBuilder<num> xy) => _$this._xy = xy;
+  ListBuilder<double> _xy;
+  ListBuilder<double> get xy => _$this._xy ??= new ListBuilder<double>();
+  set xy(ListBuilder<double> xy) => _$this._xy = xy;
 
   int _ct;
   int get ct => _$this._ct;
@@ -285,9 +285,9 @@ class ActionBuilder implements Builder<Action, ActionBuilder> {
   String get scene => _$this._scene;
   set scene(String scene) => _$this._scene = scene;
 
-  ActionBuilder();
+  GroupActionBuilder();
 
-  ActionBuilder get _$this {
+  GroupActionBuilder get _$this {
     if (_$v != null) {
       _on = _$v.on;
       _brightness = _$v.brightness;
@@ -305,24 +305,24 @@ class ActionBuilder implements Builder<Action, ActionBuilder> {
   }
 
   @override
-  void replace(Action other) {
+  void replace(GroupAction other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Action;
+    _$v = other as _$GroupAction;
   }
 
   @override
-  void update(void Function(ActionBuilder) updates) {
+  void update(void Function(GroupActionBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Action build() {
-    _$Action _$result;
+  _$GroupAction build() {
+    _$GroupAction _$result;
     try {
       _$result = _$v ??
-          new _$Action._(
+          new _$GroupAction._(
               on: on,
               brightness: brightness,
               hue: hue,
@@ -340,7 +340,7 @@ class ActionBuilder implements Builder<Action, ActionBuilder> {
         _xy?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Action', _$failedField, e.toString());
+            'GroupAction', _$failedField, e.toString());
       }
       rethrow;
     }

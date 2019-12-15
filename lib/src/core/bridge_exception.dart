@@ -13,7 +13,7 @@ abstract class BridgeException
   String get description;
 
   @nullable
-  Object get type;
+  int get type;
 
   static Serializer<BridgeException> get serializer =>
       _$bridgeExceptionSerializer;

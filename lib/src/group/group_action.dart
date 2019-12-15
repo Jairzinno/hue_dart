@@ -6,11 +6,11 @@ import 'package:built_value/serializer.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
 import 'package:hue_dart/src/core/serializers.dart';
 
-part 'action.g.dart';
+part 'group_action.g.dart';
 
-abstract class Action
+abstract class GroupAction
     with BridgeObject
-    implements Built<Action, ActionBuilder> {
+    implements Built<GroupAction, GroupActionBuilder> {
   ///On/Off state of the group. On=true, Off=false.
   @nullable
   bool get on;
@@ -32,7 +32,7 @@ abstract class Action
 
   ///The x,y coordinate of a color in CIE color space.
   @nullable
-  BuiltList<num> get xy;
+  BuiltList<double> get xy;
 
   ///The Mired Color temperature of the light. 2012 connected lights are capable of 153 (6500K) to 500 (2000K).
   @nullable
@@ -60,15 +60,15 @@ abstract class Action
   @nullable
   String get scene;
 
-  static Serializer<Action> get serializer => _$actionSerializer;
+  static Serializer<GroupAction> get serializer => _$groupActionSerializer;
 
-  Action._();
+  GroupAction._();
 
-  factory Action([updates(ActionBuilder b)]) = _$Action;
+  factory GroupAction([updates(GroupActionBuilder b)]) = _$GroupAction;
 
-  static Action fromJson(String jsonString) {
+  static GroupAction fromJson(String jsonString) {
     return serializers.deserializeWith(
-        Action.serializer, json.decode(jsonString));
+        GroupAction.serializer, json.decode(jsonString));
   }
 
   @override
@@ -90,7 +90,7 @@ abstract class Action
       body['effect'] = effect;
     }
     if (xy != null) {
-      body['xy'] = xy;
+      body['xy'] = xy.toList();
     }
     if (ct != null) {
       body['ct'] = ct;

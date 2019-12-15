@@ -7,7 +7,6 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(Action.serializer)
       ..add(AppData.serializer)
       ..add(AutoInstall.serializer)
       ..add(BackUp.serializer)
@@ -17,6 +16,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Configuration.serializer)
       ..add(DiscoveryResult.serializer)
       ..add(Group.serializer)
+      ..add(GroupAction.serializer)
       ..add(GroupState.serializer)
       ..add(HueColor.serializer)
       ..add(InternetServices.serializer)
@@ -56,8 +56,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(Light)]),
           () => new ListBuilder<Light>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(num)]),
-          () => new ListBuilder<num>())
+          const FullType(BuiltList, const [const FullType(double)]),
+          () => new ListBuilder<double>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(num)]),
           () => new ListBuilder<num>())

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:http/http.dart';
 import 'package:hue_dart/hue_dart.dart';
-import 'package:hue_dart/src/group/action.dart';
+import 'package:hue_dart/src/group/group_action.dart';
 import 'package:hue_dart/src/light/light_state.dart';
 import 'package:hue_dart/src/rule/condition.dart';
 import 'package:hue_dart/src/rule/rule_action.dart';
@@ -305,7 +305,7 @@ void main() {
             ..name = 'Room 2'
             ..lightIds = ListBuilder(['1'])
             ..action.replace(
-              Action((b) => b
+              GroupAction((b) => b
                 ..on = true
                 ..hue = 2000
                 ..effect = 'colorloop'),

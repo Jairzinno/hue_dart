@@ -36,7 +36,7 @@ class _$BridgeExceptionSerializer
       result
         ..add('type')
         ..add(serializers.serialize(object.type,
-            specifiedType: const FullType(Object)));
+            specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -63,7 +63,7 @@ class _$BridgeExceptionSerializer
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(Object));
+              specifiedType: const FullType(int)) as int;
           break;
       }
     }
@@ -78,7 +78,7 @@ class _$BridgeException extends BridgeException {
   @override
   final String description;
   @override
-  final Object type;
+  final int type;
 
   factory _$BridgeException([void Function(BridgeExceptionBuilder) updates]) =>
       (new BridgeExceptionBuilder()..update(updates)).build();
@@ -130,9 +130,9 @@ class BridgeExceptionBuilder
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
-  Object _type;
-  Object get type => _$this._type;
-  set type(Object type) => _$this._type = type;
+  int _type;
+  int get type => _$this._type;
+  set type(int type) => _$this._type = type;
 
   BridgeExceptionBuilder();
 

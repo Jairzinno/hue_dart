@@ -131,7 +131,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
       return rebuild(
         (b) => b
           ..state.update(
-            (s) => s..xy = ListBuilder(colors.xy),
+            (s) => s..xy = ListBuilder<double>(colors.xy),
           ),
       );
     }

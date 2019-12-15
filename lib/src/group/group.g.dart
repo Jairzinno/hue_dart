@@ -84,7 +84,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
       result
         ..add('action')
         ..add(serializers.serialize(object.action,
-            specifiedType: const FullType(Action)));
+            specifiedType: const FullType(GroupAction)));
     }
     return result;
   }
@@ -146,7 +146,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
           break;
         case 'action':
           result.action.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Action)) as Action);
+              specifiedType: const FullType(GroupAction)) as GroupAction);
           break;
       }
     }
@@ -177,7 +177,7 @@ class _$Group extends Group {
   @override
   final GroupState state;
   @override
-  final Action action;
+  final GroupAction action;
   HueColor __colors;
 
   factory _$Group([void Function(GroupBuilder) updates]) =>
@@ -310,9 +310,9 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
   GroupStateBuilder get state => _$this._state ??= new GroupStateBuilder();
   set state(GroupStateBuilder state) => _$this._state = state;
 
-  ActionBuilder _action;
-  ActionBuilder get action => _$this._action ??= new ActionBuilder();
-  set action(ActionBuilder action) => _$this._action = action;
+  GroupActionBuilder _action;
+  GroupActionBuilder get action => _$this._action ??= new GroupActionBuilder();
+  set action(GroupActionBuilder action) => _$this._action = action;
 
   GroupBuilder();
 
