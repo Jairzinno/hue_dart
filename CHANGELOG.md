@@ -1,3 +1,7 @@
+## [0.2.1] - 15-12-2019
+
+- Updated README
+
 ## [0.2.0] - 03-11-2019
 
 - Updated dependencies

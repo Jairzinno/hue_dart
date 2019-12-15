@@ -67,16 +67,22 @@ final lights = bridge.lights();
 Changing a light's color while respecting its current color mode is done by using the `Light#changeColor` method.
 
 ```dart
-final light = lights.first;
-light.changeColor(red: 1.0, green: 0.3, blue: 1.0);
-await bridge.updateLightState(light);
+final light = lights.first.changeColor(red: 1.0, green: 0.5, blue: 1.0);
+LightState state = lightStateForColorOnly(light);
+await bridge.updateLightState(light.rebuild(
+    (l) => l..state = state.toBuilder(),
+));
 ```
 
 Different light state attributes can also be changed.
 ```dart
 final light = lights.first;
-light.state.brightness = 100;
-await bridge.updateLightState(light);
+LightState state = LightState((s) => s
+    ..brightness = 100,
+);
+await bridge.updateLightState(light.rebuild(
+    (l) => l..state = state.toBuilder(),
+));
 ```
 
 To get the light's current color in rgb values (and other known means) use the `Light#colors` method
