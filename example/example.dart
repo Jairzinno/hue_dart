@@ -5,16 +5,16 @@ import 'package:hue_dart/src/core/discovery_result.dart';
 import 'package:hue_dart/src/light/light.dart';
 
 main(List<String> arguments) async {
-  final client = new Client();
+  final client = Client();
 
   /// search for bridges
-  final discovery = new BridgeDiscovery(client);
+  final discovery = BridgeDiscovery(client);
 
   List<DiscoveryResult> discoverResults = await discovery.automatic();
   final discoveryResult = discoverResults.first;
 
   //create bridge
-  var bridge = new Bridge(client, discoveryResult.ipAddress);
+  var bridge = Bridge(client, discoveryResult.ipAddress);
 
   /// create a user, press the push link button before calling this
   final whiteListItem = await bridge.createUser('dart_hue#example');

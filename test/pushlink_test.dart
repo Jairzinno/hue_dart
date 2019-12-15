@@ -48,7 +48,7 @@ void main() {
   }
 
   mockFailingManualBridgeResult(String ip) {
-    final result = new BridgeException();
+    final result = BridgeException();
     when(bridgeDiscovery.manual(ip)).thenThrow(result);
     return result;
   }

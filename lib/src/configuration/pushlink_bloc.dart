@@ -78,7 +78,7 @@ class PushlinkBloc extends BlocBase {
         final savedUsername =
             await _pushlinkStorage.saveUsername(response.username);
         _hasUsername.add(savedUsername);
-        return;
+        break;
       }
     }
     _restart.add(true);

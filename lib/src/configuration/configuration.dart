@@ -102,8 +102,6 @@ abstract class Configuration
   @memoized
   DateTime get utcDate => DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
 
-  // DateTime get utcDate => new DateFormat("yyyy-MM-dd'T'HH:m:s").parse(utc);
-
   /// The local time of the bridge. "none" if not available.
   @nullable
   @BuiltValueField(wireName: 'localtime')

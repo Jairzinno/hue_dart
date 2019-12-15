@@ -12,13 +12,13 @@ Import the library and search for bridges.
 import 'package:http/http.dart';
 import 'package:hue_dart/hue_dart.dart';
 
-final client = new Client();
-final discovery = new BridgeDiscovery(client);
+final client = Client();
+final discovery = BridgeDiscovery(client);
 
 List<DiscoveryResult> discoverResults = await discovery.automatic();
 final discoveryResult = discoverResults.first;
 
-final bridge = new Bridge(client, discoveryResult.ipAddress);
+final bridge = Bridge(client, discoveryResult.ipAddress);
 ```
 
 For web, use the `BrowserClient`.
@@ -27,13 +27,13 @@ For web, use the `BrowserClient`.
 import 'package:http/browser_client.dart';
 import 'package:hue_dart/hue_dart.dart';
 
-final client = new BrowserClient();
-final discovery = new BridgeDiscovery(client);
+final client = BrowserClient();
+final discovery = BridgeDiscovery(client);
 
 List<DiscoveryResult> discoverResults = await discovery.automatic();
 final discoveryResult = discoverResults.first;
 
-final bridge = new Bridge(client, discoveryResult.ipAddress);
+final bridge = Bridge(client, discoveryResult.ipAddress);
 ```
 
 Searching for a bridge by entering an IP address is also supported.
@@ -41,19 +41,19 @@ Searching for a bridge by entering an IP address is also supported.
 ```dart
 import package:hue_dart/hue.dart;
 
-final client = new Client();
-final discovery = new BridgeDiscovery(client);
+final client = Client();
+final discovery = BridgeDiscovery(client);
 
 DiscoveryResult discoverResult = await discovery.manual('192.168.1.2');
 
-final bridge = new Bridge(client, discoveryResult.ipAddress);
+final bridge = Bridge(client, discoveryResult.ipAddress);
 ```
 
 ### Create a new user
 
 To create a user press the push link button before calling the `createUser` method 
 ```dart
-final bridge = new Bridge(client, discoveryResult.ipAddress);
+final bridge = Bridge(client, discoveryResult.ipAddress);
 final whiteListItem = bridge.createUser('hue_dart');
 bridge.username = whiteListItem.username;
 ```
