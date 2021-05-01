@@ -75,9 +75,9 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
 
   static Serializer<Group> get serializer => _$groupSerializer;
 
-  Group._();
+  factory Group([Function(GroupBuilder b) updates]) = _$Group;
 
-  factory Group([updates(GroupBuilder b)?]) = _$Group;
+  Group._();
 
   factory Group.fromJson(Map json, {int? id}) {
     return serializers
@@ -95,7 +95,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
         'lights': lightIds!.toList()
       };
     } else if ('attributes' == action) {
-      Map<String, dynamic> body = {};
+      final body = {};
       if (name != null) {
         body['name'] = name;
       }
@@ -114,7 +114,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
   Group changeColor({num red = 0, num green = 0, num blue = 0}) {
     final colorHelper = ColorHelper();
     if (action!.colorMode == 'ct') {
-      HueColor colors = colorHelper.rgbToCT(red, green, blue);
+      final colors = colorHelper.rgbToCT(red, green, blue);
       return rebuild(
         (b) => b
           ..action.update(
@@ -122,8 +122,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
           ),
       );
     } else if (action!.colorMode == 'hs') {
-      HueColor colors =
-          colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+      final colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       return rebuild(
         (b) => b
           ..action.update(
@@ -134,7 +133,7 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
           ),
       );
     } else if (action!.colorMode == 'xy') {
-      HueColor colors = colorHelper.rgbToXY(red, green, blue);
+      final colors = colorHelper.rgbToXY(red, green, blue);
       return rebuild(
         (b) => b
           ..action.update(

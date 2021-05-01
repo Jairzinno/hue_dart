@@ -17,12 +17,12 @@ class ConfigurationApi {
   /// Once a new user has been created, the user key is added to a ‘whitelist’, allowing access to API commands that require a whitelisted user.
   ///  At present, all other API commands require a whitelisted user.
   Future<WhiteListItem> createUser(String deviceType) async {
-    String url = '/api/';
+    const url = '/api/';
     final response =
         await _client.post(url, {'devicetype': deviceType}, 'username');
     final createDate = DateFormat("yyyy-MM-dd'T'HH:m:s").format(DateTime.now());
     return WhiteListItem((w) => w
-      ..username = response.key
+      ..username = response.key as String?
       ..name = deviceType
       ..createDate = createDate
       ..lastUsedDate = createDate);
@@ -30,13 +30,13 @@ class ConfigurationApi {
 
   Future<BridgeResponse> deleteUser(
       String username, String deletingUsername) async {
-    String url = '/api/$username/config/whitelist/$deletingUsername';
-    return await _client.delete(url);
+    final url = '/api/$username/config/whitelist/$deletingUsername';
+    return _client.delete(url);
   }
 
   /// Returns list of all configuration elements in the bridge. Note all times are stored in UTC.
   Future<Configuration> configuration(String username) async {
-    String url = '/api/$username/config';
+    final url = '/api/$username/config';
     final response = await _client.get(url);
     return Configuration.fromJson(response);
   }
@@ -45,7 +45,7 @@ class ConfigurationApi {
   ///
   /// It should only be used sparingly as it is resource intensive for the bridge, but is supplied e.g. for synchronization purposes.
   Future<Configuration> completeConfiguration(String username) async {
-    String url = '/api/$username';
+    final url = '/api/$username';
     final response = await _client.get(url);
     return Configuration.fromJson(response);
   }
@@ -53,7 +53,7 @@ class ConfigurationApi {
   /// Allows the user to set some configuration values.
   Future<BridgeResponse> update(
       String username, Configuration configuration) async {
-    String url = '/api/$username/config';
-    return await _client.put(url, configuration.toBridgeObject());
+    final url = '/api/$username/config';
+    return _client.put(url, configuration.toBridgeObject());
   }
 }

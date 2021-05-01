@@ -14,9 +14,9 @@ abstract class PortalState implements Built<PortalState, PortalStateBuilder> {
 
   static Serializer<PortalState> get serializer => _$portalStateSerializer;
 
-  PortalState._();
+  factory PortalState([Function(PortalStateBuilder b) updates]) = _$PortalState;
 
-  factory PortalState([updates(PortalStateBuilder b)?]) = _$PortalState;
+  PortalState._();
 
   factory PortalState.fromJson(Map json) {
     return serializers.deserializeWith(PortalState.serializer, json)!;

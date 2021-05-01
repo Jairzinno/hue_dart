@@ -43,9 +43,9 @@ abstract class Rule with BridgeObject implements Built<Rule, RuleBuilder> {
 
   static Serializer<Rule> get serializer => _$ruleSerializer;
 
-  Rule._();
+  factory Rule([Function(RuleBuilder b) updates]) = _$Rule;
 
-  factory Rule([updates(RuleBuilder b)?]) = _$Rule;
+  Rule._();
 
   factory Rule.fromJson(Map? json, {int? id}) {
     return serializers
@@ -55,7 +55,7 @@ abstract class Rule with BridgeObject implements Built<Rule, RuleBuilder> {
 
   @override
   Map toBridgeObject({String? action}) {
-    Map result = serializers.serializeWith(Rule.serializer, this)
+    final result = serializers.serializeWith(Rule.serializer, this)!
         as Map<dynamic, dynamic>;
     result.remove('id');
     return result;

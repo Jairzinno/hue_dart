@@ -14,7 +14,7 @@ class ResourceLinksBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentResourceLinks = await bridge.resourceLinks();
     _resourceLinks.add(currentResourceLinks);
   }

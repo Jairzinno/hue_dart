@@ -19,10 +19,11 @@ abstract class SoftwareUpdateBridge
   static Serializer<SoftwareUpdateBridge> get serializer =>
       _$softwareUpdateBridgeSerializer;
 
-  SoftwareUpdateBridge._();
-
-  factory SoftwareUpdateBridge([updates(SoftwareUpdateBridgeBuilder b)?]) =
+  factory SoftwareUpdateBridge(
+          [Function(SoftwareUpdateBridgeBuilder b) updates]) =
       _$SoftwareUpdateBridge;
+
+  SoftwareUpdateBridge._();
 
   factory SoftwareUpdateBridge.fromJson(Map json) {
     return serializers.deserializeWith(SoftwareUpdateBridge.serializer, json)!;

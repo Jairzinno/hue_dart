@@ -24,10 +24,10 @@ abstract class DiscoveryResult
   static Serializer<DiscoveryResult> get serializer =>
       _$discoveryResultSerializer;
 
-  DiscoveryResult._();
-
-  factory DiscoveryResult([updates(DiscoveryResultBuilder b)?]) =
+  factory DiscoveryResult([Function(DiscoveryResultBuilder b) updates]) =
       _$DiscoveryResult;
+
+  DiscoveryResult._();
 
   factory DiscoveryResult.fromJson(Map json) {
     return serializers.deserializeWith(DiscoveryResult.serializer, json)!;

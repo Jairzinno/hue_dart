@@ -5,23 +5,24 @@ import 'package:hue_dart/src/core/bridge_response.dart';
 import 'package:hue_dart/src/rule/rule.dart';
 
 class RuleApi {
-  BridgeClient _client;
+  final BridgeClient _client;
   late String _username;
 
   RuleApi(this._client, [this._username = '']);
 
-  set username(String username) => this._username = username;
+  // ignore: avoid_setters_without_getters
+  set username(String username) => _username = username;
 
   Future<List<Rule>> all() async {
-    String url = '/api/$_username/rules';
+    final url = '/api/$_username/rules';
     final response = await _client.get(url);
     return _responseToRules(response);
   }
 
   List<Rule> _responseToRules(Map<String, dynamic> response) {
     final rules = <Rule>[];
-    for (String id in response.keys) {
-      Map<String, dynamic>? item = response[id];
+    for (final id in response.keys) {
+      final item = response[id] as Map<String, dynamic>;
       final rule = Rule.fromJson(item, id: int.parse(id));
       rules.add(rule);
     }
@@ -29,25 +30,25 @@ class RuleApi {
   }
 
   Future<Rule> single(int id) async {
-    String url = '/api/$_username/rules/$id';
+    final url = '/api/$_username/rules/$id';
     final response = await _client.get(url);
     final rule = Rule.fromJson(response, id: id);
     return rule;
   }
 
   Future<Rule> create(Rule rule) async {
-    String url = '/api/$_username/rules';
+    final url = '/api/$_username/rules';
     final response = await _client.post(url, rule.toBridgeObject(), 'id');
-    return rule.rebuild((b) => b..id = int.parse(response.key));
+    return rule.rebuild((b) => b..id = int.parse(response.key as String));
   }
 
   Future<BridgeResponse> update(Rule rule) async {
-    String url = '/api/$_username/rules/${rule.id}';
-    return await _client.put(url, rule.toBridgeObject());
+    final url = '/api/$_username/rules/${rule.id}';
+    return _client.put(url, rule.toBridgeObject());
   }
 
   Future<BridgeResponse> delete(Rule rule) async {
-    String url = '/api/$_username/rules/${rule.id}';
-    return await _client.delete(url);
+    final url = '/api/$_username/rules/${rule.id}';
+    return _client.delete(url);
   }
 }

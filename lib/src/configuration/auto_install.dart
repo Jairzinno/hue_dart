@@ -16,9 +16,9 @@ abstract class AutoInstall implements Built<AutoInstall, AutoInstallBuilder> {
 
   static Serializer<AutoInstall> get serializer => _$autoInstallSerializer;
 
-  AutoInstall._();
+  factory AutoInstall([Function(AutoInstallBuilder b) updates]) = _$AutoInstall;
 
-  factory AutoInstall([updates(AutoInstallBuilder b)?]) = _$AutoInstall;
+  AutoInstall._();
 
   factory AutoInstall.fromJson(Map json) {
     return serializers.deserializeWith(AutoInstall.serializer, json)!;

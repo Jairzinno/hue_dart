@@ -52,8 +52,8 @@ class ColorHelper {
   /// hue, saturation and brightness.
   HueColor rgbToHueSaturationBrightness(num red, num green, num blue) {
     num hue, saturation, brightness;
-    var min = [red, green, blue].reduce(math.min);
-    var max = [red, green, blue].reduce(math.max);
+    final min = [red, green, blue].reduce(math.min);
+    final max = [red, green, blue].reduce(math.max);
     if (min != max) {
       if (red == max) {
         hue = (0 + ((green - blue) / (max - min))) * 60;
@@ -89,9 +89,9 @@ class ColorHelper {
   /// Converts [hue], [saturation] and [brightness] to rgb values
   HueColor hueSaturationBrightnessToRGB(
       num hue, num saturation, num brightness) {
-    var _hue = hue * 360 / 65535;
-    var _saturation = saturation / 255;
-    var _brightness = brightness / 255;
+    final _hue = hue * 360 / 65535;
+    final _saturation = saturation / 255;
+    final _brightness = brightness / 255;
     final rgbColor = _hsbToRGB(_hue, _saturation, _brightness);
     final temperatureColor =
         _rgbToColorTemperature(rgbColor.red, rgbColor.green, rgbColor.blue);
@@ -113,17 +113,17 @@ class ColorHelper {
   /// returns an [HueColor] with the [hue] ranging from 0 to 360, [saturation] and [brightness] both ranging from 0 to 1 converted to
   /// red, green and blue.
   HueColor _hsbToRGB(num hue, num saturation, num brightness) {
-    var red, green, blue;
+    num red, green, blue;
     if (saturation == 0) {
       red = brightness;
       green = brightness;
       blue = brightness;
     } else {
-      var sector = (hue / 60).floor() % 6;
-      var fraction = hue / 60 - sector;
-      var p = brightness * (1 - saturation);
-      num q = brightness * (1 - saturation * fraction);
-      num t = brightness * (1 - saturation * (1 - fraction));
+      final sector = (hue / 60).floor() % 6;
+      final fraction = hue / 60 - sector;
+      final p = brightness * (1 - saturation);
+      final q = brightness * (1 - saturation * fraction);
+      final t = brightness * (1 - saturation * (1 - fraction));
       switch (sector) {
         case 0:
           red = brightness;
@@ -176,7 +176,7 @@ class ColorHelper {
   HueColor _rgbToColorTemperature(num? red, num? green, num? blue) {
     num? temperature;
     HueColor testRGB;
-    var epsilon = 0.4;
+    const epsilon = 0.4;
     num minTemperature = 2200;
     num maxTemperature = 6500;
 
@@ -231,13 +231,13 @@ class ColorHelper {
   /// Sources: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/ and
   /// https://github.com/neilbartlett/color-temperature/blob/master/index.js
   HueColor _colorTemperatureToRGB(num temperature) {
-    var red, green, blue;
+    num red, green, blue;
 
-    temperature = temperature / 100;
-    if (temperature <= 66) {
-      red = /*255;*/ 165 + 90 * (temperature / 66);
+    final _temperature = temperature / 100;
+    if (_temperature <= 66) {
+      red = /*255;*/ 165 + 90 * (_temperature / 66);
     } else {
-      red = temperature - 60;
+      red = _temperature - 60;
       red = 329.698727466 * math.pow(red, -0.1332047592);
       if (red < 0) {
         red = 0;
@@ -246,8 +246,8 @@ class ColorHelper {
         red = 255;
       }
     }
-    if (temperature <= 66) {
-      green = temperature;
+    if (_temperature <= 66) {
+      green = _temperature;
       green = 99.4708025861 * math.log(green) - 161.1195681661;
       if (green < 0) {
         green = 0;
@@ -256,7 +256,7 @@ class ColorHelper {
         green = 255;
       }
     } else {
-      green = temperature - 60;
+      green = _temperature - 60;
       green = 288.1221695283 * math.pow(green, -0.0755148492);
       if (green < 0) {
         green = 0;
@@ -265,13 +265,13 @@ class ColorHelper {
         green = 255;
       }
     }
-    if (temperature >= 66) {
+    if (_temperature >= 66) {
       blue = 255;
     } else {
-      if (temperature <= 19) {
+      if (_temperature <= 19) {
         blue = 0;
       } else {
-        blue = temperature - 10;
+        blue = _temperature - 10;
         blue = 138.5177312231 * math.log(blue) - 305.0447927307;
         if (blue < 0) {
           blue = 0;
@@ -286,7 +286,7 @@ class ColorHelper {
         ..red = red / 255
         ..green = green / 255
         ..blue = blue / 255
-        ..temperature = temperature.toInt(),
+        ..temperature = _temperature.toInt(),
     );
   }
 
@@ -296,25 +296,29 @@ class ColorHelper {
   /// Source: https://github.com/PhilipsHue/PhilipsHueSDK-iOS-OSX/blob/master/ApplicationDesignNotes/RGB%20to%20xy%20Color%20conversion.md
   HueColor rgbToXY(num red, num green, num blue) {
     // Apply gamma correction
+    var _red = red;
+    var _green = green;
+    var _blue = blue;
+
     if (red > 0.04045) {
-      red = math.pow((red + 0.055) / (1.055), 2.4);
+      _red = math.pow((red + 0.055) / (1.055), 2.4);
     } else {
-      red = red / 12.92;
+      _red = red / 12.92;
     }
     if (green > 0.04045) {
-      green = math.pow((green + 0.055) / (1.055), 2.4);
+      _green = math.pow((green + 0.055) / (1.055), 2.4);
     } else {
-      green = green / 12.92;
+      _green = green / 12.92;
     }
     if (blue > 0.04045) {
-      blue = math.pow((blue + 0.055) / (1.055), 2.4);
+      _blue = math.pow((blue + 0.055) / (1.055), 2.4);
     } else {
-      blue = blue / 12.92;
+      _blue = blue / 12.92;
     }
     // RGB to XYZ [M] for Wide RGB D65, http://www.developers.meethue.com/documentation/color-conversions-rgb-xy
-    num x = red * 0.664511 + green * 0.154324 + blue * 0.162028;
-    num y = red * 0.283881 + green * 0.668433 + blue * 0.047685;
-    num z = red * 0.000088 + green * 0.072310 + blue * 0.986039;
+    final x = _red * 0.664511 + _green * 0.154324 + _blue * 0.162028;
+    final y = _red * 0.283881 + _green * 0.668433 + _blue * 0.047685;
+    final z = _red * 0.000088 + _green * 0.072310 + _blue * 0.986039;
     // But we don't want Capital X,Y,Z you want lowercase [x,y] (called the color point) as per:
     if ((x + y + z) == 0) {
       return HueColor(
@@ -349,15 +353,15 @@ class ColorHelper {
   /// returns a [HueColor] with the [x] and [y] with an optional [brightness] converted to red, green and blue values ranging from 0 to 1
   //. Source: https://github.com/PhilipsHue/PhilipsHueSDK-iOS-OSX/blob/master/ApplicationDesignNotes/RGB%20to%20xy%20Color%20conversion.md
   HueColor _xyToRGB(num x, num y, [num? brightness]) {
-    brightness = brightness ?? 1.0; // Default full brightness
-    var z = 1.0 - x - y;
-    var Y = brightness;
-    var X = (Y / y) * x;
-    var Z = (Y / y) * z;
+    final _brightness = brightness ?? 1.0; // Default full brightness
+    final z = 1.0 - x - y;
+    final _y = _brightness;
+    final _x = (_y / y) * x;
+    final _z = (_y / y) * z;
     // XYZ to RGB [M]-1 for Wide RGB D65, http://www.developers.meethue.com/documentation/color-conversions-rgb-xy
-    num red = X * 1.656492 - Y * 0.354851 - Z * 0.255038;
-    num green = -X * 0.707196 + Y * 1.655397 + Z * 0.036152;
-    num blue = X * 0.051713 - Y * 0.121364 + Z * 1.011530;
+    num red = _x * 1.656492 - _y * 0.354851 - _z * 0.255038;
+    num green = -_x * 0.707196 + _y * 1.655397 + _z * 0.036152;
+    num blue = _x * 0.051713 - _y * 0.121364 + _z * 1.011530;
     // Limit RGB on [0..1]
     if (red > blue && red > green && red > 1.0) {
       // Red is too big
@@ -390,17 +394,17 @@ class ColorHelper {
     if (red <= 0.0031308) {
       red = red * 12.92;
     } else {
-      red = 1.055 * math.pow(red, (1.0 / 2.4)) - 0.055;
+      red = 1.055 * math.pow(red, 1.0 / 2.4) - 0.055;
     }
     if (green <= 0.0031308) {
       green = green * 12.92;
     } else {
-      green = 1.055 * math.pow(green, (1.0 / 2.4)) - 0.055;
+      green = 1.055 * math.pow(green, 1.0 / 2.4) - 0.055;
     }
     if (blue <= 0.0031308) {
       blue = blue * 12.92;
     } else {
-      blue = 1.055 * math.pow(blue, (1.0 / 2.4)) - 0.055;
+      blue = 1.055 * math.pow(blue, 1.0 / 2.4) - 0.055;
     }
     // Limit RGB on [0..1]
     if (red > blue && red > green && red > 1.0) {
@@ -444,7 +448,7 @@ class ColorHelper {
   /// returns a [HueColor] with the hue ranging from 0 to 360, saturation and brightness both ranging from 0 to 1 converted from
   /// a color [temperature]
   HueColor _colorTemperatureToHueSaturationBrightness(num temperature) {
-    var rgb = _colorTemperatureToRGB(temperature);
+    final rgb = _colorTemperatureToRGB(temperature);
     return rgbToHueSaturationBrightness(rgb.red!, rgb.green!, rgb.blue!);
   }
 

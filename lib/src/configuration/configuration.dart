@@ -178,9 +178,10 @@ abstract class Configuration
 
   static Serializer<Configuration> get serializer => _$configurationSerializer;
 
-  Configuration._();
+  factory Configuration([Function(ConfigurationBuilder b) updates]) =
+      _$Configuration;
 
-  factory Configuration([updates(ConfigurationBuilder b)?]) = _$Configuration;
+  Configuration._();
 
   factory Configuration.fromJson(Map json) {
     return serializers.deserializeWith(Configuration.serializer, json)!;
@@ -190,7 +191,7 @@ abstract class Configuration
   Map toBridgeObject({String? action}) {
     return serializers.serializeWith(
       Configuration.serializer,
-      this.rebuild(
+      rebuild(
         (c) => c
           ..proxyPort = proxyPort
           ..name = name
@@ -205,6 +206,6 @@ abstract class Configuration
           ..touchLink = touchLink
           ..zigbeeChannel = zigbeeChannel,
       ),
-    ) as Map<dynamic, dynamic>;
+    )! as Map<String, dynamic>;
   }
 }

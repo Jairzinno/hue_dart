@@ -43,32 +43,32 @@ class Alarm extends ScheduleType {
   }
 
   static _MutableAlarm _parseRandomRecurringTimeAlarm(String time) {
-    String dateValue =
+    final dateValue =
         time.substring(0, time.indexOf(Schedule.randomTimeDivider));
-    String randomValue = time.substring(
+    final randomValue = time.substring(
         time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
-    int weekDays = int.parse(time.substring(1, time.indexOf("/")));
+    final weekDays = int.parse(time.substring(1, time.indexOf('/')));
     return _MutableAlarm(
         weekDays: weekDays,
-        date: DateFormat("W${weekDays}'/T'HH:m:s").parse(dateValue),
-        randomTime: DateFormat("HH:m:s").parse(randomValue));
+        date: DateFormat("W$weekDays'/T'HH:m:s").parse(dateValue),
+        randomTime: DateFormat('HH:m:s').parse(randomValue));
   }
 
   static _MutableAlarm _parseRecurringAlarm(String time) {
-    int weekDays = int.parse(time.substring(1, time.indexOf("/")));
+    final weekDays = int.parse(time.substring(1, time.indexOf('/')));
     return _MutableAlarm(
         weekDays: weekDays,
-        date: DateFormat("W${weekDays}'/T'HH:m:s").parse(time));
+        date: DateFormat("W$weekDays'/T'HH:m:s").parse(time));
   }
 
   static _MutableAlarm _parseRandomizedTimeAlarm(String time) {
-    String dateValue =
+    final dateValue =
         time.substring(0, time.indexOf(Schedule.randomTimeDivider));
-    String randomValue = time.substring(
+    final randomValue = time.substring(
         time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
     return _MutableAlarm(
         date: DateFormat("yyyy-MM-dd'T'HH:m:s").parse(dateValue),
-        randomTime: DateFormat("HH:m:s").parse(randomValue));
+        randomTime: DateFormat('HH:m:s').parse(randomValue));
   }
 
   static _MutableAlarm _parseAbsoluteTimeAlarm(String time) {
@@ -76,8 +76,8 @@ class Alarm extends ScheduleType {
   }
 
   static _MutableAlarm _parseTimeIntervalAlarm(String time) {
-    String startTime = time.substring(0, time.indexOf('/T'));
-    String endTime = time.substring(time.indexOf('/T'));
+    final startTime = time.substring(0, time.indexOf('/T'));
+    final endTime = time.substring(time.indexOf('/T'));
     return _MutableAlarm(
         date: DateFormat("'T'HH:m:s").parse(startTime),
         endDate: DateFormat("'/T'HH:m:s").parse(endTime));
@@ -96,17 +96,17 @@ class Alarm extends ScheduleType {
   }
 
   String _recurringTimeFormat() {
-    String formattedTime =
+    final formattedTime =
         DateFormat(Schedule.timePattern).format(DateTime.now());
-    return "W${weekDays}/T${formattedTime}";
+    return 'W$weekDays/T$formattedTime';
   }
 
   String _defaultTimeFormat() {
-    String formattedDate =
+    final formattedDate =
         DateFormat(Schedule.datePattern).format(DateTime.now());
-    String formattedTime =
+    final formattedTime =
         DateFormat(Schedule.timePattern).format(DateTime.now());
-    return '${formattedDate}${Schedule.timeDivider}${formattedTime}';
+    return '$formattedDate${Schedule.timeDivider}$formattedTime';
   }
 }
 
@@ -153,15 +153,15 @@ class Timer extends ScheduleType {
   }
 
   static _MutableTimer _parseExpiringTimer(String time) {
-    String timeValue = time.substring(2, time.length);
+    final timeValue = time.substring(2, time.length);
     return _MutableTimer(
         date: DateFormat(Schedule.timePattern).parse(timeValue));
   }
 
   static _MutableTimer _parseRandomTimer(String time) {
-    String dateValue =
+    final dateValue =
         time.substring(0, time.indexOf(Schedule.randomTimeDivider));
-    String randomValue =
+    final randomValue =
         time.substring(time.indexOf(Schedule.randomTimeDivider));
     return _MutableTimer(
         date: DateFormat("'PT'HH:m:s").parse(dateValue),
@@ -169,12 +169,12 @@ class Timer extends ScheduleType {
   }
 
   static _MutableTimer _parseFirstTypeOfRecurringTimer(String time) {
-    int recurrence = 0;
-    String repeatedValue = time.substring(1, time.indexOf("/"));
+    var recurrence = 0;
+    final repeatedValue = time.substring(1, time.indexOf('/'));
     if (repeatedValue.isNotEmpty) {
       recurrence = int.parse(repeatedValue);
     }
-    String timeValue =
+    final timeValue =
         time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
     return _MutableTimer(
         recurrence: recurrence,
@@ -182,16 +182,16 @@ class Timer extends ScheduleType {
   }
 
   static _MutableTimer _parseSecondTypeOfRecurringTimer(String time) {
-    String timeValue = time.substring(4, time.length);
+    final timeValue = time.substring(4, time.length);
     return _MutableTimer(
         date: DateFormat(Schedule.timePattern).parse(timeValue));
   }
 
   static _MutableTimer _parseRecurringRandomTimer(String time) {
-    int recurrence = int.parse(time.substring(1, time.indexOf("/")));
-    String timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1,
+    final recurrence = int.parse(time.substring(1, time.indexOf('/')));
+    final timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1,
         time.indexOf(Schedule.randomTimeDivider));
-    String randomValue = time.substring(
+    final randomValue = time.substring(
         time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
     return _MutableTimer(
         recurrence: recurrence,
@@ -212,15 +212,15 @@ class Timer extends ScheduleType {
   }
 
   String _repeatedFormattedTime() {
-    String formattedTime =
+    final formattedTime =
         DateFormat(Schedule.timePattern).format(DateTime.now());
-    return "R${recurrence}/PT${formattedTime}";
+    return 'R$recurrence/PT$formattedTime';
   }
 
   String _defaultFormattedTime() {
-    String formattedTime =
+    final formattedTime =
         DateFormat(Schedule.timePattern).format(DateTime.now());
-    return "PT$formattedTime";
+    return 'PT$formattedTime';
   }
 }
 

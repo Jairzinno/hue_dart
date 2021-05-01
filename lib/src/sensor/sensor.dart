@@ -59,9 +59,9 @@ abstract class Sensor
 
   static Serializer<Sensor> get serializer => _$sensorSerializer;
 
-  Sensor._();
+  factory Sensor([Function(SensorBuilder b) updates]) = _$Sensor;
 
-  factory Sensor([updates(SensorBuilder b)?]) = _$Sensor;
+  Sensor._();
 
   factory Sensor.fromJson(Map json, {int? id}) {
     return serializers
@@ -74,7 +74,7 @@ abstract class Sensor
   @override
   Map toBridgeObject({String? action}) {
     if ('create' == action) {
-      return serializers.serializeWith(Sensor.serializer, this)
+      return serializers.serializeWith(Sensor.serializer, this)!
           as Map<dynamic, dynamic>;
     } else if ('attributes' == action) {
       return {
@@ -83,7 +83,7 @@ abstract class Sensor
     } else if ('config' == action) {
       return config!.toBridgeObject();
     } else if ('state' == action) {
-      return serializers.serializeWith(serializer, state)
+      return serializers.serializeWith(serializer, state)!
           as Map<dynamic, dynamic>;
     }
     return {};

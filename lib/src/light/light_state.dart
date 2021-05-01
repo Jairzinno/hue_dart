@@ -58,9 +58,9 @@ abstract class LightState
 
   static Serializer<LightState> get serializer => _$lightStateSerializer;
 
-  LightState._();
+  factory LightState([Function(LightStateBuilder b) updates]) = _$LightState;
 
-  factory LightState([updates(LightStateBuilder b)?]) = _$LightState;
+  LightState._();
 
   factory LightState.fromJson(Map json) {
     return serializers.deserializeWith(LightState.serializer, json)!;
@@ -68,6 +68,7 @@ abstract class LightState
 
   @override
   Map toBridgeObject({String? action}) {
-    return serializers.serializeWith(serializer, this) as Map<dynamic, dynamic>;
+    return serializers.serializeWith(serializer, this)!
+        as Map<dynamic, dynamic>;
   }
 }

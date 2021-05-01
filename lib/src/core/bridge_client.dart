@@ -11,40 +11,38 @@ const protocol = 'http://';
 ///
 /// It performs the request with a platform specific [Client], parses the responses and checks for exceptions
 class BridgeClient {
-  Client _client;
-  String _address;
+  final Client _client;
+  final String _address;
 
-  BridgeClient(this._client, String address)
-      : this._address = '$protocol$address';
+  BridgeClient(this._client, String address) : _address = '$protocol$address';
 
   Future<Map<String, dynamic>> get(String url) async {
     final response = await _client.get(Uri.parse('$_address$url'));
-    Map<String, dynamic> responseMap = json.decode(response.body);
+    final responseMap = json.decode(response.body) as Map<String, dynamic>;
     _checkException(responseMap);
     return responseMap;
   }
 
-  _checkException(dynamic response) {
+  void _checkException(dynamic response) {
     if (response is List) {
-      Map<String, dynamic> resultMap = response.first;
+      final resultMap = response.first as Map<String, dynamic>;
       if (resultMap.containsKey('error')) {
-        Map<String, dynamic>? errorMap = resultMap['error'];
-        var exception = BridgeException.fromJson(errorMap);
-        throw exception;
+        final errorMap = resultMap['error'] as Map<String, dynamic>?;
+        throw BridgeException.fromJson(errorMap);
       }
     }
   }
 
   Future<BridgeResponse> post(String url,
       [dynamic body, String? resultKey]) async {
-    var response;
+    late Response response;
     if (body != null) {
       response = await _client.post(Uri.parse('$_address$url'),
           body: json.encode(body));
     } else {
       response = await _client.post(Uri.parse('$_address$url'));
     }
-    var responseMap = json.decode(response.body);
+    final responseMap = json.decode(response.body);
     _checkException(responseMap);
     return _result(responseMap, resultKey);
   }
@@ -56,7 +54,7 @@ class BridgeClient {
   Future<BridgeResponse> put(String url, dynamic body) async {
     final response =
         await _client.put(Uri.parse('$_address$url'), body: json.encode(body));
-    var responseMap = json.decode(response.body);
+    final responseMap = json.decode(response.body);
     _checkException(responseMap);
     return _result(responseMap);
   }
@@ -64,7 +62,7 @@ class BridgeClient {
   Future<BridgeResponse> delete(String url) async {
     final response = await _client.delete(Uri.parse('$_address$url'));
     if (response.body.isNotEmpty) {
-      var responseMap = json.decode(response.body);
+      final responseMap = json.decode(response.body);
       _checkException(responseMap);
       return _result(responseMap);
     } else {

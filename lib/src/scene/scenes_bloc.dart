@@ -13,7 +13,7 @@ class ScenesBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentScenes = await bridge.scenes();
     _scenes.add(currentScenes);
   }

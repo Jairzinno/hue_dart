@@ -10,23 +10,23 @@ part 'schedule.g.dart';
 abstract class Schedule
     with BridgeObject
     implements Built<Schedule, ScheduleBuilder> {
-  static const String absoluteTimeAlarm = "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*";
+  static const String absoluteTimeAlarm = '\\d*-\\d*-\\d*T\\d*:\\d*:\\d*';
   static const String randomizedTimeAlarm =
-      "\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String recurringAlarm = "W\\d*/T\\d*:\\d*:\\d*";
+      '\\d*-\\d*-\\d*T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*';
+  static const String recurringAlarm = 'W\\d*/T\\d*:\\d*:\\d*';
   static const String randomRecurringTimeAlarm =
-      "W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String timeIntervalAlarm = "T\\d*:\\d*:\\d*/T\\d*:\\d*:\\d*";
-  static const String expiringTimer = "PT\\d*:\\d*:\\d*";
-  static const String randomTimer = "PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String recurringTimer1 = "R\\d*/PT\\d*:\\d*:\\d*";
-  static const String recurringTimer2 = "R/PT\\d*:\\d*:\\d*";
+      'W\\d*/T\\d*:\\d*:\\d*A\\d*:\\d*:\\d*';
+  static const String timeIntervalAlarm = 'T\\d*:\\d*:\\d*/T\\d*:\\d*:\\d*';
+  static const String expiringTimer = 'PT\\d*:\\d*:\\d*';
+  static const String randomTimer = 'PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*';
+  static const String recurringTimer1 = 'R\\d*/PT\\d*:\\d*:\\d*';
+  static const String recurringTimer2 = 'R/PT\\d*:\\d*:\\d*';
   static const String recurringRandomTimer =
-      "R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*";
-  static const String timePattern = "HH:mm:ss";
-  static const String datePattern = "YYYY-MM-dd";
-  static const String timeDivider = "T";
-  static const String randomTimeDivider = "A";
+      'R\\d*/PT\\d*:\\d*:\\d*A\\d*:\\d*:\\d*';
+  static const String timePattern = 'HH:mm:ss';
+  static const String datePattern = 'YYYY-MM-dd';
+  static const String timeDivider = 'T';
+  static const String randomTimeDivider = 'A';
 
   String? get id;
 
@@ -53,8 +53,8 @@ abstract class Schedule
   @BuiltValueField(wireName: 'localtime')
   String? get time;
 
-  ///"enabled"  Schedule is enabled
-  ///"disabled"  Schedule is disabled by user.
+  ///'enabled'  Schedule is enabled
+  ///'disabled'  Schedule is disabled by user.
   ///Application is only allowed to set “enabled” or “disabled”. Disabled causes a timer to reset when activated (i.e. stop & reset). “enabled” when not provided on creation.
 
   String? get status;
@@ -84,9 +84,9 @@ abstract class Schedule
 
   static Serializer<Schedule> get serializer => _$scheduleSerializer;
 
-  Schedule._();
+  factory Schedule([Function(ScheduleBuilder b) updates]) = _$Schedule;
 
-  factory Schedule([updates(ScheduleBuilder b)?]) = _$Schedule;
+  Schedule._();
 
   factory Schedule.fromJson(Map json, {String? id}) {
     return serializers
@@ -94,7 +94,7 @@ abstract class Schedule
         .rebuild((b) => b..id = id);
   }
 
-  static _isAlarm(String time) {
+  static bool _isAlarm(String time) {
     return RegExp(absoluteTimeAlarm).hasMatch(time) ||
         RegExp(randomizedTimeAlarm).hasMatch(time) ||
         RegExp(recurringAlarm).hasMatch(time) ||
@@ -102,7 +102,7 @@ abstract class Schedule
         RegExp(timeIntervalAlarm).hasMatch(time);
   }
 
-  static _isTimer(String time) {
+  static bool _isTimer(String time) {
     return RegExp(recurringRandomTimer).hasMatch(time) ||
         RegExp(recurringTimer1).hasMatch(time) ||
         RegExp(recurringTimer2).hasMatch(time) ||
@@ -123,7 +123,7 @@ abstract class Schedule
         'recycle': recycle ?? false
       };
     } else if ('attributes' == action) {
-      Map<String, dynamic> body = {};
+      final body = {};
       if (name != null) {
         body['name'] = name;
       }

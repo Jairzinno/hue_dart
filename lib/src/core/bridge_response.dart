@@ -5,15 +5,15 @@ class BridgeResponse {
 
   BridgeResponse(dynamic response, [String? key]) {
     if (response is List) {
-      for (Map<String, dynamic> resultMap in response) {
-        if (resultMap.containsKey('success')) {
+      for (final resultMap in response) {
+        if ((resultMap as Map<String, dynamic>).containsKey('success')) {
           success.add(resultMap['success']);
         } else if (resultMap.containsKey('error')) {
           errors.add(resultMap['error']);
         }
       }
       if (key != null) {
-        Map<String, dynamic> resultMap = response.first;
+        final resultMap = response.first as Map<String, dynamic>;
         if (resultMap.containsKey('success')) {
           this.key = resultMap['success'][key];
         }

@@ -85,9 +85,9 @@ abstract class Scene with BridgeObject implements Built<Scene, SceneBuilder> {
 
   static Serializer<Scene> get serializer => _$sceneSerializer;
 
-  Scene._();
+  factory Scene([Function(SceneBuilder b) updates]) = _$Scene;
 
-  factory Scene([updates(SceneBuilder b)?]) = _$Scene;
+  Scene._();
 
   factory Scene.fromJson(Map json, {String? id}) {
     return serializers

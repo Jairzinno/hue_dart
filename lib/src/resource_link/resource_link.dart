@@ -54,9 +54,10 @@ abstract class ResourceLink
 
   static Serializer<ResourceLink> get serializer => _$resourceLinkSerializer;
 
-  ResourceLink._();
+  factory ResourceLink([Function(ResourceLinkBuilder b) updates]) =
+      _$ResourceLink;
 
-  factory ResourceLink([updates(ResourceLinkBuilder b)?]) = _$ResourceLink;
+  ResourceLink._();
 
   factory ResourceLink.fromJson(Map json, {String? id}) {
     return serializers
@@ -66,9 +67,9 @@ abstract class ResourceLink
 
   @override
   Map toBridgeObject({String? action}) {
-    Map result = serializers.serializeWith(ResourceLink.serializer, this)
+    final result = serializers.serializeWith(ResourceLink.serializer, this)!
         as Map<dynamic, dynamic>;
-    result.remove("id");
+    result.remove('id');
     return result;
   }
 }

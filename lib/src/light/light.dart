@@ -48,10 +48,10 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
   @memoized
   String get productName {
     switch (modelId) {
-      case "":
-        return "";
+      case '':
+        return '';
       default:
-        return "Hue bulb A19";
+        return 'Hue bulb A19';
     }
   }
 
@@ -76,9 +76,9 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
 
   static Serializer<Light> get serializer => _$lightSerializer;
 
-  Light._();
+  factory Light([Function(LightBuilder b) updates]) = _$Light;
 
-  factory Light([updates(LightBuilder b)?]) = _$Light;
+  Light._();
 
   factory Light.fromJson(Map json, {int? id}) {
     return serializers
@@ -102,7 +102,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
   Light changeColor({num red = 0, num green = 0, num blue = 0}) {
     final colorHelper = ColorHelper();
     if (state!.colorMode == 'ct') {
-      HueColor colors = colorHelper.rgbToCT(red, green, blue);
+      final colors = colorHelper.rgbToCT(red, green, blue);
       return rebuild(
         (b) => b
           ..state.update(
@@ -110,8 +110,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
           ),
       );
     } else if (state!.colorMode == 'hs') {
-      HueColor colors =
-          colorHelper.rgbToHueSaturationBrightness(red, green, blue);
+      final colors = colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       return rebuild(
         (b) => b
           ..state.update(
@@ -122,7 +121,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
           ),
       );
     } else if (state!.colorMode == 'xy') {
-      HueColor colors = colorHelper.rgbToXY(red, green, blue);
+      final colors = colorHelper.rgbToXY(red, green, blue);
       return rebuild(
         (b) => b
           ..state.update(

@@ -19,10 +19,10 @@ abstract class InternetServices
   static Serializer<InternetServices> get serializer =>
       _$internetServicesSerializer;
 
-  InternetServices._();
-
-  factory InternetServices([updates(InternetServicesBuilder b)?]) =
+  factory InternetServices([Function(InternetServicesBuilder b) updates]) =
       _$InternetServices;
+
+  InternetServices._();
 
   factory InternetServices.fromJson(Map json) {
     return serializers.deserializeWith(InternetServices.serializer, json)!;

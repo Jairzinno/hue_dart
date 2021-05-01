@@ -6,24 +6,24 @@ import 'package:hue_dart/src/light/light.dart';
 import 'package:hue_dart/src/scene/scene.dart';
 
 class SceneApi {
-  BridgeClient _client;
+  final BridgeClient _client;
   late String _username;
 
   SceneApi(this._client, [this._username = '']);
 
-  set username(String username) => this._username = username;
+  set username(String username) => _username = username;
   set address(String address) => this.address = address;
 
   Future<List<Scene>> all() async {
-    String url = '/api/$_username/scenes';
+    final url = '/api/$_username/scenes';
     final response = await _client.get(url);
-    return await _responseToScenes(response);
+    return _responseToScenes(response);
   }
 
   Future<List<Scene>> _responseToScenes(Map<String, dynamic> response) async {
     final scenes = <Scene>[];
-    for (String id in response.keys) {
-      Map<String, dynamic> item = response[id];
+    for (final id in response.keys) {
+      final item = response[id] as Map<String, dynamic>;
       final scene = Scene.fromJson(item, id: id);
       final lights = await _lights(scene);
       scene.rebuild((b) => b..sceneLights.replace(lights));
@@ -34,20 +34,20 @@ class SceneApi {
 
   Future<List<Light>> _lights(Scene scene) async {
     final result = <Light>[];
-    for (String _id in scene.lightIds!) {
+    for (final _id in scene.lightIds!) {
       result.add(await _completeLight(int.parse(_id)));
     }
     return result;
   }
 
   Future<Light> _completeLight(int id) async {
-    String url = '/api/$_username/lights/$id';
+    final url = '/api/$_username/lights/$id';
     final response = await _client.get(url);
     return Light.fromJson(response, id: id);
   }
 
   Future<Scene> single(String id) async {
-    String url = '/api/$_username/scenes/$id';
+    final url = '/api/$_username/scenes/$id';
     final response = await _client.get(url);
     final scene = Scene.fromJson(response, id: id);
     final lights = await _lights(scene);
@@ -56,24 +56,25 @@ class SceneApi {
   }
 
   Future<Scene> create(Scene scene) async {
-    String url = '/api/$_username/scenes';
+    final url = '/api/$_username/scenes';
     final response =
         await _client.post(url, scene.toBridgeObject(action: 'create'), 'id');
-    return scene.rebuild((b) => b..id = response.key);
+    return scene.rebuild((b) => b..id = response.key as String?);
   }
 
   Future<BridgeResponse> attributes(Scene scene) async {
-    String url = '/api/$_username/scenes/${scene.id}';
-    return await _client.put(url, scene.toBridgeObject(action: 'attributes'));
+    final url = '/api/$_username/scenes/${scene.id}';
+    return _client.put(url, scene.toBridgeObject(action: 'attributes'));
   }
 
   Future<BridgeResponse> state(Scene scene, Light light) async {
-    String url = '/api/$_username/scenes/${scene.id}/lightstates/${light.id}';
-    return await _client.put(url, light.toBridgeObject(action: 'state'));
+    final url = '/api/$_username/scenes/${scene.id}/lightstates/${light.id}';
+    return _client.put(url, light.toBridgeObject(action: 'state'));
   }
 
   Future<BridgeResponse> delete(Scene scene) async {
-    String url = '/api/$_username/scenes/${scene.id}';
-    return await _client.delete(url);
+    final url = '/api/$_username/scenes/${scene.id}';
+    return _client.delete(url);
   }
 }
+// ignore_for_file: avoid_setters_without_getters

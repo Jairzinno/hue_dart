@@ -16,9 +16,9 @@ abstract class Condition
 
   static Serializer<Condition> get serializer => _$conditionSerializer;
 
-  Condition._();
+  factory Condition([Function(ConditionBuilder b) updates]) = _$Condition;
 
-  factory Condition([updates(ConditionBuilder b)?]) = _$Condition;
+  Condition._();
 
   factory Condition.fromJson(Map json) {
     return serializers.deserializeWith(serializer, json)!;
@@ -26,6 +26,7 @@ abstract class Condition
 
   @override
   Map toBridgeObject({String? action}) {
-    return serializers.serializeWith(serializer, this) as Map<dynamic, dynamic>;
+    return serializers.serializeWith(serializer, this)!
+        as Map<dynamic, dynamic>;
   }
 }

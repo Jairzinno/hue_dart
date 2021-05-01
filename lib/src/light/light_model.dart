@@ -28,7 +28,7 @@ class Beyond extends LightModel {
 
   @override
   String get productName {
-    String productName = 'Hue Beyond Table';
+    var productName = 'Hue Beyond Table';
     if ('HBL002' == modelId) {
       productName = 'Hue Beyond Pendant';
     } else if ('HBL003' == modelId) {
@@ -50,13 +50,13 @@ class Bulb extends LightModel {
 
   @override
   String get productName {
-    String productName = "Hue bulb A19";
+    var productName = 'Hue bulb A19';
     if (LightModelFactory.isLuxBulbModel(modelId)) {
-      productName = "Hue A19 Lux";
+      productName = 'Hue A19 Lux';
     } else if (LightModelFactory.isAmbianceBulbModel(modelId)) {
-      productName = "Hue A19 White Ambiance";
+      productName = 'Hue A19 White Ambiance';
     } else if (LightModelFactory.isWhiteBulbModel(modelId)) {
-      productName = "Hue white lamp";
+      productName = 'Hue white lamp';
     }
     return productName;
   }
@@ -112,15 +112,15 @@ class Phoenix extends LightModel {
 
   @override
   String get productName {
-    Map<String, String> mapping = {
-      "HML001": "Centerpiece",
-      "HML002": "Ceiling",
-      "HML003": "Pendant",
-      "HML004": "Wall",
-      "HML005": "Table",
-      "HML006": "Downlight"
+    final mapping = {
+      'HML001': 'Centerpiece',
+      'HML002': 'Ceiling',
+      'HML003': 'Pendant',
+      'HML004': 'Wall',
+      'HML005': 'Table',
+      'HML006': 'Downlight'
     };
-    return "Hue Phoenix ${mapping[modelId!]}";
+    return 'Hue Phoenix ${mapping[modelId!]}';
   }
 }
 
@@ -148,7 +148,7 @@ class White extends LightModel {
 
 abstract class LightModelFactory {
   static LightModel? create(Light light) {
-    String? modelId = light.modelId;
+    final modelId = light.modelId;
     if (isAmbianceModel(modelId)) {
       return Ambiance._withLight(light);
     } else if (isAuraModel(modelId)) {
@@ -239,12 +239,12 @@ abstract class LightModelFactory {
       ['LST001', 'LST002'].contains(modelId);
 
   static bool isPhoenixModel(String? modelId) => [
-        "HML001",
-        "HML002",
-        "HML003",
-        "HML004",
-        "HML005",
-        "HML006"
+        'HML001',
+        'HML002',
+        'HML003',
+        'HML004',
+        'HML005',
+        'HML006'
       ].contains(modelId);
 
   static bool isSpotModel(String? modelId) =>

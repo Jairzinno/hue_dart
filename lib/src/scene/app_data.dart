@@ -15,9 +15,9 @@ abstract class AppData implements Built<AppData, AppDataBuilder> {
 
   static Serializer<AppData> get serializer => _$appDataSerializer;
 
-  AppData._();
+  factory AppData([Function(AppDataBuilder b) updates]) = _$AppData;
 
-  factory AppData([updates(AppDataBuilder b)?]) = _$AppData;
+  AppData._();
 
   static AppData? fromJson(Map json) {
     return serializers.deserializeWith(AppData.serializer, json);

@@ -13,7 +13,7 @@ class GroupsBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentGroups = await bridge.groups();
     _groups.add(currentGroups);
   }

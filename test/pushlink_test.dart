@@ -29,7 +29,7 @@ void main() {
     resetMockitoState();
   });
 
-  void mockHasUsername(bool hasUsername) {
+  void mockHasUsername({required bool hasUsername}) {
     when(storage.usernameExists()).thenAnswer((_) => Future.value(hasUsername));
   }
 
@@ -64,35 +64,35 @@ void main() {
   }
 
   test('storage has username', () async {
-    mockHasUsername(true);
+    mockHasUsername(hasUsername: true);
     await sut.init();
     sut.dispose();
     expect(sut.hasUsername, emitsInOrder([true]));
   });
 
   test('storage has no username', () async {
-    mockHasUsername(false);
+    mockHasUsername(hasUsername: false);
     await sut.init();
     sut.dispose();
     expect(sut.hasUsername, emitsInOrder([false]));
   });
 
   test('automatic search returns search results on listen', () async {
-    mockHasUsername(false);
+    mockHasUsername(hasUsername: false);
     final result = mockAutomaticBridgeResult(3);
     await sut.init();
     expect(sut.discoveryResults, emits(result));
   });
 
   test('automatic search fails on listen', () async {
-    mockHasUsername(false);
+    mockHasUsername(hasUsername: false);
     final result = mockFailingAutomaticBridgeResult();
     await sut.init();
     expect(sut.discoveryResults, emitsError(result));
   });
 
   test('manual search returns search result', () async {
-    mockHasUsername(false);
+    mockHasUsername(hasUsername: false);
     final result = mockManualBridgeResult();
     await sut.init();
     sut.manualSearch.add('192.1.1.1');
@@ -100,8 +100,8 @@ void main() {
   });
 
   test('manual search fails search result', () async {
-    mockHasUsername(false);
-    final ip = '192.1.1.1';
+    mockHasUsername(hasUsername: false);
+    const ip = '192.1.1.1';
     final result = mockFailingManualBridgeResult(ip);
     await sut.init();
     sut.manualSearch.add(ip);

@@ -20,9 +20,9 @@ abstract class Command
 
   static Serializer<Command> get serializer => _$commandSerializer;
 
-  Command._();
+  factory Command([Function(CommandBuilder b) updates]) = _$Command;
 
-  factory Command([updates(CommandBuilder b)?]) = _$Command;
+  Command._();
 
   factory Command.fromJson(Map json) {
     return serializers.deserializeWith(Command.serializer, json)!;
@@ -30,6 +30,7 @@ abstract class Command
 
   @override
   Map toBridgeObject({String? action}) {
-    return serializers.serializeWith(serializer, this) as Map<dynamic, dynamic>;
+    return serializers.serializeWith(serializer, this)!
+        as Map<dynamic, dynamic>;
   }
 }

@@ -19,9 +19,9 @@ abstract class SensorState implements Built<SensorState, SensorStateBuilder> {
 
   static Serializer<SensorState> get serializer => _$sensorStateSerializer;
 
-  SensorState._();
+  factory SensorState([Function(SensorStateBuilder b) updates]) = _$SensorState;
 
-  factory SensorState([updates(SensorStateBuilder b)?]) = _$SensorState;
+  SensorState._();
 
   factory SensorState.fromJson(Map json) {
     return serializers.deserializeWith(SensorState.serializer, json)!;

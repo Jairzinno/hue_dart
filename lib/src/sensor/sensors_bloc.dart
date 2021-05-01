@@ -13,7 +13,7 @@ class SensorsBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentSensors = await bridge.sensors();
     _sensors.add(currentSensors);
   }

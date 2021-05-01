@@ -13,7 +13,7 @@ class SchedulesBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentSchedules = await bridge.schedules();
     _schedules.add(currentSchedules);
   }

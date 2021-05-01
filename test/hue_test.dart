@@ -33,30 +33,30 @@ void main() {
     resetMockitoState();
   });
 
-  mockGet(String responseBody, [String? url]) {
+  void mockGet(String responseBody, [String? url]) {
     when(client.get(url != null ? Uri.parse(url) : any))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
   }
 
-  mockDelete(String responseBody) {
+  void mockDelete(String responseBody) {
     when(client.delete(any))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
   }
 
-  mockPost(String responseBody) {
+  void mockPost(String responseBody) {
     when(client.post(any))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
     when(client.post(any, body: anyNamed('body')))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
   }
 
-  mockPut(String responseBody) {
+  void mockPut(String responseBody) {
     when(client.put(any, body: anyNamed('body')))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
   }
 
-  expectDate(DateTime date, int year, int month, int day, int hour, int minute,
-      int second) {
+  void expectDate(DateTime date, int year, int month, int day, int hour,
+      int minute, int second) {
     expect(date.year, year);
     expect(date.month, month);
     expect(date.day, day);
@@ -68,7 +68,7 @@ void main() {
   group('hue tests', () {
     group('discovery bridges', () {
       test('automatic discovery returns single result', () async {
-        BridgeDiscovery bridgeDiscovery = BridgeDiscovery(client);
+        final bridgeDiscovery = BridgeDiscovery(client);
         mockGet(
             '[{"id":"001788fffe256501","internalipaddress":"192.168.2.1"}]');
         final discoveryResult = await bridgeDiscovery.automatic();
@@ -79,7 +79,7 @@ void main() {
       });
 
       test('automatic discovery returns no result', () async {
-        BridgeDiscovery bridgeDiscovery = BridgeDiscovery(client);
+        final bridgeDiscovery = BridgeDiscovery(client);
         mockGet('[]');
         final discoveryResult = await bridgeDiscovery.automatic();
         expect(discoveryResult, isNotNull);
@@ -87,7 +87,7 @@ void main() {
       });
 
       test('empty response for automatic discovery throws exception', () async {
-        BridgeDiscovery bridgeDiscovery = BridgeDiscovery(client);
+        final bridgeDiscovery = BridgeDiscovery(client);
         mockGet('');
         try {
           await bridgeDiscovery.automatic();
@@ -279,7 +279,7 @@ void main() {
           'name': 'Room 2',
           'class': 'Other',
           'type': 'Room',
-          'lights': ["1", "2"]
+          'lights': ['1', '2']
         };
         verify(client.post(Uri.parse('http://127.0.0.1/api/username/groups'),
             body: json.encode(body)));
@@ -380,7 +380,7 @@ void main() {
       });
 
       test('test light model ids', () async {
-        testModelId(
+        Future<void> testModelId(
             String modelId, String? runtimeType, String? productName) async {
           mockGet(singleLightModelIdPlaceholder.replaceFirst(
               '<model_id>', modelId));
@@ -390,7 +390,7 @@ void main() {
           expect(light.model!.productName, productName);
         }
 
-        List<Map<String, String>> models = [
+        final models = [
           {
             'id': 'LTP001',
             'runtimeType': 'Ambiance',
@@ -459,8 +459,9 @@ void main() {
           },
           {'id': 'LDF002', 'runtimeType': 'White', 'productName': 'White'}
         ];
-        for (Map<String, String> model in models) {
-          testModelId(model['id']!, model['runtimeType'], model['productName']);
+        for (final model in models) {
+          await testModelId(
+              model['id']!, model['runtimeType'], model['productName']);
         }
       });
 
@@ -663,11 +664,11 @@ void main() {
         expect(resourceLink.classId, 1);
         expect(resourceLink.owner, '78H56B12BAABCDEF');
         expect(resourceLink.links, [
-          "/schedules/2",
-          "/schedules/3",
-          "/scenes/ABCD",
-          "/scenes/EFGH",
-          "/groups/8"
+          '/schedules/2',
+          '/schedules/3',
+          '/scenes/ABCD',
+          '/scenes/EFGH',
+          '/groups/8'
         ]);
         verify(client.get(
             Uri.parse('http://127.0.0.1/api/username/resourcelinks/1213')));
@@ -682,26 +683,26 @@ void main() {
           ..classId = 1
           ..owner = '78H56B12BAABCDEF'
           ..links = ListBuilder([
-            "/schedules/2",
-            "/schedules/3",
-            "/scenes/ABCD",
-            "/scenes/EFGH",
-            "/groups/8"
+            '/schedules/2',
+            '/schedules/3',
+            '/scenes/ABCD',
+            '/scenes/EFGH',
+            '/groups/8'
           ]));
         final response = await sut.createResourceLink(resourceLink);
         expect(response.id, '1');
         final body = {
-          "name": "Sunrise",
-          "description": "Carla's wakeup experience",
-          "type": "Link",
-          "owner": "78H56B12BAABCDEF",
-          "classid": 1,
-          "links": [
-            "/schedules/2",
-            "/schedules/3",
-            "/scenes/ABCD",
-            "/scenes/EFGH",
-            "/groups/8"
+          'name': 'Sunrise',
+          'description': "Carla's wakeup experience",
+          'type': 'Link',
+          'owner': '78H56B12BAABCDEF',
+          'classid': 1,
+          'links': [
+            '/schedules/2',
+            '/schedules/3',
+            '/scenes/ABCD',
+            '/scenes/EFGH',
+            '/groups/8'
           ]
         };
         verify(client.post(
@@ -710,8 +711,8 @@ void main() {
       });
 
       test('update resourcelink', () async {
-        mockPut(
-            """[{"success": {"/resourcelinks/1/name": "New Sunrise"}},{"success": {"/resourcelinks/1/description": "Some new wakeup experience"}}]""");
+        mockPut('''
+            [{"success": {"/resourcelinks/1/name": "New Sunrise"}},{"success": {"/resourcelinks/1/description": "Some new wakeup experience"}}]''');
         final resourceLink = ResourceLink((b) => b
           ..id = '1234'
           ..name = 'New Sunrise'
@@ -719,8 +720,8 @@ void main() {
         final response = await sut.updateResourceLink(resourceLink);
         expect(response.success.length, 2);
         final body = {
-          "name": "New Sunrise",
-          "description": "Some new wakeup experience",
+          'name': 'New Sunrise',
+          'description': 'Some new wakeup experience',
         };
         verify(client.put(
             Uri.parse('http://127.0.0.1/api/username/resourcelinks/1234'),
@@ -780,19 +781,19 @@ void main() {
         final response = await sut.createRule(rule);
         expect(response.id, 1);
         final body = {
-          "name": "Wall Switch",
+          'name': 'Wall Switch',
           'conditions': [
             {
-              "address": "/sensors/2/state/buttonevent",
-              "operator": "eq",
-              "value": "16"
+              'address': '/sensors/2/state/buttonevent',
+              'operator': 'eq',
+              'value': '16'
             }
           ],
-          "actions": [
+          'actions': [
             {
-              "address": "/groups/0/action",
-              "method": "PUT",
-              "body": {"scene": "S3"}
+              'address': '/groups/0/action',
+              'method': 'PUT',
+              'body': {'scene': 'S3'}
             }
           ],
         };
@@ -802,7 +803,7 @@ void main() {
 
       test('update rule', () async {
         mockPut(
-            """[{"success": {"/rules/1/actions": [{"address": "/groups/0/action", "method": "PUT", "body": { "scene": "S3"}}]}}]""");
+            '''[{"success": {"/rules/1/actions": [{"address": "/groups/0/action", "method": "PUT", "body": { "scene": "S3"}}]}}]''');
         final rule = Rule((b) => b
           ..id = 1
           ..name = 'New Wall Switch'
@@ -816,12 +817,12 @@ void main() {
         final response = await sut.updateRule(rule);
         expect(response.success.length, 1);
         final body = {
-          "name": "New Wall Switch",
-          "actions": [
+          'name': 'New Wall Switch',
+          'actions': [
             {
-              "address": "/groups/0/action",
-              "method": "PUT",
-              "body": {"scene": "S3"}
+              'address': '/groups/0/action',
+              'method': 'PUT',
+              'body': {'scene': 'S3'}
             }
           ]
         };
@@ -1038,7 +1039,7 @@ void main() {
         expect(schedule.command!.address,
             '/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action');
         expect(schedule.command!.method, 'PUT');
-        expect(schedule.command!.body.toMap(), {"scene": "04f61b745-off-5"});
+        expect(schedule.command!.body.toMap(), {'scene': '04f61b745-off-5'});
         expect(schedule.time, 'W127/T23:30:00');
         expect(schedule.status, 'disabled');
         expect(schedule.recycle, false);
@@ -1055,7 +1056,7 @@ void main() {
             Command((b) => b
               ..address = '/api/username/groups/0/action'
               ..method = 'PUT'
-              ..body = BuiltMap<String, String>({"scene": "22227461b-on-0"})
+              ..body = BuiltMap<String, String>({'scene': '22227461b-on-0'})
                   .toBuilder()),
           ));
 
@@ -1066,9 +1067,9 @@ void main() {
           'description': '',
           'localtime': 'W124/T05:30:00',
           'command': {
-            "address": "/api/username/groups/0/action",
-            "method": "PUT",
-            "body": {"scene": "22227461b-on-0"}
+            'address': '/api/username/groups/0/action',
+            'method': 'PUT',
+            'body': {'scene': '22227461b-on-0'}
           },
           'status': 'enabled',
           'autodelete': true,
@@ -1133,7 +1134,7 @@ void main() {
       });
 
       test('test sensor model ids', () async {
-        testModelId(
+        Future<void> testModelId(
             String modelId, String? runtimeType, String? productName) async {
           mockGet(singleSensorModelIdPlaceholder.replaceFirst(
               '<model_id>', modelId));
@@ -1143,7 +1144,7 @@ void main() {
           expect(sensor.model!.productName, productName);
         }
 
-        List<Map<String, String>> models = [
+        final models = [
           {
             'id': 'PHDL00',
             'runtimeType': 'DayLight',
@@ -1166,8 +1167,9 @@ void main() {
           },
           {'id': 'ZGPSWITCH', 'runtimeType': 'Tap', 'productName': 'Hue Tap'}
         ];
-        for (Map<String, String> model in models) {
-          testModelId(model['id']!, model['runtimeType'], model['productName']);
+        for (final model in models) {
+          await testModelId(
+              model['id']!, model['runtimeType'], model['productName']);
         }
       });
 
@@ -1217,7 +1219,7 @@ void main() {
         final result = await sut.updateSensorConfig(sensor);
         expect(result.success.length, 1);
         expect(result.errors.length, 0);
-        final body = {"on": true};
+        final body = {'on': true};
         verify(client.put(
             Uri.parse('http://127.0.0.1/api/username/sensors/4/config'),
             body: json.encode(body)));
@@ -1225,7 +1227,7 @@ void main() {
 
       test('searching for sensors', () async {
         mockPost('[{"success":{"/sensors":"Searching for new devices"}}]');
-        var response = await sut.searchSensors();
+        final response = await sut.searchSensors();
         expect(response.success.length, 1);
         verify(client.post(Uri.parse('http://127.0.0.1/api/username/sensors')));
       });
@@ -1252,7 +1254,7 @@ void main() {
   });
 }
 
-const String config = """
+const String config = '''
 {
 	"name": "Philips hue",
 	"zigbeechannel": 11,
@@ -1335,8 +1337,8 @@ const String config = """
 			"name": "my_hue_app#debug"
 		}
 	}
-}""";
-const String fullState = """
+}''';
+const String fullState = '''
 {
 	"lights": {
 		"1": {
@@ -2009,16 +2011,17 @@ const String fullState = """
 			]
 		}
 	}
-}""";
+}''';
 const String allLights =
-    """{"1":{"modelid":"LCT001","name":"Crazy Name","swversion":"65003148","state":{"xy":[0.168,0.041],"ct":0,"alert":"none","sat":254,"effect":"none","bri":10,"hue":4444,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0a"},"2":{"modelid":"LCT001","name":"Hue Lamp 2","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":144,"effect":"none","bri":254,"hue":23536,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0b"},"3":{"modelid":"LCT001","name":"Hue Lamp 3","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":254,"effect":"none","bri":254,"hue":65136,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0c"},"4":{"modelid":"LWB004","name":"New white Light - 4","swversion":"65003148","state":{"alert":"none","bri":254,"reachable":true,"on":true},"type":"Dimmable light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"c6:52:89:2d:98:11:61:67-80"}}""";
+    '''{"1":{"modelid":"LCT001","name":"Crazy Name","swversion":"65003148","state":{"xy":[0.168,0.041],"ct":0,"alert":"none","sat":254,"effect":"none","bri":10,"hue":4444,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0a"},"2":{"modelid":"LCT001","name":"Hue Lamp 2","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":144,"effect":"none","bri":254,"hue":23536,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0b"},"3":{"modelid":"LCT001","name":"Hue Lamp 3","swversion":"65003148","state":{"xy":[0.346,0.3568],"ct":201,"alert":"none","sat":254,"effect":"none","bri":254,"hue":65136,"colormode":"hs","reachable":true,"on":true},"type":"Extended color light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"22:24:88:01:00:d4:12:08-0c"},"4":{"modelid":"LWB004","name":"New white Light - 4","swversion":"65003148","state":{"alert":"none","bri":254,"reachable":true,"on":true},"type":"Dimmable light","pointsymbol":{"1":"none","2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"},"uniqueid":"c6:52:89:2d:98:11:61:67-80"}}''';
 const String singleLight =
     '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575, 0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"LCT007","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
 const String singleLightColorModePlaceHolder =
     '{"state":{"on":false, "bri": 250, "hue": 48420, "sat": 254,"effect":"none","xy":[0.4575, 0.4101],"ct":366,"alert":"none","colormode":"<color_mode>","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"LCT007","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
 const String singleLightModelIdPlaceholder =
     '{"state":{"on":false,"bri":244,"hue":14988,"sat":141,"effect":"none","xy":[0.4575,0.4101],"ct":366,"alert":"none","colormode":"ct","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2017-11-14T15:47:40"},"type":"Extended color light","name":"Room 2","modelid":"<model_id>","manufacturername":"Philips","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":2000,"maxlumen":800,"colorgamuttype":"B","colorgamut":[[0.6750,0.3220],[0.4090,0.5180],[0.1670,0.0400]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"sultanbulb","function":"mixed","direction":"omnidirectional"},"uniqueid":"22:24:88:01:10:31:62:76-0b","swversion":"5.105.0.21536"}';
-const String allGroups = """{
+const String allGroups = '''
+{
 	"1": {
 		"name": "Room 2",
 		"lights": [
@@ -2102,8 +2105,9 @@ const String allGroups = """{
 			"colormode": "xy"
 		}
 	}
-}""";
-const String singleGroup = """{
+}''';
+const String singleGroup = '''
+{
 	"name": "Room 2",
 	"lights": [
 		"17",
@@ -2130,8 +2134,9 @@ const String singleGroup = """{
 		"alert": "none",
 		"colormode": "ct"
 	}
-}""";
-const String allResourceLinks = """{
+}''';
+const String allResourceLinks = """
+{
 "1": {
     "name": "Sunrise",
     "description": "Carla's wakeup experience",
@@ -2141,7 +2146,8 @@ const String allResourceLinks = """{
               "/scenes/ABCD", "/scenes/EFGH", "/groups/8"]
      }
      }""";
-const String singleResourceLink = """{
+const String singleResourceLink = """
+{
     "name": "Sunrise",
     "description": "Carla's wakeup experience",
     "classid": 1,
@@ -2149,7 +2155,8 @@ const String singleResourceLink = """{
     "links": ["/schedules/2", "/schedules/3",
               "/scenes/ABCD", "/scenes/EFGH", "/groups/8"]
               }""";
-const String allRules = """{
+const String allRules = '''
+{
 "1": {
     "name": "Wall Switch Rule",
     "lasttriggered": "2013-10-17T01:23:20",
@@ -2178,8 +2185,9 @@ const String allRules = """{
         }
     ]
 }
-}""";
-const String singleRule = """{
+}''';
+const String singleRule = '''
+{
     "name": "Wall Switch Rule",
     "lasttriggered": "2013-10-17T01:23:20",
     "creationtime": "2013-10-10T21:11:45",
@@ -2206,8 +2214,9 @@ const String singleRule = """{
             }
         }
     ]
-}""";
-const String allScenes = """{
+}''';
+const String allScenes = '''
+{
 	"497b50d84-on-0": {
 		"name": "Sunset on 0",
 		"lights": [
@@ -2276,8 +2285,9 @@ const String allScenes = """{
 		"lastupdated": "2017-04-30T15:14:42",
 		"version": 2
 	}	
-}""";
-const String singleScene = """{
+}''';
+const String singleScene = '''
+{
 		"name": "Relax",
 		"lights": [
 			"15",
@@ -2293,8 +2303,9 @@ const String singleScene = """{
 		"picture": "",
 		"lastupdated": "2017-04-30T15:14:42",
 		"version": 2
-	}""";
-const String allSchedules = """{
+	}''';
+const String allSchedules = '''
+{
 	"41803987474705890": {
 		"name": "Absolute Time Alarm",
 		"description": "Absolute Time Alarm",
@@ -2455,8 +2466,9 @@ const String allSchedules = """{
 		"status": "disabled",
 		"recycle": false
 	}		
-}""";
-const String singleSchedule = """{
+}''';
+const String singleSchedule = '''
+{
 		"name": "Sleep",
 		"description": "",
 		"command": {
@@ -2471,8 +2483,9 @@ const String singleSchedule = """{
 		"created": "2016-07-10T20:27:05",
 		"status": "disabled",
 		"recycle": false
-	}""";
-const String allSensors = """{
+	}''';
+const String allSensors = '''
+{
 	"1": {
 		"state": {
 			"daylight": null,
@@ -2572,8 +2585,9 @@ const String allSensors = """{
 			"certified": true
 		}
 	}
-}""";
-const String singleSensor = """{
+}''';
+const String singleSensor = '''
+{
 		"state": {
 			"presence": false,
 			"lastupdated": "2018-07-13T06:43:41"
@@ -2603,8 +2617,9 @@ const String singleSensor = """{
 		"capabilities": {
 			"certified": true
 		}
-	}""";
-const String singleSensorModelIdPlaceholder = """{
+	}''';
+const String singleSensorModelIdPlaceholder = '''
+{
 		"state": {
 			"presence": false,
 			"lastupdated": "2018-07-13T06:43:41"
@@ -2634,4 +2649,4 @@ const String singleSensorModelIdPlaceholder = """{
 		"capabilities": {
 			"certified": true
 		}
-	}""";
+	}''';

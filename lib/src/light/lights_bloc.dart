@@ -13,7 +13,7 @@ class LightsBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentLights = await bridge.lights();
     _lights.add(currentLights);
   }

@@ -13,7 +13,7 @@ class RulesBloc {
     init();
   }
 
-  void init() async {
+  Future<void> init() async {
     final currentRules = await bridge.rules();
     _rules.add(currentRules);
   }

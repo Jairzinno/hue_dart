@@ -44,9 +44,9 @@ abstract class HueColor implements Built<HueColor, HueColorBuilder> {
 
   static Serializer<HueColor> get serializer => _$hueColorSerializer;
 
-  HueColor._();
+  factory HueColor([Function(HueColorBuilder b) updates]) = _$HueColor;
 
-  factory HueColor([updates(HueColorBuilder b)?]) = _$HueColor;
+  HueColor._();
 
   factory HueColor.fromJson(Map json) {
     return serializers.deserializeWith(HueColor.serializer, json)!;

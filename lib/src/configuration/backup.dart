@@ -12,9 +12,9 @@ abstract class BackUp implements Built<BackUp, BackUpBuilder> {
 
   static Serializer<BackUp> get serializer => _$backUpSerializer;
 
-  BackUp._();
+  factory BackUp([Function(BackUpBuilder b) updates]) = _$BackUp;
 
-  factory BackUp([updates(BackUpBuilder b)?]) = _$BackUp;
+  BackUp._();
 
   factory BackUp.fromJson(Map json) {
     return serializers.deserializeWith(BackUp.serializer, json)!;

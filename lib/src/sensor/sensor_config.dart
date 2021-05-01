@@ -16,9 +16,10 @@ abstract class SensorConfig
 
   static Serializer<SensorConfig> get serializer => _$sensorConfigSerializer;
 
-  SensorConfig._();
+  factory SensorConfig([Function(SensorConfigBuilder b) updates]) =
+      _$SensorConfig;
 
-  factory SensorConfig([updates(SensorConfigBuilder b)?]) = _$SensorConfig;
+  SensorConfig._();
 
   factory SensorConfig.fromJson(Map json) {
     return serializers.deserializeWith(SensorConfig.serializer, json)!;
@@ -26,7 +27,7 @@ abstract class SensorConfig
 
   @override
   Map toBridgeObject({String? action}) {
-    return serializers.serializeWith(SensorConfig.serializer, this)
+    return serializers.serializeWith(SensorConfig.serializer, this)!
         as Map<dynamic, dynamic>;
   }
 }

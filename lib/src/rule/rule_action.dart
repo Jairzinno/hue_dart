@@ -14,9 +14,9 @@ abstract class RuleAction implements Built<RuleAction, RuleActionBuilder> {
 
   static Serializer<RuleAction> get serializer => _$ruleActionSerializer;
 
-  RuleAction._();
+  factory RuleAction([Function(RuleActionBuilder b) updates]) = _$RuleAction;
 
-  factory RuleAction([updates(RuleActionBuilder b)?]) = _$RuleAction;
+  RuleAction._();
 
   factory RuleAction.fromJson(Map json) {
     return serializers.deserializeWith(RuleAction.serializer, json)!;

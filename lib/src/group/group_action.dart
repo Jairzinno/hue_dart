@@ -62,9 +62,9 @@ abstract class GroupAction
 
   static Serializer<GroupAction> get serializer => _$groupActionSerializer;
 
-  GroupAction._();
+  factory GroupAction([Function(GroupActionBuilder b) updates]) = _$GroupAction;
 
-  factory GroupAction([updates(GroupActionBuilder b)?]) = _$GroupAction;
+  GroupAction._();
 
   static GroupAction? fromJson(String jsonString) {
     return serializers.deserializeWith(
@@ -73,7 +73,7 @@ abstract class GroupAction
 
   @override
   Map<String, dynamic> toBridgeObject({String? action}) {
-    Map<String, dynamic> body = {};
+    final body = <String, dynamic>{};
     if (on != null) {
       body['on'] = on;
     }

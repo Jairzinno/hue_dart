@@ -21,7 +21,8 @@ class PushlinkBloc extends BlocBase {
   StreamController<String> _manualSearch = StreamController();
   Sink<String> get manualSearch => _manualSearch.sink;
 
-  StreamController<DiscoveryResult> _manualSearchResult = StreamController();
+  final StreamController<DiscoveryResult> _manualSearchResult =
+      StreamController();
   Stream<DiscoveryResult> get manualSearchResult => _manualSearchResult.stream;
 
   StreamController<int> _progress = StreamController();
@@ -46,10 +47,8 @@ class PushlinkBloc extends BlocBase {
     _discoveryResults.onListen = () async {
       try {
         final results = await _discovery.automatic();
-        print('automatic search found ${results.length} bridges');
         _discoveryResults.add(results);
       } catch (error, stacktrace) {
-        print('automatic search for bridges failed');
         _discoveryResults.addError(error, stacktrace);
       }
     };
@@ -66,8 +65,8 @@ class PushlinkBloc extends BlocBase {
 
   Future<void> _startPushlink(String deviceType) async {
     _restart.add(false);
-    for (int i = 1; i <= 30; i++) {
-      await Future.delayed(Duration(seconds: 1));
+    for (var i = 1; i <= 30; i++) {
+      await Future.delayed(const Duration(seconds: 1));
       _progress.add(i);
       final bridge = await _bridge.stream.last;
       final response = await bridge.createUser(deviceType);

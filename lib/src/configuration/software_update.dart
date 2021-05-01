@@ -30,10 +30,10 @@ abstract class SoftwareUpdate
   static Serializer<SoftwareUpdate> get serializer =>
       _$softwareUpdateSerializer;
 
-  SoftwareUpdate._();
-
-  factory SoftwareUpdate([updates(SoftwareUpdateBuilder b)?]) =
+  factory SoftwareUpdate([Function(SoftwareUpdateBuilder b) updates]) =
       _$SoftwareUpdate;
+
+  SoftwareUpdate._();
 
   factory SoftwareUpdate.fromJson(Map json) {
     return serializers.deserializeWith(SoftwareUpdate.serializer, json)!;

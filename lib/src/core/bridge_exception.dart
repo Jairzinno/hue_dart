@@ -15,10 +15,10 @@ abstract class BridgeException
   static Serializer<BridgeException> get serializer =>
       _$bridgeExceptionSerializer;
 
-  BridgeException._();
-
-  factory BridgeException([updates(BridgeExceptionBuilder b)?]) =
+  factory BridgeException([Function(BridgeExceptionBuilder b) updates]) =
       _$BridgeException;
+
+  BridgeException._();
 
   factory BridgeException.fromJson(Map? json) {
     return serializers.deserializeWith(BridgeException.serializer, json)!;

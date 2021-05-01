@@ -19,9 +19,9 @@ abstract class GroupState implements Built<GroupState, GroupStateBuilder> {
 
   static Serializer<GroupState> get serializer => _$groupStateSerializer;
 
-  GroupState._();
+  factory GroupState([Function(GroupStateBuilder b) updates]) = _$GroupState;
 
-  factory GroupState([updates(GroupStateBuilder b)?]) = _$GroupState;
+  GroupState._();
 
   static GroupState? fromJson(String jsonString) {
     return serializers.deserializeWith(

@@ -26,9 +26,10 @@ abstract class WhiteListItem
 
   static Serializer<WhiteListItem> get serializer => _$whiteListItemSerializer;
 
-  WhiteListItem._();
+  factory WhiteListItem([Function(WhiteListItemBuilder b) updates]) =
+      _$WhiteListItem;
 
-  factory WhiteListItem([updates(WhiteListItemBuilder b)?]) = _$WhiteListItem;
+  WhiteListItem._();
 
   factory WhiteListItem.fromJson(Map json) {
     return serializers.deserializeWith(WhiteListItem.serializer, json)!;
