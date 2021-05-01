@@ -18,65 +18,72 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
   Iterable<Object> serialize(Serializers serializers, GroupAction object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.on != null) {
+    Object value;
+    value = object.on;
+    if (value != null) {
       result
         ..add('on')
-        ..add(serializers.serialize(object.on,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.brightness != null) {
+    value = object.brightness;
+    if (value != null) {
       result
         ..add('bri')
-        ..add(serializers.serialize(object.brightness,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.hue != null) {
+    value = object.hue;
+    if (value != null) {
       result
         ..add('hue')
-        ..add(serializers.serialize(object.hue,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.saturation != null) {
+    value = object.saturation;
+    if (value != null) {
       result
         ..add('sat')
-        ..add(serializers.serialize(object.saturation,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.xy != null) {
+    value = object.xy;
+    if (value != null) {
       result
         ..add('xy')
-        ..add(serializers.serialize(object.xy,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(double)])));
     }
-    if (object.ct != null) {
+    value = object.ct;
+    if (value != null) {
       result
         ..add('ct')
-        ..add(serializers.serialize(object.ct,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.alert != null) {
+    value = object.alert;
+    if (value != null) {
       result
         ..add('alert')
-        ..add(serializers.serialize(object.alert,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.effect != null) {
+    value = object.effect;
+    if (value != null) {
       result
         ..add('effect')
-        ..add(serializers.serialize(object.effect,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.colorMode != null) {
+    value = object.colorMode;
+    if (value != null) {
       result
         ..add('colormode')
-        ..add(serializers.serialize(object.colorMode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.scene != null) {
+    value = object.scene;
+    if (value != null) {
       result
         ..add('scene')
-        ..add(serializers.serialize(object.scene,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -91,7 +98,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -113,7 +120,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(double)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'ct':
           result.ct = serializers.deserialize(value,
@@ -288,17 +295,18 @@ class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
   GroupActionBuilder();
 
   GroupActionBuilder get _$this {
-    if (_$v != null) {
-      _on = _$v.on;
-      _brightness = _$v.brightness;
-      _hue = _$v.hue;
-      _saturation = _$v.saturation;
-      _xy = _$v.xy?.toBuilder();
-      _ct = _$v.ct;
-      _alert = _$v.alert;
-      _effect = _$v.effect;
-      _colorMode = _$v.colorMode;
-      _scene = _$v.scene;
+    final $v = _$v;
+    if ($v != null) {
+      _on = $v.on;
+      _brightness = $v.brightness;
+      _hue = $v.hue;
+      _saturation = $v.saturation;
+      _xy = $v.xy?.toBuilder();
+      _ct = $v.ct;
+      _alert = $v.alert;
+      _effect = $v.effect;
+      _colorMode = $v.colorMode;
+      _scene = $v.scene;
       _$v = null;
     }
     return this;
@@ -306,9 +314,7 @@ class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
 
   @override
   void replace(GroupAction other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GroupAction;
   }
 

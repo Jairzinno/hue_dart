@@ -20,34 +20,40 @@ class _$SoftwareUpdateSerializer
   Iterable<Object> serialize(Serializers serializers, SoftwareUpdate object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.checkForUpdate != null) {
+    Object value;
+    value = object.checkForUpdate;
+    if (value != null) {
       result
         ..add('checkforupdate')
-        ..add(serializers.serialize(object.checkForUpdate,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.lastChange != null) {
+    value = object.lastChange;
+    if (value != null) {
       result
         ..add('lastchange')
-        ..add(serializers.serialize(object.lastChange,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.state != null) {
+    value = object.state;
+    if (value != null) {
       result
         ..add('state')
-        ..add(serializers.serialize(object.state,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.bridge != null) {
+    value = object.bridge;
+    if (value != null) {
       result
         ..add('bridge')
-        ..add(serializers.serialize(object.bridge,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(SoftwareUpdateBridge)));
     }
-    if (object.autoInstall != null) {
+    value = object.autoInstall;
+    if (value != null) {
       result
         ..add('autoinstall')
-        ..add(serializers.serialize(object.autoInstall,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(AutoInstall)));
     }
     return result;
@@ -63,7 +69,7 @@ class _$SoftwareUpdateSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'checkforupdate':
           result.checkForUpdate = serializers.deserialize(value,
@@ -188,12 +194,13 @@ class SoftwareUpdateBuilder
   SoftwareUpdateBuilder();
 
   SoftwareUpdateBuilder get _$this {
-    if (_$v != null) {
-      _checkForUpdate = _$v.checkForUpdate;
-      _lastChange = _$v.lastChange;
-      _state = _$v.state;
-      _bridge = _$v.bridge?.toBuilder();
-      _autoInstall = _$v.autoInstall?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _checkForUpdate = $v.checkForUpdate;
+      _lastChange = $v.lastChange;
+      _state = $v.state;
+      _bridge = $v.bridge?.toBuilder();
+      _autoInstall = $v.autoInstall?.toBuilder();
       _$v = null;
     }
     return this;
@@ -201,9 +208,7 @@ class SoftwareUpdateBuilder
 
   @override
   void replace(SoftwareUpdate other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SoftwareUpdate;
   }
 

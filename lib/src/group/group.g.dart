@@ -18,72 +18,83 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
   Iterable<Object> serialize(Serializers serializers, Group object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.type != null) {
+    value = object.type;
+    if (value != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(object.type,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.className != null) {
+    value = object.className;
+    if (value != null) {
       result
         ..add('class')
-        ..add(serializers.serialize(object.className,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lightIds != null) {
+    value = object.lightIds;
+    if (value != null) {
       result
         ..add('lights')
-        ..add(serializers.serialize(object.lightIds,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    if (object.groupLights != null) {
+    value = object.groupLights;
+    if (value != null) {
       result
         ..add('groupLights')
-        ..add(serializers.serialize(object.groupLights,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Light)])));
     }
-    if (object.recycle != null) {
+    value = object.recycle;
+    if (value != null) {
       result
         ..add('recycle')
-        ..add(serializers.serialize(object.recycle,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.modelId != null) {
+    value = object.modelId;
+    if (value != null) {
       result
         ..add('modelid')
-        ..add(serializers.serialize(object.modelId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.uniqueId != null) {
+    value = object.uniqueId;
+    if (value != null) {
       result
         ..add('uniqueid')
-        ..add(serializers.serialize(object.uniqueId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.state != null) {
+    value = object.state;
+    if (value != null) {
       result
         ..add('state')
-        ..add(serializers.serialize(object.state,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(GroupState)));
     }
-    if (object.action != null) {
+    value = object.action;
+    if (value != null) {
       result
         ..add('action')
-        ..add(serializers.serialize(object.action,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(GroupAction)));
     }
     return result;
@@ -98,7 +109,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -120,13 +131,13 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
           result.lightIds.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'groupLights':
           result.groupLights.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Light)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
@@ -317,18 +328,19 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
   GroupBuilder();
 
   GroupBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _type = _$v.type;
-      _name = _$v.name;
-      _className = _$v.className;
-      _lightIds = _$v.lightIds?.toBuilder();
-      _groupLights = _$v.groupLights?.toBuilder();
-      _recycle = _$v.recycle;
-      _modelId = _$v.modelId;
-      _uniqueId = _$v.uniqueId;
-      _state = _$v.state?.toBuilder();
-      _action = _$v.action?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _type = $v.type;
+      _name = $v.name;
+      _className = $v.className;
+      _lightIds = $v.lightIds?.toBuilder();
+      _groupLights = $v.groupLights?.toBuilder();
+      _recycle = $v.recycle;
+      _modelId = $v.modelId;
+      _uniqueId = $v.uniqueId;
+      _state = $v.state?.toBuilder();
+      _action = $v.action?.toBuilder();
       _$v = null;
     }
     return this;
@@ -336,9 +348,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
 
   @override
   void replace(Group other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Group;
   }
 

@@ -18,22 +18,26 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
   Iterable<Object> serialize(Serializers serializers, Condition object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.address != null) {
+    Object value;
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.operator != null) {
+    value = object.operator;
+    if (value != null) {
       result
         ..add('operator')
-        ..add(serializers.serialize(object.operator,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.value != null) {
+    value = object.value;
+    if (value != null) {
       result
         ..add('value')
-        ..add(serializers.serialize(object.value,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -48,7 +52,7 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -132,10 +136,11 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   ConditionBuilder();
 
   ConditionBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _operator = _$v.operator;
-      _value = _$v.value;
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _operator = $v.operator;
+      _value = $v.value;
       _$v = null;
     }
     return this;
@@ -143,9 +148,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
 
   @override
   void replace(Condition other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Condition;
   }
 

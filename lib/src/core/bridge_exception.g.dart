@@ -20,23 +20,26 @@ class _$BridgeExceptionSerializer
   Iterable<Object> serialize(Serializers serializers, BridgeException object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.address != null) {
+    Object value;
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.description != null) {
+    value = object.description;
+    if (value != null) {
       result
         ..add('description')
-        ..add(serializers.serialize(object.description,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.type != null) {
+    value = object.type;
+    if (value != null) {
       result
         ..add('type')
-        ..add(serializers.serialize(object.type,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -51,7 +54,7 @@ class _$BridgeExceptionSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -137,10 +140,11 @@ class BridgeExceptionBuilder
   BridgeExceptionBuilder();
 
   BridgeExceptionBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _description = _$v.description;
-      _type = _$v.type;
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _description = $v.description;
+      _type = $v.type;
       _$v = null;
     }
     return this;
@@ -148,9 +152,7 @@ class BridgeExceptionBuilder
 
   @override
   void replace(BridgeException other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BridgeException;
   }
 

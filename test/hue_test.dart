@@ -26,7 +26,7 @@ void main() {
   });
 
   mockGet(String responseBody, [String url]) {
-    when(client.get(url ?? any))
+    when(client.get(Uri.parse(url ?? any)))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
   }
 
@@ -97,14 +97,15 @@ void main() {
         expect(response.username, '19156256a1cc24112436792453e8ae7');
         expect(response.name, 'deviceType');
         final body = {'devicetype': 'deviceType'};
-        verify(client.post('http://127.0.0.1/api/', body: json.encode(body)));
+        verify(client.post(Uri.parse('http://127.0.0.1/api/'),
+            body: json.encode(body)));
       });
 
       test('delete user', () async {
         mockDelete('[{"success":"/config/whitelist/1234567890 deleted"}]');
         final response = await sut.deleteUser('1234567890');
-        verify(client.delete(
-            'http://127.0.0.1/api/username/config/whitelist/1234567890'));
+        verify(client.delete(Uri.parse(
+            'http://127.0.0.1/api/username/config/whitelist/1234567890')));
         expect(response.success.length, 1);
       });
 
@@ -122,14 +123,14 @@ void main() {
           'netmask': '255.255.255.0',
           'dhcp': false
         };
-        verify(client.put('http://127.0.0.1/api/username/config',
+        verify(client.put(Uri.parse('http://127.0.0.1/api/username/config'),
             body: json.encode(body)));
       });
 
       test('get full state', () async {
         mockGet(fullState);
         final fullConfig = await sut.completeConfiguration();
-        verify(client.get('http://127.0.0.1/api/username'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username')));
         expect(fullConfig.groups.length, 3);
         expect(fullConfig.groups.keys.first, 1.toString());
         expect(fullConfig.groups.values.first.name, 'Room 2');
@@ -164,7 +165,7 @@ void main() {
       test('get config', () async {
         mockGet(config);
         final configuration = await sut.configuration();
-        verify(client.get('http://127.0.0.1/api/username/config'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/config')));
         expect(configuration.name, 'Philips hue');
         expect(configuration.zigbeeChannel, 11);
         expect(configuration.bridgeId, '001788FFFE256501');
@@ -231,7 +232,7 @@ void main() {
         mockGet(allGroups);
         final response = await sut.groups();
         expect(response.length, 3);
-        verify(client.get('http://127.0.0.1/api/username/groups'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/groups')));
       });
 
       test('single group', () async {
@@ -254,7 +255,7 @@ void main() {
         expect(group.action.ct, 447);
         expect(group.action.effect, 'none');
         expect(group.action.colorMode, 'ct');
-        verify(client.get('http://127.0.0.1/api/username/groups/1'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/groups/1')));
       });
 
       test('create group', () async {
@@ -272,7 +273,7 @@ void main() {
           'type': 'Room',
           'lights': ["1", "2"]
         };
-        verify(client.post('http://127.0.0.1/api/username/groups',
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/groups'),
             body: json.encode(body)));
       });
 
@@ -292,7 +293,7 @@ void main() {
           'class': 'Kitchen',
           'lights': ['1']
         };
-        verify(client.put('http://127.0.0.1/api/username/groups/1',
+        verify(client.put(Uri.parse('http://127.0.0.1/api/username/groups/1'),
             body: json.encode(body)));
       });
 
@@ -315,7 +316,8 @@ void main() {
         final response = await sut.updateGroupState(group);
         expect(response.success.length, 3);
         final body = {'on': true, 'hue': 2000, 'effect': 'colorloop'};
-        verify(client.put('http://127.0.0.1/api/username/groups/1/action',
+        verify(client.put(
+            Uri.parse('http://127.0.0.1/api/username/groups/1/action'),
             body: json.encode(body)));
       });
 
@@ -331,7 +333,8 @@ void main() {
         );
 
         final response = await sut.deleteGroup(group);
-        verify(client.delete('http://127.0.0.1/api/username/groups/1'));
+        verify(
+            client.delete(Uri.parse('http://127.0.0.1/api/username/groups/1')));
         expect(response.success.length, 1);
       });
     });
@@ -342,13 +345,13 @@ void main() {
         final lights = await sut.lights();
         expect(lights, isNotNull);
         expect(lights.length, 4);
-        verify(client.get('http://127.0.0.1/api/username/lights'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/lights')));
       });
 
       test('calling light() returns a single light', () async {
         mockGet(singleLight);
         final light = await sut.light(1);
-        verify(client.get('http://127.0.0.1/api/username/lights/1'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/lights/1')));
         expect(light, isNotNull);
         expect(light.state.on, false);
         expect(light.state.brightness, 244);
@@ -482,7 +485,8 @@ void main() {
           'effect': 'none',
           'colormode': 'ct'
         };
-        verify(client.put('http://127.0.0.1/api/username/lights/1/state',
+        verify(client.put(
+            Uri.parse('http://127.0.0.1/api/username/lights/1/state'),
             body: json.encode(body)));
       });
 
@@ -495,7 +499,7 @@ void main() {
         expect(result.success.length, 1);
         expect(result.errors.length, 0);
         final body = {'name': 'test name'};
-        verify(client.put('http://127.0.0.1/api/username/lights/1',
+        verify(client.put(Uri.parse('http://127.0.0.1/api/username/lights/1'),
             body: json.encode(body)));
       });
 
@@ -595,14 +599,14 @@ void main() {
         mockPost('[{"success":{"/lights":"Searching for new devices"}}]');
         var response = await sut.searchLights();
         expect(response.success.length, 1);
-        verify(client.post('http://127.0.0.1/api/username/lights'));
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/lights')));
 
         response = await sut.searchLights(['45AF34']);
         expect(response.success.length, 1);
         final body = {
           'deviceid': ['45AF34']
         };
-        verify(client.post('http://127.0.0.1/api/username/lights',
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/lights'),
             body: json.encode(body)));
       });
 
@@ -620,14 +624,16 @@ void main() {
         expect(response.first.name, 'Hue Lamp 7');
         expect(response[1].id, 8);
         expect(response[1].name, 'Hue Lamp 8');
-        verify(client.get('http://127.0.0.1/api/username/lights/new'));
+        verify(
+            client.get(Uri.parse('http://127.0.0.1/api/username/lights/new')));
       });
 
       test('delete light', () async {
         mockDelete('[{"success":"/lights/1 deleted"}]');
         final light = Light((b) => b..id = 1);
         final response = await sut.deleteLight(light);
-        verify(client.delete('http://127.0.0.1/api/username/lights/1'));
+        verify(
+            client.delete(Uri.parse('http://127.0.0.1/api/username/lights/1')));
         expect(response.success.length, 1);
       });
     });
@@ -637,7 +643,8 @@ void main() {
         mockGet(allResourceLinks);
         final response = await sut.resourceLinks();
         expect(response.length, 1);
-        verify(client.get('http://127.0.0.1/api/username/resourcelinks'));
+        verify(client
+            .get(Uri.parse('http://127.0.0.1/api/username/resourcelinks')));
       });
 
       test('single resourcelink', () async {
@@ -654,7 +661,8 @@ void main() {
           "/scenes/EFGH",
           "/groups/8"
         ]);
-        verify(client.get('http://127.0.0.1/api/username/resourcelinks/1213'));
+        verify(client.get(
+            Uri.parse('http://127.0.0.1/api/username/resourcelinks/1213')));
       });
 
       test('create resourcelink', () async {
@@ -688,7 +696,8 @@ void main() {
             "/groups/8"
           ]
         };
-        verify(client.post('http://127.0.0.1/api/username/resourcelinks',
+        verify(client.post(
+            Uri.parse('http://127.0.0.1/api/username/resourcelinks'),
             body: json.encode(body)));
       });
 
@@ -705,7 +714,8 @@ void main() {
           "name": "New Sunrise",
           "description": "Some new wakeup experience",
         };
-        verify(client.put('http://127.0.0.1/api/username/resourcelinks/1234',
+        verify(client.put(
+            Uri.parse('http://127.0.0.1/api/username/resourcelinks/1234'),
             body: json.encode(body)));
       });
 
@@ -714,8 +724,8 @@ void main() {
         final resourceLink = ResourceLink((b) => b..id = '12345');
         final response = await sut.deleteResourceLink(resourceLink);
         expect(response.success.length, 1);
-        verify(
-            client.delete('http://127.0.0.1/api/username/resourcelinks/12345'));
+        verify(client.delete(
+            Uri.parse('http://127.0.0.1/api/username/resourcelinks/12345')));
       });
     });
 
@@ -724,7 +734,7 @@ void main() {
         mockGet(allRules);
         final response = await sut.rules();
         expect(response.length, 1);
-        verify(client.get('http://127.0.0.1/api/username/rules'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/rules')));
       });
 
       test('single rule', () async {
@@ -740,7 +750,7 @@ void main() {
         expect(rule.status, 'enabled');
         expect(rule.conditions.length, 2);
         expect(rule.actions.length, 1);
-        verify(client.get('http://127.0.0.1/api/username/rules/1'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/rules/1')));
       });
 
       test('create rule', () async {
@@ -778,7 +788,7 @@ void main() {
             }
           ],
         };
-        verify(client.post('http://127.0.0.1/api/username/rules',
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/rules'),
             body: json.encode(body)));
       });
 
@@ -807,7 +817,7 @@ void main() {
             }
           ]
         };
-        verify(client.put('http://127.0.0.1/api/username/rules/1',
+        verify(client.put(Uri.parse('http://127.0.0.1/api/username/rules/1'),
             body: json.encode(body)));
       });
 
@@ -816,7 +826,8 @@ void main() {
         final rule = Rule((b) => b..id = 1);
         final response = await sut.deleteRule(rule);
         expect(response.success.length, 1);
-        verify(client.delete('http://127.0.0.1/api/username/rules/1'));
+        verify(
+            client.delete(Uri.parse('http://127.0.0.1/api/username/rules/1')));
       });
     });
 
@@ -825,7 +836,7 @@ void main() {
         mockGet(allScenes);
         final response = await sut.scenes();
         expect(response.length, 4);
-        verify(client.get('http://127.0.0.1/api/username/scenes'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/scenes')));
       });
 
       test('single scene', () async {
@@ -842,8 +853,8 @@ void main() {
         expect(scene.lastUpdated, '2017-04-30T15:14:42');
         expectDate(scene.lastUpdatedDate, 2017, 4, 30, 15, 14, 42);
         expect(scene.version, 2);
-        verify(
-            client.get('http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6'));
+        verify(client.get(
+            Uri.parse('http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6')));
       });
 
       test('create scene', () async {
@@ -859,7 +870,7 @@ void main() {
           'recycle': false,
           'lights': ['1', '2']
         };
-        verify(client.post('http://127.0.0.1/api/username/scenes',
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/scenes'),
             body: json.encode(body)));
       });
 
@@ -878,7 +889,7 @@ void main() {
           'lights': ['1', '2']
         };
         verify(client.put(
-            'http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6',
+            Uri.parse('http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6'),
             body: json.encode(body)));
       });
 
@@ -903,7 +914,8 @@ void main() {
         expect(response.success.length, 3);
         final body = {'on': true, 'hue': 144, 'effect': 'none'};
         verify(client.put(
-            'http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6/lightstates/1',
+            Uri.parse(
+                'http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6/lightstates/1'),
             body: json.encode(body)));
       });
 
@@ -912,8 +924,8 @@ void main() {
         final scene = Scene((b) => b..id = '42YARQOHMNIPia6');
         final response = await sut.deleteScene(scene);
         expect(response.success.length, 1);
-        verify(client
-            .delete('http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6'));
+        verify(client.delete(
+            Uri.parse('http://127.0.0.1/api/username/scenes/42YARQOHMNIPia6')));
       });
     });
 
@@ -922,7 +934,8 @@ void main() {
         mockGet(allSchedules);
         final response = await sut.schedules();
         expect(response.length, 10);
-        verify(client.get('http://127.0.0.1/api/username/schedules'));
+        verify(
+            client.get(Uri.parse('http://127.0.0.1/api/username/schedules')));
         var schedule = response[0];
         //absolute alarm
         expect(schedule.type.runtimeType.toString(), 'Alarm');
@@ -1021,8 +1034,8 @@ void main() {
         expect(schedule.time, 'W127/T23:30:00');
         expect(schedule.status, 'disabled');
         expect(schedule.recycle, false);
-        verify(client
-            .get('http://127.0.0.1/api/username/schedules/7796503114448045'));
+        verify(client.get(Uri.parse(
+            'http://127.0.0.1/api/username/schedules/7796503114448045')));
       });
 
       test('create schedule', () async {
@@ -1053,7 +1066,7 @@ void main() {
           'autodelete': true,
           'recycle': false,
         };
-        verify(client.post('http://127.0.0.1/api/username/schedules',
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/schedules'),
             body: json.encode(body)));
       });
 
@@ -1068,7 +1081,8 @@ void main() {
         expect(response.success.length, 1);
         final body = {'name': 'New Schedule'};
         verify(client.put(
-            'http://127.0.0.1/api/username/schedules/7796503114448045',
+            Uri.parse(
+                'http://127.0.0.1/api/username/schedules/7796503114448045'),
             body: json.encode(body)));
       });
 
@@ -1077,8 +1091,8 @@ void main() {
         final schedule = Schedule((b) => b..id = '7796503114448045');
         final response = await sut.deleteSchedule(schedule);
         expect(response.success.length, 1);
-        verify(client.delete(
-            'http://127.0.0.1/api/username/schedules/7796503114448045'));
+        verify(client.delete(Uri.parse(
+            'http://127.0.0.1/api/username/schedules/7796503114448045')));
       });
     });
 
@@ -1088,13 +1102,14 @@ void main() {
         final lights = await sut.sensors();
         expect(lights, isNotNull);
         expect(lights.length, 4);
-        verify(client.get('http://127.0.0.1/api/username/sensors'));
+        verify(client.get(Uri.parse('http://127.0.0.1/api/username/sensors')));
       });
 
       test('single sensors', () async {
         mockGet(singleSensor);
         final sensor = await sut.sensor('4');
-        verify(client.get('http://127.0.0.1/api/username/sensors/4'));
+        verify(
+            client.get(Uri.parse('http://127.0.0.1/api/username/sensors/4')));
         expect(sensor, isNotNull);
         expect(sensor.config.on, true);
         expect(sensor.config.battery, 100);
@@ -1168,7 +1183,7 @@ void main() {
           'manufacturername': 'Jairzinno',
           'swversion': '1.0.0'
         };
-        verify(client.post('http://127.0.0.1/api/username/sensors',
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/sensors'),
             body: json.encode(body)));
       });
 
@@ -1181,7 +1196,7 @@ void main() {
         expect(result.success.length, 1);
         expect(result.errors.length, 0);
         final body = {'name': 'Room 1 Tap'};
-        verify(client.put('http://127.0.0.1/api/username/sensors/4',
+        verify(client.put(Uri.parse('http://127.0.0.1/api/username/sensors/4'),
             body: json.encode(body)));
       });
 
@@ -1195,7 +1210,8 @@ void main() {
         expect(result.success.length, 1);
         expect(result.errors.length, 0);
         final body = {"on": true};
-        verify(client.put('http://127.0.0.1/api/username/sensors/4/config',
+        verify(client.put(
+            Uri.parse('http://127.0.0.1/api/username/sensors/4/config'),
             body: json.encode(body)));
       });
 
@@ -1203,7 +1219,7 @@ void main() {
         mockPost('[{"success":{"/sensors":"Searching for new devices"}}]');
         var response = await sut.searchSensors();
         expect(response.success.length, 1);
-        verify(client.post('http://127.0.0.1/api/username/sensors'));
+        verify(client.post(Uri.parse('http://127.0.0.1/api/username/sensors')));
       });
 
       test('fetch search results', () async {
@@ -1212,14 +1228,16 @@ void main() {
         final response = await sut.sensorSearchResults();
         expect(response.first.id, 7);
         expect(response[1].id, 8);
-        verify(client.get('http://127.0.0.1/api/username/sensors/new'));
+        verify(
+            client.get(Uri.parse('http://127.0.0.1/api/username/sensors/new')));
       });
 
       test('delete sensor', () async {
         mockDelete('[{"success":"/sensors/4 deleted"}]');
         final sensor = Sensor((b) => b..id = 4);
         final response = await sut.deleteSensor(sensor);
-        verify(client.delete('http://127.0.0.1/api/username/sensors/4'));
+        verify(client
+            .delete(Uri.parse('http://127.0.0.1/api/username/sensors/4')));
         expect(response.success.length, 1);
       });
     });

@@ -37,7 +37,7 @@ class _$AutoInstallSerializer implements StructuredSerializer<AutoInstall> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -65,12 +65,9 @@ class _$AutoInstall extends AutoInstall {
       (new AutoInstallBuilder()..update(updates)).build();
 
   _$AutoInstall._({this.on, this.updateTime}) : super._() {
-    if (on == null) {
-      throw new BuiltValueNullFieldError('AutoInstall', 'on');
-    }
-    if (updateTime == null) {
-      throw new BuiltValueNullFieldError('AutoInstall', 'updateTime');
-    }
+    BuiltValueNullFieldError.checkNotNull(on, 'AutoInstall', 'on');
+    BuiltValueNullFieldError.checkNotNull(
+        updateTime, 'AutoInstall', 'updateTime');
   }
 
   @override
@@ -119,9 +116,10 @@ class AutoInstallBuilder implements Builder<AutoInstall, AutoInstallBuilder> {
   AutoInstallBuilder();
 
   AutoInstallBuilder get _$this {
-    if (_$v != null) {
-      _on = _$v.on;
-      _updateTime = _$v.updateTime;
+    final $v = _$v;
+    if ($v != null) {
+      _on = $v.on;
+      _updateTime = $v.updateTime;
       _$v = null;
     }
     return this;
@@ -129,9 +127,7 @@ class AutoInstallBuilder implements Builder<AutoInstall, AutoInstallBuilder> {
 
   @override
   void replace(AutoInstall other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AutoInstall;
   }
 
@@ -142,7 +138,11 @@ class AutoInstallBuilder implements Builder<AutoInstall, AutoInstallBuilder> {
 
   @override
   _$AutoInstall build() {
-    final _$result = _$v ?? new _$AutoInstall._(on: on, updateTime: updateTime);
+    final _$result = _$v ??
+        new _$AutoInstall._(
+            on: BuiltValueNullFieldError.checkNotNull(on, 'AutoInstall', 'on'),
+            updateTime: BuiltValueNullFieldError.checkNotNull(
+                updateTime, 'AutoInstall', 'updateTime'));
     replace(_$result);
     return _$result;
   }

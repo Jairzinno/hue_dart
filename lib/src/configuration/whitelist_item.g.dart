@@ -19,28 +19,33 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
   Iterable<Object> serialize(Serializers serializers, WhiteListItem object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.username != null) {
+    Object value;
+    value = object.username;
+    if (value != null) {
       result
         ..add('username')
-        ..add(serializers.serialize(object.username,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lastUsedDate != null) {
+    value = object.lastUsedDate;
+    if (value != null) {
       result
         ..add('last use date')
-        ..add(serializers.serialize(object.lastUsedDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createDate != null) {
+    value = object.createDate;
+    if (value != null) {
       result
         ..add('create date')
-        ..add(serializers.serialize(object.createDate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -56,7 +61,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'username':
           result.username = serializers.deserialize(value,
@@ -165,11 +170,12 @@ class WhiteListItemBuilder
   WhiteListItemBuilder();
 
   WhiteListItemBuilder get _$this {
-    if (_$v != null) {
-      _username = _$v.username;
-      _lastUsedDate = _$v.lastUsedDate;
-      _createDate = _$v.createDate;
-      _name = _$v.name;
+    final $v = _$v;
+    if ($v != null) {
+      _username = $v.username;
+      _lastUsedDate = $v.lastUsedDate;
+      _createDate = $v.createDate;
+      _name = $v.name;
       _$v = null;
     }
     return this;
@@ -177,9 +183,7 @@ class WhiteListItemBuilder
 
   @override
   void replace(WhiteListItem other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WhiteListItem;
   }
 

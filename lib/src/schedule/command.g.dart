@@ -42,7 +42,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -54,10 +54,8 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
           break;
         case 'body':
           result.body.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(String)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(String)])));
           break;
       }
     }
@@ -78,15 +76,9 @@ class _$Command extends Command {
       (new CommandBuilder()..update(updates)).build();
 
   _$Command._({this.address, this.method, this.body}) : super._() {
-    if (address == null) {
-      throw new BuiltValueNullFieldError('Command', 'address');
-    }
-    if (method == null) {
-      throw new BuiltValueNullFieldError('Command', 'method');
-    }
-    if (body == null) {
-      throw new BuiltValueNullFieldError('Command', 'body');
-    }
+    BuiltValueNullFieldError.checkNotNull(address, 'Command', 'address');
+    BuiltValueNullFieldError.checkNotNull(method, 'Command', 'method');
+    BuiltValueNullFieldError.checkNotNull(body, 'Command', 'body');
   }
 
   @override
@@ -140,10 +132,11 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   CommandBuilder();
 
   CommandBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _method = _$v.method;
-      _body = _$v.body?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _method = $v.method;
+      _body = $v.body.toBuilder();
       _$v = null;
     }
     return this;
@@ -151,9 +144,7 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
 
   @override
   void replace(Command other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Command;
   }
 
@@ -167,7 +158,12 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
     _$Command _$result;
     try {
       _$result = _$v ??
-          new _$Command._(address: address, method: method, body: body.build());
+          new _$Command._(
+              address: BuiltValueNullFieldError.checkNotNull(
+                  address, 'Command', 'address'),
+              method: BuiltValueNullFieldError.checkNotNull(
+                  method, 'Command', 'method'),
+              body: body.build());
     } catch (_) {
       String _$failedField;
       try {

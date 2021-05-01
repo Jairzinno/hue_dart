@@ -19,235 +19,271 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
   Iterable<Object> serialize(Serializers serializers, Configuration object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.name != null) {
+    Object value;
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.softwareUpdate != null) {
+    value = object.softwareUpdate;
+    if (value != null) {
       result
         ..add('swupdate2')
-        ..add(serializers.serialize(object.softwareUpdate,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(SoftwareUpdate)));
     }
-    if (object.whitelist != null) {
+    value = object.whitelist;
+    if (value != null) {
       result
         ..add('whitelist')
-        ..add(serializers.serialize(object.whitelist,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(WhiteListItem)
             ])));
     }
-    if (object.apiVersion != null) {
+    value = object.apiVersion;
+    if (value != null) {
       result
         ..add('apiversion')
-        ..add(serializers.serialize(object.apiVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.swVersion != null) {
+    value = object.swVersion;
+    if (value != null) {
       result
         ..add('swversion')
-        ..add(serializers.serialize(object.swVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.proxyAddress != null) {
+    value = object.proxyAddress;
+    if (value != null) {
       result
         ..add('proxyaddress')
-        ..add(serializers.serialize(object.proxyAddress,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.proxyPort != null) {
+    value = object.proxyPort;
+    if (value != null) {
       result
         ..add('proxyport')
-        ..add(serializers.serialize(object.proxyPort,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.linkButton != null) {
+    value = object.linkButton;
+    if (value != null) {
       result
         ..add('linkbutton')
-        ..add(serializers.serialize(object.linkButton,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.ipAddress != null) {
+    value = object.ipAddress;
+    if (value != null) {
       result
         ..add('ipaddress')
-        ..add(serializers.serialize(object.ipAddress,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.mac != null) {
+    value = object.mac;
+    if (value != null) {
       result
         ..add('mac')
-        ..add(serializers.serialize(object.mac,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.netMask != null) {
+    value = object.netMask;
+    if (value != null) {
       result
         ..add('netmask')
-        ..add(serializers.serialize(object.netMask,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.gateway != null) {
+    value = object.gateway;
+    if (value != null) {
       result
         ..add('gateway')
-        ..add(serializers.serialize(object.gateway,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.dhcp != null) {
+    value = object.dhcp;
+    if (value != null) {
       result
         ..add('dhcp')
-        ..add(serializers.serialize(object.dhcp,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.portalServices != null) {
+    value = object.portalServices;
+    if (value != null) {
       result
         ..add('portalservices')
-        ..add(serializers.serialize(object.portalServices,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.portalState != null) {
+    value = object.portalState;
+    if (value != null) {
       result
         ..add('portalstate')
-        ..add(serializers.serialize(object.portalState,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(PortalState)));
     }
-    if (object.portalConnection != null) {
+    value = object.portalConnection;
+    if (value != null) {
       result
         ..add('portalconnection')
-        ..add(serializers.serialize(object.portalConnection,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.utc != null) {
+    value = object.utc;
+    if (value != null) {
       result
         ..add('UTC')
-        ..add(serializers.serialize(object.utc,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.localTime != null) {
+    value = object.localTime;
+    if (value != null) {
       result
         ..add('localtime')
-        ..add(serializers.serialize(object.localTime,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.timeZone != null) {
+    value = object.timeZone;
+    if (value != null) {
       result
         ..add('timezone')
-        ..add(serializers.serialize(object.timeZone,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.zigbeeChannel != null) {
+    value = object.zigbeeChannel;
+    if (value != null) {
       result
         ..add('zigbeechannel')
-        ..add(serializers.serialize(object.zigbeeChannel,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.modelId != null) {
+    value = object.modelId;
+    if (value != null) {
       result
         ..add('modelid')
-        ..add(serializers.serialize(object.modelId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.bridgeId != null) {
+    value = object.bridgeId;
+    if (value != null) {
       result
         ..add('bridgeid')
-        ..add(serializers.serialize(object.bridgeId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.factoryNew != null) {
+    value = object.factoryNew;
+    if (value != null) {
       result
         ..add('factorynew')
-        ..add(serializers.serialize(object.factoryNew,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.replacesBridgeId != null) {
+    value = object.replacesBridgeId;
+    if (value != null) {
       result
         ..add('replacesbridgeid')
-        ..add(serializers.serialize(object.replacesBridgeId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.touchLink != null) {
+    value = object.touchLink;
+    if (value != null) {
       result
         ..add('touchlink')
-        ..add(serializers.serialize(object.touchLink,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.dataStoreVersion != null) {
+    value = object.dataStoreVersion;
+    if (value != null) {
       result
         ..add('datastoreversion')
-        ..add(serializers.serialize(object.dataStoreVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.internetServices != null) {
+    value = object.internetServices;
+    if (value != null) {
       result
         ..add('internetservices')
-        ..add(serializers.serialize(object.internetServices,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(InternetServices)));
     }
-    if (object.backup != null) {
+    value = object.backup;
+    if (value != null) {
       result
         ..add('backup')
-        ..add(serializers.serialize(object.backup,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BackUp)));
     }
-    if (object.starterKitId != null) {
+    value = object.starterKitId;
+    if (value != null) {
       result
         ..add('starterkitid')
-        ..add(serializers.serialize(object.starterKitId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.configuration != null) {
+    value = object.configuration;
+    if (value != null) {
       result
         ..add('config')
-        ..add(serializers.serialize(object.configuration,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Configuration)));
     }
-    if (object.lights != null) {
+    value = object.lights;
+    if (value != null) {
       result
         ..add('lights')
-        ..add(serializers.serialize(object.lights,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(Light)])));
     }
-    if (object.groups != null) {
+    value = object.groups;
+    if (value != null) {
       result
         ..add('groups')
-        ..add(serializers.serialize(object.groups,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(Group)])));
     }
-    if (object.scenes != null) {
+    value = object.scenes;
+    if (value != null) {
       result
         ..add('scenes')
-        ..add(serializers.serialize(object.scenes,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(Scene)])));
     }
-    if (object.schedules != null) {
+    value = object.schedules;
+    if (value != null) {
       result
         ..add('schedules')
-        ..add(serializers.serialize(object.schedules,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(Schedule)])));
     }
-    if (object.sensors != null) {
+    value = object.sensors;
+    if (value != null) {
       result
         ..add('sensors')
-        ..add(serializers.serialize(object.sensors,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(Sensor)])));
     }
-    if (object.rules != null) {
+    value = object.rules;
+    if (value != null) {
       result
         ..add('rules')
-        ..add(serializers.serialize(object.rules,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(Rule)])));
     }
-    if (object.resourceLinks != null) {
+    value = object.resourceLinks;
+    if (value != null) {
       result
         ..add('resourcelinks')
-        ..add(serializers.serialize(object.resourceLinks,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(ResourceLink)])));
     }
@@ -264,7 +300,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
@@ -279,7 +315,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(WhiteListItem)
-              ])) as BuiltMap<dynamic, dynamic>);
+              ])));
           break;
         case 'apiversion':
           result.apiVersion = serializers.deserialize(value,
@@ -392,52 +428,40 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
           break;
         case 'lights':
           result.lights.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(Light)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(Light)])));
           break;
         case 'groups':
           result.groups.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(Group)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(Group)])));
           break;
         case 'scenes':
           result.scenes.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(Scene)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(Scene)])));
           break;
         case 'schedules':
           result.schedules.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(Schedule)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(Schedule)])));
           break;
         case 'sensors':
           result.sensors.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(Sensor)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(Sensor)])));
           break;
         case 'rules':
           result.rules.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(Rule)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(Rule)])));
           break;
         case 'resourcelinks':
           result.resourceLinks.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(ResourceLink)
-              ])) as BuiltMap<dynamic, dynamic>);
+              ])));
           break;
       }
     }
@@ -887,44 +911,45 @@ class ConfigurationBuilder
   ConfigurationBuilder();
 
   ConfigurationBuilder get _$this {
-    if (_$v != null) {
-      _name = _$v.name;
-      _softwareUpdate = _$v.softwareUpdate?.toBuilder();
-      _whitelist = _$v.whitelist?.toBuilder();
-      _apiVersion = _$v.apiVersion;
-      _swVersion = _$v.swVersion;
-      _proxyAddress = _$v.proxyAddress;
-      _proxyPort = _$v.proxyPort;
-      _linkButton = _$v.linkButton;
-      _ipAddress = _$v.ipAddress;
-      _mac = _$v.mac;
-      _netMask = _$v.netMask;
-      _gateway = _$v.gateway;
-      _dhcp = _$v.dhcp;
-      _portalServices = _$v.portalServices;
-      _portalState = _$v.portalState?.toBuilder();
-      _portalConnection = _$v.portalConnection;
-      _utc = _$v.utc;
-      _localTime = _$v.localTime;
-      _timeZone = _$v.timeZone;
-      _zigbeeChannel = _$v.zigbeeChannel;
-      _modelId = _$v.modelId;
-      _bridgeId = _$v.bridgeId;
-      _factoryNew = _$v.factoryNew;
-      _replacesBridgeId = _$v.replacesBridgeId;
-      _touchLink = _$v.touchLink;
-      _dataStoreVersion = _$v.dataStoreVersion;
-      _internetServices = _$v.internetServices?.toBuilder();
-      _backup = _$v.backup?.toBuilder();
-      _starterKitId = _$v.starterKitId;
-      _configuration = _$v.configuration?.toBuilder();
-      _lights = _$v.lights?.toBuilder();
-      _groups = _$v.groups?.toBuilder();
-      _scenes = _$v.scenes?.toBuilder();
-      _schedules = _$v.schedules?.toBuilder();
-      _sensors = _$v.sensors?.toBuilder();
-      _rules = _$v.rules?.toBuilder();
-      _resourceLinks = _$v.resourceLinks?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _name = $v.name;
+      _softwareUpdate = $v.softwareUpdate?.toBuilder();
+      _whitelist = $v.whitelist?.toBuilder();
+      _apiVersion = $v.apiVersion;
+      _swVersion = $v.swVersion;
+      _proxyAddress = $v.proxyAddress;
+      _proxyPort = $v.proxyPort;
+      _linkButton = $v.linkButton;
+      _ipAddress = $v.ipAddress;
+      _mac = $v.mac;
+      _netMask = $v.netMask;
+      _gateway = $v.gateway;
+      _dhcp = $v.dhcp;
+      _portalServices = $v.portalServices;
+      _portalState = $v.portalState?.toBuilder();
+      _portalConnection = $v.portalConnection;
+      _utc = $v.utc;
+      _localTime = $v.localTime;
+      _timeZone = $v.timeZone;
+      _zigbeeChannel = $v.zigbeeChannel;
+      _modelId = $v.modelId;
+      _bridgeId = $v.bridgeId;
+      _factoryNew = $v.factoryNew;
+      _replacesBridgeId = $v.replacesBridgeId;
+      _touchLink = $v.touchLink;
+      _dataStoreVersion = $v.dataStoreVersion;
+      _internetServices = $v.internetServices?.toBuilder();
+      _backup = $v.backup?.toBuilder();
+      _starterKitId = $v.starterKitId;
+      _configuration = $v.configuration?.toBuilder();
+      _lights = $v.lights?.toBuilder();
+      _groups = $v.groups?.toBuilder();
+      _scenes = $v.scenes?.toBuilder();
+      _schedules = $v.schedules?.toBuilder();
+      _sensors = $v.sensors?.toBuilder();
+      _rules = $v.rules?.toBuilder();
+      _resourceLinks = $v.resourceLinks?.toBuilder();
       _$v = null;
     }
     return this;
@@ -932,9 +957,7 @@ class ConfigurationBuilder
 
   @override
   void replace(Configuration other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Configuration;
   }
 

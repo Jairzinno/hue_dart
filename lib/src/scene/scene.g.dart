@@ -18,72 +18,83 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
   Iterable<Object> serialize(Serializers serializers, Scene object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lightIds != null) {
+    value = object.lightIds;
+    if (value != null) {
       result
         ..add('lights')
-        ..add(serializers.serialize(object.lightIds,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    if (object.sceneLights != null) {
+    value = object.sceneLights;
+    if (value != null) {
       result
         ..add('sceneLights')
-        ..add(serializers.serialize(object.sceneLights,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Light)])));
     }
-    if (object.owner != null) {
+    value = object.owner;
+    if (value != null) {
       result
         ..add('owner')
-        ..add(serializers.serialize(object.owner,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.recycle != null) {
+    value = object.recycle;
+    if (value != null) {
       result
         ..add('recycle')
-        ..add(serializers.serialize(object.recycle,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.locked != null) {
+    value = object.locked;
+    if (value != null) {
       result
         ..add('locked')
-        ..add(serializers.serialize(object.locked,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.lastUpdated != null) {
+    value = object.lastUpdated;
+    if (value != null) {
       result
         ..add('lastupdated')
-        ..add(serializers.serialize(object.lastUpdated,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.version != null) {
+    value = object.version;
+    if (value != null) {
       result
         ..add('version')
-        ..add(serializers.serialize(object.version,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.appData != null) {
+    value = object.appData;
+    if (value != null) {
       result
         ..add('appdata')
-        ..add(serializers.serialize(object.appData,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(AppData)));
     }
-    if (object.picture != null) {
+    value = object.picture;
+    if (value != null) {
       result
         ..add('picture')
-        ..add(serializers.serialize(object.picture,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -98,7 +109,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -112,13 +123,13 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
           result.lightIds.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'sceneLights':
           result.sceneLights.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Light)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'owner':
           result.owner = serializers.deserialize(value,
@@ -313,18 +324,19 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
   SceneBuilder();
 
   SceneBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _lightIds = _$v.lightIds?.toBuilder();
-      _sceneLights = _$v.sceneLights?.toBuilder();
-      _owner = _$v.owner;
-      _recycle = _$v.recycle;
-      _locked = _$v.locked;
-      _lastUpdated = _$v.lastUpdated;
-      _version = _$v.version;
-      _appData = _$v.appData?.toBuilder();
-      _picture = _$v.picture;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _lightIds = $v.lightIds?.toBuilder();
+      _sceneLights = $v.sceneLights?.toBuilder();
+      _owner = $v.owner;
+      _recycle = $v.recycle;
+      _locked = $v.locked;
+      _lastUpdated = $v.lastUpdated;
+      _version = $v.version;
+      _appData = $v.appData?.toBuilder();
+      _picture = $v.picture;
       _$v = null;
     }
     return this;
@@ -332,9 +344,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
 
   @override
   void replace(Scene other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Scene;
   }
 

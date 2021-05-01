@@ -38,7 +38,7 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'status':
           result.status = serializers.deserialize(value,
@@ -65,12 +65,8 @@ class _$BackUp extends BackUp {
       (new BackUpBuilder()..update(updates)).build();
 
   _$BackUp._({this.status, this.errorCode}) : super._() {
-    if (status == null) {
-      throw new BuiltValueNullFieldError('BackUp', 'status');
-    }
-    if (errorCode == null) {
-      throw new BuiltValueNullFieldError('BackUp', 'errorCode');
-    }
+    BuiltValueNullFieldError.checkNotNull(status, 'BackUp', 'status');
+    BuiltValueNullFieldError.checkNotNull(errorCode, 'BackUp', 'errorCode');
   }
 
   @override
@@ -116,9 +112,10 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
   BackUpBuilder();
 
   BackUpBuilder get _$this {
-    if (_$v != null) {
-      _status = _$v.status;
-      _errorCode = _$v.errorCode;
+    final $v = _$v;
+    if ($v != null) {
+      _status = $v.status;
+      _errorCode = $v.errorCode;
       _$v = null;
     }
     return this;
@@ -126,9 +123,7 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
 
   @override
   void replace(BackUp other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$BackUp;
   }
 
@@ -139,8 +134,12 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
 
   @override
   _$BackUp build() {
-    final _$result =
-        _$v ?? new _$BackUp._(status: status, errorCode: errorCode);
+    final _$result = _$v ??
+        new _$BackUp._(
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, 'BackUp', 'status'),
+            errorCode: BuiltValueNullFieldError.checkNotNull(
+                errorCode, 'BackUp', 'errorCode'));
     replace(_$result);
     return _$result;
   }

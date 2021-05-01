@@ -19,23 +19,26 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
   Iterable<Object> serialize(Serializers serializers, SensorConfig object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.on != null) {
+    Object value;
+    value = object.on;
+    if (value != null) {
       result
         ..add('on')
-        ..add(serializers.serialize(object.on,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.reachable != null) {
+    value = object.reachable;
+    if (value != null) {
       result
         ..add('reachable')
-        ..add(serializers.serialize(object.reachable,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.battery != null) {
+    value = object.battery;
+    if (value != null) {
       result
         ..add('battery')
-        ..add(serializers.serialize(object.battery,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
@@ -49,7 +52,7 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -134,10 +137,11 @@ class SensorConfigBuilder
   SensorConfigBuilder();
 
   SensorConfigBuilder get _$this {
-    if (_$v != null) {
-      _on = _$v.on;
-      _reachable = _$v.reachable;
-      _battery = _$v.battery;
+    final $v = _$v;
+    if ($v != null) {
+      _on = $v.on;
+      _reachable = $v.reachable;
+      _battery = $v.battery;
       _$v = null;
     }
     return this;
@@ -145,9 +149,7 @@ class SensorConfigBuilder
 
   @override
   void replace(SensorConfig other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SensorConfig;
   }
 

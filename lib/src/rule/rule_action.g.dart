@@ -18,22 +18,26 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
   Iterable<Object> serialize(Serializers serializers, RuleAction object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.address != null) {
+    Object value;
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.method != null) {
+    value = object.method;
+    if (value != null) {
       result
         ..add('method')
-        ..add(serializers.serialize(object.method,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.body != null) {
+    value = object.body;
+    if (value != null) {
       result
         ..add('body')
-        ..add(serializers.serialize(object.body,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(String)])));
     }
@@ -49,7 +53,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -61,10 +65,8 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
           break;
         case 'body':
           result.body.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(String)
-              ])) as BuiltMap<dynamic, dynamic>);
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(String)])));
           break;
       }
     }
@@ -137,10 +139,11 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
   RuleActionBuilder();
 
   RuleActionBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _method = _$v.method;
-      _body = _$v.body?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _method = $v.method;
+      _body = $v.body?.toBuilder();
       _$v = null;
     }
     return this;
@@ -148,9 +151,7 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
 
   @override
   void replace(RuleAction other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RuleAction;
   }
 

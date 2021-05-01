@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
 import 'package:hue_dart/src/core/bridge_response.dart';
 
-const protocol = 'http://';
+const protocol = 'https://';
 
 /// the [BridgeClient] handles all calls to the bridge.
 ///
@@ -20,7 +20,7 @@ class BridgeClient {
   }
 
   Future<Map<String, dynamic>> get(String url) async {
-    final response = await _client.get('$_address$url');
+    final response = await _client.get(Uri.parse('$_address$url'));
     Map responseMap = json.decode(response.body);
     _checkException(responseMap);
     return responseMap;
@@ -41,9 +41,10 @@ class BridgeClient {
       [dynamic body, String resultKey]) async {
     var response;
     if (body != null) {
-      response = await _client.post('$_address$url', body: json.encode(body));
+      response = await _client.post(Uri.parse('$_address$url'),
+          body: json.encode(body));
     } else {
-      response = await _client.post('$_address$url');
+      response = await _client.post(Uri.parse('$_address$url'));
     }
     var responseMap = json.decode(response.body);
     _checkException(responseMap);
@@ -56,14 +57,14 @@ class BridgeClient {
 
   Future<BridgeResponse> put(String url, dynamic body) async {
     final response =
-        await _client.put('$_address$url', body: json.encode(body));
+        await _client.put(Uri.parse('$_address$url'), body: json.encode(body));
     var responseMap = json.decode(response.body);
     _checkException(responseMap);
     return _result(responseMap);
   }
 
   Future<BridgeResponse> delete(String url) async {
-    final response = await _client.delete('$_address$url');
+    final response = await _client.delete(Uri.parse('$_address$url'));
     if (response.body.isNotEmpty) {
       var responseMap = json.decode(response.body);
       _checkException(responseMap);

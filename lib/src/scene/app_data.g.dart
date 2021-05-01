@@ -18,16 +18,18 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
   Iterable<Object> serialize(Serializers serializers, AppData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.version != null) {
+    Object value;
+    value = object.version;
+    if (value != null) {
       result
         ..add('version')
-        ..add(serializers.serialize(object.version,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.data != null) {
+    value = object.data;
+    if (value != null) {
       result
         ..add('data')
-        ..add(serializers.serialize(object.data,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -42,7 +44,7 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'version':
           result.version = serializers.deserialize(value,
@@ -111,9 +113,10 @@ class AppDataBuilder implements Builder<AppData, AppDataBuilder> {
   AppDataBuilder();
 
   AppDataBuilder get _$this {
-    if (_$v != null) {
-      _version = _$v.version;
-      _data = _$v.data;
+    final $v = _$v;
+    if ($v != null) {
+      _version = $v.version;
+      _data = $v.data;
       _$v = null;
     }
     return this;
@@ -121,9 +124,7 @@ class AppDataBuilder implements Builder<AppData, AppDataBuilder> {
 
   @override
   void replace(AppData other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AppData;
   }
 

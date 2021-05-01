@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
@@ -14,7 +15,7 @@ class BridgeDiscovery {
   Future<List<DiscoveryResult>> automatic() async {
     final url = 'https://discovery.meethue.com/';
     try {
-      final response = await _client.get(url);
+      final response = await _client.get(Uri.parse(url));
       List responseMap = json.decode(response.body);
       final result = <DiscoveryResult>[];
       for (Map<String, dynamic> json in responseMap) {
@@ -28,9 +29,9 @@ class BridgeDiscovery {
   }
 
   Future<DiscoveryResult> manual(String ipAddress) async {
-    final url = 'http://$ipAddress/api/hue/config';
+    final url = 'https://$ipAddress/api/hue/config';
     try {
-      final response = await _client.get(url);
+      final response = await _client.get(Uri.parse(url));
       Map responseMap = json.decode(response.body);
       final result = DiscoveryResult.fromJson(responseMap)
           .rebuild((b) => b..ipAddress = ipAddress);

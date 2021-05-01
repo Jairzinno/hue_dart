@@ -18,34 +18,38 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
   Iterable<Object> serialize(Serializers serializers, SensorState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.presence != null) {
+    Object value;
+    value = object.presence;
+    if (value != null) {
       result
         ..add('presence')
-        ..add(serializers.serialize(object.presence,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.lastUpdated != null) {
+    value = object.lastUpdated;
+    if (value != null) {
       result
         ..add('lastupdated')
-        ..add(serializers.serialize(object.lastUpdated,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.temperature != null) {
+    value = object.temperature;
+    if (value != null) {
       result
         ..add('temperature')
-        ..add(serializers.serialize(object.temperature,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.buttonEvent != null) {
+    value = object.buttonEvent;
+    if (value != null) {
       result
         ..add('buttonevent')
-        ..add(serializers.serialize(object.buttonEvent,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.daylight != null) {
+    value = object.daylight;
+    if (value != null) {
       result
         ..add('daylight')
-        ..add(serializers.serialize(object.daylight,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -60,7 +64,7 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'presence':
           result.presence = serializers.deserialize(value,
@@ -178,12 +182,13 @@ class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
   SensorStateBuilder();
 
   SensorStateBuilder get _$this {
-    if (_$v != null) {
-      _presence = _$v.presence;
-      _lastUpdated = _$v.lastUpdated;
-      _temperature = _$v.temperature;
-      _buttonEvent = _$v.buttonEvent;
-      _daylight = _$v.daylight;
+    final $v = _$v;
+    if ($v != null) {
+      _presence = $v.presence;
+      _lastUpdated = $v.lastUpdated;
+      _temperature = $v.temperature;
+      _buttonEvent = $v.buttonEvent;
+      _daylight = $v.daylight;
       _$v = null;
     }
     return this;
@@ -191,9 +196,7 @@ class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
 
   @override
   void replace(SensorState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SensorState;
   }
 

@@ -46,7 +46,7 @@ class _$InternetServicesSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'internet':
           result.internet = serializers.deserialize(value,
@@ -88,18 +88,13 @@ class _$InternetServices extends InternetServices {
   _$InternetServices._(
       {this.internet, this.remoteAccess, this.time, this.swUpdate})
       : super._() {
-    if (internet == null) {
-      throw new BuiltValueNullFieldError('InternetServices', 'internet');
-    }
-    if (remoteAccess == null) {
-      throw new BuiltValueNullFieldError('InternetServices', 'remoteAccess');
-    }
-    if (time == null) {
-      throw new BuiltValueNullFieldError('InternetServices', 'time');
-    }
-    if (swUpdate == null) {
-      throw new BuiltValueNullFieldError('InternetServices', 'swUpdate');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        internet, 'InternetServices', 'internet');
+    BuiltValueNullFieldError.checkNotNull(
+        remoteAccess, 'InternetServices', 'remoteAccess');
+    BuiltValueNullFieldError.checkNotNull(time, 'InternetServices', 'time');
+    BuiltValueNullFieldError.checkNotNull(
+        swUpdate, 'InternetServices', 'swUpdate');
   }
 
   @override
@@ -162,11 +157,12 @@ class InternetServicesBuilder
   InternetServicesBuilder();
 
   InternetServicesBuilder get _$this {
-    if (_$v != null) {
-      _internet = _$v.internet;
-      _remoteAccess = _$v.remoteAccess;
-      _time = _$v.time;
-      _swUpdate = _$v.swUpdate;
+    final $v = _$v;
+    if ($v != null) {
+      _internet = $v.internet;
+      _remoteAccess = $v.remoteAccess;
+      _time = $v.time;
+      _swUpdate = $v.swUpdate;
       _$v = null;
     }
     return this;
@@ -174,9 +170,7 @@ class InternetServicesBuilder
 
   @override
   void replace(InternetServices other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InternetServices;
   }
 
@@ -189,10 +183,14 @@ class InternetServicesBuilder
   _$InternetServices build() {
     final _$result = _$v ??
         new _$InternetServices._(
-            internet: internet,
-            remoteAccess: remoteAccess,
-            time: time,
-            swUpdate: swUpdate);
+            internet: BuiltValueNullFieldError.checkNotNull(
+                internet, 'InternetServices', 'internet'),
+            remoteAccess: BuiltValueNullFieldError.checkNotNull(
+                remoteAccess, 'InternetServices', 'remoteAccess'),
+            time: BuiltValueNullFieldError.checkNotNull(
+                time, 'InternetServices', 'time'),
+            swUpdate: BuiltValueNullFieldError.checkNotNull(
+                swUpdate, 'InternetServices', 'swUpdate'));
     replace(_$result);
     return _$result;
   }

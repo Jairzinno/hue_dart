@@ -18,17 +18,20 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
   Iterable<Object> serialize(Serializers serializers, GroupState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.anyOn != null) {
+    Object value;
+    value = object.anyOn;
+    if (value != null) {
       result
         ..add('any_on')
-        ..add(serializers.serialize(object.anyOn,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.allOn != null) {
+    value = object.allOn;
+    if (value != null) {
       result
         ..add('all_on')
-        ..add(serializers.serialize(object.allOn,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -42,7 +45,7 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'any_on':
           result.anyOn = serializers.deserialize(value,
@@ -111,9 +114,10 @@ class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
   GroupStateBuilder();
 
   GroupStateBuilder get _$this {
-    if (_$v != null) {
-      _anyOn = _$v.anyOn;
-      _allOn = _$v.allOn;
+    final $v = _$v;
+    if ($v != null) {
+      _anyOn = $v.anyOn;
+      _allOn = $v.allOn;
       _$v = null;
     }
     return this;
@@ -121,9 +125,7 @@ class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
 
   @override
   void replace(GroupState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GroupState;
   }
 

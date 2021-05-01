@@ -18,67 +18,76 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
   Iterable<Object> serialize(Serializers serializers, Rule object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.lastTriggered != null) {
+    value = object.lastTriggered;
+    if (value != null) {
       result
         ..add('lasttriggered')
-        ..add(serializers.serialize(object.lastTriggered,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.creationTime != null) {
+    value = object.creationTime;
+    if (value != null) {
       result
         ..add('creationtime')
-        ..add(serializers.serialize(object.creationTime,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.timesTriggered != null) {
+    value = object.timesTriggered;
+    if (value != null) {
       result
         ..add('timestriggered')
-        ..add(serializers.serialize(object.timesTriggered,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.owner != null) {
+    value = object.owner;
+    if (value != null) {
       result
         ..add('owner')
-        ..add(serializers.serialize(object.owner,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.conditions != null) {
+    value = object.conditions;
+    if (value != null) {
       result
         ..add('conditions')
-        ..add(serializers.serialize(object.conditions,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Condition)])));
     }
-    if (object.actions != null) {
+    value = object.actions;
+    if (value != null) {
       result
         ..add('actions')
-        ..add(serializers.serialize(object.actions,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(RuleAction)])));
     }
-    if (object.recycle != null) {
+    value = object.recycle;
+    if (value != null) {
       result
         ..add('recycle')
-        ..add(serializers.serialize(object.recycle,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -92,7 +101,7 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -126,13 +135,13 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
           result.conditions.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(Condition)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'actions':
           result.actions.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(RuleAction)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
@@ -294,17 +303,18 @@ class RuleBuilder implements Builder<Rule, RuleBuilder> {
   RuleBuilder();
 
   RuleBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _lastTriggered = _$v.lastTriggered;
-      _creationTime = _$v.creationTime;
-      _timesTriggered = _$v.timesTriggered;
-      _owner = _$v.owner;
-      _status = _$v.status;
-      _conditions = _$v.conditions?.toBuilder();
-      _actions = _$v.actions?.toBuilder();
-      _recycle = _$v.recycle;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _lastTriggered = $v.lastTriggered;
+      _creationTime = $v.creationTime;
+      _timesTriggered = $v.timesTriggered;
+      _owner = $v.owner;
+      _status = $v.status;
+      _conditions = $v.conditions?.toBuilder();
+      _actions = $v.actions?.toBuilder();
+      _recycle = $v.recycle;
       _$v = null;
     }
     return this;
@@ -312,9 +322,7 @@ class RuleBuilder implements Builder<Rule, RuleBuilder> {
 
   @override
   void replace(Rule other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Rule;
   }
 

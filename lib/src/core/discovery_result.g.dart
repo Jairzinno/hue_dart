@@ -20,40 +20,47 @@ class _$DiscoveryResultSerializer
   Iterable<Object> serialize(Serializers serializers, DiscoveryResult object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.mac != null) {
+    value = object.mac;
+    if (value != null) {
       result
         ..add('mac')
-        ..add(serializers.serialize(object.mac,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.apiVersion != null) {
+    value = object.apiVersion;
+    if (value != null) {
       result
         ..add('apiversion')
-        ..add(serializers.serialize(object.apiVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.ipAddress != null) {
+    value = object.ipAddress;
+    if (value != null) {
       result
         ..add('internalipaddress')
-        ..add(serializers.serialize(object.ipAddress,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.swVersion != null) {
+    value = object.swVersion;
+    if (value != null) {
       result
         ..add('swversion')
-        ..add(serializers.serialize(object.swVersion,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -69,7 +76,7 @@ class _$DiscoveryResultSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -202,13 +209,14 @@ class DiscoveryResultBuilder
   DiscoveryResultBuilder();
 
   DiscoveryResultBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _mac = _$v.mac;
-      _apiVersion = _$v.apiVersion;
-      _ipAddress = _$v.ipAddress;
-      _swVersion = _$v.swVersion;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _mac = $v.mac;
+      _apiVersion = $v.apiVersion;
+      _ipAddress = $v.ipAddress;
+      _swVersion = $v.swVersion;
       _$v = null;
     }
     return this;
@@ -216,9 +224,7 @@ class DiscoveryResultBuilder
 
   @override
   void replace(DiscoveryResult other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DiscoveryResult;
   }
 

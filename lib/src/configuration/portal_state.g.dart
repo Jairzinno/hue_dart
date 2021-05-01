@@ -44,7 +44,7 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'communication':
           result.communication = serializers.deserialize(value,
@@ -85,18 +85,11 @@ class _$PortalState extends PortalState {
   _$PortalState._(
       {this.communication, this.incoming, this.outgoing, this.signedOn})
       : super._() {
-    if (communication == null) {
-      throw new BuiltValueNullFieldError('PortalState', 'communication');
-    }
-    if (incoming == null) {
-      throw new BuiltValueNullFieldError('PortalState', 'incoming');
-    }
-    if (outgoing == null) {
-      throw new BuiltValueNullFieldError('PortalState', 'outgoing');
-    }
-    if (signedOn == null) {
-      throw new BuiltValueNullFieldError('PortalState', 'signedOn');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        communication, 'PortalState', 'communication');
+    BuiltValueNullFieldError.checkNotNull(incoming, 'PortalState', 'incoming');
+    BuiltValueNullFieldError.checkNotNull(outgoing, 'PortalState', 'outgoing');
+    BuiltValueNullFieldError.checkNotNull(signedOn, 'PortalState', 'signedOn');
   }
 
   @override
@@ -158,11 +151,12 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
   PortalStateBuilder();
 
   PortalStateBuilder get _$this {
-    if (_$v != null) {
-      _communication = _$v.communication;
-      _incoming = _$v.incoming;
-      _outgoing = _$v.outgoing;
-      _signedOn = _$v.signedOn;
+    final $v = _$v;
+    if ($v != null) {
+      _communication = $v.communication;
+      _incoming = $v.incoming;
+      _outgoing = $v.outgoing;
+      _signedOn = $v.signedOn;
       _$v = null;
     }
     return this;
@@ -170,9 +164,7 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
 
   @override
   void replace(PortalState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$PortalState;
   }
 
@@ -185,10 +177,14 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
   _$PortalState build() {
     final _$result = _$v ??
         new _$PortalState._(
-            communication: communication,
-            incoming: incoming,
-            outgoing: outgoing,
-            signedOn: signedOn);
+            communication: BuiltValueNullFieldError.checkNotNull(
+                communication, 'PortalState', 'communication'),
+            incoming: BuiltValueNullFieldError.checkNotNull(
+                incoming, 'PortalState', 'incoming'),
+            outgoing: BuiltValueNullFieldError.checkNotNull(
+                outgoing, 'PortalState', 'outgoing'),
+            signedOn: BuiltValueNullFieldError.checkNotNull(
+                signedOn, 'PortalState', 'signedOn'));
     replace(_$result);
     return _$result;
   }

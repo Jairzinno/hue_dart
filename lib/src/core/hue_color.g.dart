@@ -18,60 +18,62 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   Iterable<Object> serialize(Serializers serializers, HueColor object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.hue != null) {
+    Object value;
+    value = object.hue;
+    if (value != null) {
       result
         ..add('hue')
-        ..add(serializers.serialize(object.hue,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.saturation != null) {
+    value = object.saturation;
+    if (value != null) {
       result
         ..add('saturation')
-        ..add(serializers.serialize(object.saturation,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.brightness != null) {
+    value = object.brightness;
+    if (value != null) {
       result
         ..add('brightness')
-        ..add(serializers.serialize(object.brightness,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.temperature != null) {
+    value = object.temperature;
+    if (value != null) {
       result
         ..add('temperature')
-        ..add(serializers.serialize(object.temperature,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.ct != null) {
+    value = object.ct;
+    if (value != null) {
       result
         ..add('ct')
-        ..add(serializers.serialize(object.ct,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.xy != null) {
+    value = object.xy;
+    if (value != null) {
       result
         ..add('xy')
-        ..add(serializers.serialize(object.xy,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(num)])));
     }
-    if (object.red != null) {
+    value = object.red;
+    if (value != null) {
       result
         ..add('red')
-        ..add(serializers.serialize(object.red,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.green != null) {
+    value = object.green;
+    if (value != null) {
       result
         ..add('green')
-        ..add(serializers.serialize(object.green,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
-    if (object.blue != null) {
+    value = object.blue;
+    if (value != null) {
       result
         ..add('blue')
-        ..add(serializers.serialize(object.blue,
-            specifiedType: const FullType(num)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(num)));
     }
     return result;
   }
@@ -85,7 +87,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'hue':
           result.hue = serializers.deserialize(value,
@@ -111,7 +113,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(num)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'red':
           result.red = serializers.deserialize(value,
@@ -265,16 +267,17 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
   HueColorBuilder();
 
   HueColorBuilder get _$this {
-    if (_$v != null) {
-      _hue = _$v.hue;
-      _saturation = _$v.saturation;
-      _brightness = _$v.brightness;
-      _temperature = _$v.temperature;
-      _ct = _$v.ct;
-      _xy = _$v.xy?.toBuilder();
-      _red = _$v.red;
-      _green = _$v.green;
-      _blue = _$v.blue;
+    final $v = _$v;
+    if ($v != null) {
+      _hue = $v.hue;
+      _saturation = $v.saturation;
+      _brightness = $v.brightness;
+      _temperature = $v.temperature;
+      _ct = $v.ct;
+      _xy = $v.xy?.toBuilder();
+      _red = $v.red;
+      _green = $v.green;
+      _blue = $v.blue;
       _$v = null;
     }
     return this;
@@ -282,9 +285,7 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
 
   @override
   void replace(HueColor other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$HueColor;
   }
 

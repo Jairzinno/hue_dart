@@ -18,71 +18,79 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
   Iterable<Object> serialize(Serializers serializers, LightState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.on != null) {
+    Object value;
+    value = object.on;
+    if (value != null) {
       result
         ..add('on')
-        ..add(serializers.serialize(object.on,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.brightness != null) {
+    value = object.brightness;
+    if (value != null) {
       result
         ..add('bri')
-        ..add(serializers.serialize(object.brightness,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.hue != null) {
+    value = object.hue;
+    if (value != null) {
       result
         ..add('hue')
-        ..add(serializers.serialize(object.hue,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.saturation != null) {
+    value = object.saturation;
+    if (value != null) {
       result
         ..add('sat')
-        ..add(serializers.serialize(object.saturation,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.xy != null) {
+    value = object.xy;
+    if (value != null) {
       result
         ..add('xy')
-        ..add(serializers.serialize(object.xy,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(num)])));
     }
-    if (object.ct != null) {
+    value = object.ct;
+    if (value != null) {
       result
         ..add('ct')
-        ..add(serializers.serialize(object.ct,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.alert != null) {
+    value = object.alert;
+    if (value != null) {
       result
         ..add('alert')
-        ..add(serializers.serialize(object.alert,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.effect != null) {
+    value = object.effect;
+    if (value != null) {
       result
         ..add('effect')
-        ..add(serializers.serialize(object.effect,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.colorMode != null) {
+    value = object.colorMode;
+    if (value != null) {
       result
         ..add('colormode')
-        ..add(serializers.serialize(object.colorMode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.reachable != null) {
+    value = object.reachable;
+    if (value != null) {
       result
         ..add('reachable')
-        ..add(serializers.serialize(object.reachable,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.mode != null) {
+    value = object.mode;
+    if (value != null) {
       result
         ..add('mode')
-        ..add(serializers.serialize(object.mode,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -97,7 +105,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -119,7 +127,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(num)]))
-              as BuiltList<dynamic>);
+              as BuiltList<Object>);
           break;
         case 'ct':
           result.ct = serializers.deserialize(value,
@@ -309,18 +317,19 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
   LightStateBuilder();
 
   LightStateBuilder get _$this {
-    if (_$v != null) {
-      _on = _$v.on;
-      _brightness = _$v.brightness;
-      _hue = _$v.hue;
-      _saturation = _$v.saturation;
-      _xy = _$v.xy?.toBuilder();
-      _ct = _$v.ct;
-      _alert = _$v.alert;
-      _effect = _$v.effect;
-      _colorMode = _$v.colorMode;
-      _reachable = _$v.reachable;
-      _mode = _$v.mode;
+    final $v = _$v;
+    if ($v != null) {
+      _on = $v.on;
+      _brightness = $v.brightness;
+      _hue = $v.hue;
+      _saturation = $v.saturation;
+      _xy = $v.xy?.toBuilder();
+      _ct = $v.ct;
+      _alert = $v.alert;
+      _effect = $v.effect;
+      _colorMode = $v.colorMode;
+      _reachable = $v.reachable;
+      _mode = $v.mode;
       _$v = null;
     }
     return this;
@@ -328,9 +337,7 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
 
   @override
   void replace(LightState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$LightState;
   }
 

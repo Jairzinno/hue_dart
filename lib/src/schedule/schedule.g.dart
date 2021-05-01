@@ -18,52 +18,61 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
   Iterable<Object> serialize(Serializers serializers, Schedule object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    Object value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.description != null) {
+    value = object.description;
+    if (value != null) {
       result
         ..add('description')
-        ..add(serializers.serialize(object.description,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.time != null) {
+    value = object.time;
+    if (value != null) {
       result
         ..add('localtime')
-        ..add(serializers.serialize(object.time,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.autoDelete != null) {
+    value = object.autoDelete;
+    if (value != null) {
       result
         ..add('autodelete')
-        ..add(serializers.serialize(object.autoDelete,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.recycle != null) {
+    value = object.recycle;
+    if (value != null) {
       result
         ..add('recycle')
-        ..add(serializers.serialize(object.recycle,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.command != null) {
+    value = object.command;
+    if (value != null) {
       result
         ..add('command')
-        ..add(serializers.serialize(object.command,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(Command)));
     }
     return result;
@@ -78,7 +87,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -245,15 +254,16 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
   ScheduleBuilder();
 
   ScheduleBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _name = _$v.name;
-      _description = _$v.description;
-      _time = _$v.time;
-      _status = _$v.status;
-      _autoDelete = _$v.autoDelete;
-      _recycle = _$v.recycle;
-      _command = _$v.command?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _name = $v.name;
+      _description = $v.description;
+      _time = $v.time;
+      _status = $v.status;
+      _autoDelete = $v.autoDelete;
+      _recycle = $v.recycle;
+      _command = $v.command?.toBuilder();
       _$v = null;
     }
     return this;
@@ -261,9 +271,7 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
 
   @override
   void replace(Schedule other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Schedule;
   }
 

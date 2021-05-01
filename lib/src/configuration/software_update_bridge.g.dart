@@ -45,7 +45,7 @@ class _$SoftwareUpdateBridgeSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object value = iterator.current;
       switch (key) {
         case 'state':
           result.state = serializers.deserialize(value,
@@ -74,12 +74,10 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
       (new SoftwareUpdateBridgeBuilder()..update(updates)).build();
 
   _$SoftwareUpdateBridge._({this.state, this.lastInstall}) : super._() {
-    if (state == null) {
-      throw new BuiltValueNullFieldError('SoftwareUpdateBridge', 'state');
-    }
-    if (lastInstall == null) {
-      throw new BuiltValueNullFieldError('SoftwareUpdateBridge', 'lastInstall');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        state, 'SoftwareUpdateBridge', 'state');
+    BuiltValueNullFieldError.checkNotNull(
+        lastInstall, 'SoftwareUpdateBridge', 'lastInstall');
   }
 
   @override
@@ -131,9 +129,10 @@ class SoftwareUpdateBridgeBuilder
   SoftwareUpdateBridgeBuilder();
 
   SoftwareUpdateBridgeBuilder get _$this {
-    if (_$v != null) {
-      _state = _$v.state;
-      _lastInstall = _$v.lastInstall;
+    final $v = _$v;
+    if ($v != null) {
+      _state = $v.state;
+      _lastInstall = $v.lastInstall;
       _$v = null;
     }
     return this;
@@ -141,9 +140,7 @@ class SoftwareUpdateBridgeBuilder
 
   @override
   void replace(SoftwareUpdateBridge other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SoftwareUpdateBridge;
   }
 
@@ -155,7 +152,11 @@ class SoftwareUpdateBridgeBuilder
   @override
   _$SoftwareUpdateBridge build() {
     final _$result = _$v ??
-        new _$SoftwareUpdateBridge._(state: state, lastInstall: lastInstall);
+        new _$SoftwareUpdateBridge._(
+            state: BuiltValueNullFieldError.checkNotNull(
+                state, 'SoftwareUpdateBridge', 'state'),
+            lastInstall: BuiltValueNullFieldError.checkNotNull(
+                lastInstall, 'SoftwareUpdateBridge', 'lastInstall'));
     replace(_$result);
     return _$result;
   }
