@@ -6,9 +6,9 @@ import 'package:hue_dart/src/resource_link/resource_link.dart';
 
 class ResourceLinkApi {
   BridgeClient _client;
-  String _username;
+  late String _username;
 
-  ResourceLinkApi(this._client, [this._username]);
+  ResourceLinkApi(this._client, [this._username = '']);
 
   set username(String username) => this._username = username;
 

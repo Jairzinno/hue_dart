@@ -15,10 +15,10 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
   final String wireName = 'Scene';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Scene object,
+  Iterable<Object?> serialize(Serializers serializers, Scene object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.id;
     if (value != null) {
       result
@@ -101,7 +101,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
   }
 
   @override
-  Scene deserialize(Serializers serializers, Iterable<Object> serialized,
+  Scene deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SceneBuilder();
 
@@ -109,7 +109,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -121,14 +121,14 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
           break;
         case 'lights':
           result.lightIds.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
               as BuiltList<Object>);
           break;
         case 'sceneLights':
           result.sceneLights.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(Light)]))
+                      const FullType(BuiltList, const [const FullType(Light)]))!
               as BuiltList<Object>);
           break;
         case 'owner':
@@ -153,7 +153,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
           break;
         case 'appdata':
           result.appData.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AppData)) as AppData);
+              specifiedType: const FullType(AppData))! as AppData);
           break;
         case 'picture':
           result.picture = serializers.deserialize(value,
@@ -168,29 +168,29 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
 
 class _$Scene extends Scene {
   @override
-  final String id;
+  final String? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final BuiltList<String> lightIds;
+  final BuiltList<String>? lightIds;
   @override
-  final BuiltList<Light> sceneLights;
+  final BuiltList<Light>? sceneLights;
   @override
-  final String owner;
+  final String? owner;
   @override
-  final bool recycle;
+  final bool? recycle;
   @override
-  final bool locked;
+  final bool? locked;
   @override
-  final String lastUpdated;
+  final String? lastUpdated;
   @override
-  final int version;
+  final int? version;
   @override
-  final AppData appData;
+  final AppData? appData;
   @override
-  final String picture;
+  final String? picture;
 
-  factory _$Scene([void Function(SceneBuilder) updates]) =>
+  factory _$Scene([void Function(SceneBuilder)? updates]) =>
       (new SceneBuilder()..update(updates)).build();
 
   _$Scene._(
@@ -272,54 +272,54 @@ class _$Scene extends Scene {
 }
 
 class SceneBuilder implements Builder<Scene, SceneBuilder> {
-  _$Scene _$v;
+  _$Scene? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  ListBuilder<String> _lightIds;
+  ListBuilder<String>? _lightIds;
   ListBuilder<String> get lightIds =>
       _$this._lightIds ??= new ListBuilder<String>();
-  set lightIds(ListBuilder<String> lightIds) => _$this._lightIds = lightIds;
+  set lightIds(ListBuilder<String>? lightIds) => _$this._lightIds = lightIds;
 
-  ListBuilder<Light> _sceneLights;
+  ListBuilder<Light>? _sceneLights;
   ListBuilder<Light> get sceneLights =>
       _$this._sceneLights ??= new ListBuilder<Light>();
-  set sceneLights(ListBuilder<Light> sceneLights) =>
+  set sceneLights(ListBuilder<Light>? sceneLights) =>
       _$this._sceneLights = sceneLights;
 
-  String _owner;
-  String get owner => _$this._owner;
-  set owner(String owner) => _$this._owner = owner;
+  String? _owner;
+  String? get owner => _$this._owner;
+  set owner(String? owner) => _$this._owner = owner;
 
-  bool _recycle;
-  bool get recycle => _$this._recycle;
-  set recycle(bool recycle) => _$this._recycle = recycle;
+  bool? _recycle;
+  bool? get recycle => _$this._recycle;
+  set recycle(bool? recycle) => _$this._recycle = recycle;
 
-  bool _locked;
-  bool get locked => _$this._locked;
-  set locked(bool locked) => _$this._locked = locked;
+  bool? _locked;
+  bool? get locked => _$this._locked;
+  set locked(bool? locked) => _$this._locked = locked;
 
-  String _lastUpdated;
-  String get lastUpdated => _$this._lastUpdated;
-  set lastUpdated(String lastUpdated) => _$this._lastUpdated = lastUpdated;
+  String? _lastUpdated;
+  String? get lastUpdated => _$this._lastUpdated;
+  set lastUpdated(String? lastUpdated) => _$this._lastUpdated = lastUpdated;
 
-  int _version;
-  int get version => _$this._version;
-  set version(int version) => _$this._version = version;
+  int? _version;
+  int? get version => _$this._version;
+  set version(int? version) => _$this._version = version;
 
-  AppDataBuilder _appData;
+  AppDataBuilder? _appData;
   AppDataBuilder get appData => _$this._appData ??= new AppDataBuilder();
-  set appData(AppDataBuilder appData) => _$this._appData = appData;
+  set appData(AppDataBuilder? appData) => _$this._appData = appData;
 
-  String _picture;
-  String get picture => _$this._picture;
-  set picture(String picture) => _$this._picture = picture;
+  String? _picture;
+  String? get picture => _$this._picture;
+  set picture(String? picture) => _$this._picture = picture;
 
   SceneBuilder();
 
@@ -349,7 +349,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
   }
 
   @override
-  void update(void Function(SceneBuilder) updates) {
+  void update(void Function(SceneBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -371,7 +371,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
               appData: _appData?.build(),
               picture: picture);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'lightIds';
         _lightIds?.build();

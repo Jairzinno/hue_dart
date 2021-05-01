@@ -15,10 +15,10 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
   final String wireName = 'Schedule';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Schedule object,
+  Iterable<Object?> serialize(Serializers serializers, Schedule object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.id;
     if (value != null) {
       result
@@ -79,7 +79,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
   }
 
   @override
-  Schedule deserialize(Serializers serializers, Iterable<Object> serialized,
+  Schedule deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ScheduleBuilder();
 
@@ -87,7 +87,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -119,7 +119,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
           break;
         case 'command':
           result.command.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Command)) as Command);
+              specifiedType: const FullType(Command))! as Command);
           break;
       }
     }
@@ -130,24 +130,24 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
 
 class _$Schedule extends Schedule {
   @override
-  final String id;
+  final String? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String description;
+  final String? description;
   @override
-  final String time;
+  final String? time;
   @override
-  final String status;
+  final String? status;
   @override
-  final bool autoDelete;
+  final bool? autoDelete;
   @override
-  final bool recycle;
+  final bool? recycle;
   @override
-  final Command command;
-  ScheduleType __type;
+  final Command? command;
+  ScheduleType? __type;
 
-  factory _$Schedule([void Function(ScheduleBuilder) updates]) =>
+  factory _$Schedule([void Function(ScheduleBuilder)? updates]) =>
       (new ScheduleBuilder()..update(updates)).build();
 
   _$Schedule._(
@@ -217,39 +217,39 @@ class _$Schedule extends Schedule {
 }
 
 class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
-  _$Schedule _$v;
+  _$Schedule? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _description;
-  String get description => _$this._description;
-  set description(String description) => _$this._description = description;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
-  String _time;
-  String get time => _$this._time;
-  set time(String time) => _$this._time = time;
+  String? _time;
+  String? get time => _$this._time;
+  set time(String? time) => _$this._time = time;
 
-  String _status;
-  String get status => _$this._status;
-  set status(String status) => _$this._status = status;
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
 
-  bool _autoDelete;
-  bool get autoDelete => _$this._autoDelete;
-  set autoDelete(bool autoDelete) => _$this._autoDelete = autoDelete;
+  bool? _autoDelete;
+  bool? get autoDelete => _$this._autoDelete;
+  set autoDelete(bool? autoDelete) => _$this._autoDelete = autoDelete;
 
-  bool _recycle;
-  bool get recycle => _$this._recycle;
-  set recycle(bool recycle) => _$this._recycle = recycle;
+  bool? _recycle;
+  bool? get recycle => _$this._recycle;
+  set recycle(bool? recycle) => _$this._recycle = recycle;
 
-  CommandBuilder _command;
+  CommandBuilder? _command;
   CommandBuilder get command => _$this._command ??= new CommandBuilder();
-  set command(CommandBuilder command) => _$this._command = command;
+  set command(CommandBuilder? command) => _$this._command = command;
 
   ScheduleBuilder();
 
@@ -276,7 +276,7 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
   }
 
   @override
-  void update(void Function(ScheduleBuilder) updates) {
+  void update(void Function(ScheduleBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -295,7 +295,7 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
               recycle: recycle,
               command: _command?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'command';
         _command?.build();

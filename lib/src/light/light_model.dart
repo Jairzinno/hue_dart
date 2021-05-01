@@ -5,7 +5,7 @@ abstract class LightModel {
     modelId = light.modelId;
   }
 
-  String modelId;
+  String? modelId;
   String get productName;
 }
 
@@ -120,7 +120,7 @@ class Phoenix extends LightModel {
       "HML005": "Table",
       "HML006": "Downlight"
     };
-    return "Hue Phoenix ${mapping[modelId]}";
+    return "Hue Phoenix ${mapping[modelId!]}";
   }
 }
 
@@ -147,8 +147,8 @@ class White extends LightModel {
 }
 
 abstract class LightModelFactory {
-  static LightModel create(Light light) {
-    String modelId = light.modelId;
+  static LightModel? create(Light light) {
+    String? modelId = light.modelId;
     if (isAmbianceModel(modelId)) {
       return Ambiance._withLight(light);
     } else if (isAuraModel(modelId)) {
@@ -186,7 +186,7 @@ abstract class LightModelFactory {
     return null;
   }
 
-  static bool isAmbianceModel(String modelId) => [
+  static bool isAmbianceModel(String? modelId) => [
         'LTP001',
         'LTP002',
         'LTP003',
@@ -201,44 +201,44 @@ abstract class LightModelFactory {
         'LTD002'
       ].contains(modelId);
 
-  static bool isAuraModel(String modelId) => 'LLC014' == modelId;
+  static bool isAuraModel(String? modelId) => 'LLC014' == modelId;
 
-  static bool isBeyondModel(String modelId) =>
+  static bool isBeyondModel(String? modelId) =>
       ['HBL001', 'HBL002', 'HBL003'].contains(modelId);
 
-  static bool isBloomModel(String modelId) =>
+  static bool isBloomModel(String? modelId) =>
       ['LLC005', 'LLC011', 'LLC012', 'LLC007'].contains(modelId);
 
-  static bool isDefaultBulbModel(String modelId) =>
+  static bool isDefaultBulbModel(String? modelId) =>
       ['LCT001', 'LCT007', 'LCT010', 'LCT014'].contains(modelId);
 
-  static bool isLuxBulbModel(String modelId) =>
+  static bool isLuxBulbModel(String? modelId) =>
       ['LWB004', 'LWB006', 'LWB007'].contains(modelId);
 
-  static bool isAmbianceBulbModel(String modelId) =>
+  static bool isAmbianceBulbModel(String? modelId) =>
       ['LTW010', 'LTW001', 'LTW004', 'LTW015'].contains(modelId);
 
-  static bool isWhiteBulbModel(String modelId) =>
+  static bool isWhiteBulbModel(String? modelId) =>
       ['LWB010', 'LWB014'].contains(modelId);
 
-  static bool isDownLightModel(String modelId) =>
+  static bool isDownLightModel(String? modelId) =>
       ['LCT011', 'LTW011', 'LCT002'].contains(modelId);
 
-  static bool isEntityModel(String modelId) =>
+  static bool isEntityModel(String? modelId) =>
       ['HEL001', 'HEL002'].contains(modelId);
 
-  static bool isGoModel(String modelId) => 'LLC020' == modelId;
+  static bool isGoModel(String? modelId) => 'LLC020' == modelId;
 
-  static bool isImpulseModel(String modelId) =>
+  static bool isImpulseModel(String? modelId) =>
       ['HIL001', 'HIL002'].contains(modelId);
 
-  static bool isIrisModel(String modelId) =>
+  static bool isIrisModel(String? modelId) =>
       ['LLC010', 'LLC006'].contains(modelId);
 
-  static bool isLightStripModel(String modelId) =>
+  static bool isLightStripModel(String? modelId) =>
       ['LST001', 'LST002'].contains(modelId);
 
-  static bool isPhoenixModel(String modelId) => [
+  static bool isPhoenixModel(String? modelId) => [
         "HML001",
         "HML002",
         "HML003",
@@ -247,11 +247,11 @@ abstract class LightModelFactory {
         "HML006"
       ].contains(modelId);
 
-  static bool isSpotModel(String modelId) =>
+  static bool isSpotModel(String? modelId) =>
       ['LCT003', 'LTW013', 'LTW014'].contains(modelId);
 
-  static bool isStoryLightModel(String modelId) => 'LLC013' == modelId;
+  static bool isStoryLightModel(String? modelId) => 'LLC013' == modelId;
 
-  static bool isWhiteModel(String modelId) =>
+  static bool isWhiteModel(String? modelId) =>
       ['LDF002', 'LDF001', 'LDD002', 'LDD001', 'MWM001'].contains(modelId);
 }

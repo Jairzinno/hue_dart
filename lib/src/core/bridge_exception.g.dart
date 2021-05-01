@@ -17,10 +17,10 @@ class _$BridgeExceptionSerializer
   final String wireName = 'BridgeException';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, BridgeException object,
+  Iterable<Object?> serialize(Serializers serializers, BridgeException object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.address;
     if (value != null) {
       result
@@ -46,7 +46,7 @@ class _$BridgeExceptionSerializer
 
   @override
   BridgeException deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new BridgeExceptionBuilder();
 
@@ -54,7 +54,7 @@ class _$BridgeExceptionSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -77,13 +77,13 @@ class _$BridgeExceptionSerializer
 
 class _$BridgeException extends BridgeException {
   @override
-  final String address;
+  final String? address;
   @override
-  final String description;
+  final String? description;
   @override
-  final int type;
+  final int? type;
 
-  factory _$BridgeException([void Function(BridgeExceptionBuilder) updates]) =>
+  factory _$BridgeException([void Function(BridgeExceptionBuilder)? updates]) =>
       (new BridgeExceptionBuilder()..update(updates)).build();
 
   _$BridgeException._({this.address, this.description, this.type}) : super._();
@@ -123,19 +123,19 @@ class _$BridgeException extends BridgeException {
 
 class BridgeExceptionBuilder
     implements Builder<BridgeException, BridgeExceptionBuilder> {
-  _$BridgeException _$v;
+  _$BridgeException? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _description;
-  String get description => _$this._description;
-  set description(String description) => _$this._description = description;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
-  int _type;
-  int get type => _$this._type;
-  set type(int type) => _$this._type = type;
+  int? _type;
+  int? get type => _$this._type;
+  set type(int? type) => _$this._type = type;
 
   BridgeExceptionBuilder();
 
@@ -157,7 +157,7 @@ class BridgeExceptionBuilder
   }
 
   @override
-  void update(void Function(BridgeExceptionBuilder) updates) {
+  void update(void Function(BridgeExceptionBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

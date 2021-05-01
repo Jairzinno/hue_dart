@@ -21,10 +21,10 @@ abstract class InternetServices
 
   InternetServices._();
 
-  factory InternetServices([updates(InternetServicesBuilder b)]) =
+  factory InternetServices([updates(InternetServicesBuilder b)?]) =
       _$InternetServices;
 
   factory InternetServices.fromJson(Map json) {
-    return serializers.deserializeWith(InternetServices.serializer, json);
+    return serializers.deserializeWith(InternetServices.serializer, json)!;
   }
 }

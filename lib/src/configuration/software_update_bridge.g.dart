@@ -20,10 +20,10 @@ class _$SoftwareUpdateBridgeSerializer
   final String wireName = 'SoftwareUpdateBridge';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, SoftwareUpdateBridge object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'state',
       serializers.serialize(object.state,
           specifiedType: const FullType(String)),
@@ -37,7 +37,7 @@ class _$SoftwareUpdateBridgeSerializer
 
   @override
   SoftwareUpdateBridge deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SoftwareUpdateBridgeBuilder();
 
@@ -45,7 +45,7 @@ class _$SoftwareUpdateBridgeSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'state':
           result.state = serializers.deserialize(value,
@@ -67,13 +67,14 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
   final String state;
   @override
   final String lastInstall;
-  DateTime __lastInstallDate;
+  DateTime? __lastInstallDate;
 
   factory _$SoftwareUpdateBridge(
-          [void Function(SoftwareUpdateBridgeBuilder) updates]) =>
+          [void Function(SoftwareUpdateBridgeBuilder)? updates]) =>
       (new SoftwareUpdateBridgeBuilder()..update(updates)).build();
 
-  _$SoftwareUpdateBridge._({this.state, this.lastInstall}) : super._() {
+  _$SoftwareUpdateBridge._({required this.state, required this.lastInstall})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
         state, 'SoftwareUpdateBridge', 'state');
     BuiltValueNullFieldError.checkNotNull(
@@ -116,15 +117,15 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
 
 class SoftwareUpdateBridgeBuilder
     implements Builder<SoftwareUpdateBridge, SoftwareUpdateBridgeBuilder> {
-  _$SoftwareUpdateBridge _$v;
+  _$SoftwareUpdateBridge? _$v;
 
-  String _state;
-  String get state => _$this._state;
-  set state(String state) => _$this._state = state;
+  String? _state;
+  String? get state => _$this._state;
+  set state(String? state) => _$this._state = state;
 
-  String _lastInstall;
-  String get lastInstall => _$this._lastInstall;
-  set lastInstall(String lastInstall) => _$this._lastInstall = lastInstall;
+  String? _lastInstall;
+  String? get lastInstall => _$this._lastInstall;
+  set lastInstall(String? lastInstall) => _$this._lastInstall = lastInstall;
 
   SoftwareUpdateBridgeBuilder();
 
@@ -145,7 +146,7 @@ class SoftwareUpdateBridgeBuilder
   }
 
   @override
-  void update(void Function(SoftwareUpdateBridgeBuilder) updates) {
+  void update(void Function(SoftwareUpdateBridgeBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

@@ -14,9 +14,9 @@ abstract class BackUp implements Built<BackUp, BackUpBuilder> {
 
   BackUp._();
 
-  factory BackUp([updates(BackUpBuilder b)]) = _$BackUp;
+  factory BackUp([updates(BackUpBuilder b)?]) = _$BackUp;
 
   factory BackUp.fromJson(Map json) {
-    return serializers.deserializeWith(BackUp.serializer, json);
+    return serializers.deserializeWith(BackUp.serializer, json)!;
   }
 }

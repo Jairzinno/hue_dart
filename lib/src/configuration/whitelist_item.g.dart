@@ -16,10 +16,10 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
   final String wireName = 'WhiteListItem';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, WhiteListItem object,
+  Iterable<Object?> serialize(Serializers serializers, WhiteListItem object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.username;
     if (value != null) {
       result
@@ -53,7 +53,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
 
   @override
   WhiteListItem deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new WhiteListItemBuilder();
 
@@ -61,7 +61,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'username':
           result.username = serializers.deserialize(value,
@@ -88,17 +88,17 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
 
 class _$WhiteListItem extends WhiteListItem {
   @override
-  final String username;
+  final String? username;
   @override
-  final String lastUsedDate;
+  final String? lastUsedDate;
   @override
-  final String createDate;
+  final String? createDate;
   @override
-  final String name;
-  DateTime __lastUsed;
-  DateTime __created;
+  final String? name;
+  DateTime? __lastUsed;
+  DateTime? __created;
 
-  factory _$WhiteListItem([void Function(WhiteListItemBuilder) updates]) =>
+  factory _$WhiteListItem([void Function(WhiteListItemBuilder)? updates]) =>
       (new WhiteListItemBuilder()..update(updates)).build();
 
   _$WhiteListItem._(
@@ -149,23 +149,23 @@ class _$WhiteListItem extends WhiteListItem {
 
 class WhiteListItemBuilder
     implements Builder<WhiteListItem, WhiteListItemBuilder> {
-  _$WhiteListItem _$v;
+  _$WhiteListItem? _$v;
 
-  String _username;
-  String get username => _$this._username;
-  set username(String username) => _$this._username = username;
+  String? _username;
+  String? get username => _$this._username;
+  set username(String? username) => _$this._username = username;
 
-  String _lastUsedDate;
-  String get lastUsedDate => _$this._lastUsedDate;
-  set lastUsedDate(String lastUsedDate) => _$this._lastUsedDate = lastUsedDate;
+  String? _lastUsedDate;
+  String? get lastUsedDate => _$this._lastUsedDate;
+  set lastUsedDate(String? lastUsedDate) => _$this._lastUsedDate = lastUsedDate;
 
-  String _createDate;
-  String get createDate => _$this._createDate;
-  set createDate(String createDate) => _$this._createDate = createDate;
+  String? _createDate;
+  String? get createDate => _$this._createDate;
+  set createDate(String? createDate) => _$this._createDate = createDate;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   WhiteListItemBuilder();
 
@@ -188,7 +188,7 @@ class WhiteListItemBuilder
   }
 
   @override
-  void update(void Function(WhiteListItemBuilder) updates) {
+  void update(void Function(WhiteListItemBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

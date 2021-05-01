@@ -1,17 +1,23 @@
 import 'dart:async';
 
+import 'package:hue_dart/hue_dart.dart';
 import 'package:hue_dart/src/configuration/pushlink_bloc.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'mock.dart';
+import 'pushlink_test.mocks.dart';
 
+@GenerateMocks([
+  PushlinkStorage,
+  BridgeDiscovery,
+])
 void main() {
-  PushlinkBloc sut;
-  MockPushlinkStorage storage;
-  MockBridgeDiscovery bridgeDiscovery;
+  late PushlinkBloc sut;
+  late MockPushlinkStorage storage;
+  late MockBridgeDiscovery bridgeDiscovery;
 
   setUp(() {
     storage = MockPushlinkStorage();
@@ -19,11 +25,15 @@ void main() {
     sut = PushlinkBloc(storage, bridgeDiscovery);
   });
 
-  mockHasUsername(bool hasUsername) {
+  tearDown(() {
+    resetMockitoState();
+  });
+
+  void mockHasUsername(bool hasUsername) {
     when(storage.usernameExists()).thenAnswer((_) => Future.value(hasUsername));
   }
 
-  mockAutomaticBridgeResult(int amount) {
+  List<DiscoveryResult> mockAutomaticBridgeResult(int amount) {
     final results = List.generate(amount, (index) {
       return DiscoveryResult();
     });
@@ -33,13 +43,13 @@ void main() {
     return results;
   }
 
-  mockFailingAutomaticBridgeResult() {
+  BridgeException mockFailingAutomaticBridgeResult() {
     final result = BridgeException();
     when(bridgeDiscovery.automatic()).thenThrow(result);
     return result;
   }
 
-  mockManualBridgeResult() {
+  DiscoveryResult mockManualBridgeResult() {
     final result = DiscoveryResult();
     when(bridgeDiscovery.manual(any)).thenAnswer((_) {
       return Future.value(result);
@@ -47,42 +57,53 @@ void main() {
     return result;
   }
 
-  mockFailingManualBridgeResult(String ip) {
+  BridgeException mockFailingManualBridgeResult(String ip) {
     final result = BridgeException();
     when(bridgeDiscovery.manual(ip)).thenThrow(result);
     return result;
   }
 
-  test('storage has username', () {
+  test('storage has username', () async {
     mockHasUsername(true);
+    await sut.init();
     sut.dispose();
     expect(sut.hasUsername, emitsInOrder([true]));
   });
 
-  test('storage has no username', () {
+  test('storage has no username', () async {
     mockHasUsername(false);
+    await sut.init();
     sut.dispose();
     expect(sut.hasUsername, emitsInOrder([false]));
   });
-  test('automatic search returns search results on listen', () {
+
+  test('automatic search returns search results on listen', () async {
+    mockHasUsername(false);
     final result = mockAutomaticBridgeResult(3);
+    await sut.init();
     expect(sut.discoveryResults, emits(result));
   });
 
-  test('automatic search fails on listen', () {
+  test('automatic search fails on listen', () async {
+    mockHasUsername(false);
     final result = mockFailingAutomaticBridgeResult();
+    await sut.init();
     expect(sut.discoveryResults, emitsError(result));
   });
 
-  test('manual search returns search result', () {
+  test('manual search returns search result', () async {
+    mockHasUsername(false);
     final result = mockManualBridgeResult();
+    await sut.init();
     sut.manualSearch.add('192.1.1.1');
     expect(sut.manualSearchResult, emits(result));
   });
 
-  test('manual search fails search result', () {
+  test('manual search fails search result', () async {
+    mockHasUsername(false);
     final ip = '192.1.1.1';
     final result = mockFailingManualBridgeResult(ip);
+    await sut.init();
     sut.manualSearch.add(ip);
     expect(sut.manualSearchResult, emitsError(result));
   });

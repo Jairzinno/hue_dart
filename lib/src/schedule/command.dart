@@ -22,14 +22,14 @@ abstract class Command
 
   Command._();
 
-  factory Command([updates(CommandBuilder b)]) = _$Command;
+  factory Command([updates(CommandBuilder b)?]) = _$Command;
 
   factory Command.fromJson(Map json) {
-    return serializers.deserializeWith(Command.serializer, json);
+    return serializers.deserializeWith(Command.serializer, json)!;
   }
 
   @override
-  Map toBridgeObject({String action}) {
-    return serializers.serializeWith(serializer, this);
+  Map toBridgeObject({String? action}) {
+    return serializers.serializeWith(serializer, this) as Map<dynamic, dynamic>;
   }
 }

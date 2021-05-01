@@ -15,10 +15,10 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
   final String wireName = 'Condition';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Condition object,
+  Iterable<Object?> serialize(Serializers serializers, Condition object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.address;
     if (value != null) {
       result
@@ -44,7 +44,7 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
   }
 
   @override
-  Condition deserialize(Serializers serializers, Iterable<Object> serialized,
+  Condition deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ConditionBuilder();
 
@@ -52,7 +52,7 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -75,13 +75,13 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
 
 class _$Condition extends Condition {
   @override
-  final String address;
+  final String? address;
   @override
-  final String operator;
+  final String? operator;
   @override
-  final String value;
+  final String? value;
 
-  factory _$Condition([void Function(ConditionBuilder) updates]) =>
+  factory _$Condition([void Function(ConditionBuilder)? updates]) =>
       (new ConditionBuilder()..update(updates)).build();
 
   _$Condition._({this.address, this.operator, this.value}) : super._();
@@ -119,19 +119,19 @@ class _$Condition extends Condition {
 }
 
 class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
-  _$Condition _$v;
+  _$Condition? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _operator;
-  String get operator => _$this._operator;
-  set operator(String operator) => _$this._operator = operator;
+  String? _operator;
+  String? get operator => _$this._operator;
+  set operator(String? operator) => _$this._operator = operator;
 
-  String _value;
-  String get value => _$this._value;
-  set value(String value) => _$this._value = value;
+  String? _value;
+  String? get value => _$this._value;
+  set value(String? value) => _$this._value = value;
 
   ConditionBuilder();
 
@@ -153,7 +153,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   }
 
   @override
-  void update(void Function(ConditionBuilder) updates) {
+  void update(void Function(ConditionBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

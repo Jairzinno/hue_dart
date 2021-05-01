@@ -2,32 +2,32 @@ import 'package:hue_dart/src/schedule/schedule.dart';
 import 'package:intl/intl.dart';
 
 abstract class ScheduleType {
-  DateTime get date;
+  DateTime? get date;
 
   /// value for randomized alarms
-  DateTime get randomTime;
+  DateTime? get randomTime;
 }
 
 class Alarm extends ScheduleType {
-  _MutableAlarm _alarm;
+  _MutableAlarm? _alarm;
 
   /// days on which the alarm applies in a bitmask; 0MTWTFSS. Weekdays is 01111100 = 124. Tuesdays is 00100000 = 32
-  int get weekDays => _alarm.weekDays;
+  int? get weekDays => _alarm!.weekDays;
 
   /// end date/time for time interval alarms
-  DateTime get endDate => _alarm.endDate;
+  DateTime? get endDate => _alarm!.endDate;
 
   @override
-  DateTime get date => _alarm.date;
+  DateTime? get date => _alarm!.date;
 
   @override
-  DateTime get randomTime => _alarm.randomTime;
+  DateTime? get randomTime => _alarm!.randomTime;
 
   Alarm(Schedule schedule) {
-    _alarm = _parseAlarm(schedule.time);
+    _alarm = _parseAlarm(schedule.time!);
   }
 
-  static _MutableAlarm _parseAlarm(String time) {
+  static _MutableAlarm? _parseAlarm(String time) {
     if (RegExp(Schedule.randomRecurringTimeAlarm).hasMatch(time)) {
       return _parseRandomRecurringTimeAlarm(time);
     } else if (RegExp(Schedule.recurringAlarm).hasMatch(time)) {
@@ -92,7 +92,7 @@ class Alarm extends ScheduleType {
   }
 
   bool isRecurringAlarm() {
-    return weekDays > 0;
+    return weekDays! > 0;
   }
 
   String _recurringTimeFormat() {
@@ -111,33 +111,33 @@ class Alarm extends ScheduleType {
 }
 
 class _MutableAlarm {
-  DateTime date;
+  DateTime? date;
 
-  DateTime randomTime;
+  DateTime? randomTime;
 
-  int weekDays;
+  int? weekDays;
 
-  DateTime endDate;
+  DateTime? endDate;
 
   _MutableAlarm({this.date, this.randomTime, this.weekDays, this.endDate});
 }
 
 class Timer extends ScheduleType {
-  _MutableTimer _timer;
+  _MutableTimer? _timer;
 
-  int get recurrence => _timer.recurrence;
-
-  @override
-  DateTime get date => _timer.date;
+  int? get recurrence => _timer!.recurrence;
 
   @override
-  DateTime get randomTime => _timer.randomTime;
+  DateTime? get date => _timer!.date;
+
+  @override
+  DateTime? get randomTime => _timer!.randomTime;
 
   Timer(Schedule schedule) {
-    _timer = _parseTimer(schedule.time);
+    _timer = _parseTimer(schedule.time!);
   }
 
-  static _MutableTimer _parseTimer(String time) {
+  static _MutableTimer? _parseTimer(String time) {
     if (RegExp(Schedule.recurringRandomTimer).hasMatch(time)) {
       return _parseRecurringRandomTimer(time);
     } else if (RegExp(Schedule.recurringTimer1).hasMatch(time)) {
@@ -208,7 +208,7 @@ class Timer extends ScheduleType {
   }
 
   bool isRepeated() {
-    return recurrence > 0;
+    return recurrence! > 0;
   }
 
   String _repeatedFormattedTime() {
@@ -225,11 +225,11 @@ class Timer extends ScheduleType {
 }
 
 class _MutableTimer {
-  DateTime date;
+  DateTime? date;
 
-  DateTime randomTime;
+  DateTime? randomTime;
 
-  int recurrence;
+  int? recurrence;
 
   _MutableTimer({this.date, this.randomTime, this.recurrence});
 }

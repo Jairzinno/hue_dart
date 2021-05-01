@@ -2,7 +2,6 @@ import 'package:http/http.dart';
 import 'package:hue_dart/src/core/bridge.dart';
 import 'package:hue_dart/src/core/bridge_discovery.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
-import 'package:hue_dart/src/core/shared_functions.dart';
 import 'package:hue_dart/src/light/light.dart';
 import 'package:hue_dart/src/light/light_state.dart';
 
@@ -16,13 +15,13 @@ main(List<String> arguments) async {
   final discoveryResult = discoverResults.first;
 
   //create bridge
-  var bridge = Bridge(client, discoveryResult.ipAddress);
+  var bridge = Bridge(client, discoveryResult.ipAddress!);
 
   /// create a user, press the push link button before calling this
   final whiteListItem = await bridge.createUser('dart_hue#example');
 
   // use username for consequent calls to the bridge
-  bridge.username = whiteListItem.username;
+  bridge.username = whiteListItem.username!;
 
   /// get lights
   List<Light> lights = await bridge.lights();
@@ -38,4 +37,19 @@ main(List<String> arguments) async {
   await bridge.updateLightState(light.rebuild(
     (l) => l..state = state.toBuilder(),
   ));
+}
+
+LightState lightStateForColorOnly(Light _light) {
+  LightState state;
+  if (_light.state!.colorMode == 'xy') {
+    state = LightState((b) => b..xy = _light.state!.xy!.toBuilder());
+  } else if (_light.state!.colorMode == 'ct') {
+    state = LightState((b) => b..ct = _light.state!.ct);
+  } else {
+    state = LightState((b) => b
+      ..hue = _light.state!.hue
+      ..saturation = _light.state!.saturation
+      ..brightness = _light.state!.brightness);
+  }
+  return state;
 }

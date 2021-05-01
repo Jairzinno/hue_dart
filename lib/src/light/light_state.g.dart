@@ -15,10 +15,10 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
   final String wireName = 'LightState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, LightState object,
+  Iterable<Object?> serialize(Serializers serializers, LightState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.on;
     if (value != null) {
       result
@@ -97,7 +97,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
   }
 
   @override
-  LightState deserialize(Serializers serializers, Iterable<Object> serialized,
+  LightState deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LightStateBuilder();
 
@@ -105,7 +105,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -126,7 +126,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
         case 'xy':
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(num)]))
+                      const FullType(BuiltList, const [const FullType(num)]))!
               as BuiltList<Object>);
           break;
         case 'ct':
@@ -162,29 +162,29 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
 
 class _$LightState extends LightState {
   @override
-  final bool on;
+  final bool? on;
   @override
-  final int brightness;
+  final int? brightness;
   @override
-  final int hue;
+  final int? hue;
   @override
-  final int saturation;
+  final int? saturation;
   @override
-  final BuiltList<num> xy;
+  final BuiltList<num>? xy;
   @override
-  final int ct;
+  final int? ct;
   @override
-  final String alert;
+  final String? alert;
   @override
-  final String effect;
+  final String? effect;
   @override
-  final String colorMode;
+  final String? colorMode;
   @override
-  final bool reachable;
+  final bool? reachable;
   @override
-  final String mode;
+  final String? mode;
 
-  factory _$LightState([void Function(LightStateBuilder) updates]) =>
+  factory _$LightState([void Function(LightStateBuilder)? updates]) =>
       (new LightStateBuilder()..update(updates)).build();
 
   _$LightState._(
@@ -268,51 +268,51 @@ class _$LightState extends LightState {
 }
 
 class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
-  _$LightState _$v;
+  _$LightState? _$v;
 
-  bool _on;
-  bool get on => _$this._on;
-  set on(bool on) => _$this._on = on;
+  bool? _on;
+  bool? get on => _$this._on;
+  set on(bool? on) => _$this._on = on;
 
-  int _brightness;
-  int get brightness => _$this._brightness;
-  set brightness(int brightness) => _$this._brightness = brightness;
+  int? _brightness;
+  int? get brightness => _$this._brightness;
+  set brightness(int? brightness) => _$this._brightness = brightness;
 
-  int _hue;
-  int get hue => _$this._hue;
-  set hue(int hue) => _$this._hue = hue;
+  int? _hue;
+  int? get hue => _$this._hue;
+  set hue(int? hue) => _$this._hue = hue;
 
-  int _saturation;
-  int get saturation => _$this._saturation;
-  set saturation(int saturation) => _$this._saturation = saturation;
+  int? _saturation;
+  int? get saturation => _$this._saturation;
+  set saturation(int? saturation) => _$this._saturation = saturation;
 
-  ListBuilder<num> _xy;
+  ListBuilder<num>? _xy;
   ListBuilder<num> get xy => _$this._xy ??= new ListBuilder<num>();
-  set xy(ListBuilder<num> xy) => _$this._xy = xy;
+  set xy(ListBuilder<num>? xy) => _$this._xy = xy;
 
-  int _ct;
-  int get ct => _$this._ct;
-  set ct(int ct) => _$this._ct = ct;
+  int? _ct;
+  int? get ct => _$this._ct;
+  set ct(int? ct) => _$this._ct = ct;
 
-  String _alert;
-  String get alert => _$this._alert;
-  set alert(String alert) => _$this._alert = alert;
+  String? _alert;
+  String? get alert => _$this._alert;
+  set alert(String? alert) => _$this._alert = alert;
 
-  String _effect;
-  String get effect => _$this._effect;
-  set effect(String effect) => _$this._effect = effect;
+  String? _effect;
+  String? get effect => _$this._effect;
+  set effect(String? effect) => _$this._effect = effect;
 
-  String _colorMode;
-  String get colorMode => _$this._colorMode;
-  set colorMode(String colorMode) => _$this._colorMode = colorMode;
+  String? _colorMode;
+  String? get colorMode => _$this._colorMode;
+  set colorMode(String? colorMode) => _$this._colorMode = colorMode;
 
-  bool _reachable;
-  bool get reachable => _$this._reachable;
-  set reachable(bool reachable) => _$this._reachable = reachable;
+  bool? _reachable;
+  bool? get reachable => _$this._reachable;
+  set reachable(bool? reachable) => _$this._reachable = reachable;
 
-  String _mode;
-  String get mode => _$this._mode;
-  set mode(String mode) => _$this._mode = mode;
+  String? _mode;
+  String? get mode => _$this._mode;
+  set mode(String? mode) => _$this._mode = mode;
 
   LightStateBuilder();
 
@@ -342,7 +342,7 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
   }
 
   @override
-  void update(void Function(LightStateBuilder) updates) {
+  void update(void Function(LightStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -364,7 +364,7 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
               reachable: reachable,
               mode: mode);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'xy';
         _xy?.build();

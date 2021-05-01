@@ -7,9 +7,9 @@ import 'package:hue_dart/src/scene/scene.dart';
 
 class SceneApi {
   BridgeClient _client;
-  String _username;
+  late String _username;
 
-  SceneApi(this._client, [this._username]);
+  SceneApi(this._client, [this._username = '']);
 
   set username(String username) => this._username = username;
   set address(String address) => this.address = address;
@@ -34,7 +34,7 @@ class SceneApi {
 
   Future<List<Light>> _lights(Scene scene) async {
     final result = <Light>[];
-    for (String _id in scene.lightIds) {
+    for (String _id in scene.lightIds!) {
       result.add(await _completeLight(int.parse(_id)));
     }
     return result;

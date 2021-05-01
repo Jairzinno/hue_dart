@@ -15,10 +15,10 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
   final String wireName = 'RuleAction';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, RuleAction object,
+  Iterable<Object?> serialize(Serializers serializers, RuleAction object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.address;
     if (value != null) {
       result
@@ -45,7 +45,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
   }
 
   @override
-  RuleAction deserialize(Serializers serializers, Iterable<Object> serialized,
+  RuleAction deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RuleActionBuilder();
 
@@ -53,7 +53,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -66,7 +66,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
         case 'body':
           result.body.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)])));
+                  const [const FullType(String), const FullType(String)]))!);
           break;
       }
     }
@@ -77,13 +77,13 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
 
 class _$RuleAction extends RuleAction {
   @override
-  final String address;
+  final String? address;
   @override
-  final String method;
+  final String? method;
   @override
-  final BuiltMap<String, String> body;
+  final BuiltMap<String, String>? body;
 
-  factory _$RuleAction([void Function(RuleActionBuilder) updates]) =>
+  factory _$RuleAction([void Function(RuleActionBuilder)? updates]) =>
       (new RuleActionBuilder()..update(updates)).build();
 
   _$RuleAction._({this.address, this.method, this.body}) : super._();
@@ -121,20 +121,20 @@ class _$RuleAction extends RuleAction {
 }
 
 class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
-  _$RuleAction _$v;
+  _$RuleAction? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _method;
-  String get method => _$this._method;
-  set method(String method) => _$this._method = method;
+  String? _method;
+  String? get method => _$this._method;
+  set method(String? method) => _$this._method = method;
 
-  MapBuilder<String, String> _body;
+  MapBuilder<String, String>? _body;
   MapBuilder<String, String> get body =>
       _$this._body ??= new MapBuilder<String, String>();
-  set body(MapBuilder<String, String> body) => _$this._body = body;
+  set body(MapBuilder<String, String>? body) => _$this._body = body;
 
   RuleActionBuilder();
 
@@ -156,7 +156,7 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
   }
 
   @override
-  void update(void Function(RuleActionBuilder) updates) {
+  void update(void Function(RuleActionBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -168,7 +168,7 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
           new _$RuleAction._(
               address: address, method: method, body: _body?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'body';
         _body?.build();

@@ -17,10 +17,10 @@ class _$SoftwareUpdateSerializer
   final String wireName = 'SoftwareUpdate';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, SoftwareUpdate object,
+  Iterable<Object?> serialize(Serializers serializers, SoftwareUpdate object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.checkForUpdate;
     if (value != null) {
       result
@@ -61,7 +61,7 @@ class _$SoftwareUpdateSerializer
 
   @override
   SoftwareUpdate deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SoftwareUpdateBuilder();
 
@@ -69,7 +69,7 @@ class _$SoftwareUpdateSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'checkforupdate':
           result.checkForUpdate = serializers.deserialize(value,
@@ -85,12 +85,12 @@ class _$SoftwareUpdateSerializer
           break;
         case 'bridge':
           result.bridge.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(SoftwareUpdateBridge))
+                  specifiedType: const FullType(SoftwareUpdateBridge))!
               as SoftwareUpdateBridge);
           break;
         case 'autoinstall':
           result.autoInstall.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AutoInstall)) as AutoInstall);
+              specifiedType: const FullType(AutoInstall))! as AutoInstall);
           break;
       }
     }
@@ -101,17 +101,17 @@ class _$SoftwareUpdateSerializer
 
 class _$SoftwareUpdate extends SoftwareUpdate {
   @override
-  final bool checkForUpdate;
+  final bool? checkForUpdate;
   @override
-  final String lastChange;
+  final String? lastChange;
   @override
-  final String state;
+  final String? state;
   @override
-  final SoftwareUpdateBridge bridge;
+  final SoftwareUpdateBridge? bridge;
   @override
-  final AutoInstall autoInstall;
+  final AutoInstall? autoInstall;
 
-  factory _$SoftwareUpdate([void Function(SoftwareUpdateBuilder) updates]) =>
+  factory _$SoftwareUpdate([void Function(SoftwareUpdateBuilder)? updates]) =>
       (new SoftwareUpdateBuilder()..update(updates)).build();
 
   _$SoftwareUpdate._(
@@ -165,30 +165,30 @@ class _$SoftwareUpdate extends SoftwareUpdate {
 
 class SoftwareUpdateBuilder
     implements Builder<SoftwareUpdate, SoftwareUpdateBuilder> {
-  _$SoftwareUpdate _$v;
+  _$SoftwareUpdate? _$v;
 
-  bool _checkForUpdate;
-  bool get checkForUpdate => _$this._checkForUpdate;
-  set checkForUpdate(bool checkForUpdate) =>
+  bool? _checkForUpdate;
+  bool? get checkForUpdate => _$this._checkForUpdate;
+  set checkForUpdate(bool? checkForUpdate) =>
       _$this._checkForUpdate = checkForUpdate;
 
-  String _lastChange;
-  String get lastChange => _$this._lastChange;
-  set lastChange(String lastChange) => _$this._lastChange = lastChange;
+  String? _lastChange;
+  String? get lastChange => _$this._lastChange;
+  set lastChange(String? lastChange) => _$this._lastChange = lastChange;
 
-  String _state;
-  String get state => _$this._state;
-  set state(String state) => _$this._state = state;
+  String? _state;
+  String? get state => _$this._state;
+  set state(String? state) => _$this._state = state;
 
-  SoftwareUpdateBridgeBuilder _bridge;
+  SoftwareUpdateBridgeBuilder? _bridge;
   SoftwareUpdateBridgeBuilder get bridge =>
       _$this._bridge ??= new SoftwareUpdateBridgeBuilder();
-  set bridge(SoftwareUpdateBridgeBuilder bridge) => _$this._bridge = bridge;
+  set bridge(SoftwareUpdateBridgeBuilder? bridge) => _$this._bridge = bridge;
 
-  AutoInstallBuilder _autoInstall;
+  AutoInstallBuilder? _autoInstall;
   AutoInstallBuilder get autoInstall =>
       _$this._autoInstall ??= new AutoInstallBuilder();
-  set autoInstall(AutoInstallBuilder autoInstall) =>
+  set autoInstall(AutoInstallBuilder? autoInstall) =>
       _$this._autoInstall = autoInstall;
 
   SoftwareUpdateBuilder();
@@ -213,7 +213,7 @@ class SoftwareUpdateBuilder
   }
 
   @override
-  void update(void Function(SoftwareUpdateBuilder) updates) {
+  void update(void Function(SoftwareUpdateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -229,7 +229,7 @@ class SoftwareUpdateBuilder
               bridge: _bridge?.build(),
               autoInstall: _autoInstall?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'bridge';
         _bridge?.build();

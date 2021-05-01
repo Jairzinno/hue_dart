@@ -15,10 +15,10 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
   final String wireName = 'Sensor';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Sensor object,
+  Iterable<Object?> serialize(Serializers serializers, Sensor object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.id;
     if (value != null) {
       result
@@ -112,7 +112,7 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
   }
 
   @override
-  Sensor deserialize(Serializers serializers, Iterable<Object> serialized,
+  Sensor deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SensorBuilder();
 
@@ -120,7 +120,7 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -168,11 +168,11 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
           break;
         case 'state':
           result.state.replace(serializers.deserialize(value,
-              specifiedType: const FullType(SensorState)) as SensorState);
+              specifiedType: const FullType(SensorState))! as SensorState);
           break;
         case 'config':
           result.config.replace(serializers.deserialize(value,
-              specifiedType: const FullType(SensorConfig)) as SensorConfig);
+              specifiedType: const FullType(SensorConfig))! as SensorConfig);
           break;
       }
     }
@@ -183,33 +183,33 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
 
 class _$Sensor extends Sensor {
   @override
-  final int id;
+  final int? id;
   @override
-  final String type;
+  final String? type;
   @override
-  final String name;
+  final String? name;
   @override
-  final String modelId;
+  final String? modelId;
   @override
-  final String uniqueId;
+  final String? uniqueId;
   @override
-  final String manufacturerName;
+  final String? manufacturerName;
   @override
-  final String swVersion;
+  final String? swVersion;
   @override
-  final bool recycle;
+  final bool? recycle;
   @override
-  final bool reachable;
+  final bool? reachable;
   @override
-  final bool on;
+  final bool? on;
   @override
-  final int battery;
+  final int? battery;
   @override
-  final SensorState state;
+  final SensorState? state;
   @override
-  final SensorConfig config;
+  final SensorConfig? config;
 
-  factory _$Sensor([void Function(SensorBuilder) updates]) =>
+  factory _$Sensor([void Function(SensorBuilder)? updates]) =>
       (new SensorBuilder()..update(updates)).build();
 
   _$Sensor._(
@@ -303,61 +303,61 @@ class _$Sensor extends Sensor {
 }
 
 class SensorBuilder implements Builder<Sensor, SensorBuilder> {
-  _$Sensor _$v;
+  _$Sensor? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _type;
-  String get type => _$this._type;
-  set type(String type) => _$this._type = type;
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _modelId;
-  String get modelId => _$this._modelId;
-  set modelId(String modelId) => _$this._modelId = modelId;
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
 
-  String _uniqueId;
-  String get uniqueId => _$this._uniqueId;
-  set uniqueId(String uniqueId) => _$this._uniqueId = uniqueId;
+  String? _uniqueId;
+  String? get uniqueId => _$this._uniqueId;
+  set uniqueId(String? uniqueId) => _$this._uniqueId = uniqueId;
 
-  String _manufacturerName;
-  String get manufacturerName => _$this._manufacturerName;
-  set manufacturerName(String manufacturerName) =>
+  String? _manufacturerName;
+  String? get manufacturerName => _$this._manufacturerName;
+  set manufacturerName(String? manufacturerName) =>
       _$this._manufacturerName = manufacturerName;
 
-  String _swVersion;
-  String get swVersion => _$this._swVersion;
-  set swVersion(String swVersion) => _$this._swVersion = swVersion;
+  String? _swVersion;
+  String? get swVersion => _$this._swVersion;
+  set swVersion(String? swVersion) => _$this._swVersion = swVersion;
 
-  bool _recycle;
-  bool get recycle => _$this._recycle;
-  set recycle(bool recycle) => _$this._recycle = recycle;
+  bool? _recycle;
+  bool? get recycle => _$this._recycle;
+  set recycle(bool? recycle) => _$this._recycle = recycle;
 
-  bool _reachable;
-  bool get reachable => _$this._reachable;
-  set reachable(bool reachable) => _$this._reachable = reachable;
+  bool? _reachable;
+  bool? get reachable => _$this._reachable;
+  set reachable(bool? reachable) => _$this._reachable = reachable;
 
-  bool _on;
-  bool get on => _$this._on;
-  set on(bool on) => _$this._on = on;
+  bool? _on;
+  bool? get on => _$this._on;
+  set on(bool? on) => _$this._on = on;
 
-  int _battery;
-  int get battery => _$this._battery;
-  set battery(int battery) => _$this._battery = battery;
+  int? _battery;
+  int? get battery => _$this._battery;
+  set battery(int? battery) => _$this._battery = battery;
 
-  SensorStateBuilder _state;
+  SensorStateBuilder? _state;
   SensorStateBuilder get state => _$this._state ??= new SensorStateBuilder();
-  set state(SensorStateBuilder state) => _$this._state = state;
+  set state(SensorStateBuilder? state) => _$this._state = state;
 
-  SensorConfigBuilder _config;
+  SensorConfigBuilder? _config;
   SensorConfigBuilder get config =>
       _$this._config ??= new SensorConfigBuilder();
-  set config(SensorConfigBuilder config) => _$this._config = config;
+  set config(SensorConfigBuilder? config) => _$this._config = config;
 
   SensorBuilder();
 
@@ -389,7 +389,7 @@ class SensorBuilder implements Builder<Sensor, SensorBuilder> {
   }
 
   @override
-  void update(void Function(SensorBuilder) updates) {
+  void update(void Function(SensorBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -413,7 +413,7 @@ class SensorBuilder implements Builder<Sensor, SensorBuilder> {
               state: _state?.build(),
               config: _config?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'state';
         _state?.build();

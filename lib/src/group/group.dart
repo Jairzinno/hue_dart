@@ -1,10 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:hue_dart/src/core/hue_color.dart';
-import 'package:hue_dart/src/core/serializers.dart';
 import 'package:hue_dart/src/core/bridge_object.dart';
 import 'package:hue_dart/src/core/color_helper.dart';
+import 'package:hue_dart/src/core/hue_color.dart';
+import 'package:hue_dart/src/core/serializers.dart';
 import 'package:hue_dart/src/group/group_action.dart';
 import 'package:hue_dart/src/group/group_state.dart';
 import 'package:hue_dart/src/light/light.dart';
@@ -12,8 +12,7 @@ import 'package:hue_dart/src/light/light.dart';
 part 'group.g.dart';
 
 abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
-  @nullable
-  int get id;
+  int? get id;
 
   ///Type of the Group. If not provided on creation a “LightGroup” is created. Supported types:
   ///
@@ -21,59 +20,55 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
   ///Luminaire, 1.4, multisource luminaire
   ///LightSource, 1.4, multisource luminaire
   ///Room, 1.11, Represents a room
-  @nullable
-  String get type;
+
+  String? get type;
 
   ///Human readable name of the group. If name is not specified one is generated for you (default name is “Group”)
-  @nullable
-  String get name;
+
+  String? get name;
 
   ///As of 1.11. Category of Room types. Default is: Other.
   @BuiltValueField(wireName: 'class')
-  @nullable
-  String get className;
+  String? get className;
 
   ///The ordered set of light ids from the lights which are  in the group. This resource shall contain an array of at least one element with the exception of the “Room” type: The Room type may contain an empty lights array. Each element can appear only once. Order of lights on creation is preserved. A light id must be an existing light resource in /lights. If an invalid lights resource is given, error 7 shall be returned and the group is not created. There shall be no change in the lights.
   ///
   ///Light id can be null if a group has been automatically create by the bridge and a light source is not yet available
   @BuiltValueField(wireName: 'lights')
-  @nullable
-  BuiltList<String> get lightIds;
+  BuiltList<String>? get lightIds;
 
-  @nullable
-  BuiltList<Light> get groupLights;
+  BuiltList<Light>? get groupLights;
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only on creation of resource. “false” when omitted.
-  @nullable
-  bool get recycle;
+
+  bool? get recycle;
 
   ///As of 1.4. Uniquely identifies the hardware model of the luminaire. Only present for automatically created Luminaires.
-  @nullable
+
   @BuiltValueField(wireName: 'modelid')
-  String get modelId;
+  String? get modelId;
 
   ///As of 1.9. Unique Id in AA:BB:CC:DD format for Luminaire groups or AA:BB:CC:DD-XX format for Lightsource groups, where XX is the lightsource position.
-  @nullable
+
   @BuiltValueField(wireName: 'uniqueid')
-  String get uniqueId;
+  String? get uniqueId;
 
-  @nullable
-  GroupState get state;
+  GroupState? get state;
 
-  @nullable
-  GroupAction get action;
+  GroupAction? get action;
 
   /// get the current color of the light in all possible means by the bridge
   @memoized
-  HueColor get colors {
+  HueColor? get colors {
     final colorHelper = ColorHelper();
-    if (action.colorMode == 'ct') {
-      return colorHelper.ctToRGB(action.ct);
-    } else if (action.colorMode == 'hs') {
+    if (action!.colorMode == 'ct') {
+      return colorHelper.ctToRGB(action!.ct!);
+    } else if (action!.colorMode == 'hs') {
       return colorHelper.hueSaturationBrightnessToRGB(
-          action.hue, action.saturation, action.brightness);
-    } else if (action.colorMode == 'xy') {
-      return colorHelper.xyToRGB(action.xy[0], action.xy[1], action.brightness);
+          action!.hue!, action!.saturation!, action!.brightness!);
+    } else if (action!.colorMode == 'xy') {
+      return colorHelper.xyToRGB(
+          action!.xy![0], action!.xy![1], action!.brightness);
     }
     return null;
   }
@@ -82,22 +77,22 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
 
   Group._();
 
-  factory Group([updates(GroupBuilder b)]) = _$Group;
+  factory Group([updates(GroupBuilder b)?]) = _$Group;
 
-  factory Group.fromJson(Map json, {int id}) {
+  factory Group.fromJson(Map json, {int? id}) {
     return serializers
-        .deserializeWith(Group.serializer, json)
+        .deserializeWith(Group.serializer, json)!
         .rebuild((b) => b..id = id);
   }
 
   @override
-  Map toBridgeObject({String action}) {
+  Map toBridgeObject({String? action}) {
     if ('create' == action) {
       return {
         'name': name,
         'class': className,
         'type': type,
-        'lights': lightIds.toList()
+        'lights': lightIds!.toList()
       };
     } else if ('attributes' == action) {
       Map<String, dynamic> body = {};
@@ -108,42 +103,42 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
         body['class'] = className;
       }
       if (lightIds != null) {
-        body['lights'] = lightIds.toList();
+        body['lights'] = lightIds!.toList();
       }
       return body;
     }
-    return null;
+    return {};
   }
 
   /// change the color of the group on the bridge with rgb values ranging from 0 to 1
   Group changeColor({num red = 0, num green = 0, num blue = 0}) {
     final colorHelper = ColorHelper();
-    if (action.colorMode == 'ct') {
+    if (action!.colorMode == 'ct') {
       HueColor colors = colorHelper.rgbToCT(red, green, blue);
       return rebuild(
         (b) => b
           ..action.update(
-            (a) => a..ct = colors.ct.toInt(),
+            (a) => a..ct = colors.ct!.toInt(),
           ),
       );
-    } else if (action.colorMode == 'hs') {
+    } else if (action!.colorMode == 'hs') {
       HueColor colors =
           colorHelper.rgbToHueSaturationBrightness(red, green, blue);
       return rebuild(
         (b) => b
           ..action.update(
             (a) => a
-              ..hue = colors.hue.toInt()
-              ..saturation = colors.saturation.toInt()
-              ..brightness = colors.brightness.toInt(),
+              ..hue = colors.hue!.toInt()
+              ..saturation = colors.saturation!.toInt()
+              ..brightness = colors.brightness!.toInt(),
           ),
       );
-    } else if (action.colorMode == 'xy') {
+    } else if (action!.colorMode == 'xy') {
       HueColor colors = colorHelper.rgbToXY(red, green, blue);
       return rebuild(
         (b) => b
           ..action.update(
-            (a) => a..xy = ListBuilder<double>(colors.xy),
+            (a) => a..xy = ListBuilder<double>(colors.xy!),
           ),
       );
     }

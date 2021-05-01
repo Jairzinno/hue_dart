@@ -15,9 +15,9 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
   final String wireName = 'BackUp';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, BackUp object,
+  Iterable<Object?> serialize(Serializers serializers, BackUp object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'status',
       serializers.serialize(object.status,
           specifiedType: const FullType(String)),
@@ -30,7 +30,7 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
   }
 
   @override
-  BackUp deserialize(Serializers serializers, Iterable<Object> serialized,
+  BackUp deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new BackUpBuilder();
 
@@ -38,7 +38,7 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'status':
           result.status = serializers.deserialize(value,
@@ -61,10 +61,10 @@ class _$BackUp extends BackUp {
   @override
   final int errorCode;
 
-  factory _$BackUp([void Function(BackUpBuilder) updates]) =>
+  factory _$BackUp([void Function(BackUpBuilder)? updates]) =>
       (new BackUpBuilder()..update(updates)).build();
 
-  _$BackUp._({this.status, this.errorCode}) : super._() {
+  _$BackUp._({required this.status, required this.errorCode}) : super._() {
     BuiltValueNullFieldError.checkNotNull(status, 'BackUp', 'status');
     BuiltValueNullFieldError.checkNotNull(errorCode, 'BackUp', 'errorCode');
   }
@@ -99,15 +99,15 @@ class _$BackUp extends BackUp {
 }
 
 class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
-  _$BackUp _$v;
+  _$BackUp? _$v;
 
-  String _status;
-  String get status => _$this._status;
-  set status(String status) => _$this._status = status;
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
 
-  int _errorCode;
-  int get errorCode => _$this._errorCode;
-  set errorCode(int errorCode) => _$this._errorCode = errorCode;
+  int? _errorCode;
+  int? get errorCode => _$this._errorCode;
+  set errorCode(int? errorCode) => _$this._errorCode = errorCode;
 
   BackUpBuilder();
 
@@ -128,7 +128,7 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
   }
 
   @override
-  void update(void Function(BackUpBuilder) updates) {
+  void update(void Function(BackUpBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

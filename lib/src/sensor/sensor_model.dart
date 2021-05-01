@@ -1,7 +1,7 @@
 import 'package:hue_dart/src/sensor/sensor.dart';
 
 abstract class SensorModel {
-  String modelId;
+  String? modelId;
   String get productName;
 
   SensorModel._withSensor(Sensor sensor) {
@@ -38,7 +38,7 @@ class Tap extends SensorModel {
 }
 
 class SensorModelFactory {
-  static SensorModel create(Sensor sensor) {
+  static SensorModel? create(Sensor sensor) {
     final modelId = sensor.modelId;
     if (_isDayLightSensor(modelId)) {
       return DayLight._withSensor(sensor);
@@ -52,12 +52,12 @@ class SensorModelFactory {
     return null;
   }
 
-  static bool _isDayLightSensor(String modelId) => 'PHDL00' == modelId;
+  static bool _isDayLightSensor(String? modelId) => 'PHDL00' == modelId;
 
-  static bool _isDimmerSensor(String modelId) =>
+  static bool _isDimmerSensor(String? modelId) =>
       ['RWL020', 'RWL021'].contains(modelId);
 
-  static bool _isMotionSensor(String modelId) => 'SML001' == modelId;
+  static bool _isMotionSensor(String? modelId) => 'SML001' == modelId;
 
-  static bool _isTapSensor(String modelId) => 'ZGPSWITCH' == modelId;
+  static bool _isTapSensor(String? modelId) => 'ZGPSWITCH' == modelId;
 }

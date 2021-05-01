@@ -11,86 +11,81 @@ part 'sensor.g.dart';
 abstract class Sensor
     with BridgeObject
     implements Built<Sensor, SensorBuilder> {
-  @nullable
-  int get id;
+  int? get id;
 
   ///Type name of the sensor
-  @nullable
-  String get type;
+
+  String? get type;
 
   ///The human readable name of the sensor, can be changed by the user
-  @nullable
-  String get name;
+
+  String? get name;
 
   ///This parameter uniquely identifies the hardware model of the device for the given manufaturer.
   @BuiltValueField(wireName: 'modelid')
-  @nullable
-  String get modelId;
+  String? get modelId;
 
   ///Unique id of the sensor. Should be the MAC address of the device.
   @BuiltValueField(wireName: 'uniqueid')
-  @nullable
-  String get uniqueId;
+  String? get uniqueId;
 
   ///The name of the device manufacturer.
   @BuiltValueField(wireName: 'manufacturername')
-  @nullable
-  String get manufacturerName;
+  String? get manufacturerName;
 
   ///This parameter uniquely identifies the software version running in the hardware.
   @BuiltValueField(wireName: 'swversion')
-  @nullable
-  String get swVersion;
+  String? get swVersion;
 
   ///When true: Resource is automatically deleted when not referenced anymore in any resource link. Only for CLIP sensors on creation of resource. “false” when omitted.
-  @nullable
-  bool get recycle;
+
+  bool? get recycle;
 
   ///Indicates whether communication with devices is possible. CLIP Sensors do not yet support reachable verification.Mandatory for all Sensors except ZGPSwitch, Daylight
-  @nullable
-  bool get reachable;
+
+  bool? get reachable;
 
   ///Turns the sensor on/off. When off, state changes of the sensor are not reflected in the sensor resource. Default is "true"
-  @nullable
-  bool get on;
+
+  bool? get on;
 
   ///The current battery state in percent, only for battery powered devices. Not present when not provided on creation (CLIP sensors).
-  @nullable
-  int get battery;
 
-  @nullable
-  SensorState get state;
+  int? get battery;
 
-  @nullable
-  SensorConfig get config;
+  SensorState? get state;
+
+  SensorConfig? get config;
 
   static Serializer<Sensor> get serializer => _$sensorSerializer;
 
   Sensor._();
 
-  factory Sensor([updates(SensorBuilder b)]) = _$Sensor;
+  factory Sensor([updates(SensorBuilder b)?]) = _$Sensor;
 
-  factory Sensor.fromJson(Map json, {int id}) {
+  factory Sensor.fromJson(Map json, {int? id}) {
     return serializers
-        .deserializeWith(Sensor.serializer, json)
+        .deserializeWith(Sensor.serializer, json)!
         .rebuild((b) => b..id = id);
   }
 
-  SensorModel get model => SensorModelFactory.create(this);
+  SensorModel? get model => SensorModelFactory.create(this);
 
   @override
-  Map toBridgeObject({String action}) {
+  Map toBridgeObject({String? action}) {
     if ('create' == action) {
-      return serializers.serializeWith(Sensor.serializer, this);
+      return serializers.serializeWith(Sensor.serializer, this)
+          as Map<dynamic, dynamic>;
     } else if ('attributes' == action) {
       return {
         'name': name,
       };
     } else if ('config' == action) {
-      return config.toBridgeObject();
+      return config!.toBridgeObject();
     } else if ('state' == action) {
-      return serializers.serializeWith(serializer, state);
+      return serializers.serializeWith(serializer, state)
+          as Map<dynamic, dynamic>;
     }
-    return null;
+    return {};
   }
 }

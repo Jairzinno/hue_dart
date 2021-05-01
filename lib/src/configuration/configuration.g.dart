@@ -16,10 +16,10 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
   final String wireName = 'Configuration';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Configuration object,
+  Iterable<Object?> serialize(Serializers serializers, Configuration object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.name;
     if (value != null) {
       result
@@ -292,7 +292,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
 
   @override
   Configuration deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ConfigurationBuilder();
 
@@ -300,7 +300,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
@@ -308,14 +308,15 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
           break;
         case 'swupdate2':
           result.softwareUpdate.replace(serializers.deserialize(value,
-              specifiedType: const FullType(SoftwareUpdate)) as SoftwareUpdate);
+                  specifiedType: const FullType(SoftwareUpdate))!
+              as SoftwareUpdate);
           break;
         case 'whitelist':
           result.whitelist.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(WhiteListItem)
-              ])));
+              ]))!);
           break;
         case 'apiversion':
           result.apiVersion = serializers.deserialize(value,
@@ -363,7 +364,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
           break;
         case 'portalstate':
           result.portalState.replace(serializers.deserialize(value,
-              specifiedType: const FullType(PortalState)) as PortalState);
+              specifiedType: const FullType(PortalState))! as PortalState);
           break;
         case 'portalconnection':
           result.portalConnection = serializers.deserialize(value,
@@ -411,12 +412,12 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
           break;
         case 'internetservices':
           result.internetServices.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(InternetServices))
+                  specifiedType: const FullType(InternetServices))!
               as InternetServices);
           break;
         case 'backup':
           result.backup.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BackUp)) as BackUp);
+              specifiedType: const FullType(BackUp))! as BackUp);
           break;
         case 'starterkitid':
           result.starterKitId = serializers.deserialize(value,
@@ -424,44 +425,44 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
           break;
         case 'config':
           result.configuration.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Configuration)) as Configuration);
+              specifiedType: const FullType(Configuration))! as Configuration);
           break;
         case 'lights':
           result.lights.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Light)])));
+                  const [const FullType(String), const FullType(Light)]))!);
           break;
         case 'groups':
           result.groups.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Group)])));
+                  const [const FullType(String), const FullType(Group)]))!);
           break;
         case 'scenes':
           result.scenes.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Scene)])));
+                  const [const FullType(String), const FullType(Scene)]))!);
           break;
         case 'schedules':
           result.schedules.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Schedule)])));
+                  const [const FullType(String), const FullType(Schedule)]))!);
           break;
         case 'sensors':
           result.sensors.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Sensor)])));
+                  const [const FullType(String), const FullType(Sensor)]))!);
           break;
         case 'rules':
           result.rules.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Rule)])));
+                  const [const FullType(String), const FullType(Rule)]))!);
           break;
         case 'resourcelinks':
           result.resourceLinks.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(ResourceLink)
-              ])));
+              ]))!);
           break;
       }
     }
@@ -472,83 +473,83 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
 
 class _$Configuration extends Configuration {
   @override
-  final String name;
+  final String? name;
   @override
-  final SoftwareUpdate softwareUpdate;
+  final SoftwareUpdate? softwareUpdate;
   @override
-  final BuiltMap<String, WhiteListItem> whitelist;
+  final BuiltMap<String, WhiteListItem>? whitelist;
   @override
-  final String apiVersion;
+  final String? apiVersion;
   @override
-  final String swVersion;
+  final String? swVersion;
   @override
-  final String proxyAddress;
+  final String? proxyAddress;
   @override
-  final int proxyPort;
+  final int? proxyPort;
   @override
-  final bool linkButton;
+  final bool? linkButton;
   @override
-  final String ipAddress;
+  final String? ipAddress;
   @override
-  final String mac;
+  final String? mac;
   @override
-  final String netMask;
+  final String? netMask;
   @override
-  final String gateway;
+  final String? gateway;
   @override
-  final bool dhcp;
+  final bool? dhcp;
   @override
-  final bool portalServices;
+  final bool? portalServices;
   @override
-  final PortalState portalState;
+  final PortalState? portalState;
   @override
-  final String portalConnection;
+  final String? portalConnection;
   @override
-  final String utc;
+  final String? utc;
   @override
-  final String localTime;
+  final String? localTime;
   @override
-  final String timeZone;
+  final String? timeZone;
   @override
-  final int zigbeeChannel;
+  final int? zigbeeChannel;
   @override
-  final String modelId;
+  final String? modelId;
   @override
-  final String bridgeId;
+  final String? bridgeId;
   @override
-  final bool factoryNew;
+  final bool? factoryNew;
   @override
-  final String replacesBridgeId;
+  final String? replacesBridgeId;
   @override
-  final bool touchLink;
+  final bool? touchLink;
   @override
-  final String dataStoreVersion;
+  final String? dataStoreVersion;
   @override
-  final InternetServices internetServices;
+  final InternetServices? internetServices;
   @override
-  final BackUp backup;
+  final BackUp? backup;
   @override
-  final String starterKitId;
+  final String? starterKitId;
   @override
-  final Configuration configuration;
+  final Configuration? configuration;
   @override
-  final BuiltMap<String, Light> lights;
+  final BuiltMap<String, Light>? lights;
   @override
-  final BuiltMap<String, Group> groups;
+  final BuiltMap<String, Group>? groups;
   @override
-  final BuiltMap<String, Scene> scenes;
+  final BuiltMap<String, Scene>? scenes;
   @override
-  final BuiltMap<String, Schedule> schedules;
+  final BuiltMap<String, Schedule>? schedules;
   @override
-  final BuiltMap<String, Sensor> sensors;
+  final BuiltMap<String, Sensor>? sensors;
   @override
-  final BuiltMap<String, Rule> rules;
+  final BuiltMap<String, Rule>? rules;
   @override
-  final BuiltMap<String, ResourceLink> resourceLinks;
-  DateTime __utcDate;
-  DateTime __localTimeDate;
+  final BuiltMap<String, ResourceLink>? resourceLinks;
+  DateTime? __utcDate;
+  DateTime? __localTimeDate;
 
-  factory _$Configuration([void Function(ConfigurationBuilder) updates]) =>
+  factory _$Configuration([void Function(ConfigurationBuilder)? updates]) =>
       (new ConfigurationBuilder()..update(updates)).build();
 
   _$Configuration._(
@@ -735,177 +736,178 @@ class _$Configuration extends Configuration {
 
 class ConfigurationBuilder
     implements Builder<Configuration, ConfigurationBuilder> {
-  _$Configuration _$v;
+  _$Configuration? _$v;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  SoftwareUpdateBuilder _softwareUpdate;
+  SoftwareUpdateBuilder? _softwareUpdate;
   SoftwareUpdateBuilder get softwareUpdate =>
       _$this._softwareUpdate ??= new SoftwareUpdateBuilder();
-  set softwareUpdate(SoftwareUpdateBuilder softwareUpdate) =>
+  set softwareUpdate(SoftwareUpdateBuilder? softwareUpdate) =>
       _$this._softwareUpdate = softwareUpdate;
 
-  MapBuilder<String, WhiteListItem> _whitelist;
+  MapBuilder<String, WhiteListItem>? _whitelist;
   MapBuilder<String, WhiteListItem> get whitelist =>
       _$this._whitelist ??= new MapBuilder<String, WhiteListItem>();
-  set whitelist(MapBuilder<String, WhiteListItem> whitelist) =>
+  set whitelist(MapBuilder<String, WhiteListItem>? whitelist) =>
       _$this._whitelist = whitelist;
 
-  String _apiVersion;
-  String get apiVersion => _$this._apiVersion;
-  set apiVersion(String apiVersion) => _$this._apiVersion = apiVersion;
+  String? _apiVersion;
+  String? get apiVersion => _$this._apiVersion;
+  set apiVersion(String? apiVersion) => _$this._apiVersion = apiVersion;
 
-  String _swVersion;
-  String get swVersion => _$this._swVersion;
-  set swVersion(String swVersion) => _$this._swVersion = swVersion;
+  String? _swVersion;
+  String? get swVersion => _$this._swVersion;
+  set swVersion(String? swVersion) => _$this._swVersion = swVersion;
 
-  String _proxyAddress;
-  String get proxyAddress => _$this._proxyAddress;
-  set proxyAddress(String proxyAddress) => _$this._proxyAddress = proxyAddress;
+  String? _proxyAddress;
+  String? get proxyAddress => _$this._proxyAddress;
+  set proxyAddress(String? proxyAddress) => _$this._proxyAddress = proxyAddress;
 
-  int _proxyPort;
-  int get proxyPort => _$this._proxyPort;
-  set proxyPort(int proxyPort) => _$this._proxyPort = proxyPort;
+  int? _proxyPort;
+  int? get proxyPort => _$this._proxyPort;
+  set proxyPort(int? proxyPort) => _$this._proxyPort = proxyPort;
 
-  bool _linkButton;
-  bool get linkButton => _$this._linkButton;
-  set linkButton(bool linkButton) => _$this._linkButton = linkButton;
+  bool? _linkButton;
+  bool? get linkButton => _$this._linkButton;
+  set linkButton(bool? linkButton) => _$this._linkButton = linkButton;
 
-  String _ipAddress;
-  String get ipAddress => _$this._ipAddress;
-  set ipAddress(String ipAddress) => _$this._ipAddress = ipAddress;
+  String? _ipAddress;
+  String? get ipAddress => _$this._ipAddress;
+  set ipAddress(String? ipAddress) => _$this._ipAddress = ipAddress;
 
-  String _mac;
-  String get mac => _$this._mac;
-  set mac(String mac) => _$this._mac = mac;
+  String? _mac;
+  String? get mac => _$this._mac;
+  set mac(String? mac) => _$this._mac = mac;
 
-  String _netMask;
-  String get netMask => _$this._netMask;
-  set netMask(String netMask) => _$this._netMask = netMask;
+  String? _netMask;
+  String? get netMask => _$this._netMask;
+  set netMask(String? netMask) => _$this._netMask = netMask;
 
-  String _gateway;
-  String get gateway => _$this._gateway;
-  set gateway(String gateway) => _$this._gateway = gateway;
+  String? _gateway;
+  String? get gateway => _$this._gateway;
+  set gateway(String? gateway) => _$this._gateway = gateway;
 
-  bool _dhcp;
-  bool get dhcp => _$this._dhcp;
-  set dhcp(bool dhcp) => _$this._dhcp = dhcp;
+  bool? _dhcp;
+  bool? get dhcp => _$this._dhcp;
+  set dhcp(bool? dhcp) => _$this._dhcp = dhcp;
 
-  bool _portalServices;
-  bool get portalServices => _$this._portalServices;
-  set portalServices(bool portalServices) =>
+  bool? _portalServices;
+  bool? get portalServices => _$this._portalServices;
+  set portalServices(bool? portalServices) =>
       _$this._portalServices = portalServices;
 
-  PortalStateBuilder _portalState;
+  PortalStateBuilder? _portalState;
   PortalStateBuilder get portalState =>
       _$this._portalState ??= new PortalStateBuilder();
-  set portalState(PortalStateBuilder portalState) =>
+  set portalState(PortalStateBuilder? portalState) =>
       _$this._portalState = portalState;
 
-  String _portalConnection;
-  String get portalConnection => _$this._portalConnection;
-  set portalConnection(String portalConnection) =>
+  String? _portalConnection;
+  String? get portalConnection => _$this._portalConnection;
+  set portalConnection(String? portalConnection) =>
       _$this._portalConnection = portalConnection;
 
-  String _utc;
-  String get utc => _$this._utc;
-  set utc(String utc) => _$this._utc = utc;
+  String? _utc;
+  String? get utc => _$this._utc;
+  set utc(String? utc) => _$this._utc = utc;
 
-  String _localTime;
-  String get localTime => _$this._localTime;
-  set localTime(String localTime) => _$this._localTime = localTime;
+  String? _localTime;
+  String? get localTime => _$this._localTime;
+  set localTime(String? localTime) => _$this._localTime = localTime;
 
-  String _timeZone;
-  String get timeZone => _$this._timeZone;
-  set timeZone(String timeZone) => _$this._timeZone = timeZone;
+  String? _timeZone;
+  String? get timeZone => _$this._timeZone;
+  set timeZone(String? timeZone) => _$this._timeZone = timeZone;
 
-  int _zigbeeChannel;
-  int get zigbeeChannel => _$this._zigbeeChannel;
-  set zigbeeChannel(int zigbeeChannel) => _$this._zigbeeChannel = zigbeeChannel;
+  int? _zigbeeChannel;
+  int? get zigbeeChannel => _$this._zigbeeChannel;
+  set zigbeeChannel(int? zigbeeChannel) =>
+      _$this._zigbeeChannel = zigbeeChannel;
 
-  String _modelId;
-  String get modelId => _$this._modelId;
-  set modelId(String modelId) => _$this._modelId = modelId;
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
 
-  String _bridgeId;
-  String get bridgeId => _$this._bridgeId;
-  set bridgeId(String bridgeId) => _$this._bridgeId = bridgeId;
+  String? _bridgeId;
+  String? get bridgeId => _$this._bridgeId;
+  set bridgeId(String? bridgeId) => _$this._bridgeId = bridgeId;
 
-  bool _factoryNew;
-  bool get factoryNew => _$this._factoryNew;
-  set factoryNew(bool factoryNew) => _$this._factoryNew = factoryNew;
+  bool? _factoryNew;
+  bool? get factoryNew => _$this._factoryNew;
+  set factoryNew(bool? factoryNew) => _$this._factoryNew = factoryNew;
 
-  String _replacesBridgeId;
-  String get replacesBridgeId => _$this._replacesBridgeId;
-  set replacesBridgeId(String replacesBridgeId) =>
+  String? _replacesBridgeId;
+  String? get replacesBridgeId => _$this._replacesBridgeId;
+  set replacesBridgeId(String? replacesBridgeId) =>
       _$this._replacesBridgeId = replacesBridgeId;
 
-  bool _touchLink;
-  bool get touchLink => _$this._touchLink;
-  set touchLink(bool touchLink) => _$this._touchLink = touchLink;
+  bool? _touchLink;
+  bool? get touchLink => _$this._touchLink;
+  set touchLink(bool? touchLink) => _$this._touchLink = touchLink;
 
-  String _dataStoreVersion;
-  String get dataStoreVersion => _$this._dataStoreVersion;
-  set dataStoreVersion(String dataStoreVersion) =>
+  String? _dataStoreVersion;
+  String? get dataStoreVersion => _$this._dataStoreVersion;
+  set dataStoreVersion(String? dataStoreVersion) =>
       _$this._dataStoreVersion = dataStoreVersion;
 
-  InternetServicesBuilder _internetServices;
+  InternetServicesBuilder? _internetServices;
   InternetServicesBuilder get internetServices =>
       _$this._internetServices ??= new InternetServicesBuilder();
-  set internetServices(InternetServicesBuilder internetServices) =>
+  set internetServices(InternetServicesBuilder? internetServices) =>
       _$this._internetServices = internetServices;
 
-  BackUpBuilder _backup;
+  BackUpBuilder? _backup;
   BackUpBuilder get backup => _$this._backup ??= new BackUpBuilder();
-  set backup(BackUpBuilder backup) => _$this._backup = backup;
+  set backup(BackUpBuilder? backup) => _$this._backup = backup;
 
-  String _starterKitId;
-  String get starterKitId => _$this._starterKitId;
-  set starterKitId(String starterKitId) => _$this._starterKitId = starterKitId;
+  String? _starterKitId;
+  String? get starterKitId => _$this._starterKitId;
+  set starterKitId(String? starterKitId) => _$this._starterKitId = starterKitId;
 
-  ConfigurationBuilder _configuration;
+  ConfigurationBuilder? _configuration;
   ConfigurationBuilder get configuration =>
       _$this._configuration ??= new ConfigurationBuilder();
-  set configuration(ConfigurationBuilder configuration) =>
+  set configuration(ConfigurationBuilder? configuration) =>
       _$this._configuration = configuration;
 
-  MapBuilder<String, Light> _lights;
+  MapBuilder<String, Light>? _lights;
   MapBuilder<String, Light> get lights =>
       _$this._lights ??= new MapBuilder<String, Light>();
-  set lights(MapBuilder<String, Light> lights) => _$this._lights = lights;
+  set lights(MapBuilder<String, Light>? lights) => _$this._lights = lights;
 
-  MapBuilder<String, Group> _groups;
+  MapBuilder<String, Group>? _groups;
   MapBuilder<String, Group> get groups =>
       _$this._groups ??= new MapBuilder<String, Group>();
-  set groups(MapBuilder<String, Group> groups) => _$this._groups = groups;
+  set groups(MapBuilder<String, Group>? groups) => _$this._groups = groups;
 
-  MapBuilder<String, Scene> _scenes;
+  MapBuilder<String, Scene>? _scenes;
   MapBuilder<String, Scene> get scenes =>
       _$this._scenes ??= new MapBuilder<String, Scene>();
-  set scenes(MapBuilder<String, Scene> scenes) => _$this._scenes = scenes;
+  set scenes(MapBuilder<String, Scene>? scenes) => _$this._scenes = scenes;
 
-  MapBuilder<String, Schedule> _schedules;
+  MapBuilder<String, Schedule>? _schedules;
   MapBuilder<String, Schedule> get schedules =>
       _$this._schedules ??= new MapBuilder<String, Schedule>();
-  set schedules(MapBuilder<String, Schedule> schedules) =>
+  set schedules(MapBuilder<String, Schedule>? schedules) =>
       _$this._schedules = schedules;
 
-  MapBuilder<String, Sensor> _sensors;
+  MapBuilder<String, Sensor>? _sensors;
   MapBuilder<String, Sensor> get sensors =>
       _$this._sensors ??= new MapBuilder<String, Sensor>();
-  set sensors(MapBuilder<String, Sensor> sensors) => _$this._sensors = sensors;
+  set sensors(MapBuilder<String, Sensor>? sensors) => _$this._sensors = sensors;
 
-  MapBuilder<String, Rule> _rules;
+  MapBuilder<String, Rule>? _rules;
   MapBuilder<String, Rule> get rules =>
       _$this._rules ??= new MapBuilder<String, Rule>();
-  set rules(MapBuilder<String, Rule> rules) => _$this._rules = rules;
+  set rules(MapBuilder<String, Rule>? rules) => _$this._rules = rules;
 
-  MapBuilder<String, ResourceLink> _resourceLinks;
+  MapBuilder<String, ResourceLink>? _resourceLinks;
   MapBuilder<String, ResourceLink> get resourceLinks =>
       _$this._resourceLinks ??= new MapBuilder<String, ResourceLink>();
-  set resourceLinks(MapBuilder<String, ResourceLink> resourceLinks) =>
+  set resourceLinks(MapBuilder<String, ResourceLink>? resourceLinks) =>
       _$this._resourceLinks = resourceLinks;
 
   ConfigurationBuilder();
@@ -962,7 +964,7 @@ class ConfigurationBuilder
   }
 
   @override
-  void update(void Function(ConfigurationBuilder) updates) {
+  void update(void Function(ConfigurationBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -1010,7 +1012,7 @@ class ConfigurationBuilder
               rules: _rules?.build(),
               resourceLinks: _resourceLinks?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'softwareUpdate';
         _softwareUpdate?.build();

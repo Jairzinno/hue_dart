@@ -11,22 +11,30 @@ import 'package:hue_dart/src/rule/rule_action.dart';
 import 'package:hue_dart/src/schedule/command.dart';
 import 'package:hue_dart/src/schedule/schedule_type.dart';
 import 'package:hue_dart/src/sensor/sensor_config.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockClient extends Mock implements Client {}
+import 'hue_test.mocks.dart';
 
+@GenerateMocks([
+  Client,
+])
 void main() {
-  Bridge sut;
-  MockClient client;
+  late Bridge sut;
+  late MockClient client;
 
   setUp(() {
     client = MockClient();
     sut = Bridge(client, '127.0.0.1', 'username');
   });
 
-  mockGet(String responseBody, [String url]) {
-    when(client.get(Uri.parse(url ?? any)))
+  tearDown(() {
+    resetMockitoState();
+  });
+
+  mockGet(String responseBody, [String? url]) {
+    when(client.get(url != null ? Uri.parse(url) : any))
         .thenAnswer((_) => Future.value(Response(responseBody, 200)));
   }
 
@@ -131,35 +139,35 @@ void main() {
         mockGet(fullState);
         final fullConfig = await sut.completeConfiguration();
         verify(client.get(Uri.parse('http://127.0.0.1/api/username')));
-        expect(fullConfig.groups.length, 3);
-        expect(fullConfig.groups.keys.first, 1.toString());
-        expect(fullConfig.groups.values.first.name, 'Room 2');
-        expect(fullConfig.lights.length, 3);
-        expect(fullConfig.lights.keys.first, 1.toString());
-        expect(fullConfig.lights.values.first.state.on, false);
-        expect(fullConfig.lights.values.first.state.brightness, 56);
-        expect(fullConfig.resourceLinks.length, 3);
-        expect(fullConfig.resourceLinks.keys.first, '9910');
-        expect(fullConfig.resourceLinks.values.first.name, 'Tap toggle (2)');
-        expect(fullConfig.resourceLinks.values.first.classId, 2);
-        expect(fullConfig.rules.length, 3);
-        expect(fullConfig.rules.keys.first, 1.toString());
-        expect(fullConfig.rules.values.first.name, '1:huelabs/tap-toggle');
-        expect(fullConfig.rules.values.first.conditions.first.address,
+        expect(fullConfig.groups!.length, 3);
+        expect(fullConfig.groups!.keys.first, 1.toString());
+        expect(fullConfig.groups!.values.first.name, 'Room 2');
+        expect(fullConfig.lights!.length, 3);
+        expect(fullConfig.lights!.keys.first, 1.toString());
+        expect(fullConfig.lights!.values.first.state!.on, false);
+        expect(fullConfig.lights!.values.first.state!.brightness, 56);
+        expect(fullConfig.resourceLinks!.length, 3);
+        expect(fullConfig.resourceLinks!.keys.first, '9910');
+        expect(fullConfig.resourceLinks!.values.first.name, 'Tap toggle (2)');
+        expect(fullConfig.resourceLinks!.values.first.classId, 2);
+        expect(fullConfig.rules!.length, 3);
+        expect(fullConfig.rules!.keys.first, 1.toString());
+        expect(fullConfig.rules!.values.first.name, '1:huelabs/tap-toggle');
+        expect(fullConfig.rules!.values.first.conditions!.first.address,
             '/sensors/2/state/buttonevent');
-        expect(fullConfig.scenes.length, 3);
-        expect(fullConfig.scenes.keys.first, '497b50d84-on-0');
-        expect(fullConfig.scenes.values.first.name, 'Sunset on 0');
-        expect(fullConfig.scenes.values.first.lightIds.length, 3);
-        expect(fullConfig.schedules.length, 3);
-        expect(fullConfig.schedules.keys.first, '4180398747470589');
-        expect(fullConfig.schedules.values.first.name, 'Running');
-        expect(fullConfig.schedules.values.first.command.address,
+        expect(fullConfig.scenes!.length, 3);
+        expect(fullConfig.scenes!.keys.first, '497b50d84-on-0');
+        expect(fullConfig.scenes!.values.first.name, 'Sunset on 0');
+        expect(fullConfig.scenes!.values.first.lightIds!.length, 3);
+        expect(fullConfig.schedules!.length, 3);
+        expect(fullConfig.schedules!.keys.first, '4180398747470589');
+        expect(fullConfig.schedules!.values.first.name, 'Running');
+        expect(fullConfig.schedules!.values.first.command!.address,
             '/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action');
-        expect(fullConfig.sensors.length, 3);
-        expect(fullConfig.sensors.keys.first, 1.toString());
-        expect(fullConfig.sensors.values.first.name, 'Daylight');
-        expect(fullConfig.sensors.values.first.config.on, true);
+        expect(fullConfig.sensors!.length, 3);
+        expect(fullConfig.sensors!.keys.first, 1.toString());
+        expect(fullConfig.sensors!.values.first.name, 'Daylight');
+        expect(fullConfig.sensors!.values.first.config!.on, true);
       });
 
       test('get config', () async {
@@ -185,45 +193,45 @@ void main() {
         expect(configuration.dataStoreVersion, '71');
         expect(configuration.swVersion, '1806051111');
         expect(configuration.apiVersion, '1.26.0');
-        expect(configuration.softwareUpdate.checkForUpdate, false);
-        expect(configuration.softwareUpdate.lastChange, '2018-06-29T21:53:49');
-        expect(configuration.softwareUpdate.bridge.state, 'noupdates');
-        expect(configuration.softwareUpdate.bridge.lastInstall,
+        expect(configuration.softwareUpdate!.checkForUpdate, false);
+        expect(configuration.softwareUpdate!.lastChange, '2018-06-29T21:53:49');
+        expect(configuration.softwareUpdate!.bridge!.state, 'noupdates');
+        expect(configuration.softwareUpdate!.bridge!.lastInstall,
             '2018-06-29T21:49:53');
-        expectDate(configuration.softwareUpdate.bridge.lastInstallDate, 2018, 6,
-            29, 21, 49, 53);
-        expect(configuration.softwareUpdate.state, 'noupdates');
+        expectDate(configuration.softwareUpdate!.bridge!.lastInstallDate, 2018,
+            6, 29, 21, 49, 53);
+        expect(configuration.softwareUpdate!.state, 'noupdates');
         expect(
-            configuration.softwareUpdate.autoInstall.updateTime, 'T23:00:00');
-        expectDate(configuration.softwareUpdate.autoInstall.updateDate, 1970, 1,
-            1, 23, 0, 0);
-        expect(configuration.softwareUpdate.autoInstall.on, true);
+            configuration.softwareUpdate!.autoInstall!.updateTime, 'T23:00:00');
+        expectDate(configuration.softwareUpdate!.autoInstall!.updateDate, 1970,
+            1, 1, 23, 0, 0);
+        expect(configuration.softwareUpdate!.autoInstall!.on, true);
         expect(configuration.linkButton, false);
         expect(configuration.portalServices, true);
         expect(configuration.portalConnection, 'connected');
-        expect(configuration.portalState.signedOn, true);
-        expect(configuration.portalState.incoming, false);
-        expect(configuration.portalState.outgoing, true);
-        expect(configuration.portalState.communication, 'disconnected');
-        expect(configuration.internetServices.internet, 'connected');
-        expect(configuration.internetServices.remoteAccess, 'connected');
-        expect(configuration.internetServices.time, 'connected');
-        expect(configuration.internetServices.swUpdate, 'connected');
+        expect(configuration.portalState!.signedOn, true);
+        expect(configuration.portalState!.incoming, false);
+        expect(configuration.portalState!.outgoing, true);
+        expect(configuration.portalState!.communication, 'disconnected');
+        expect(configuration.internetServices!.internet, 'connected');
+        expect(configuration.internetServices!.remoteAccess, 'connected');
+        expect(configuration.internetServices!.time, 'connected');
+        expect(configuration.internetServices!.swUpdate, 'connected');
         expect(configuration.factoryNew, false);
         expect(configuration.replacesBridgeId, null);
         expect(configuration.starterKitId, '');
-        expect(configuration.whitelist.length, 3);
-        expect(configuration.whitelist.keys.first,
+        expect(configuration.whitelist!.length, 3);
+        expect(configuration.whitelist!.keys.first,
             '688a789c0bd6442e48969b1d945920');
-        expect(configuration.whitelist.values.first.lastUsedDate,
+        expect(configuration.whitelist!.values.first.lastUsedDate,
             '2016-07-10T19:47:00');
-        expectDate(configuration.whitelist.values.first.lastUsed, 2016, 7, 10,
+        expectDate(configuration.whitelist!.values.first.lastUsed, 2016, 7, 10,
             19, 47, 00);
-        expect(configuration.whitelist.values.first.createDate,
+        expect(configuration.whitelist!.values.first.createDate,
             '2016-07-10T19:47:00');
-        expectDate(configuration.whitelist.values.first.created, 2016, 7, 10,
+        expectDate(configuration.whitelist!.values.first.created, 2016, 7, 10,
             19, 47, 00);
-        expect(configuration.whitelist.values.first.name, 'my_hue_app#test');
+        expect(configuration.whitelist!.values.first.name, 'my_hue_app#test');
       });
     });
 
@@ -239,22 +247,22 @@ void main() {
         mockGet(singleGroup);
         final group = await sut.group(1);
         expect(group.name, 'Room 2');
-        expect(group.state.allOn, false);
-        expect(group.state.anyOn, false);
-        expect(group.groupLights[0].id, 17);
-        expect(group.groupLights[1].id, 15);
+        expect(group.state!.allOn, false);
+        expect(group.state!.anyOn, false);
+        expect(group.groupLights![0].id, 17);
+        expect(group.groupLights![1].id, 15);
         expect(group.type, 'Room');
         expect(group.recycle, false);
         expect(group.className, 'Living room');
-        expect(group.action.on, false);
-        expect(group.action.brightness, 144);
-        expect(group.action.hue, 7688);
-        expect(group.action.saturation, 199);
-        expect(group.action.effect, 'none');
-        expect(group.action.xy, [0.5014, 0.4153]);
-        expect(group.action.ct, 447);
-        expect(group.action.effect, 'none');
-        expect(group.action.colorMode, 'ct');
+        expect(group.action!.on, false);
+        expect(group.action!.brightness, 144);
+        expect(group.action!.hue, 7688);
+        expect(group.action!.saturation, 199);
+        expect(group.action!.effect, 'none');
+        expect(group.action!.xy, [0.5014, 0.4153]);
+        expect(group.action!.ct, 447);
+        expect(group.action!.effect, 'none');
+        expect(group.action!.colorMode, 'ct');
         verify(client.get(Uri.parse('http://127.0.0.1/api/username/groups/1')));
       });
 
@@ -353,17 +361,17 @@ void main() {
         final light = await sut.light(1);
         verify(client.get(Uri.parse('http://127.0.0.1/api/username/lights/1')));
         expect(light, isNotNull);
-        expect(light.state.on, false);
-        expect(light.state.brightness, 244);
-        expect(light.state.hue, 14988);
-        expect(light.state.saturation, 141);
-        expect(light.state.effect, 'none');
-        expect(light.state.xy, [0.4575, 0.4101]);
-        expect(light.state.ct, 366);
-        expect(light.state.alert, 'none');
-        expect(light.state.colorMode, 'ct');
-        expect(light.state.mode, 'homeautomation');
-        expect(light.state.reachable, true);
+        expect(light.state!.on, false);
+        expect(light.state!.brightness, 244);
+        expect(light.state!.hue, 14988);
+        expect(light.state!.saturation, 141);
+        expect(light.state!.effect, 'none');
+        expect(light.state!.xy, [0.4575, 0.4101]);
+        expect(light.state!.ct, 366);
+        expect(light.state!.alert, 'none');
+        expect(light.state!.colorMode, 'ct');
+        expect(light.state!.mode, 'homeautomation');
+        expect(light.state!.reachable, true);
         expect(light.type, 'Extended color light');
         expect(light.name, 'Room 2');
         expect(light.modelId, 'LCT007');
@@ -373,13 +381,13 @@ void main() {
 
       test('test light model ids', () async {
         testModelId(
-            String modelId, String runtimeType, String productName) async {
+            String modelId, String? runtimeType, String? productName) async {
           mockGet(singleLightModelIdPlaceholder.replaceFirst(
               '<model_id>', modelId));
           final light = await sut.light(1);
-          expect(light.model.modelId, modelId);
+          expect(light.model!.modelId, modelId);
           expect(light.model.runtimeType.toString(), runtimeType);
-          expect(light.model.productName, productName);
+          expect(light.model!.productName, productName);
         }
 
         List<Map<String, String>> models = [
@@ -452,7 +460,7 @@ void main() {
           {'id': 'LDF002', 'runtimeType': 'White', 'productName': 'White'}
         ];
         for (Map<String, String> model in models) {
-          testModelId(model['id'], model['runtimeType'], model['productName']);
+          testModelId(model['id']!, model['runtimeType'], model['productName']);
         }
       });
 
@@ -507,43 +515,43 @@ void main() {
         mockGet(
             singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'ct'));
         var light = await sut.light(1);
-        expect(light.state.colorMode, 'ct');
+        expect(light.state!.colorMode, 'ct');
         light = light.changeColor(
             red: 0.8796791443850267,
             green: 0.8398430992614165,
             blue: 0.711241233501953);
-        expect(light.state.ct, 230);
+        expect(light.state!.ct, 230);
       });
 
       test('change color of light with color mode hs', () async {
         mockGet(
             singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'hs'));
         var light = await sut.light(1);
-        expect(light.state.colorMode, 'hs');
+        expect(light.state!.colorMode, 'hs');
         light = light.changeColor(
             red: 0.8796791443850267,
             green: 0.8398430992614165,
             blue: 0.711241233501953);
-        expect(light.state.hue, 8339);
-        expect(light.state.saturation, 49);
-        expect(light.state.brightness, 224);
+        expect(light.state!.hue, 8339);
+        expect(light.state!.saturation, 49);
+        expect(light.state!.brightness, 224);
       });
 
       test('change color of light with color mode xy', () async {
         mockGet(
             singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'xy'));
         var light = await sut.light(1);
-        expect(light.state.colorMode, 'xy');
+        expect(light.state!.colorMode, 'xy');
         light = light.changeColor(red: 1.0, blue: 1.0, green: 1.0);
-        expect(light.state.xy, [0.32272672086556803, 0.32902290955907926]);
+        expect(light.state!.xy, [0.32272672086556803, 0.32902290955907926]);
       });
 
       test('convert color of light to rgb with color mode ct', () async {
         mockGet(
             singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'ct'));
         final light = await sut.light(1);
-        expect(light.state.colorMode, 'ct');
-        final colors = light.colors;
+        expect(light.state!.colorMode, 'ct');
+        final colors = light.colors!;
 
         expect(colors.temperature, 2732);
         expect(colors.ct, 366);
@@ -553,16 +561,16 @@ void main() {
         expect(colors.hue, 7579);
         expect(colors.saturation, 142);
         expect(colors.brightness, 202);
-        expect(colors.xy[0], 0.4550246766722201);
-        expect(colors.xy[1], 0.4201045778933856);
+        expect(colors.xy![0], 0.4550246766722201);
+        expect(colors.xy![1], 0.4201045778933856);
       });
 
       test('convert color of light to rgb with color mode hs', () async {
         mockGet(
             singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'hs'));
         final light = await sut.light(1);
-        expect(light.state.colorMode, 'hs');
-        final colors = light.colors;
+        expect(light.state!.colorMode, 'hs');
+        final colors = light.colors!;
 
         expect(colors.hue, 48420);
         expect(colors.saturation, 254);
@@ -572,19 +580,19 @@ void main() {
         expect(colors.blue, 0.9803921568627451);
         expect(colors.temperature, 6500);
         expect(colors.ct, 154);
-        expect(colors.xy[0], 0.19892897773136312);
-        expect(colors.xy[1], 0.06913836242163192);
+        expect(colors.xy![0], 0.19892897773136312);
+        expect(colors.xy![1], 0.06913836242163192);
       });
 
       test('convert color of light to rgb with color mode xy', () async {
         mockGet(
             singleLightColorModePlaceHolder.replaceFirst('<color_mode>', 'xy'));
         final light = await sut.light(1);
-        expect(light.state.colorMode, 'xy');
-        final colors = light.colors;
+        expect(light.state!.colorMode, 'xy');
+        final colors = light.colors!;
 
-        expect(colors.xy[0], 0.4575);
-        expect(colors.xy[1], 0.4101);
+        expect(colors.xy![0], 0.4575);
+        expect(colors.xy![1], 0.4101);
         expect(colors.red, 0.9999999999999999);
         expect(colors.green, 0.8108918043577206);
         expect(colors.blue, 0.4688702585134064);
@@ -748,8 +756,8 @@ void main() {
         expect(rule.timesTriggered, 27);
         expect(rule.owner, '78H56B12BA');
         expect(rule.status, 'enabled');
-        expect(rule.conditions.length, 2);
-        expect(rule.actions.length, 1);
+        expect(rule.conditions!.length, 2);
+        expect(rule.actions!.length, 1);
         verify(client.get(Uri.parse('http://127.0.0.1/api/username/rules/1')));
       });
 
@@ -843,12 +851,12 @@ void main() {
         mockGet(singleScene);
         final scene = await sut.scene('42YARQOHMNIPia6');
         expect(scene.name, 'Relax');
-        expect(scene.lightIds.length, 2);
+        expect(scene.lightIds!.length, 2);
         expect(scene.owner, 'MUSAY5n2PtInw1x3N0mqHEwt6eOBhQqaEucmqvgc');
         expect(scene.recycle, false);
         expect(scene.locked, false);
-        expect(scene.appData.version, 1);
-        expect(scene.appData.data, '6iELK_r01_d01');
+        expect(scene.appData!.version, 1);
+        expect(scene.appData!.data, '6iELK_r01_d01');
         expect(scene.picture, '');
         expect(scene.lastUpdated, '2017-04-30T15:14:42');
         expectDate(scene.lastUpdatedDate, 2017, 4, 30, 15, 14, 42);
@@ -940,7 +948,7 @@ void main() {
         //absolute alarm
         expect(schedule.type.runtimeType.toString(), 'Alarm');
         var alarm = schedule.type as Alarm;
-        expectDate(alarm.date, 2018, 7, 15, 5, 30, 0);
+        expectDate(alarm.date!, 2018, 7, 15, 5, 30, 0);
         expect(alarm.randomTime, isNull);
         expect(alarm.weekDays, isNull);
         expect(alarm.endDate, isNull);
@@ -949,8 +957,8 @@ void main() {
         // randomized absolute alarm
         expect(schedule.type.runtimeType.toString(), 'Alarm');
         alarm = schedule.type as Alarm;
-        expectDate(alarm.date, 2018, 7, 15, 5, 30, 0);
-        expectDate(alarm.randomTime, 1970, 1, 1, 20, 44, 53);
+        expectDate(alarm.date!, 2018, 7, 15, 5, 30, 0);
+        expectDate(alarm.randomTime!, 1970, 1, 1, 20, 44, 53);
         expect(alarm.weekDays, isNull);
         expect(alarm.endDate, isNull);
 
@@ -958,7 +966,7 @@ void main() {
         // recurring alarm
         expect(schedule.type.runtimeType.toString(), 'Alarm');
         alarm = schedule.type as Alarm;
-        expectDate(alarm.date, 1970, 1, 1, 5, 30, 0);
+        expectDate(alarm.date!, 1970, 1, 1, 5, 30, 0);
         expect(alarm.randomTime, isNull);
         expect(alarm.weekDays, 124);
         expect(alarm.endDate, isNull);
@@ -967,8 +975,8 @@ void main() {
         // recurring random alarm
         expect(schedule.type.runtimeType.toString(), 'Alarm');
         alarm = schedule.type as Alarm;
-        expectDate(alarm.date, 1970, 1, 1, 23, 30, 0);
-        expectDate(alarm.randomTime, 1970, 1, 1, 20, 13, 0);
+        expectDate(alarm.date!, 1970, 1, 1, 23, 30, 0);
+        expectDate(alarm.randomTime!, 1970, 1, 1, 20, 13, 0);
         expect(alarm.weekDays, 127);
         expect(alarm.endDate, isNull);
 
@@ -976,8 +984,8 @@ void main() {
         // time interval alarm
         expect(schedule.type.runtimeType.toString(), 'Alarm');
         alarm = schedule.type as Alarm;
-        expectDate(alarm.date, 1970, 1, 1, 3, 30, 0);
-        expectDate(alarm.endDate, 1970, 1, 1, 20, 13, 0);
+        expectDate(alarm.date!, 1970, 1, 1, 3, 30, 0);
+        expectDate(alarm.endDate!, 1970, 1, 1, 20, 13, 0);
         expect(alarm.randomTime, isNull);
         expect(alarm.weekDays, isNull);
 
@@ -985,7 +993,7 @@ void main() {
         //expiring timer
         expect(schedule.type.runtimeType.toString(), 'Timer');
         var timer = schedule.type as Timer;
-        expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+        expectDate(timer.date!, 1970, 1, 1, 20, 13, 0);
         expect(timer.randomTime, isNull);
         expect(timer.recurrence, isNull);
 
@@ -993,15 +1001,15 @@ void main() {
         //expiring random timer
         expect(schedule.type.runtimeType.toString(), 'Timer');
         timer = schedule.type as Timer;
-        expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
-        expectDate(timer.randomTime, 1970, 1, 1, 2, 23, 0);
+        expectDate(timer.date!, 1970, 1, 1, 20, 13, 0);
+        expectDate(timer.randomTime!, 1970, 1, 1, 2, 23, 0);
         expect(timer.recurrence, isNull);
 
         schedule = response[7];
         //recurring timer 1
         expect(schedule.type.runtimeType.toString(), 'Timer');
         timer = schedule.type as Timer;
-        expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+        expectDate(timer.date!, 1970, 1, 1, 20, 13, 0);
         expect(timer.randomTime, isNull);
         expect(timer.recurrence, 12);
 
@@ -1009,7 +1017,7 @@ void main() {
         //recurring timer 1
         expect(schedule.type.runtimeType.toString(), 'Timer');
         timer = schedule.type as Timer;
-        expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
+        expectDate(timer.date!, 1970, 1, 1, 20, 13, 0);
         expect(timer.randomTime, isNull);
         expect(timer.recurrence, 0);
 
@@ -1017,8 +1025,8 @@ void main() {
         //random recurring timer
         expect(schedule.type.runtimeType.toString(), 'Timer');
         timer = schedule.type as Timer;
-        expectDate(timer.date, 1970, 1, 1, 20, 13, 0);
-        expectDate(timer.randomTime, 1970, 1, 1, 2, 30, 0);
+        expectDate(timer.date!, 1970, 1, 1, 20, 13, 0);
+        expectDate(timer.randomTime!, 1970, 1, 1, 2, 30, 0);
         expect(timer.recurrence, 12);
       });
 
@@ -1027,10 +1035,10 @@ void main() {
         final schedule = await sut.schedule('7796503114448045');
         expect(schedule.name, 'Sleep');
         expect(schedule.description, '');
-        expect(schedule.command.address,
+        expect(schedule.command!.address,
             '/api/14a930704b59a4547a9cbfe24787daaa/groups/0/action');
-        expect(schedule.command.method, 'PUT');
-        expect(schedule.command.body.toMap(), {"scene": "04f61b745-off-5"});
+        expect(schedule.command!.method, 'PUT');
+        expect(schedule.command!.body.toMap(), {"scene": "04f61b745-off-5"});
         expect(schedule.time, 'W127/T23:30:00');
         expect(schedule.status, 'disabled');
         expect(schedule.recycle, false);
@@ -1111,11 +1119,11 @@ void main() {
         verify(
             client.get(Uri.parse('http://127.0.0.1/api/username/sensors/4')));
         expect(sensor, isNotNull);
-        expect(sensor.config.on, true);
-        expect(sensor.config.battery, 100);
-        expect(sensor.config.reachable, true);
-        expect(sensor.state.presence, false);
-        expect(sensor.state.lastUpdated, '2018-07-13T06:43:41');
+        expect(sensor.config!.on, true);
+        expect(sensor.config!.battery, 100);
+        expect(sensor.config!.reachable, true);
+        expect(sensor.state!.presence, false);
+        expect(sensor.state!.lastUpdated, '2018-07-13T06:43:41');
         expect(sensor.name, 'Hue motion sensor 1');
         expect(sensor.type, 'ZLLPresence');
         expect(sensor.modelId, 'SML001');
@@ -1126,13 +1134,13 @@ void main() {
 
       test('test sensor model ids', () async {
         testModelId(
-            String modelId, String runtimeType, String productName) async {
+            String modelId, String? runtimeType, String? productName) async {
           mockGet(singleSensorModelIdPlaceholder.replaceFirst(
               '<model_id>', modelId));
           final sensor = await sut.sensor('1');
-          expect(sensor.model.modelId, modelId);
+          expect(sensor.model!.modelId, modelId);
           expect(sensor.model.runtimeType.toString(), runtimeType);
-          expect(sensor.model.productName, productName);
+          expect(sensor.model!.productName, productName);
         }
 
         List<Map<String, String>> models = [
@@ -1159,7 +1167,7 @@ void main() {
           {'id': 'ZGPSWITCH', 'runtimeType': 'Tap', 'productName': 'Hue Tap'}
         ];
         for (Map<String, String> model in models) {
-          testModelId(model['id'], model['runtimeType'], model['productName']);
+          testModelId(model['id']!, model['runtimeType'], model['productName']);
         }
       });
 

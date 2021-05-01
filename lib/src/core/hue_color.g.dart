@@ -15,10 +15,10 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   final String wireName = 'HueColor';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, HueColor object,
+  Iterable<Object?> serialize(Serializers serializers, HueColor object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.hue;
     if (value != null) {
       result
@@ -79,7 +79,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   }
 
   @override
-  HueColor deserialize(Serializers serializers, Iterable<Object> serialized,
+  HueColor deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new HueColorBuilder();
 
@@ -87,7 +87,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'hue':
           result.hue = serializers.deserialize(value,
@@ -112,7 +112,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
         case 'xy':
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(num)]))
+                      const FullType(BuiltList, const [const FullType(num)]))!
               as BuiltList<Object>);
           break;
         case 'red':
@@ -136,25 +136,25 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
 
 class _$HueColor extends HueColor {
   @override
-  final num hue;
+  final num? hue;
   @override
-  final num saturation;
+  final num? saturation;
   @override
-  final num brightness;
+  final num? brightness;
   @override
-  final num temperature;
+  final num? temperature;
   @override
-  final num ct;
+  final num? ct;
   @override
-  final BuiltList<num> xy;
+  final BuiltList<num>? xy;
   @override
-  final num red;
+  final num? red;
   @override
-  final num green;
+  final num? green;
   @override
-  final num blue;
+  final num? blue;
 
-  factory _$HueColor([void Function(HueColorBuilder) updates]) =>
+  factory _$HueColor([void Function(HueColorBuilder)? updates]) =>
       (new HueColorBuilder()..update(updates)).build();
 
   _$HueColor._(
@@ -226,43 +226,43 @@ class _$HueColor extends HueColor {
 }
 
 class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
-  _$HueColor _$v;
+  _$HueColor? _$v;
 
-  num _hue;
-  num get hue => _$this._hue;
-  set hue(num hue) => _$this._hue = hue;
+  num? _hue;
+  num? get hue => _$this._hue;
+  set hue(num? hue) => _$this._hue = hue;
 
-  num _saturation;
-  num get saturation => _$this._saturation;
-  set saturation(num saturation) => _$this._saturation = saturation;
+  num? _saturation;
+  num? get saturation => _$this._saturation;
+  set saturation(num? saturation) => _$this._saturation = saturation;
 
-  num _brightness;
-  num get brightness => _$this._brightness;
-  set brightness(num brightness) => _$this._brightness = brightness;
+  num? _brightness;
+  num? get brightness => _$this._brightness;
+  set brightness(num? brightness) => _$this._brightness = brightness;
 
-  num _temperature;
-  num get temperature => _$this._temperature;
-  set temperature(num temperature) => _$this._temperature = temperature;
+  num? _temperature;
+  num? get temperature => _$this._temperature;
+  set temperature(num? temperature) => _$this._temperature = temperature;
 
-  num _ct;
-  num get ct => _$this._ct;
-  set ct(num ct) => _$this._ct = ct;
+  num? _ct;
+  num? get ct => _$this._ct;
+  set ct(num? ct) => _$this._ct = ct;
 
-  ListBuilder<num> _xy;
+  ListBuilder<num>? _xy;
   ListBuilder<num> get xy => _$this._xy ??= new ListBuilder<num>();
-  set xy(ListBuilder<num> xy) => _$this._xy = xy;
+  set xy(ListBuilder<num>? xy) => _$this._xy = xy;
 
-  num _red;
-  num get red => _$this._red;
-  set red(num red) => _$this._red = red;
+  num? _red;
+  num? get red => _$this._red;
+  set red(num? red) => _$this._red = red;
 
-  num _green;
-  num get green => _$this._green;
-  set green(num green) => _$this._green = green;
+  num? _green;
+  num? get green => _$this._green;
+  set green(num? green) => _$this._green = green;
 
-  num _blue;
-  num get blue => _$this._blue;
-  set blue(num blue) => _$this._blue = blue;
+  num? _blue;
+  num? get blue => _$this._blue;
+  set blue(num? blue) => _$this._blue = blue;
 
   HueColorBuilder();
 
@@ -290,7 +290,7 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
   }
 
   @override
-  void update(void Function(HueColorBuilder) updates) {
+  void update(void Function(HueColorBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -310,7 +310,7 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
               green: green,
               blue: blue);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'xy';
         _xy?.build();

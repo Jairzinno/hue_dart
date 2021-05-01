@@ -14,32 +14,28 @@ abstract class SoftwareUpdate
   /// Requires portal connection to update server.
   /// See software update for more information.
 
-  @nullable
   @BuiltValueField(wireName: 'checkforupdate')
-  bool get checkForUpdate;
+  bool? get checkForUpdate;
 
-  @nullable
   @BuiltValueField(wireName: 'lastchange')
-  String get lastChange;
+  String? get lastChange;
 
-  @nullable
-  String get state;
+  String? get state;
 
-  @nullable
-  SoftwareUpdateBridge get bridge;
+  SoftwareUpdateBridge? get bridge;
 
-  @nullable
   @BuiltValueField(wireName: 'autoinstall')
-  AutoInstall get autoInstall;
+  AutoInstall? get autoInstall;
 
   static Serializer<SoftwareUpdate> get serializer =>
       _$softwareUpdateSerializer;
 
   SoftwareUpdate._();
 
-  factory SoftwareUpdate([updates(SoftwareUpdateBuilder b)]) = _$SoftwareUpdate;
+  factory SoftwareUpdate([updates(SoftwareUpdateBuilder b)?]) =
+      _$SoftwareUpdate;
 
   factory SoftwareUpdate.fromJson(Map json) {
-    return serializers.deserializeWith(SoftwareUpdate.serializer, json);
+    return serializers.deserializeWith(SoftwareUpdate.serializer, json)!;
   }
 }

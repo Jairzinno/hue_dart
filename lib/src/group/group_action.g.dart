@@ -15,10 +15,10 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
   final String wireName = 'GroupAction';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GroupAction object,
+  Iterable<Object?> serialize(Serializers serializers, GroupAction object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.on;
     if (value != null) {
       result
@@ -90,7 +90,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
   }
 
   @override
-  GroupAction deserialize(Serializers serializers, Iterable<Object> serialized,
+  GroupAction deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GroupActionBuilder();
 
@@ -98,7 +98,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -118,8 +118,8 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
           break;
         case 'xy':
           result.xy.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(double)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(double)]))!
               as BuiltList<Object>);
           break;
         case 'ct':
@@ -151,27 +151,27 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
 
 class _$GroupAction extends GroupAction {
   @override
-  final bool on;
+  final bool? on;
   @override
-  final int brightness;
+  final int? brightness;
   @override
-  final int hue;
+  final int? hue;
   @override
-  final int saturation;
+  final int? saturation;
   @override
-  final BuiltList<double> xy;
+  final BuiltList<double>? xy;
   @override
-  final int ct;
+  final int? ct;
   @override
-  final String alert;
+  final String? alert;
   @override
-  final String effect;
+  final String? effect;
   @override
-  final String colorMode;
+  final String? colorMode;
   @override
-  final String scene;
+  final String? scene;
 
-  factory _$GroupAction([void Function(GroupActionBuilder) updates]) =>
+  factory _$GroupAction([void Function(GroupActionBuilder)? updates]) =>
       (new GroupActionBuilder()..update(updates)).build();
 
   _$GroupAction._(
@@ -250,47 +250,47 @@ class _$GroupAction extends GroupAction {
 }
 
 class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
-  _$GroupAction _$v;
+  _$GroupAction? _$v;
 
-  bool _on;
-  bool get on => _$this._on;
-  set on(bool on) => _$this._on = on;
+  bool? _on;
+  bool? get on => _$this._on;
+  set on(bool? on) => _$this._on = on;
 
-  int _brightness;
-  int get brightness => _$this._brightness;
-  set brightness(int brightness) => _$this._brightness = brightness;
+  int? _brightness;
+  int? get brightness => _$this._brightness;
+  set brightness(int? brightness) => _$this._brightness = brightness;
 
-  int _hue;
-  int get hue => _$this._hue;
-  set hue(int hue) => _$this._hue = hue;
+  int? _hue;
+  int? get hue => _$this._hue;
+  set hue(int? hue) => _$this._hue = hue;
 
-  int _saturation;
-  int get saturation => _$this._saturation;
-  set saturation(int saturation) => _$this._saturation = saturation;
+  int? _saturation;
+  int? get saturation => _$this._saturation;
+  set saturation(int? saturation) => _$this._saturation = saturation;
 
-  ListBuilder<double> _xy;
+  ListBuilder<double>? _xy;
   ListBuilder<double> get xy => _$this._xy ??= new ListBuilder<double>();
-  set xy(ListBuilder<double> xy) => _$this._xy = xy;
+  set xy(ListBuilder<double>? xy) => _$this._xy = xy;
 
-  int _ct;
-  int get ct => _$this._ct;
-  set ct(int ct) => _$this._ct = ct;
+  int? _ct;
+  int? get ct => _$this._ct;
+  set ct(int? ct) => _$this._ct = ct;
 
-  String _alert;
-  String get alert => _$this._alert;
-  set alert(String alert) => _$this._alert = alert;
+  String? _alert;
+  String? get alert => _$this._alert;
+  set alert(String? alert) => _$this._alert = alert;
 
-  String _effect;
-  String get effect => _$this._effect;
-  set effect(String effect) => _$this._effect = effect;
+  String? _effect;
+  String? get effect => _$this._effect;
+  set effect(String? effect) => _$this._effect = effect;
 
-  String _colorMode;
-  String get colorMode => _$this._colorMode;
-  set colorMode(String colorMode) => _$this._colorMode = colorMode;
+  String? _colorMode;
+  String? get colorMode => _$this._colorMode;
+  set colorMode(String? colorMode) => _$this._colorMode = colorMode;
 
-  String _scene;
-  String get scene => _$this._scene;
-  set scene(String scene) => _$this._scene = scene;
+  String? _scene;
+  String? get scene => _$this._scene;
+  set scene(String? scene) => _$this._scene = scene;
 
   GroupActionBuilder();
 
@@ -319,7 +319,7 @@ class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
   }
 
   @override
-  void update(void Function(GroupActionBuilder) updates) {
+  void update(void Function(GroupActionBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -340,7 +340,7 @@ class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
               colorMode: colorMode,
               scene: scene);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'xy';
         _xy?.build();

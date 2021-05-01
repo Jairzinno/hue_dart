@@ -16,7 +16,7 @@ class BridgeDiscovery {
     final url = 'https://discovery.meethue.com/';
     try {
       final response = await _client.get(Uri.parse(url));
-      List responseMap = json.decode(response.body);
+      final responseMap = json.decode(response.body);
       final result = <DiscoveryResult>[];
       for (Map<String, dynamic> json in responseMap) {
         result.add(DiscoveryResult.fromJson(json));

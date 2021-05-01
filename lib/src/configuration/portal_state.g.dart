@@ -15,9 +15,9 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
   final String wireName = 'PortalState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, PortalState object,
+  Iterable<Object?> serialize(Serializers serializers, PortalState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'communication',
       serializers.serialize(object.communication,
           specifiedType: const FullType(String)),
@@ -36,7 +36,7 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
   }
 
   @override
-  PortalState deserialize(Serializers serializers, Iterable<Object> serialized,
+  PortalState deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new PortalStateBuilder();
 
@@ -44,7 +44,7 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'communication':
           result.communication = serializers.deserialize(value,
@@ -79,11 +79,14 @@ class _$PortalState extends PortalState {
   @override
   final bool signedOn;
 
-  factory _$PortalState([void Function(PortalStateBuilder) updates]) =>
+  factory _$PortalState([void Function(PortalStateBuilder)? updates]) =>
       (new PortalStateBuilder()..update(updates)).build();
 
   _$PortalState._(
-      {this.communication, this.incoming, this.outgoing, this.signedOn})
+      {required this.communication,
+      required this.incoming,
+      required this.outgoing,
+      required this.signedOn})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         communication, 'PortalState', 'communication');
@@ -129,24 +132,24 @@ class _$PortalState extends PortalState {
 }
 
 class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
-  _$PortalState _$v;
+  _$PortalState? _$v;
 
-  String _communication;
-  String get communication => _$this._communication;
-  set communication(String communication) =>
+  String? _communication;
+  String? get communication => _$this._communication;
+  set communication(String? communication) =>
       _$this._communication = communication;
 
-  bool _incoming;
-  bool get incoming => _$this._incoming;
-  set incoming(bool incoming) => _$this._incoming = incoming;
+  bool? _incoming;
+  bool? get incoming => _$this._incoming;
+  set incoming(bool? incoming) => _$this._incoming = incoming;
 
-  bool _outgoing;
-  bool get outgoing => _$this._outgoing;
-  set outgoing(bool outgoing) => _$this._outgoing = outgoing;
+  bool? _outgoing;
+  bool? get outgoing => _$this._outgoing;
+  set outgoing(bool? outgoing) => _$this._outgoing = outgoing;
 
-  bool _signedOn;
-  bool get signedOn => _$this._signedOn;
-  set signedOn(bool signedOn) => _$this._signedOn = signedOn;
+  bool? _signedOn;
+  bool? get signedOn => _$this._signedOn;
+  set signedOn(bool? signedOn) => _$this._signedOn = signedOn;
 
   PortalStateBuilder();
 
@@ -169,7 +172,7 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
   }
 
   @override
-  void update(void Function(PortalStateBuilder) updates) {
+  void update(void Function(PortalStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

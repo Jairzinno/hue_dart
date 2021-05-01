@@ -32,10 +32,10 @@ class Bridge {
   final ScheduleApi _scheduleApi;
   final SensorApi _sensorApi;
 
-  String _username;
+  late String _username;
 
   /// create a bridge with a platform specific [client]. Setting the optional [username] enables the use of calls on the bridge that require a username
-  Bridge(Client client, String address, [String username])
+  Bridge(Client client, String address, [String username = ''])
       : this._withApi(
             ConfigurationApi(BridgeClient(client, address)),
             GroupApi(BridgeClient(client, address)),
@@ -56,7 +56,7 @@ class Bridge {
       this._sceneApi,
       this._scheduleApi,
       this._sensorApi,
-      [String username]) {
+      [String username = '']) {
     this.username = username;
   }
 

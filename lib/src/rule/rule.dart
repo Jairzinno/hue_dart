@@ -10,61 +10,53 @@ import 'package:intl/intl.dart';
 part 'rule.g.dart';
 
 abstract class Rule with BridgeObject implements Built<Rule, RuleBuilder> {
-  @nullable
-  int get id;
+  int? get id;
 
   /// Human readable name of the rule.
-  @nullable
-  String get name;
+
+  String? get name;
 
   @BuiltValueField(wireName: 'lasttriggered')
-  @nullable
-  String get lastTriggered;
+  String? get lastTriggered;
 
   DateTime get lastTriggeredDate =>
-      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(lastTriggered!);
 
   @BuiltValueField(wireName: 'creationtime')
-  @nullable
-  String get creationTime;
+  String? get creationTime;
 
   DateTime get creationTimeDate =>
-      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime);
+      DateFormat("yyyy-MM-dd'T'HH:m:s").parse(creationTime!);
 
   @BuiltValueField(wireName: 'timestriggered')
-  @nullable
-  int get timesTriggered;
+  int? get timesTriggered;
 
-  @nullable
-  String get owner;
+  String? get owner;
 
-  @nullable
-  String get status;
+  String? get status;
 
-  @nullable
-  BuiltList<Condition> get conditions;
+  BuiltList<Condition>? get conditions;
 
-  @nullable
-  BuiltList<RuleAction> get actions;
+  BuiltList<RuleAction>? get actions;
 
-  @nullable
-  bool get recycle;
+  bool? get recycle;
 
   static Serializer<Rule> get serializer => _$ruleSerializer;
 
   Rule._();
 
-  factory Rule([updates(RuleBuilder b)]) = _$Rule;
+  factory Rule([updates(RuleBuilder b)?]) = _$Rule;
 
-  factory Rule.fromJson(Map json, {int id}) {
+  factory Rule.fromJson(Map? json, {int? id}) {
     return serializers
-        .deserializeWith(Rule.serializer, json)
+        .deserializeWith(Rule.serializer, json)!
         .rebuild((b) => b..id = id);
   }
 
   @override
-  Map toBridgeObject({String action}) {
-    Map result = serializers.serializeWith(Rule.serializer, this);
+  Map toBridgeObject({String? action}) {
+    Map result = serializers.serializeWith(Rule.serializer, this)
+        as Map<dynamic, dynamic>;
     result.remove('id');
     return result;
   }

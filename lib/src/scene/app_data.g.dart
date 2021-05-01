@@ -15,10 +15,10 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
   final String wireName = 'AppData';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AppData object,
+  Iterable<Object?> serialize(Serializers serializers, AppData object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.version;
     if (value != null) {
       result
@@ -36,7 +36,7 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
   }
 
   @override
-  AppData deserialize(Serializers serializers, Iterable<Object> serialized,
+  AppData deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AppDataBuilder();
 
@@ -44,7 +44,7 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'version':
           result.version = serializers.deserialize(value,
@@ -63,11 +63,11 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
 
 class _$AppData extends AppData {
   @override
-  final int version;
+  final int? version;
   @override
-  final String data;
+  final String? data;
 
-  factory _$AppData([void Function(AppDataBuilder) updates]) =>
+  factory _$AppData([void Function(AppDataBuilder)? updates]) =>
       (new AppDataBuilder()..update(updates)).build();
 
   _$AppData._({this.version, this.data}) : super._();
@@ -100,15 +100,15 @@ class _$AppData extends AppData {
 }
 
 class AppDataBuilder implements Builder<AppData, AppDataBuilder> {
-  _$AppData _$v;
+  _$AppData? _$v;
 
-  int _version;
-  int get version => _$this._version;
-  set version(int version) => _$this._version = version;
+  int? _version;
+  int? get version => _$this._version;
+  set version(int? version) => _$this._version = version;
 
-  String _data;
-  String get data => _$this._data;
-  set data(String data) => _$this._data = data;
+  String? _data;
+  String? get data => _$this._data;
+  set data(String? data) => _$this._data = data;
 
   AppDataBuilder();
 
@@ -129,7 +129,7 @@ class AppDataBuilder implements Builder<AppData, AppDataBuilder> {
   }
 
   @override
-  void update(void Function(AppDataBuilder) updates) {
+  void update(void Function(AppDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

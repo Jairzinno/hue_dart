@@ -8,22 +8,22 @@ part 'group_state.g.dart';
 
 abstract class GroupState implements Built<GroupState, GroupStateBuilder> {
   /// “false” if all lamps are off, “true” if at least one lamp is on
-  @nullable
+
   @BuiltValueField(wireName: 'any_on')
-  bool get anyOn;
+  bool? get anyOn;
 
   /// “false” if at least one lamp is off, “true” if all lamps are on
-  @nullable
+
   @BuiltValueField(wireName: 'all_on')
-  bool get allOn;
+  bool? get allOn;
 
   static Serializer<GroupState> get serializer => _$groupStateSerializer;
 
   GroupState._();
 
-  factory GroupState([updates(GroupStateBuilder b)]) = _$GroupState;
+  factory GroupState([updates(GroupStateBuilder b)?]) = _$GroupState;
 
-  static GroupState fromJson(String jsonString) {
+  static GroupState? fromJson(String jsonString) {
     return serializers.deserializeWith(
         GroupState.serializer, json.decode(jsonString));
   }

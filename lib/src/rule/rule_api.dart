@@ -6,9 +6,9 @@ import 'package:hue_dart/src/rule/rule.dart';
 
 class RuleApi {
   BridgeClient _client;
-  String _username;
+  late String _username;
 
-  RuleApi(this._client, [this._username]);
+  RuleApi(this._client, [this._username = '']);
 
   set username(String username) => this._username = username;
 
@@ -21,7 +21,7 @@ class RuleApi {
   List<Rule> _responseToRules(Map<String, dynamic> response) {
     final rules = <Rule>[];
     for (String id in response.keys) {
-      Map<String, dynamic> item = response[id];
+      Map<String, dynamic>? item = response[id];
       final rule = Rule.fromJson(item, id: int.parse(id));
       rules.add(rule);
     }

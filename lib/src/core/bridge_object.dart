@@ -1,3 +1,3 @@
 abstract class BridgeObject {
-  Map toBridgeObject({String action});
+  Map toBridgeObject({String? action});
 }

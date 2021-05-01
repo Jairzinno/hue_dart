@@ -6,9 +6,9 @@ import 'package:hue_dart/src/sensor/sensor.dart';
 
 class SensorApi {
   BridgeClient _client;
-  String _username;
+  late String _username;
 
-  SensorApi(this._client, [this._username]);
+  SensorApi(this._client, [this._username = '']);
 
   set username(String username) => this._username = username;
 

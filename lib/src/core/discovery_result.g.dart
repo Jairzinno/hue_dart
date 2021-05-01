@@ -17,10 +17,10 @@ class _$DiscoveryResultSerializer
   final String wireName = 'DiscoveryResult';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, DiscoveryResult object,
+  Iterable<Object?> serialize(Serializers serializers, DiscoveryResult object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.id;
     if (value != null) {
       result
@@ -68,7 +68,7 @@ class _$DiscoveryResultSerializer
 
   @override
   DiscoveryResult deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new DiscoveryResultBuilder();
 
@@ -76,7 +76,7 @@ class _$DiscoveryResultSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -111,19 +111,19 @@ class _$DiscoveryResultSerializer
 
 class _$DiscoveryResult extends DiscoveryResult {
   @override
-  final String id;
+  final String? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String mac;
+  final String? mac;
   @override
-  final String apiVersion;
+  final String? apiVersion;
   @override
-  final String ipAddress;
+  final String? ipAddress;
   @override
-  final String swVersion;
+  final String? swVersion;
 
-  factory _$DiscoveryResult([void Function(DiscoveryResultBuilder) updates]) =>
+  factory _$DiscoveryResult([void Function(DiscoveryResultBuilder)? updates]) =>
       (new DiscoveryResultBuilder()..update(updates)).build();
 
   _$DiscoveryResult._(
@@ -180,31 +180,31 @@ class _$DiscoveryResult extends DiscoveryResult {
 
 class DiscoveryResultBuilder
     implements Builder<DiscoveryResult, DiscoveryResultBuilder> {
-  _$DiscoveryResult _$v;
+  _$DiscoveryResult? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _mac;
-  String get mac => _$this._mac;
-  set mac(String mac) => _$this._mac = mac;
+  String? _mac;
+  String? get mac => _$this._mac;
+  set mac(String? mac) => _$this._mac = mac;
 
-  String _apiVersion;
-  String get apiVersion => _$this._apiVersion;
-  set apiVersion(String apiVersion) => _$this._apiVersion = apiVersion;
+  String? _apiVersion;
+  String? get apiVersion => _$this._apiVersion;
+  set apiVersion(String? apiVersion) => _$this._apiVersion = apiVersion;
 
-  String _ipAddress;
-  String get ipAddress => _$this._ipAddress;
-  set ipAddress(String ipAddress) => _$this._ipAddress = ipAddress;
+  String? _ipAddress;
+  String? get ipAddress => _$this._ipAddress;
+  set ipAddress(String? ipAddress) => _$this._ipAddress = ipAddress;
 
-  String _swVersion;
-  String get swVersion => _$this._swVersion;
-  set swVersion(String swVersion) => _$this._swVersion = swVersion;
+  String? _swVersion;
+  String? get swVersion => _$this._swVersion;
+  set swVersion(String? swVersion) => _$this._swVersion = swVersion;
 
   DiscoveryResultBuilder();
 
@@ -229,7 +229,7 @@ class DiscoveryResultBuilder
   }
 
   @override
-  void update(void Function(DiscoveryResultBuilder) updates) {
+  void update(void Function(DiscoveryResultBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

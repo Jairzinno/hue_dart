@@ -15,10 +15,10 @@ class _$LightSerializer implements StructuredSerializer<Light> {
   final String wireName = 'Light';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Light object,
+  Iterable<Object?> serialize(Serializers serializers, Light object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.id;
     if (value != null) {
       result
@@ -85,7 +85,7 @@ class _$LightSerializer implements StructuredSerializer<Light> {
   }
 
   @override
-  Light deserialize(Serializers serializers, Iterable<Object> serialized,
+  Light deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LightBuilder();
 
@@ -93,7 +93,7 @@ class _$LightSerializer implements StructuredSerializer<Light> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -109,7 +109,7 @@ class _$LightSerializer implements StructuredSerializer<Light> {
           break;
         case 'state':
           result.state.replace(serializers.deserialize(value,
-              specifiedType: const FullType(LightState)) as LightState);
+              specifiedType: const FullType(LightState))! as LightState);
           break;
         case 'modelid':
           result.modelId = serializers.deserialize(value,
@@ -140,28 +140,30 @@ class _$LightSerializer implements StructuredSerializer<Light> {
 
 class _$Light extends Light {
   @override
-  final int id;
+  final int? id;
   @override
-  final String type;
+  final String? type;
   @override
-  final String name;
+  final String? name;
   @override
-  final LightState state;
+  final LightState? state;
   @override
-  final String modelId;
+  final String? modelId;
   @override
-  final String uniqueId;
+  final String? uniqueId;
   @override
-  final String manufacturerName;
+  final String? manufacturerName;
   @override
-  final String luminaireUniqueId;
+  final String? luminaireUniqueId;
   @override
-  final String swVersion;
-  String __productName;
-  HueColor __colors;
-  LightModel __model;
+  final String? swVersion;
+  String? __productName;
+  HueColor? __colors;
+  bool ___colors = false;
+  LightModel? __model;
+  bool ___model = false;
 
-  factory _$Light([void Function(LightBuilder) updates]) =>
+  factory _$Light([void Function(LightBuilder)? updates]) =>
       (new LightBuilder()..update(updates)).build();
 
   _$Light._(
@@ -180,10 +182,22 @@ class _$Light extends Light {
   String get productName => __productName ??= super.productName;
 
   @override
-  HueColor get colors => __colors ??= super.colors;
+  HueColor? get colors {
+    if (!___colors) {
+      __colors = super.colors;
+      ___colors = true;
+    }
+    return __colors;
+  }
 
   @override
-  LightModel get model => __model ??= super.model;
+  LightModel? get model {
+    if (!___model) {
+      __model = super.model;
+      ___model = true;
+    }
+    return __model;
+  }
 
   @override
   Light rebuild(void Function(LightBuilder) updates) =>
@@ -242,45 +256,45 @@ class _$Light extends Light {
 }
 
 class LightBuilder implements Builder<Light, LightBuilder> {
-  _$Light _$v;
+  _$Light? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _type;
-  String get type => _$this._type;
-  set type(String type) => _$this._type = type;
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  LightStateBuilder _state;
+  LightStateBuilder? _state;
   LightStateBuilder get state => _$this._state ??= new LightStateBuilder();
-  set state(LightStateBuilder state) => _$this._state = state;
+  set state(LightStateBuilder? state) => _$this._state = state;
 
-  String _modelId;
-  String get modelId => _$this._modelId;
-  set modelId(String modelId) => _$this._modelId = modelId;
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
 
-  String _uniqueId;
-  String get uniqueId => _$this._uniqueId;
-  set uniqueId(String uniqueId) => _$this._uniqueId = uniqueId;
+  String? _uniqueId;
+  String? get uniqueId => _$this._uniqueId;
+  set uniqueId(String? uniqueId) => _$this._uniqueId = uniqueId;
 
-  String _manufacturerName;
-  String get manufacturerName => _$this._manufacturerName;
-  set manufacturerName(String manufacturerName) =>
+  String? _manufacturerName;
+  String? get manufacturerName => _$this._manufacturerName;
+  set manufacturerName(String? manufacturerName) =>
       _$this._manufacturerName = manufacturerName;
 
-  String _luminaireUniqueId;
-  String get luminaireUniqueId => _$this._luminaireUniqueId;
-  set luminaireUniqueId(String luminaireUniqueId) =>
+  String? _luminaireUniqueId;
+  String? get luminaireUniqueId => _$this._luminaireUniqueId;
+  set luminaireUniqueId(String? luminaireUniqueId) =>
       _$this._luminaireUniqueId = luminaireUniqueId;
 
-  String _swVersion;
-  String get swVersion => _$this._swVersion;
-  set swVersion(String swVersion) => _$this._swVersion = swVersion;
+  String? _swVersion;
+  String? get swVersion => _$this._swVersion;
+  set swVersion(String? swVersion) => _$this._swVersion = swVersion;
 
   LightBuilder();
 
@@ -308,7 +322,7 @@ class LightBuilder implements Builder<Light, LightBuilder> {
   }
 
   @override
-  void update(void Function(LightBuilder) updates) {
+  void update(void Function(LightBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -328,7 +342,7 @@ class LightBuilder implements Builder<Light, LightBuilder> {
               luminaireUniqueId: luminaireUniqueId,
               swVersion: swVersion);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'state';
         _state?.build();

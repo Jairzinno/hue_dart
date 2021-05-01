@@ -17,9 +17,9 @@ class _$InternetServicesSerializer
   final String wireName = 'InternetServices';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, InternetServices object,
+  Iterable<Object?> serialize(Serializers serializers, InternetServices object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'internet',
       serializers.serialize(object.internet,
           specifiedType: const FullType(String)),
@@ -38,7 +38,7 @@ class _$InternetServicesSerializer
 
   @override
   InternetServices deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new InternetServicesBuilder();
 
@@ -46,7 +46,7 @@ class _$InternetServicesSerializer
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'internet':
           result.internet = serializers.deserialize(value,
@@ -82,11 +82,14 @@ class _$InternetServices extends InternetServices {
   final String swUpdate;
 
   factory _$InternetServices(
-          [void Function(InternetServicesBuilder) updates]) =>
+          [void Function(InternetServicesBuilder)? updates]) =>
       (new InternetServicesBuilder()..update(updates)).build();
 
   _$InternetServices._(
-      {this.internet, this.remoteAccess, this.time, this.swUpdate})
+      {required this.internet,
+      required this.remoteAccess,
+      required this.time,
+      required this.swUpdate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         internet, 'InternetServices', 'internet');
@@ -136,23 +139,23 @@ class _$InternetServices extends InternetServices {
 
 class InternetServicesBuilder
     implements Builder<InternetServices, InternetServicesBuilder> {
-  _$InternetServices _$v;
+  _$InternetServices? _$v;
 
-  String _internet;
-  String get internet => _$this._internet;
-  set internet(String internet) => _$this._internet = internet;
+  String? _internet;
+  String? get internet => _$this._internet;
+  set internet(String? internet) => _$this._internet = internet;
 
-  String _remoteAccess;
-  String get remoteAccess => _$this._remoteAccess;
-  set remoteAccess(String remoteAccess) => _$this._remoteAccess = remoteAccess;
+  String? _remoteAccess;
+  String? get remoteAccess => _$this._remoteAccess;
+  set remoteAccess(String? remoteAccess) => _$this._remoteAccess = remoteAccess;
 
-  String _time;
-  String get time => _$this._time;
-  set time(String time) => _$this._time = time;
+  String? _time;
+  String? get time => _$this._time;
+  set time(String? time) => _$this._time = time;
 
-  String _swUpdate;
-  String get swUpdate => _$this._swUpdate;
-  set swUpdate(String swUpdate) => _$this._swUpdate = swUpdate;
+  String? _swUpdate;
+  String? get swUpdate => _$this._swUpdate;
+  set swUpdate(String? swUpdate) => _$this._swUpdate = swUpdate;
 
   InternetServicesBuilder();
 
@@ -175,7 +178,7 @@ class InternetServicesBuilder
   }
 
   @override
-  void update(void Function(InternetServicesBuilder) updates) {
+  void update(void Function(InternetServicesBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

@@ -15,10 +15,10 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
   final String wireName = 'GroupState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, GroupState object,
+  Iterable<Object?> serialize(Serializers serializers, GroupState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.anyOn;
     if (value != null) {
       result
@@ -37,7 +37,7 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
   }
 
   @override
-  GroupState deserialize(Serializers serializers, Iterable<Object> serialized,
+  GroupState deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GroupStateBuilder();
 
@@ -45,7 +45,7 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'any_on':
           result.anyOn = serializers.deserialize(value,
@@ -64,11 +64,11 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
 
 class _$GroupState extends GroupState {
   @override
-  final bool anyOn;
+  final bool? anyOn;
   @override
-  final bool allOn;
+  final bool? allOn;
 
-  factory _$GroupState([void Function(GroupStateBuilder) updates]) =>
+  factory _$GroupState([void Function(GroupStateBuilder)? updates]) =>
       (new GroupStateBuilder()..update(updates)).build();
 
   _$GroupState._({this.anyOn, this.allOn}) : super._();
@@ -101,15 +101,15 @@ class _$GroupState extends GroupState {
 }
 
 class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
-  _$GroupState _$v;
+  _$GroupState? _$v;
 
-  bool _anyOn;
-  bool get anyOn => _$this._anyOn;
-  set anyOn(bool anyOn) => _$this._anyOn = anyOn;
+  bool? _anyOn;
+  bool? get anyOn => _$this._anyOn;
+  set anyOn(bool? anyOn) => _$this._anyOn = anyOn;
 
-  bool _allOn;
-  bool get allOn => _$this._allOn;
-  set allOn(bool allOn) => _$this._allOn = allOn;
+  bool? _allOn;
+  bool? get allOn => _$this._allOn;
+  set allOn(bool? allOn) => _$this._allOn = allOn;
 
   GroupStateBuilder();
 
@@ -130,7 +130,7 @@ class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
   }
 
   @override
-  void update(void Function(GroupStateBuilder) updates) {
+  void update(void Function(GroupStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

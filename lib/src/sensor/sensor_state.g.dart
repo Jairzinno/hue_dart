@@ -15,10 +15,10 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
   final String wireName = 'SensorState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, SensorState object,
+  Iterable<Object?> serialize(Serializers serializers, SensorState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.presence;
     if (value != null) {
       result
@@ -56,7 +56,7 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
   }
 
   @override
-  SensorState deserialize(Serializers serializers, Iterable<Object> serialized,
+  SensorState deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SensorStateBuilder();
 
@@ -64,7 +64,7 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'presence':
           result.presence = serializers.deserialize(value,
@@ -95,17 +95,17 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
 
 class _$SensorState extends SensorState {
   @override
-  final bool presence;
+  final bool? presence;
   @override
-  final String lastUpdated;
+  final String? lastUpdated;
   @override
-  final int temperature;
+  final int? temperature;
   @override
-  final int buttonEvent;
+  final int? buttonEvent;
   @override
-  final String daylight;
+  final String? daylight;
 
-  factory _$SensorState([void Function(SensorStateBuilder) updates]) =>
+  factory _$SensorState([void Function(SensorStateBuilder)? updates]) =>
       (new SensorStateBuilder()..update(updates)).build();
 
   _$SensorState._(
@@ -157,27 +157,27 @@ class _$SensorState extends SensorState {
 }
 
 class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
-  _$SensorState _$v;
+  _$SensorState? _$v;
 
-  bool _presence;
-  bool get presence => _$this._presence;
-  set presence(bool presence) => _$this._presence = presence;
+  bool? _presence;
+  bool? get presence => _$this._presence;
+  set presence(bool? presence) => _$this._presence = presence;
 
-  String _lastUpdated;
-  String get lastUpdated => _$this._lastUpdated;
-  set lastUpdated(String lastUpdated) => _$this._lastUpdated = lastUpdated;
+  String? _lastUpdated;
+  String? get lastUpdated => _$this._lastUpdated;
+  set lastUpdated(String? lastUpdated) => _$this._lastUpdated = lastUpdated;
 
-  int _temperature;
-  int get temperature => _$this._temperature;
-  set temperature(int temperature) => _$this._temperature = temperature;
+  int? _temperature;
+  int? get temperature => _$this._temperature;
+  set temperature(int? temperature) => _$this._temperature = temperature;
 
-  int _buttonEvent;
-  int get buttonEvent => _$this._buttonEvent;
-  set buttonEvent(int buttonEvent) => _$this._buttonEvent = buttonEvent;
+  int? _buttonEvent;
+  int? get buttonEvent => _$this._buttonEvent;
+  set buttonEvent(int? buttonEvent) => _$this._buttonEvent = buttonEvent;
 
-  String _daylight;
-  String get daylight => _$this._daylight;
-  set daylight(String daylight) => _$this._daylight = daylight;
+  String? _daylight;
+  String? get daylight => _$this._daylight;
+  set daylight(String? daylight) => _$this._daylight = daylight;
 
   SensorStateBuilder();
 
@@ -201,7 +201,7 @@ class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
   }
 
   @override
-  void update(void Function(SensorStateBuilder) updates) {
+  void update(void Function(SensorStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 

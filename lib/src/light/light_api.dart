@@ -6,9 +6,9 @@ import 'package:hue_dart/src/light/light.dart';
 
 class LightApi {
   BridgeClient _client;
-  String _username;
+  late String _username;
 
-  LightApi(this._client, [this._username]);
+  LightApi(this._client, [this._username = '']);
 
   set username(String username) => this._username = username;
 
@@ -52,7 +52,7 @@ class LightApi {
 
     final lights = <Light>[];
     for (String id in response.keys) {
-      if (id != 'lastscan') {
+      if (int.tryParse(id) != null) {
         lights.add(await single(int.parse(id)));
       }
     }

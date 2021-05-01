@@ -36,9 +36,7 @@ class PushlinkBloc extends BlocBase {
   StreamController<String> _start = StreamController();
   Sink<String> get start => _start.sink;
 
-  PushlinkBloc(this._pushlinkStorage, this._discovery) {
-    init();
-  }
+  PushlinkBloc(this._pushlinkStorage, this._discovery);
 
   @override
   Future<void> init() async {
@@ -76,7 +74,7 @@ class PushlinkBloc extends BlocBase {
       final hasUsername = response.username != null;
       if (hasUsername) {
         final savedUsername =
-            await _pushlinkStorage.saveUsername(response.username);
+            await _pushlinkStorage.saveUsername(response.username!);
         _hasUsername.add(savedUsername);
         break;
       }

@@ -21,10 +21,10 @@ abstract class SoftwareUpdateBridge
 
   SoftwareUpdateBridge._();
 
-  factory SoftwareUpdateBridge([updates(SoftwareUpdateBridgeBuilder b)]) =
+  factory SoftwareUpdateBridge([updates(SoftwareUpdateBridgeBuilder b)?]) =
       _$SoftwareUpdateBridge;
 
   factory SoftwareUpdateBridge.fromJson(Map json) {
-    return serializers.deserializeWith(SoftwareUpdateBridge.serializer, json);
+    return serializers.deserializeWith(SoftwareUpdateBridge.serializer, json)!;
   }
 }

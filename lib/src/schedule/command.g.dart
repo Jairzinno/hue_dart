@@ -15,9 +15,9 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
   final String wireName = 'Command';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Command object,
+  Iterable<Object?> serialize(Serializers serializers, Command object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'address',
       serializers.serialize(object.address,
           specifiedType: const FullType(String)),
@@ -34,7 +34,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
   }
 
   @override
-  Command deserialize(Serializers serializers, Iterable<Object> serialized,
+  Command deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CommandBuilder();
 
@@ -42,7 +42,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
@@ -55,7 +55,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
         case 'body':
           result.body.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)])));
+                  const [const FullType(String), const FullType(String)]))!);
           break;
       }
     }
@@ -72,10 +72,11 @@ class _$Command extends Command {
   @override
   final BuiltMap<String, String> body;
 
-  factory _$Command([void Function(CommandBuilder) updates]) =>
+  factory _$Command([void Function(CommandBuilder)? updates]) =>
       (new CommandBuilder()..update(updates)).build();
 
-  _$Command._({this.address, this.method, this.body}) : super._() {
+  _$Command._({required this.address, required this.method, required this.body})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(address, 'Command', 'address');
     BuiltValueNullFieldError.checkNotNull(method, 'Command', 'method');
     BuiltValueNullFieldError.checkNotNull(body, 'Command', 'body');
@@ -114,20 +115,20 @@ class _$Command extends Command {
 }
 
 class CommandBuilder implements Builder<Command, CommandBuilder> {
-  _$Command _$v;
+  _$Command? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _method;
-  String get method => _$this._method;
-  set method(String method) => _$this._method = method;
+  String? _method;
+  String? get method => _$this._method;
+  set method(String? method) => _$this._method = method;
 
-  MapBuilder<String, String> _body;
+  MapBuilder<String, String>? _body;
   MapBuilder<String, String> get body =>
       _$this._body ??= new MapBuilder<String, String>();
-  set body(MapBuilder<String, String> body) => _$this._body = body;
+  set body(MapBuilder<String, String>? body) => _$this._body = body;
 
   CommandBuilder();
 
@@ -149,7 +150,7 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   }
 
   @override
-  void update(void Function(CommandBuilder) updates) {
+  void update(void Function(CommandBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -165,7 +166,7 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
                   method, 'Command', 'method'),
               body: body.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'body';
         body.build();

@@ -15,10 +15,10 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
   final String wireName = 'Group';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Group object,
+  Iterable<Object?> serialize(Serializers serializers, Group object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.id;
     if (value != null) {
       result
@@ -101,7 +101,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
   }
 
   @override
-  Group deserialize(Serializers serializers, Iterable<Object> serialized,
+  Group deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GroupBuilder();
 
@@ -109,7 +109,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
@@ -129,14 +129,14 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
           break;
         case 'lights':
           result.lightIds.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
               as BuiltList<Object>);
           break;
         case 'groupLights':
           result.groupLights.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(Light)]))
+                      const FullType(BuiltList, const [const FullType(Light)]))!
               as BuiltList<Object>);
           break;
         case 'recycle':
@@ -153,11 +153,11 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
           break;
         case 'state':
           result.state.replace(serializers.deserialize(value,
-              specifiedType: const FullType(GroupState)) as GroupState);
+              specifiedType: const FullType(GroupState))! as GroupState);
           break;
         case 'action':
           result.action.replace(serializers.deserialize(value,
-              specifiedType: const FullType(GroupAction)) as GroupAction);
+              specifiedType: const FullType(GroupAction))! as GroupAction);
           break;
       }
     }
@@ -168,30 +168,31 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
 
 class _$Group extends Group {
   @override
-  final int id;
+  final int? id;
   @override
-  final String type;
+  final String? type;
   @override
-  final String name;
+  final String? name;
   @override
-  final String className;
+  final String? className;
   @override
-  final BuiltList<String> lightIds;
+  final BuiltList<String>? lightIds;
   @override
-  final BuiltList<Light> groupLights;
+  final BuiltList<Light>? groupLights;
   @override
-  final bool recycle;
+  final bool? recycle;
   @override
-  final String modelId;
+  final String? modelId;
   @override
-  final String uniqueId;
+  final String? uniqueId;
   @override
-  final GroupState state;
+  final GroupState? state;
   @override
-  final GroupAction action;
-  HueColor __colors;
+  final GroupAction? action;
+  HueColor? __colors;
+  bool ___colors = false;
 
-  factory _$Group([void Function(GroupBuilder) updates]) =>
+  factory _$Group([void Function(GroupBuilder)? updates]) =>
       (new GroupBuilder()..update(updates)).build();
 
   _$Group._(
@@ -209,7 +210,13 @@ class _$Group extends Group {
       : super._();
 
   @override
-  HueColor get colors => __colors ??= super.colors;
+  HueColor? get colors {
+    if (!___colors) {
+      __colors = super.colors;
+      ___colors = true;
+    }
+    return __colors;
+  }
 
   @override
   Group rebuild(void Function(GroupBuilder) updates) =>
@@ -276,54 +283,54 @@ class _$Group extends Group {
 }
 
 class GroupBuilder implements Builder<Group, GroupBuilder> {
-  _$Group _$v;
+  _$Group? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _type;
-  String get type => _$this._type;
-  set type(String type) => _$this._type = type;
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _className;
-  String get className => _$this._className;
-  set className(String className) => _$this._className = className;
+  String? _className;
+  String? get className => _$this._className;
+  set className(String? className) => _$this._className = className;
 
-  ListBuilder<String> _lightIds;
+  ListBuilder<String>? _lightIds;
   ListBuilder<String> get lightIds =>
       _$this._lightIds ??= new ListBuilder<String>();
-  set lightIds(ListBuilder<String> lightIds) => _$this._lightIds = lightIds;
+  set lightIds(ListBuilder<String>? lightIds) => _$this._lightIds = lightIds;
 
-  ListBuilder<Light> _groupLights;
+  ListBuilder<Light>? _groupLights;
   ListBuilder<Light> get groupLights =>
       _$this._groupLights ??= new ListBuilder<Light>();
-  set groupLights(ListBuilder<Light> groupLights) =>
+  set groupLights(ListBuilder<Light>? groupLights) =>
       _$this._groupLights = groupLights;
 
-  bool _recycle;
-  bool get recycle => _$this._recycle;
-  set recycle(bool recycle) => _$this._recycle = recycle;
+  bool? _recycle;
+  bool? get recycle => _$this._recycle;
+  set recycle(bool? recycle) => _$this._recycle = recycle;
 
-  String _modelId;
-  String get modelId => _$this._modelId;
-  set modelId(String modelId) => _$this._modelId = modelId;
+  String? _modelId;
+  String? get modelId => _$this._modelId;
+  set modelId(String? modelId) => _$this._modelId = modelId;
 
-  String _uniqueId;
-  String get uniqueId => _$this._uniqueId;
-  set uniqueId(String uniqueId) => _$this._uniqueId = uniqueId;
+  String? _uniqueId;
+  String? get uniqueId => _$this._uniqueId;
+  set uniqueId(String? uniqueId) => _$this._uniqueId = uniqueId;
 
-  GroupStateBuilder _state;
+  GroupStateBuilder? _state;
   GroupStateBuilder get state => _$this._state ??= new GroupStateBuilder();
-  set state(GroupStateBuilder state) => _$this._state = state;
+  set state(GroupStateBuilder? state) => _$this._state = state;
 
-  GroupActionBuilder _action;
+  GroupActionBuilder? _action;
   GroupActionBuilder get action => _$this._action ??= new GroupActionBuilder();
-  set action(GroupActionBuilder action) => _$this._action = action;
+  set action(GroupActionBuilder? action) => _$this._action = action;
 
   GroupBuilder();
 
@@ -353,7 +360,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
   }
 
   @override
-  void update(void Function(GroupBuilder) updates) {
+  void update(void Function(GroupBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -375,7 +382,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
               state: _state?.build(),
               action: _action?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'lightIds';
         _lightIds?.build();

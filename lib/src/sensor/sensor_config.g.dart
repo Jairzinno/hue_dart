@@ -16,10 +16,10 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
   final String wireName = 'SensorConfig';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, SensorConfig object,
+  Iterable<Object?> serialize(Serializers serializers, SensorConfig object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.on;
     if (value != null) {
       result
@@ -44,7 +44,8 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
   }
 
   @override
-  SensorConfig deserialize(Serializers serializers, Iterable<Object> serialized,
+  SensorConfig deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SensorConfigBuilder();
 
@@ -52,7 +53,7 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
@@ -75,13 +76,13 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
 
 class _$SensorConfig extends SensorConfig {
   @override
-  final bool on;
+  final bool? on;
   @override
-  final bool reachable;
+  final bool? reachable;
   @override
-  final int battery;
+  final int? battery;
 
-  factory _$SensorConfig([void Function(SensorConfigBuilder) updates]) =>
+  factory _$SensorConfig([void Function(SensorConfigBuilder)? updates]) =>
       (new SensorConfigBuilder()..update(updates)).build();
 
   _$SensorConfig._({this.on, this.reachable, this.battery}) : super._();
@@ -120,19 +121,19 @@ class _$SensorConfig extends SensorConfig {
 
 class SensorConfigBuilder
     implements Builder<SensorConfig, SensorConfigBuilder> {
-  _$SensorConfig _$v;
+  _$SensorConfig? _$v;
 
-  bool _on;
-  bool get on => _$this._on;
-  set on(bool on) => _$this._on = on;
+  bool? _on;
+  bool? get on => _$this._on;
+  set on(bool? on) => _$this._on = on;
 
-  bool _reachable;
-  bool get reachable => _$this._reachable;
-  set reachable(bool reachable) => _$this._reachable = reachable;
+  bool? _reachable;
+  bool? get reachable => _$this._reachable;
+  set reachable(bool? reachable) => _$this._reachable = reachable;
 
-  int _battery;
-  int get battery => _$this._battery;
-  set battery(int battery) => _$this._battery = battery;
+  int? _battery;
+  int? get battery => _$this._battery;
+  set battery(int? battery) => _$this._battery = battery;
 
   SensorConfigBuilder();
 
@@ -154,7 +155,7 @@ class SensorConfigBuilder
   }
 
   @override
-  void update(void Function(SensorConfigBuilder) updates) {
+  void update(void Function(SensorConfigBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
