@@ -1,3 +1,8 @@
+## [0.3.0] - 01-05-2021
+
+- Add support for null-safety.
+- Require Dart 2.12 or later.
+
 ## [0.2.1] - 15-12-2019
 
 - Updated README
