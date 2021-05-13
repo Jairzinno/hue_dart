@@ -18,9 +18,9 @@ class BridgeClient {
 
   Future<Map<String, dynamic>> get(String url) async {
     final response = await _client.get(Uri.parse('$_address$url'));
-    final responseMap = json.decode(response.body) as Map<String, dynamic>;
+    final responseMap = json.decode(response.body);
     _checkException(responseMap);
-    return responseMap;
+    return responseMap as Map<String, dynamic>;
   }
 
   void _checkException(dynamic response) {
