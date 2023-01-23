@@ -11,6 +11,11 @@ Future<void> main(List<String> arguments) async {
   final discovery = BridgeDiscovery(client);
 
   final discoverResults = await discovery.automatic();
+  if (discoverResults.isEmpty) {
+    print('No hue hub/device got discovered');
+    return;
+  }
+
   final discoveryResult = discoverResults.first;
 
   //create bridge
@@ -32,9 +37,11 @@ Future<void> main(List<String> arguments) async {
       ..on = true
       ..brightness = 10,
   );
-  await bridge.updateLightState(light.rebuild(
-    (l) => l..state = state.toBuilder(),
-  ));
+  await bridge.updateLightState(
+    light.rebuild(
+      (l) => l..state = state.toBuilder(),
+    ),
+  );
 }
 
 LightState lightStateForColorOnly(Light _light) {
