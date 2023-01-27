@@ -11,6 +11,13 @@ dependencies:
  built_value: ^8.4.3
  http: ^0.13.5
  intl: ^0.18.0
+ # TODO: Switch to the pub.dev pacakge whenever there is newer version then 3.0.0 as it missing
+ # mdns features
+ network_tools:
+  git:
+   url: 'https://github.com/guyluz11/network_tools.git'
+   path: 'network_tools'
+
 
 dev_dependencies:
  built_value_generator: ^8.4.3
