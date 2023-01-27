@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
+import 'package:built_value/standard_json_plugin.dart';
 import 'package:hue_dart/src/configuration/auto_install.dart';
 import 'package:hue_dart/src/configuration/backup.dart';
 import 'package:hue_dart/src/configuration/configuration.dart';
@@ -11,8 +12,8 @@ import 'package:hue_dart/src/configuration/whitelist_item.dart';
 import 'package:hue_dart/src/core/bridge_exception.dart';
 import 'package:hue_dart/src/core/discovery_result.dart';
 import 'package:hue_dart/src/core/hue_color.dart';
-import 'package:hue_dart/src/group/group_action.dart';
 import 'package:hue_dart/src/group/group.dart';
+import 'package:hue_dart/src/group/group_action.dart';
 import 'package:hue_dart/src/group/group_state.dart';
 import 'package:hue_dart/src/light/light.dart';
 import 'package:hue_dart/src/light/light_state.dart';
@@ -26,7 +27,6 @@ import 'package:hue_dart/src/schedule/command.dart';
 import 'package:hue_dart/src/schedule/schedule.dart';
 import 'package:hue_dart/src/sensor/sensor.dart';
 import 'package:hue_dart/src/sensor/sensor_config.dart';
-import 'package:built_value/standard_json_plugin.dart';
 import 'package:hue_dart/src/sensor/sensor_state.dart';
 
 part 'serializers.g.dart';

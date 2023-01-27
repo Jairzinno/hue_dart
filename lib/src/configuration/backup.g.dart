@@ -16,14 +16,14 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, BackUp object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[
       'status',
       serializers.serialize(object.status,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
       'errorcode',
       serializers.serialize(object.errorCode,
-          specifiedType: const FullType(int)),
+          specifiedType: const FullType(int),),
     ];
 
     return result;
@@ -31,7 +31,7 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
 
   @override
   BackUp deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new BackUpBuilder();
 
     final iterator = serialized.iterator;
@@ -42,11 +42,11 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
       switch (key) {
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'errorcode':
           result.errorCode = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
       }
     }
@@ -134,14 +134,14 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
 
   @override
   _$BackUp build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$BackUp._(
             status: BuiltValueNullFieldError.checkNotNull(
-                status, 'BackUp', 'status'),
+                status, 'BackUp', 'status',),
             errorCode: BuiltValueNullFieldError.checkNotNull(
-                errorCode, 'BackUp', 'errorCode'));
-    replace(_$result);
-    return _$result;
+                errorCode, 'BackUp', 'errorCode',),);
+    replace($result);
+    return $result;
   }
 }
 

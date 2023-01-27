@@ -44,17 +44,17 @@ Future<void> main(List<String> arguments) async {
   );
 }
 
-LightState lightStateForColorOnly(Light _light) {
+LightState lightStateForColorOnly(Light light) {
   LightState state;
-  if (_light.state!.colorMode == 'xy') {
-    state = LightState((b) => b..xy = _light.state!.xy!.toBuilder());
-  } else if (_light.state!.colorMode == 'ct') {
-    state = LightState((b) => b..ct = _light.state!.ct);
+  if (light.state!.colorMode == 'xy') {
+    state = LightState((b) => b..xy = light.state!.xy!.toBuilder());
+  } else if (light.state!.colorMode == 'ct') {
+    state = LightState((b) => b..ct = light.state!.ct);
   } else {
     state = LightState((b) => b
-      ..hue = _light.state!.hue
-      ..saturation = _light.state!.saturation
-      ..brightness = _light.state!.brightness);
+      ..hue = light.state!.hue
+      ..saturation = light.state!.saturation
+      ..brightness = light.state!.brightness,);
   }
   return state;
 }

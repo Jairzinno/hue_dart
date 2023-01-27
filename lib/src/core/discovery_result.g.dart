@@ -18,7 +18,7 @@ class _$DiscoveryResultSerializer
 
   @override
   Iterable<Object?> serialize(Serializers serializers, DiscoveryResult object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -26,42 +26,42 @@ class _$DiscoveryResultSerializer
       result
         ..add('id')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.mac;
     if (value != null) {
       result
         ..add('mac')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.apiVersion;
     if (value != null) {
       result
         ..add('apiversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.ipAddress;
     if (value != null) {
       result
         ..add('internalipaddress')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.swVersion;
     if (value != null) {
       result
         ..add('swversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
@@ -69,7 +69,7 @@ class _$DiscoveryResultSerializer
   @override
   DiscoveryResult deserialize(
       Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new DiscoveryResultBuilder();
 
     final iterator = serialized.iterator;
@@ -80,27 +80,27 @@ class _$DiscoveryResultSerializer
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'mac':
           result.mac = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'apiversion':
           result.apiVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'internalipaddress':
           result.ipAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'swversion':
           result.swVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -132,7 +132,7 @@ class _$DiscoveryResult extends DiscoveryResult {
       this.mac,
       this.apiVersion,
       this.ipAddress,
-      this.swVersion})
+      this.swVersion,})
       : super._();
 
   @override
@@ -160,9 +160,9 @@ class _$DiscoveryResult extends DiscoveryResult {
     return $jf($jc(
         $jc(
             $jc($jc($jc($jc(0, id.hashCode), name.hashCode), mac.hashCode),
-                apiVersion.hashCode),
-            ipAddress.hashCode),
-        swVersion.hashCode));
+                apiVersion.hashCode,),
+            ipAddress.hashCode,),
+        swVersion.hashCode,),);
   }
 
   @override
@@ -235,16 +235,16 @@ class DiscoveryResultBuilder
 
   @override
   _$DiscoveryResult build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$DiscoveryResult._(
             id: id,
             name: name,
             mac: mac,
             apiVersion: apiVersion,
             ipAddress: ipAddress,
-            swVersion: swVersion);
-    replace(_$result);
-    return _$result;
+            swVersion: swVersion,);
+    replace($result);
+    return $result;
   }
 }
 

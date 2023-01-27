@@ -16,7 +16,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, LightState object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.on;
@@ -24,7 +24,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
       result
         ..add('on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.brightness;
     if (value != null) {
@@ -50,7 +50,7 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
         ..add('xy')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(num)])));
+                const FullType(BuiltList, const [const FullType(num)]),),);
     }
     value = object.ct;
     if (value != null) {
@@ -63,42 +63,42 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
       result
         ..add('alert')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.effect;
     if (value != null) {
       result
         ..add('effect')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.colorMode;
     if (value != null) {
       result
         ..add('colormode')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.reachable;
     if (value != null) {
       result
         ..add('reachable')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.mode;
     if (value != null) {
       result
         ..add('mode')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   LightState deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new LightStateBuilder();
 
     final iterator = serialized.iterator;
@@ -109,49 +109,49 @@ class _$LightStateSerializer implements StructuredSerializer<LightState> {
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'bri':
           result.brightness = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'hue':
           result.hue = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'sat':
           result.saturation = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'xy':
           result.xy.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(num)]))!
-              as BuiltList<Object>);
+                      const FullType(BuiltList, const [const FullType(num)]),)!
+              as BuiltList<Object>,);
           break;
         case 'ct':
           result.ct = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'alert':
           result.alert = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'effect':
           result.effect = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'colormode':
           result.colorMode = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'reachable':
           result.reachable = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'mode':
           result.mode = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -198,7 +198,7 @@ class _$LightState extends LightState {
       this.effect,
       this.colorMode,
       this.reachable,
-      this.mode})
+      this.mode,})
       : super._();
 
   @override
@@ -237,16 +237,16 @@ class _$LightState extends LightState {
                                 $jc(
                                     $jc(
                                         $jc($jc(0, on.hashCode),
-                                            brightness.hashCode),
-                                        hue.hashCode),
-                                    saturation.hashCode),
-                                xy.hashCode),
-                            ct.hashCode),
-                        alert.hashCode),
-                    effect.hashCode),
-                colorMode.hashCode),
-            reachable.hashCode),
-        mode.hashCode));
+                                            brightness.hashCode,),
+                                        hue.hashCode,),
+                                    saturation.hashCode,),
+                                xy.hashCode,),
+                            ct.hashCode,),
+                        alert.hashCode,),
+                    effect.hashCode,),
+                colorMode.hashCode,),
+            reachable.hashCode,),
+        mode.hashCode,),);
   }
 
   @override
@@ -348,9 +348,9 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
 
   @override
   _$LightState build() {
-    _$LightState _$result;
+    _$LightState $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$LightState._(
               on: on,
               brightness: brightness,
@@ -362,20 +362,20 @@ class LightStateBuilder implements Builder<LightState, LightStateBuilder> {
               effect: effect,
               colorMode: colorMode,
               reachable: reachable,
-              mode: mode);
+              mode: mode,);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'xy';
+        $failedField = 'xy';
         _xy?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'LightState', _$failedField, e.toString());
+            'LightState', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

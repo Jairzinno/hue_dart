@@ -16,7 +16,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, RuleAction object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.address;
@@ -24,14 +24,14 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
       result
         ..add('address')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.method;
     if (value != null) {
       result
         ..add('method')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.body;
     if (value != null) {
@@ -39,14 +39,14 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
         ..add('body')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(String)])));
+                const [const FullType(String), const FullType(String)],),),);
     }
     return result;
   }
 
   @override
   RuleAction deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new RuleActionBuilder();
 
     final iterator = serialized.iterator;
@@ -57,16 +57,16 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'method':
           result.method = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'body':
           result.body.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)]))!);
+                  const [const FullType(String), const FullType(String)],),)!,);
           break;
       }
     }
@@ -107,7 +107,7 @@ class _$RuleAction extends RuleAction {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode));
+        $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode),);
   }
 
   @override
@@ -162,24 +162,24 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
 
   @override
   _$RuleAction build() {
-    _$RuleAction _$result;
+    _$RuleAction $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$RuleAction._(
-              address: address, method: method, body: _body?.build());
+              address: address, method: method, body: _body?.build(),);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'body';
+        $failedField = 'body';
         _body?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'RuleAction', _$failedField, e.toString());
+            'RuleAction', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

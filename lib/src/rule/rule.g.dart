@@ -16,7 +16,7 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Rule object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -30,21 +30,21 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.lastTriggered;
     if (value != null) {
       result
         ..add('lasttriggered')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.creationTime;
     if (value != null) {
       result
         ..add('creationtime')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.timesTriggered;
     if (value != null) {
@@ -57,14 +57,14 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
       result
         ..add('owner')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.status;
     if (value != null) {
       result
         ..add('status')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.conditions;
     if (value != null) {
@@ -72,7 +72,7 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
         ..add('conditions')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(Condition)])));
+                const FullType(BuiltList, const [const FullType(Condition)]),),);
     }
     value = object.actions;
     if (value != null) {
@@ -80,21 +80,21 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
         ..add('actions')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(RuleAction)])));
+                const FullType(BuiltList, const [const FullType(RuleAction)]),),);
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     return result;
   }
 
   @override
   Rule deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new RuleBuilder();
 
     final iterator = serialized.iterator;
@@ -105,47 +105,47 @@ class _$RuleSerializer implements StructuredSerializer<Rule> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'lasttriggered':
           result.lastTriggered = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'creationtime':
           result.creationTime = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'timestriggered':
           result.timesTriggered = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'owner':
           result.owner = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'conditions':
           result.conditions.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(Condition)]))!
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(Condition)],),)!
+              as BuiltList<Object>,);
           break;
         case 'actions':
           result.actions.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(RuleAction)]))!
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(RuleAction)],),)!
+              as BuiltList<Object>,);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
       }
     }
@@ -189,7 +189,7 @@ class _$Rule extends Rule {
       this.status,
       this.conditions,
       this.actions,
-      this.recycle})
+      this.recycle,})
       : super._();
 
   @override
@@ -225,14 +225,14 @@ class _$Rule extends Rule {
                         $jc(
                             $jc(
                                 $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                    lastTriggered.hashCode),
-                                creationTime.hashCode),
-                            timesTriggered.hashCode),
-                        owner.hashCode),
-                    status.hashCode),
-                conditions.hashCode),
-            actions.hashCode),
-        recycle.hashCode));
+                                    lastTriggered.hashCode,),
+                                creationTime.hashCode,),
+                            timesTriggered.hashCode,),
+                        owner.hashCode,),
+                    status.hashCode,),
+                conditions.hashCode,),
+            actions.hashCode,),
+        recycle.hashCode,),);
   }
 
   @override
@@ -333,9 +333,9 @@ class RuleBuilder implements Builder<Rule, RuleBuilder> {
 
   @override
   _$Rule build() {
-    _$Rule _$result;
+    _$Rule $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Rule._(
               id: id,
               name: name,
@@ -346,22 +346,22 @@ class RuleBuilder implements Builder<Rule, RuleBuilder> {
               status: status,
               conditions: _conditions?.build(),
               actions: _actions?.build(),
-              recycle: recycle);
+              recycle: recycle,);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'conditions';
+        $failedField = 'conditions';
         _conditions?.build();
-        _$failedField = 'actions';
+        $failedField = 'actions';
         _actions?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Rule', _$failedField, e.toString());
+            'Rule', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

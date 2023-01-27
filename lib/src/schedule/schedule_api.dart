@@ -39,7 +39,7 @@ class ScheduleApi {
   Future<Schedule> create(Schedule schedule) async {
     final url = '/api/$_username/schedules';
     final response = await _client.post(
-        url, schedule.toBridgeObject(action: 'create'), 'id');
+        url, schedule.toBridgeObject(action: 'create'), 'id',);
     return schedule.rebuild((b) => b..id = response.key as String?);
   }
 

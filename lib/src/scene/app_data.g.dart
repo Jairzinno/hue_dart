@@ -16,7 +16,7 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, AppData object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.version;
@@ -30,14 +30,14 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
       result
         ..add('data')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   AppData deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new AppDataBuilder();
 
     final iterator = serialized.iterator;
@@ -48,11 +48,11 @@ class _$AppDataSerializer implements StructuredSerializer<AppData> {
       switch (key) {
         case 'version':
           result.version = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'data':
           result.data = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -135,9 +135,9 @@ class AppDataBuilder implements Builder<AppData, AppDataBuilder> {
 
   @override
   _$AppData build() {
-    final _$result = _$v ?? new _$AppData._(version: version, data: data);
-    replace(_$result);
-    return _$result;
+    final $result = _$v ?? new _$AppData._(version: version, data: data);
+    replace($result);
+    return $result;
   }
 }
 

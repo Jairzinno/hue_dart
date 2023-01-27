@@ -16,7 +16,7 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, GroupState object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.anyOn;
@@ -24,21 +24,21 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
       result
         ..add('any_on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.allOn;
     if (value != null) {
       result
         ..add('all_on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     return result;
   }
 
   @override
   GroupState deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new GroupStateBuilder();
 
     final iterator = serialized.iterator;
@@ -49,11 +49,11 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
       switch (key) {
         case 'any_on':
           result.anyOn = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'all_on':
           result.allOn = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
       }
     }
@@ -136,9 +136,9 @@ class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
 
   @override
   _$GroupState build() {
-    final _$result = _$v ?? new _$GroupState._(anyOn: anyOn, allOn: allOn);
-    replace(_$result);
-    return _$result;
+    final $result = _$v ?? new _$GroupState._(anyOn: anyOn, allOn: allOn);
+    replace($result);
+    return $result;
   }
 }
 

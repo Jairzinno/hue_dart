@@ -68,7 +68,7 @@ abstract class GroupAction
 
   static GroupAction? fromJson(String jsonString) {
     return serializers.deserializeWith(
-        GroupAction.serializer, json.decode(jsonString));
+        GroupAction.serializer, json.decode(jsonString),);
   }
 
   @override

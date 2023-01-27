@@ -16,7 +16,7 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, SensorState object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.presence;
@@ -24,14 +24,14 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
       result
         ..add('presence')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.lastUpdated;
     if (value != null) {
       result
         ..add('lastupdated')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.temperature;
     if (value != null) {
@@ -50,14 +50,14 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
       result
         ..add('daylight')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   SensorState deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new SensorStateBuilder();
 
     final iterator = serialized.iterator;
@@ -68,23 +68,23 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
       switch (key) {
         case 'presence':
           result.presence = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'lastupdated':
           result.lastUpdated = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'temperature':
           result.temperature = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'buttonevent':
           result.buttonEvent = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'daylight':
           result.daylight = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -113,7 +113,7 @@ class _$SensorState extends SensorState {
       this.lastUpdated,
       this.temperature,
       this.buttonEvent,
-      this.daylight})
+      this.daylight,})
       : super._();
 
   @override
@@ -139,9 +139,9 @@ class _$SensorState extends SensorState {
     return $jf($jc(
         $jc(
             $jc($jc($jc(0, presence.hashCode), lastUpdated.hashCode),
-                temperature.hashCode),
-            buttonEvent.hashCode),
-        daylight.hashCode));
+                temperature.hashCode,),
+            buttonEvent.hashCode,),
+        daylight.hashCode,),);
   }
 
   @override
@@ -207,15 +207,15 @@ class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
 
   @override
   _$SensorState build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$SensorState._(
             presence: presence,
             lastUpdated: lastUpdated,
             temperature: temperature,
             buttonEvent: buttonEvent,
-            daylight: daylight);
-    replace(_$result);
-    return _$result;
+            daylight: daylight,);
+    replace($result);
+    return $result;
   }
 }
 

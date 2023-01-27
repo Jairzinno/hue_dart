@@ -25,6 +25,6 @@ abstract class GroupState implements Built<GroupState, GroupStateBuilder> {
 
   static GroupState? fromJson(String jsonString) {
     return serializers.deserializeWith(
-        GroupState.serializer, json.decode(jsonString));
+        GroupState.serializer, json.decode(jsonString),);
   }
 }

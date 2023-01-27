@@ -16,6 +16,8 @@ class BridgeClient {
 
   BridgeClient(this._client, String address) : _address = '$protocol$address';
 
+  String getAddress() => _address;
+
   Future<Map<String, dynamic>> get(String url) async {
     final response = await _client.get(Uri.parse('$_address$url'));
     final responseMap = json.decode(response.body);
@@ -28,17 +30,18 @@ class BridgeClient {
       final resultMap = response.first as Map<String, dynamic>;
       if (resultMap.containsKey('error')) {
         final errorMap = resultMap['error'] as Map<String, dynamic>?;
+        print('Error $errorMap');
         throw BridgeException.fromJson(errorMap);
       }
     }
   }
 
   Future<BridgeResponse> post(String url,
-      [dynamic body, String? resultKey]) async {
+      [dynamic body, String? resultKey,]) async {
     late Response response;
     if (body != null) {
       response = await _client.post(Uri.parse('$_address$url'),
-          body: json.encode(body));
+          body: json.encode(body),);
     } else {
       response = await _client.post(Uri.parse('$_address$url'));
     }

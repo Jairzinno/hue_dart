@@ -16,7 +16,7 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Sensor object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -30,63 +30,63 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
       result
         ..add('type')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.modelId;
     if (value != null) {
       result
         ..add('modelid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.uniqueId;
     if (value != null) {
       result
         ..add('uniqueid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.manufacturerName;
     if (value != null) {
       result
         ..add('manufacturername')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.swVersion;
     if (value != null) {
       result
         ..add('swversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.reachable;
     if (value != null) {
       result
         ..add('reachable')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.on;
     if (value != null) {
       result
         ..add('on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.battery;
     if (value != null) {
@@ -99,21 +99,21 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
       result
         ..add('state')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(SensorState)));
+            specifiedType: const FullType(SensorState),),);
     }
     value = object.config;
     if (value != null) {
       result
         ..add('config')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(SensorConfig)));
+            specifiedType: const FullType(SensorConfig),),);
     }
     return result;
   }
 
   @override
   Sensor deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new SensorBuilder();
 
     final iterator = serialized.iterator;
@@ -124,55 +124,55 @@ class _$SensorSerializer implements StructuredSerializer<Sensor> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'modelid':
           result.modelId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'uniqueid':
           result.uniqueId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'manufacturername':
           result.manufacturerName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'swversion':
           result.swVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'reachable':
           result.reachable = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'on':
           result.on = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'battery':
           result.battery = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'state':
           result.state.replace(serializers.deserialize(value,
-              specifiedType: const FullType(SensorState))! as SensorState);
+              specifiedType: const FullType(SensorState),)! as SensorState,);
           break;
         case 'config':
           result.config.replace(serializers.deserialize(value,
-              specifiedType: const FullType(SensorConfig))! as SensorConfig);
+              specifiedType: const FullType(SensorConfig),)! as SensorConfig,);
           break;
       }
     }
@@ -225,7 +225,7 @@ class _$Sensor extends Sensor {
       this.on,
       this.battery,
       this.state,
-      this.config})
+      this.config,})
       : super._();
 
   @override
@@ -268,18 +268,18 @@ class _$Sensor extends Sensor {
                                         $jc(
                                             $jc(
                                                 $jc($jc(0, id.hashCode),
-                                                    type.hashCode),
-                                                name.hashCode),
-                                            modelId.hashCode),
-                                        uniqueId.hashCode),
-                                    manufacturerName.hashCode),
-                                swVersion.hashCode),
-                            recycle.hashCode),
-                        reachable.hashCode),
-                    on.hashCode),
-                battery.hashCode),
-            state.hashCode),
-        config.hashCode));
+                                                    type.hashCode,),
+                                                name.hashCode,),
+                                            modelId.hashCode,),
+                                        uniqueId.hashCode,),
+                                    manufacturerName.hashCode,),
+                                swVersion.hashCode,),
+                            recycle.hashCode,),
+                        reachable.hashCode,),
+                    on.hashCode,),
+                battery.hashCode,),
+            state.hashCode,),
+        config.hashCode,),);
   }
 
   @override
@@ -395,9 +395,9 @@ class SensorBuilder implements Builder<Sensor, SensorBuilder> {
 
   @override
   _$Sensor build() {
-    _$Sensor _$result;
+    _$Sensor $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Sensor._(
               id: id,
               type: type,
@@ -411,22 +411,22 @@ class SensorBuilder implements Builder<Sensor, SensorBuilder> {
               on: on,
               battery: battery,
               state: _state?.build(),
-              config: _config?.build());
+              config: _config?.build(),);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'state';
+        $failedField = 'state';
         _state?.build();
-        _$failedField = 'config';
+        $failedField = 'config';
         _config?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Sensor', _$failedField, e.toString());
+            'Sensor', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

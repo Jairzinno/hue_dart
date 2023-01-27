@@ -20,7 +20,7 @@ abstract class SoftwareUpdateBridge
       _$softwareUpdateBridgeSerializer;
 
   factory SoftwareUpdateBridge(
-          [Function(SoftwareUpdateBridgeBuilder b) updates]) =
+          [Function(SoftwareUpdateBridgeBuilder b) updates,]) =
       _$SoftwareUpdateBridge;
 
   SoftwareUpdateBridge._();

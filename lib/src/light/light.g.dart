@@ -16,7 +16,7 @@ class _$LightSerializer implements StructuredSerializer<Light> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Light object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -30,63 +30,63 @@ class _$LightSerializer implements StructuredSerializer<Light> {
       result
         ..add('type')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.state;
     if (value != null) {
       result
         ..add('state')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(LightState)));
+            specifiedType: const FullType(LightState),),);
     }
     value = object.modelId;
     if (value != null) {
       result
         ..add('modelid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.uniqueId;
     if (value != null) {
       result
         ..add('uniqueid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.manufacturerName;
     if (value != null) {
       result
         ..add('manufacturername')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.luminaireUniqueId;
     if (value != null) {
       result
         ..add('luminaireuniqueid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.swVersion;
     if (value != null) {
       result
         ..add('swversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   Light deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new LightBuilder();
 
     final iterator = serialized.iterator;
@@ -97,39 +97,39 @@ class _$LightSerializer implements StructuredSerializer<Light> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'state':
           result.state.replace(serializers.deserialize(value,
-              specifiedType: const FullType(LightState))! as LightState);
+              specifiedType: const FullType(LightState),)! as LightState,);
           break;
         case 'modelid':
           result.modelId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'uniqueid':
           result.uniqueId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'manufacturername':
           result.manufacturerName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'luminaireuniqueid':
           result.luminaireUniqueId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'swversion':
           result.swVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -175,7 +175,7 @@ class _$Light extends Light {
       this.uniqueId,
       this.manufacturerName,
       this.luminaireUniqueId,
-      this.swVersion})
+      this.swVersion,})
       : super._();
 
   @override
@@ -230,13 +230,13 @@ class _$Light extends Light {
                     $jc(
                         $jc(
                             $jc($jc($jc(0, id.hashCode), type.hashCode),
-                                name.hashCode),
-                            state.hashCode),
-                        modelId.hashCode),
-                    uniqueId.hashCode),
-                manufacturerName.hashCode),
-            luminaireUniqueId.hashCode),
-        swVersion.hashCode));
+                                name.hashCode,),
+                            state.hashCode,),
+                        modelId.hashCode,),
+                    uniqueId.hashCode,),
+                manufacturerName.hashCode,),
+            luminaireUniqueId.hashCode,),
+        swVersion.hashCode,),);
   }
 
   @override
@@ -328,9 +328,9 @@ class LightBuilder implements Builder<Light, LightBuilder> {
 
   @override
   _$Light build() {
-    _$Light _$result;
+    _$Light $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Light._(
               id: id,
               type: type,
@@ -340,20 +340,20 @@ class LightBuilder implements Builder<Light, LightBuilder> {
               uniqueId: uniqueId,
               manufacturerName: manufacturerName,
               luminaireUniqueId: luminaireUniqueId,
-              swVersion: swVersion);
+              swVersion: swVersion,);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'state';
+        $failedField = 'state';
         _state?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Light', _$failedField, e.toString());
+            'Light', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

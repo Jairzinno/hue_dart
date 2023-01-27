@@ -16,7 +16,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, GroupAction object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.on;
@@ -24,7 +24,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
       result
         ..add('on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.brightness;
     if (value != null) {
@@ -50,7 +50,7 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
         ..add('xy')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(double)])));
+                const FullType(BuiltList, const [const FullType(double)]),),);
     }
     value = object.ct;
     if (value != null) {
@@ -63,35 +63,35 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
       result
         ..add('alert')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.effect;
     if (value != null) {
       result
         ..add('effect')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.colorMode;
     if (value != null) {
       result
         ..add('colormode')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.scene;
     if (value != null) {
       result
         ..add('scene')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   GroupAction deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new GroupActionBuilder();
 
     final iterator = serialized.iterator;
@@ -102,45 +102,45 @@ class _$GroupActionSerializer implements StructuredSerializer<GroupAction> {
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'bri':
           result.brightness = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'hue':
           result.hue = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'sat':
           result.saturation = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'xy':
           result.xy.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(double)]))!
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(double)],),)!
+              as BuiltList<Object>,);
           break;
         case 'ct':
           result.ct = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'alert':
           result.alert = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'effect':
           result.effect = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'colormode':
           result.colorMode = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'scene':
           result.scene = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -184,7 +184,7 @@ class _$GroupAction extends GroupAction {
       this.alert,
       this.effect,
       this.colorMode,
-      this.scene})
+      this.scene,})
       : super._();
 
   @override
@@ -221,15 +221,15 @@ class _$GroupAction extends GroupAction {
                             $jc(
                                 $jc(
                                     $jc($jc(0, on.hashCode),
-                                        brightness.hashCode),
-                                    hue.hashCode),
-                                saturation.hashCode),
-                            xy.hashCode),
-                        ct.hashCode),
-                    alert.hashCode),
-                effect.hashCode),
-            colorMode.hashCode),
-        scene.hashCode));
+                                        brightness.hashCode,),
+                                    hue.hashCode,),
+                                saturation.hashCode,),
+                            xy.hashCode,),
+                        ct.hashCode,),
+                    alert.hashCode,),
+                effect.hashCode,),
+            colorMode.hashCode,),
+        scene.hashCode,),);
   }
 
   @override
@@ -325,9 +325,9 @@ class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
 
   @override
   _$GroupAction build() {
-    _$GroupAction _$result;
+    _$GroupAction $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$GroupAction._(
               on: on,
               brightness: brightness,
@@ -338,20 +338,20 @@ class GroupActionBuilder implements Builder<GroupAction, GroupActionBuilder> {
               alert: alert,
               effect: effect,
               colorMode: colorMode,
-              scene: scene);
+              scene: scene,);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'xy';
+        $failedField = 'xy';
         _xy?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GroupAction', _$failedField, e.toString());
+            'GroupAction', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

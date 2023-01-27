@@ -16,7 +16,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Scene object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -24,14 +24,14 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
       result
         ..add('id')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.lightIds;
     if (value != null) {
@@ -39,7 +39,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
         ..add('lights')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+                const FullType(BuiltList, const [const FullType(String)]),),);
     }
     value = object.sceneLights;
     if (value != null) {
@@ -47,35 +47,35 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
         ..add('sceneLights')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(Light)])));
+                const FullType(BuiltList, const [const FullType(Light)]),),);
     }
     value = object.owner;
     if (value != null) {
       result
         ..add('owner')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.locked;
     if (value != null) {
       result
         ..add('locked')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.lastUpdated;
     if (value != null) {
       result
         ..add('lastupdated')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.version;
     if (value != null) {
@@ -88,21 +88,21 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
       result
         ..add('appdata')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(AppData)));
+            specifiedType: const FullType(AppData),),);
     }
     value = object.picture;
     if (value != null) {
       result
         ..add('picture')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   Scene deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new SceneBuilder();
 
     final iterator = serialized.iterator;
@@ -113,51 +113,51 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'lights':
           result.lightIds.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(String)],),)!
+              as BuiltList<Object>,);
           break;
         case 'sceneLights':
           result.sceneLights.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(Light)]))!
-              as BuiltList<Object>);
+                      const FullType(BuiltList, const [const FullType(Light)]),)!
+              as BuiltList<Object>,);
           break;
         case 'owner':
           result.owner = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'locked':
           result.locked = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'lastupdated':
           result.lastUpdated = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'version':
           result.version = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'appdata':
           result.appData.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AppData))! as AppData);
+              specifiedType: const FullType(AppData),)! as AppData,);
           break;
         case 'picture':
           result.picture = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -204,7 +204,7 @@ class _$Scene extends Scene {
       this.lastUpdated,
       this.version,
       this.appData,
-      this.picture})
+      this.picture,})
       : super._();
 
   @override
@@ -242,15 +242,15 @@ class _$Scene extends Scene {
                             $jc(
                                 $jc(
                                     $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                        lightIds.hashCode),
-                                    sceneLights.hashCode),
-                                owner.hashCode),
-                            recycle.hashCode),
-                        locked.hashCode),
-                    lastUpdated.hashCode),
-                version.hashCode),
-            appData.hashCode),
-        picture.hashCode));
+                                        lightIds.hashCode,),
+                                    sceneLights.hashCode,),
+                                owner.hashCode,),
+                            recycle.hashCode,),
+                        locked.hashCode,),
+                    lastUpdated.hashCode,),
+                version.hashCode,),
+            appData.hashCode,),
+        picture.hashCode,),);
   }
 
   @override
@@ -355,9 +355,9 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
 
   @override
   _$Scene build() {
-    _$Scene _$result;
+    _$Scene $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Scene._(
               id: id,
               name: name,
@@ -369,25 +369,25 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
               lastUpdated: lastUpdated,
               version: version,
               appData: _appData?.build(),
-              picture: picture);
+              picture: picture,);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'lightIds';
+        $failedField = 'lightIds';
         _lightIds?.build();
-        _$failedField = 'sceneLights';
+        $failedField = 'sceneLights';
         _sceneLights?.build();
 
-        _$failedField = 'appData';
+        $failedField = 'appData';
         _appData?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Scene', _$failedField, e.toString());
+            'Scene', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

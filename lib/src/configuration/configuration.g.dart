@@ -17,7 +17,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Configuration object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.name;
@@ -25,14 +25,14 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.softwareUpdate;
     if (value != null) {
       result
         ..add('swupdate2')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(SoftwareUpdate)));
+            specifiedType: const FullType(SoftwareUpdate),),);
     }
     value = object.whitelist;
     if (value != null) {
@@ -42,28 +42,28 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
             specifiedType: const FullType(BuiltMap, const [
               const FullType(String),
               const FullType(WhiteListItem)
-            ])));
+            ]),),);
     }
     value = object.apiVersion;
     if (value != null) {
       result
         ..add('apiversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.swVersion;
     if (value != null) {
       result
         ..add('swversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.proxyAddress;
     if (value != null) {
       result
         ..add('proxyaddress')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.proxyPort;
     if (value != null) {
@@ -76,84 +76,84 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
       result
         ..add('linkbutton')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.ipAddress;
     if (value != null) {
       result
         ..add('ipaddress')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.mac;
     if (value != null) {
       result
         ..add('mac')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.netMask;
     if (value != null) {
       result
         ..add('netmask')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.gateway;
     if (value != null) {
       result
         ..add('gateway')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.dhcp;
     if (value != null) {
       result
         ..add('dhcp')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.portalServices;
     if (value != null) {
       result
         ..add('portalservices')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.portalState;
     if (value != null) {
       result
         ..add('portalstate')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(PortalState)));
+            specifiedType: const FullType(PortalState),),);
     }
     value = object.portalConnection;
     if (value != null) {
       result
         ..add('portalconnection')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.utc;
     if (value != null) {
       result
         ..add('UTC')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.localTime;
     if (value != null) {
       result
         ..add('localtime')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.timeZone;
     if (value != null) {
       result
         ..add('timezone')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.zigbeeChannel;
     if (value != null) {
@@ -166,70 +166,70 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
       result
         ..add('modelid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.bridgeId;
     if (value != null) {
       result
         ..add('bridgeid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.factoryNew;
     if (value != null) {
       result
         ..add('factorynew')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.replacesBridgeId;
     if (value != null) {
       result
         ..add('replacesbridgeid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.touchLink;
     if (value != null) {
       result
         ..add('touchlink')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.dataStoreVersion;
     if (value != null) {
       result
         ..add('datastoreversion')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.internetServices;
     if (value != null) {
       result
         ..add('internetservices')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(InternetServices)));
+            specifiedType: const FullType(InternetServices),),);
     }
     value = object.backup;
     if (value != null) {
       result
         ..add('backup')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(BackUp)));
+            specifiedType: const FullType(BackUp),),);
     }
     value = object.starterKitId;
     if (value != null) {
       result
         ..add('starterkitid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.configuration;
     if (value != null) {
       result
         ..add('config')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(Configuration)));
+            specifiedType: const FullType(Configuration),),);
     }
     value = object.lights;
     if (value != null) {
@@ -237,7 +237,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('lights')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(Light)])));
+                const [const FullType(String), const FullType(Light)],),),);
     }
     value = object.groups;
     if (value != null) {
@@ -245,7 +245,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('groups')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(Group)])));
+                const [const FullType(String), const FullType(Group)],),),);
     }
     value = object.scenes;
     if (value != null) {
@@ -253,7 +253,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('scenes')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(Scene)])));
+                const [const FullType(String), const FullType(Scene)],),),);
     }
     value = object.schedules;
     if (value != null) {
@@ -261,7 +261,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('schedules')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(Schedule)])));
+                const [const FullType(String), const FullType(Schedule)],),),);
     }
     value = object.sensors;
     if (value != null) {
@@ -269,7 +269,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('sensors')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(Sensor)])));
+                const [const FullType(String), const FullType(Sensor)],),),);
     }
     value = object.rules;
     if (value != null) {
@@ -277,7 +277,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('rules')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(Rule)])));
+                const [const FullType(String), const FullType(Rule)],),),);
     }
     value = object.resourceLinks;
     if (value != null) {
@@ -285,7 +285,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
         ..add('resourcelinks')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(ResourceLink)])));
+                const [const FullType(String), const FullType(ResourceLink)],),),);
     }
     return result;
   }
@@ -293,7 +293,7 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
   @override
   Configuration deserialize(
       Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new ConfigurationBuilder();
 
     final iterator = serialized.iterator;
@@ -304,165 +304,165 @@ class _$ConfigurationSerializer implements StructuredSerializer<Configuration> {
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'swupdate2':
           result.softwareUpdate.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(SoftwareUpdate))!
-              as SoftwareUpdate);
+                  specifiedType: const FullType(SoftwareUpdate),)!
+              as SoftwareUpdate,);
           break;
         case 'whitelist':
           result.whitelist.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(WhiteListItem)
-              ]))!);
+              ]),)!,);
           break;
         case 'apiversion':
           result.apiVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'swversion':
           result.swVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'proxyaddress':
           result.proxyAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'proxyport':
           result.proxyPort = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'linkbutton':
           result.linkButton = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'ipaddress':
           result.ipAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'mac':
           result.mac = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'netmask':
           result.netMask = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'gateway':
           result.gateway = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'dhcp':
           result.dhcp = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'portalservices':
           result.portalServices = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'portalstate':
           result.portalState.replace(serializers.deserialize(value,
-              specifiedType: const FullType(PortalState))! as PortalState);
+              specifiedType: const FullType(PortalState),)! as PortalState,);
           break;
         case 'portalconnection':
           result.portalConnection = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'UTC':
           result.utc = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'localtime':
           result.localTime = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'timezone':
           result.timeZone = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'zigbeechannel':
           result.zigbeeChannel = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'modelid':
           result.modelId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'bridgeid':
           result.bridgeId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'factorynew':
           result.factoryNew = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'replacesbridgeid':
           result.replacesBridgeId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'touchlink':
           result.touchLink = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'datastoreversion':
           result.dataStoreVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'internetservices':
           result.internetServices.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(InternetServices))!
-              as InternetServices);
+                  specifiedType: const FullType(InternetServices),)!
+              as InternetServices,);
           break;
         case 'backup':
           result.backup.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BackUp))! as BackUp);
+              specifiedType: const FullType(BackUp),)! as BackUp,);
           break;
         case 'starterkitid':
           result.starterKitId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'config':
           result.configuration.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Configuration))! as Configuration);
+              specifiedType: const FullType(Configuration),)! as Configuration,);
           break;
         case 'lights':
           result.lights.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Light)]))!);
+                  const [const FullType(String), const FullType(Light)],),)!,);
           break;
         case 'groups':
           result.groups.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Group)]))!);
+                  const [const FullType(String), const FullType(Group)],),)!,);
           break;
         case 'scenes':
           result.scenes.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Scene)]))!);
+                  const [const FullType(String), const FullType(Scene)],),)!,);
           break;
         case 'schedules':
           result.schedules.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Schedule)]))!);
+                  const [const FullType(String), const FullType(Schedule)],),)!,);
           break;
         case 'sensors':
           result.sensors.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Sensor)]))!);
+                  const [const FullType(String), const FullType(Sensor)],),)!,);
           break;
         case 'rules':
           result.rules.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(Rule)]))!);
+                  const [const FullType(String), const FullType(Rule)],),)!,);
           break;
         case 'resourcelinks':
           result.resourceLinks.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap, const [
                 const FullType(String),
                 const FullType(ResourceLink)
-              ]))!);
+              ]),)!,);
           break;
       }
     }
@@ -589,7 +589,7 @@ class _$Configuration extends Configuration {
       this.schedules,
       this.sensors,
       this.rules,
-      this.resourceLinks})
+      this.resourceLinks,})
       : super._();
 
   @override
@@ -669,25 +669,25 @@ class _$Configuration extends Configuration {
                                                                     $jc(
                                                                         $jc(
                                                                             $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, name.hashCode), softwareUpdate.hashCode), whitelist.hashCode), apiVersion.hashCode), swVersion.hashCode), proxyAddress.hashCode), proxyPort.hashCode), linkButton.hashCode), ipAddress.hashCode), mac.hashCode), netMask.hashCode), gateway.hashCode), dhcp.hashCode), portalServices.hashCode), portalState.hashCode), portalConnection.hashCode), utc.hashCode), localTime.hashCode),
-                                                                                timeZone.hashCode),
-                                                                            zigbeeChannel.hashCode),
-                                                                        modelId.hashCode),
-                                                                    bridgeId.hashCode),
-                                                                factoryNew.hashCode),
-                                                            replacesBridgeId.hashCode),
-                                                        touchLink.hashCode),
-                                                    dataStoreVersion.hashCode),
-                                                internetServices.hashCode),
-                                            backup.hashCode),
-                                        starterKitId.hashCode),
-                                    configuration.hashCode),
-                                lights.hashCode),
-                            groups.hashCode),
-                        scenes.hashCode),
-                    schedules.hashCode),
-                sensors.hashCode),
-            rules.hashCode),
-        resourceLinks.hashCode));
+                                                                                timeZone.hashCode,),
+                                                                            zigbeeChannel.hashCode,),
+                                                                        modelId.hashCode,),
+                                                                    bridgeId.hashCode,),
+                                                                factoryNew.hashCode,),
+                                                            replacesBridgeId.hashCode,),
+                                                        touchLink.hashCode,),
+                                                    dataStoreVersion.hashCode,),
+                                                internetServices.hashCode,),
+                                            backup.hashCode,),
+                                        starterKitId.hashCode,),
+                                    configuration.hashCode,),
+                                lights.hashCode,),
+                            groups.hashCode,),
+                        scenes.hashCode,),
+                    schedules.hashCode,),
+                sensors.hashCode,),
+            rules.hashCode,),
+        resourceLinks.hashCode,),);
   }
 
   @override
@@ -970,9 +970,9 @@ class ConfigurationBuilder
 
   @override
   _$Configuration build() {
-    _$Configuration _$result;
+    _$Configuration $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Configuration._(
               name: name,
               softwareUpdate: _softwareUpdate?.build(),
@@ -1010,47 +1010,47 @@ class ConfigurationBuilder
               schedules: _schedules?.build(),
               sensors: _sensors?.build(),
               rules: _rules?.build(),
-              resourceLinks: _resourceLinks?.build());
+              resourceLinks: _resourceLinks?.build(),);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'softwareUpdate';
+        $failedField = 'softwareUpdate';
         _softwareUpdate?.build();
-        _$failedField = 'whitelist';
+        $failedField = 'whitelist';
         _whitelist?.build();
 
-        _$failedField = 'portalState';
+        $failedField = 'portalState';
         _portalState?.build();
 
-        _$failedField = 'internetServices';
+        $failedField = 'internetServices';
         _internetServices?.build();
-        _$failedField = 'backup';
+        $failedField = 'backup';
         _backup?.build();
 
-        _$failedField = 'configuration';
+        $failedField = 'configuration';
         _configuration?.build();
-        _$failedField = 'lights';
+        $failedField = 'lights';
         _lights?.build();
-        _$failedField = 'groups';
+        $failedField = 'groups';
         _groups?.build();
-        _$failedField = 'scenes';
+        $failedField = 'scenes';
         _scenes?.build();
-        _$failedField = 'schedules';
+        $failedField = 'schedules';
         _schedules?.build();
-        _$failedField = 'sensors';
+        $failedField = 'sensors';
         _sensors?.build();
-        _$failedField = 'rules';
+        $failedField = 'rules';
         _rules?.build();
-        _$failedField = 'resourceLinks';
+        $failedField = 'resourceLinks';
         _resourceLinks?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Configuration', _$failedField, e.toString());
+            'Configuration', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

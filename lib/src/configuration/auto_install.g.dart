@@ -16,7 +16,7 @@ class _$AutoInstallSerializer implements StructuredSerializer<AutoInstall> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, AutoInstall object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.on;
@@ -24,21 +24,21 @@ class _$AutoInstallSerializer implements StructuredSerializer<AutoInstall> {
       result
         ..add('on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.updateTime;
     if (value != null) {
       result
         ..add('updatetime')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
 
   @override
   AutoInstall deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new AutoInstallBuilder();
 
     final iterator = serialized.iterator;
@@ -49,11 +49,11 @@ class _$AutoInstallSerializer implements StructuredSerializer<AutoInstall> {
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'updatetime':
           result.updateTime = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -142,9 +142,9 @@ class AutoInstallBuilder implements Builder<AutoInstall, AutoInstallBuilder> {
 
   @override
   _$AutoInstall build() {
-    final _$result = _$v ?? new _$AutoInstall._(on: on, updateTime: updateTime);
-    replace(_$result);
-    return _$result;
+    final $result = _$v ?? new _$AutoInstall._(on: on, updateTime: updateTime);
+    replace($result);
+    return $result;
   }
 }
 

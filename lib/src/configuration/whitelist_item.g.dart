@@ -17,7 +17,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, WhiteListItem object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.username;
@@ -25,28 +25,28 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
       result
         ..add('username')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.lastUsedDate;
     if (value != null) {
       result
         ..add('last use date')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.createDate;
     if (value != null) {
       result
         ..add('create date')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     return result;
   }
@@ -54,7 +54,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
   @override
   WhiteListItem deserialize(
       Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new WhiteListItemBuilder();
 
     final iterator = serialized.iterator;
@@ -65,19 +65,19 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
       switch (key) {
         case 'username':
           result.username = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'last use date':
           result.lastUsedDate = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'create date':
           result.createDate = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -102,7 +102,7 @@ class _$WhiteListItem extends WhiteListItem {
       (new WhiteListItemBuilder()..update(updates)).build();
 
   _$WhiteListItem._(
-      {this.username, this.lastUsedDate, this.createDate, this.name})
+      {this.username, this.lastUsedDate, this.createDate, this.name,})
       : super._();
 
   @override
@@ -132,8 +132,8 @@ class _$WhiteListItem extends WhiteListItem {
   int get hashCode {
     return $jf($jc(
         $jc($jc($jc(0, username.hashCode), lastUsedDate.hashCode),
-            createDate.hashCode),
-        name.hashCode));
+            createDate.hashCode,),
+        name.hashCode,),);
   }
 
   @override
@@ -194,14 +194,14 @@ class WhiteListItemBuilder
 
   @override
   _$WhiteListItem build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$WhiteListItem._(
             username: username,
             lastUsedDate: lastUsedDate,
             createDate: createDate,
-            name: name);
-    replace(_$result);
-    return _$result;
+            name: name,);
+    replace($result);
+    return $result;
   }
 }
 

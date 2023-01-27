@@ -16,7 +16,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Group object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -30,21 +30,21 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
       result
         ..add('type')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.className;
     if (value != null) {
       result
         ..add('class')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.lightIds;
     if (value != null) {
@@ -52,7 +52,7 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
         ..add('lights')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+                const FullType(BuiltList, const [const FullType(String)]),),);
     }
     value = object.groupLights;
     if (value != null) {
@@ -60,49 +60,49 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
         ..add('groupLights')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(Light)])));
+                const FullType(BuiltList, const [const FullType(Light)]),),);
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.modelId;
     if (value != null) {
       result
         ..add('modelid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.uniqueId;
     if (value != null) {
       result
         ..add('uniqueid')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.state;
     if (value != null) {
       result
         ..add('state')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GroupState)));
+            specifiedType: const FullType(GroupState),),);
     }
     value = object.action;
     if (value != null) {
       result
         ..add('action')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GroupAction)));
+            specifiedType: const FullType(GroupAction),),);
     }
     return result;
   }
 
   @override
   Group deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new GroupBuilder();
 
     final iterator = serialized.iterator;
@@ -113,51 +113,51 @@ class _$GroupSerializer implements StructuredSerializer<Group> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'class':
           result.className = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'lights':
           result.lightIds.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(String)],),)!
+              as BuiltList<Object>,);
           break;
         case 'groupLights':
           result.groupLights.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(Light)]))!
-              as BuiltList<Object>);
+                      const FullType(BuiltList, const [const FullType(Light)]),)!
+              as BuiltList<Object>,);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'modelid':
           result.modelId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'uniqueid':
           result.uniqueId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'state':
           result.state.replace(serializers.deserialize(value,
-              specifiedType: const FullType(GroupState))! as GroupState);
+              specifiedType: const FullType(GroupState),)! as GroupState,);
           break;
         case 'action':
           result.action.replace(serializers.deserialize(value,
-              specifiedType: const FullType(GroupAction))! as GroupAction);
+              specifiedType: const FullType(GroupAction),)! as GroupAction,);
           break;
       }
     }
@@ -206,7 +206,7 @@ class _$Group extends Group {
       this.modelId,
       this.uniqueId,
       this.state,
-      this.action})
+      this.action,})
       : super._();
 
   @override
@@ -253,15 +253,15 @@ class _$Group extends Group {
                             $jc(
                                 $jc(
                                     $jc($jc($jc(0, id.hashCode), type.hashCode),
-                                        name.hashCode),
-                                    className.hashCode),
-                                lightIds.hashCode),
-                            groupLights.hashCode),
-                        recycle.hashCode),
-                    modelId.hashCode),
-                uniqueId.hashCode),
-            state.hashCode),
-        action.hashCode));
+                                        name.hashCode,),
+                                    className.hashCode,),
+                                lightIds.hashCode,),
+                            groupLights.hashCode,),
+                        recycle.hashCode,),
+                    modelId.hashCode,),
+                uniqueId.hashCode,),
+            state.hashCode,),
+        action.hashCode,),);
   }
 
   @override
@@ -366,9 +366,9 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
 
   @override
   _$Group build() {
-    _$Group _$result;
+    _$Group $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Group._(
               id: id,
               type: type,
@@ -380,27 +380,27 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
               modelId: modelId,
               uniqueId: uniqueId,
               state: _state?.build(),
-              action: _action?.build());
+              action: _action?.build(),);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'lightIds';
+        $failedField = 'lightIds';
         _lightIds?.build();
-        _$failedField = 'groupLights';
+        $failedField = 'groupLights';
         _groupLights?.build();
 
-        _$failedField = 'state';
+        $failedField = 'state';
         _state?.build();
-        _$failedField = 'action';
+        $failedField = 'action';
         _action?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Group', _$failedField, e.toString());
+            'Group', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

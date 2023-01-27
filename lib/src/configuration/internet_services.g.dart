@@ -18,19 +18,19 @@ class _$InternetServicesSerializer
 
   @override
   Iterable<Object?> serialize(Serializers serializers, InternetServices object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[
       'internet',
       serializers.serialize(object.internet,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
       'remoteaccess',
       serializers.serialize(object.remoteAccess,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
       'time',
       serializers.serialize(object.time, specifiedType: const FullType(String)),
       'swupdate',
       serializers.serialize(object.swUpdate,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
     ];
 
     return result;
@@ -39,7 +39,7 @@ class _$InternetServicesSerializer
   @override
   InternetServices deserialize(
       Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new InternetServicesBuilder();
 
     final iterator = serialized.iterator;
@@ -50,19 +50,19 @@ class _$InternetServicesSerializer
       switch (key) {
         case 'internet':
           result.internet = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'remoteaccess':
           result.remoteAccess = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'time':
           result.time = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'swupdate':
           result.swUpdate = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
       }
     }
@@ -82,22 +82,22 @@ class _$InternetServices extends InternetServices {
   final String swUpdate;
 
   factory _$InternetServices(
-          [void Function(InternetServicesBuilder)? updates]) =>
+          [void Function(InternetServicesBuilder)? updates,]) =>
       (new InternetServicesBuilder()..update(updates)).build();
 
   _$InternetServices._(
       {required this.internet,
       required this.remoteAccess,
       required this.time,
-      required this.swUpdate})
+      required this.swUpdate,})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        internet, 'InternetServices', 'internet');
+        internet, 'InternetServices', 'internet',);
     BuiltValueNullFieldError.checkNotNull(
-        remoteAccess, 'InternetServices', 'remoteAccess');
+        remoteAccess, 'InternetServices', 'remoteAccess',);
     BuiltValueNullFieldError.checkNotNull(time, 'InternetServices', 'time');
     BuiltValueNullFieldError.checkNotNull(
-        swUpdate, 'InternetServices', 'swUpdate');
+        swUpdate, 'InternetServices', 'swUpdate',);
   }
 
   @override
@@ -122,8 +122,8 @@ class _$InternetServices extends InternetServices {
   int get hashCode {
     return $jf($jc(
         $jc($jc($jc(0, internet.hashCode), remoteAccess.hashCode),
-            time.hashCode),
-        swUpdate.hashCode));
+            time.hashCode,),
+        swUpdate.hashCode,),);
   }
 
   @override
@@ -184,18 +184,18 @@ class InternetServicesBuilder
 
   @override
   _$InternetServices build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$InternetServices._(
             internet: BuiltValueNullFieldError.checkNotNull(
-                internet, 'InternetServices', 'internet'),
+                internet, 'InternetServices', 'internet',),
             remoteAccess: BuiltValueNullFieldError.checkNotNull(
-                remoteAccess, 'InternetServices', 'remoteAccess'),
+                remoteAccess, 'InternetServices', 'remoteAccess',),
             time: BuiltValueNullFieldError.checkNotNull(
-                time, 'InternetServices', 'time'),
+                time, 'InternetServices', 'time',),
             swUpdate: BuiltValueNullFieldError.checkNotNull(
-                swUpdate, 'InternetServices', 'swUpdate'));
-    replace(_$result);
-    return _$result;
+                swUpdate, 'InternetServices', 'swUpdate',),);
+    replace($result);
+    return $result;
   }
 }
 

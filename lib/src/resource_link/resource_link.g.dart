@@ -17,7 +17,7 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, ResourceLink object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -25,35 +25,35 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
       result
         ..add('id')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.description;
     if (value != null) {
       result
         ..add('description')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.type;
     if (value != null) {
       result
         ..add('type')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.owner;
     if (value != null) {
       result
         ..add('owner')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.classId;
     if (value != null) {
@@ -67,14 +67,14 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
         ..add('links')
         ..add(serializers.serialize(value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+                const FullType(BuiltList, const [const FullType(String)]),),);
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     return result;
   }
@@ -82,7 +82,7 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
   @override
   ResourceLink deserialize(
       Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new ResourceLinkBuilder();
 
     final iterator = serialized.iterator;
@@ -93,37 +93,37 @@ class _$ResourceLinkSerializer implements StructuredSerializer<ResourceLink> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'description':
           result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'owner':
           result.owner = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'classid':
           result.classId = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
         case 'links':
           result.links.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(String)],),)!
+              as BuiltList<Object>,);
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
       }
     }
@@ -161,7 +161,7 @@ class _$ResourceLink extends ResourceLink {
       this.owner,
       this.classId,
       this.links,
-      this.recycle})
+      this.recycle,})
       : super._();
 
   @override
@@ -193,12 +193,12 @@ class _$ResourceLink extends ResourceLink {
                 $jc(
                     $jc(
                         $jc($jc($jc(0, id.hashCode), name.hashCode),
-                            description.hashCode),
-                        type.hashCode),
-                    owner.hashCode),
-                classId.hashCode),
-            links.hashCode),
-        recycle.hashCode));
+                            description.hashCode,),
+                        type.hashCode,),
+                    owner.hashCode,),
+                classId.hashCode,),
+            links.hashCode,),
+        recycle.hashCode,),);
   }
 
   @override
@@ -283,9 +283,9 @@ class ResourceLinkBuilder
 
   @override
   _$ResourceLink build() {
-    _$ResourceLink _$result;
+    _$ResourceLink $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$ResourceLink._(
               id: id,
               name: name,
@@ -294,20 +294,20 @@ class ResourceLinkBuilder
               owner: owner,
               classId: classId,
               links: _links?.build(),
-              recycle: recycle);
+              recycle: recycle,);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'links';
+        $failedField = 'links';
         _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ResourceLink', _$failedField, e.toString());
+            'ResourceLink', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

@@ -45,7 +45,7 @@ class Bridge {
             SceneApi(BridgeClient(client, address)),
             ScheduleApi(BridgeClient(client, address)),
             SensorApi(BridgeClient(client, address)),
-            username);
+            username,);
 
   Bridge._withApi(
       this._configurationApi,
@@ -56,7 +56,7 @@ class Bridge {
       this._sceneApi,
       this._scheduleApi,
       this._sensorApi,
-      [String username = '']) {
+      [String username = '',]) {
     this.username = username;
   }
 
@@ -87,7 +87,7 @@ class Bridge {
 
   /// update the bridge's configuration. Check the docs to see what can be changed
   Future<BridgeResponse> updateConfiguration(
-          Configuration configuration) async =>
+          Configuration configuration,) async =>
       _configurationApi.update(_username, configuration);
 
   Future<List<Group>> groups() async => _groupApi.all();
@@ -113,7 +113,7 @@ class Bridge {
 
   /// initiate a search for new lights. Optional serial numbers can be sent as [deviceIds].
   Future<BridgeResponse> searchLights(
-          [List<String> deviceIds = const []]) async =>
+          [List<String> deviceIds = const [],]) async =>
       _lightApi.search(deviceIds);
 
   /// return the lights found in the last search for new lights
@@ -160,7 +160,7 @@ class Bridge {
       _sceneApi.attributes(scene);
 
   Future<BridgeResponse> updateSceneLightState(
-          Scene scene, Light light) async =>
+          Scene scene, Light light,) async =>
       _sceneApi.state(scene, light);
 
   Future<Scene> createScene(Scene scene) async => _sceneApi.create(scene);

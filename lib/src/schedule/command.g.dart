@@ -16,18 +16,18 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Command object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[
       'address',
       serializers.serialize(object.address,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
       'method',
       serializers.serialize(object.method,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
       'body',
       serializers.serialize(object.body,
           specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(String)])),
+              const [const FullType(String), const FullType(String)],),),
     ];
 
     return result;
@@ -35,7 +35,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
 
   @override
   Command deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new CommandBuilder();
 
     final iterator = serialized.iterator;
@@ -46,16 +46,16 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'method':
           result.method = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'body':
           result.body.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)]))!);
+                  const [const FullType(String), const FullType(String)],),)!,);
           break;
       }
     }
@@ -101,7 +101,7 @@ class _$Command extends Command {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode));
+        $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode),);
   }
 
   @override
@@ -156,28 +156,28 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
 
   @override
   _$Command build() {
-    _$Command _$result;
+    _$Command $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Command._(
               address: BuiltValueNullFieldError.checkNotNull(
-                  address, 'Command', 'address'),
+                  address, 'Command', 'address',),
               method: BuiltValueNullFieldError.checkNotNull(
-                  method, 'Command', 'method'),
-              body: body.build());
+                  method, 'Command', 'method',),
+              body: body.build(),);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'body';
+        $failedField = 'body';
         body.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Command', _$failedField, e.toString());
+            'Command', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

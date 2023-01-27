@@ -2,12 +2,12 @@
 // in hue_dart/test/pushlink_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as i4;
 
-import 'package:hue_dart/src/configuration/pushlink_storage.dart' as _i3;
-import 'package:hue_dart/src/core/bridge_discovery.dart' as _i5;
-import 'package:hue_dart/src/core/discovery_result.dart' as _i2;
-import 'package:mockito/mockito.dart' as _i1;
+import 'package:hue_dart/src/configuration/pushlink_storage.dart' as i3;
+import 'package:hue_dart/src/core/bridge_discovery.dart' as i5;
+import 'package:hue_dart/src/core/discovery_result.dart' as i2;
+import 'package:mockito/mockito.dart' as i1;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
@@ -16,44 +16,44 @@ import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
 
-class _FakeDiscoveryResult extends _i1.Fake implements _i2.DiscoveryResult {}
+class _FakeDiscoveryResult extends i1.Fake implements i2.DiscoveryResult {}
 
 /// A class which mocks [PushlinkStorage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPushlinkStorage extends _i1.Mock implements _i3.PushlinkStorage {
+class MockPushlinkStorage extends i1.Mock implements i3.PushlinkStorage {
   MockPushlinkStorage() {
-    _i1.throwOnMissingStub(this);
+    i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<bool> usernameExists() =>
+  i4.Future<bool> usernameExists() =>
       (super.noSuchMethod(Invocation.method(#usernameExists, []),
-          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+          returnValue: Future<bool>.value(false),) as i4.Future<bool>);
   @override
-  _i4.Future<bool> saveUsername(String? username) =>
+  i4.Future<bool> saveUsername(String? username) =>
       (super.noSuchMethod(Invocation.method(#saveUsername, [username]),
-          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+          returnValue: Future<bool>.value(false),) as i4.Future<bool>);
 }
 
 /// A class which mocks [BridgeDiscovery].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBridgeDiscovery extends _i1.Mock implements _i5.BridgeDiscovery {
+class MockBridgeDiscovery extends i1.Mock implements i5.BridgeDiscovery {
   MockBridgeDiscovery() {
-    _i1.throwOnMissingStub(this);
+    i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<List<_i2.DiscoveryResult>> automatic() => (super.noSuchMethod(
+  i4.Future<List<i2.DiscoveryResult>> automatic() => (super.noSuchMethod(
           Invocation.method(#automatic, []),
           returnValue:
-              Future<List<_i2.DiscoveryResult>>.value(<_i2.DiscoveryResult>[]))
-      as _i4.Future<List<_i2.DiscoveryResult>>);
+              Future<List<i2.DiscoveryResult>>.value(<i2.DiscoveryResult>[]),)
+      as i4.Future<List<i2.DiscoveryResult>>);
   @override
-  _i4.Future<_i2.DiscoveryResult> manual(String? ipAddress) =>
+  i4.Future<i2.DiscoveryResult> manual(String? ipAddress) =>
       (super.noSuchMethod(Invocation.method(#manual, [ipAddress]),
               returnValue:
-                  Future<_i2.DiscoveryResult>.value(_FakeDiscoveryResult()))
-          as _i4.Future<_i2.DiscoveryResult>);
+                  Future<i2.DiscoveryResult>.value(_FakeDiscoveryResult()),)
+          as i4.Future<i2.DiscoveryResult>);
 }

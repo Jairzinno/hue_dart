@@ -17,7 +17,7 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, SensorConfig object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.on;
@@ -25,14 +25,14 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
       result
         ..add('on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.reachable;
     if (value != null) {
       result
         ..add('reachable')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.battery;
     if (value != null) {
@@ -46,7 +46,7 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
   @override
   SensorConfig deserialize(
       Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new SensorConfigBuilder();
 
     final iterator = serialized.iterator;
@@ -57,15 +57,15 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
       switch (key) {
         case 'on':
           result.on = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'reachable':
           result.reachable = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'battery':
           result.battery = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int),) as int;
           break;
       }
     }
@@ -106,7 +106,7 @@ class _$SensorConfig extends SensorConfig {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, on.hashCode), reachable.hashCode), battery.hashCode));
+        $jc($jc($jc(0, on.hashCode), reachable.hashCode), battery.hashCode),);
   }
 
   @override
@@ -161,10 +161,10 @@ class SensorConfigBuilder
 
   @override
   _$SensorConfig build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$SensorConfig._(on: on, reachable: reachable, battery: battery);
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

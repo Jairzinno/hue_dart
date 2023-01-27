@@ -16,20 +16,20 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, PortalState object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[
       'communication',
       serializers.serialize(object.communication,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String),),
       'incoming',
       serializers.serialize(object.incoming,
-          specifiedType: const FullType(bool)),
+          specifiedType: const FullType(bool),),
       'outgoing',
       serializers.serialize(object.outgoing,
-          specifiedType: const FullType(bool)),
+          specifiedType: const FullType(bool),),
       'signedon',
       serializers.serialize(object.signedOn,
-          specifiedType: const FullType(bool)),
+          specifiedType: const FullType(bool),),
     ];
 
     return result;
@@ -37,7 +37,7 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
 
   @override
   PortalState deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new PortalStateBuilder();
 
     final iterator = serialized.iterator;
@@ -48,19 +48,19 @@ class _$PortalStateSerializer implements StructuredSerializer<PortalState> {
       switch (key) {
         case 'communication':
           result.communication = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'incoming':
           result.incoming = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'outgoing':
           result.outgoing = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'signedon':
           result.signedOn = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
       }
     }
@@ -86,10 +86,10 @@ class _$PortalState extends PortalState {
       {required this.communication,
       required this.incoming,
       required this.outgoing,
-      required this.signedOn})
+      required this.signedOn,})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        communication, 'PortalState', 'communication');
+        communication, 'PortalState', 'communication',);
     BuiltValueNullFieldError.checkNotNull(incoming, 'PortalState', 'incoming');
     BuiltValueNullFieldError.checkNotNull(outgoing, 'PortalState', 'outgoing');
     BuiltValueNullFieldError.checkNotNull(signedOn, 'PortalState', 'signedOn');
@@ -116,8 +116,8 @@ class _$PortalState extends PortalState {
   int get hashCode {
     return $jf($jc(
         $jc($jc($jc(0, communication.hashCode), incoming.hashCode),
-            outgoing.hashCode),
-        signedOn.hashCode));
+            outgoing.hashCode,),
+        signedOn.hashCode,),);
   }
 
   @override
@@ -178,18 +178,18 @@ class PortalStateBuilder implements Builder<PortalState, PortalStateBuilder> {
 
   @override
   _$PortalState build() {
-    final _$result = _$v ??
+    final $result = _$v ??
         new _$PortalState._(
             communication: BuiltValueNullFieldError.checkNotNull(
-                communication, 'PortalState', 'communication'),
+                communication, 'PortalState', 'communication',),
             incoming: BuiltValueNullFieldError.checkNotNull(
-                incoming, 'PortalState', 'incoming'),
+                incoming, 'PortalState', 'incoming',),
             outgoing: BuiltValueNullFieldError.checkNotNull(
-                outgoing, 'PortalState', 'outgoing'),
+                outgoing, 'PortalState', 'outgoing',),
             signedOn: BuiltValueNullFieldError.checkNotNull(
-                signedOn, 'PortalState', 'signedOn'));
-    replace(_$result);
-    return _$result;
+                signedOn, 'PortalState', 'signedOn',),);
+    replace($result);
+    return $result;
   }
 }
 

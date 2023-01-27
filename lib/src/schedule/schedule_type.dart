@@ -46,29 +46,29 @@ class Alarm extends ScheduleType {
     final dateValue =
         time.substring(0, time.indexOf(Schedule.randomTimeDivider));
     final randomValue = time.substring(
-        time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
+        time.indexOf(Schedule.randomTimeDivider) + 1, time.length,);
     final weekDays = int.parse(time.substring(1, time.indexOf('/')));
     return _MutableAlarm(
         weekDays: weekDays,
         date: DateFormat("W$weekDays'/T'HH:m:s").parse(dateValue),
-        randomTime: DateFormat('HH:m:s').parse(randomValue));
+        randomTime: DateFormat('HH:m:s').parse(randomValue),);
   }
 
   static _MutableAlarm _parseRecurringAlarm(String time) {
     final weekDays = int.parse(time.substring(1, time.indexOf('/')));
     return _MutableAlarm(
         weekDays: weekDays,
-        date: DateFormat("W$weekDays'/T'HH:m:s").parse(time));
+        date: DateFormat("W$weekDays'/T'HH:m:s").parse(time),);
   }
 
   static _MutableAlarm _parseRandomizedTimeAlarm(String time) {
     final dateValue =
         time.substring(0, time.indexOf(Schedule.randomTimeDivider));
     final randomValue = time.substring(
-        time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
+        time.indexOf(Schedule.randomTimeDivider) + 1, time.length,);
     return _MutableAlarm(
         date: DateFormat("yyyy-MM-dd'T'HH:m:s").parse(dateValue),
-        randomTime: DateFormat('HH:m:s').parse(randomValue));
+        randomTime: DateFormat('HH:m:s').parse(randomValue),);
   }
 
   static _MutableAlarm _parseAbsoluteTimeAlarm(String time) {
@@ -80,7 +80,7 @@ class Alarm extends ScheduleType {
     final endTime = time.substring(time.indexOf('/T'));
     return _MutableAlarm(
         date: DateFormat("'T'HH:m:s").parse(startTime),
-        endDate: DateFormat("'/T'HH:m:s").parse(endTime));
+        endDate: DateFormat("'/T'HH:m:s").parse(endTime),);
   }
 
   String formattedTime() {
@@ -155,7 +155,7 @@ class Timer extends ScheduleType {
   static _MutableTimer _parseExpiringTimer(String time) {
     final timeValue = time.substring(2, time.length);
     return _MutableTimer(
-        date: DateFormat(Schedule.timePattern).parse(timeValue));
+        date: DateFormat(Schedule.timePattern).parse(timeValue),);
   }
 
   static _MutableTimer _parseRandomTimer(String time) {
@@ -165,7 +165,7 @@ class Timer extends ScheduleType {
         time.substring(time.indexOf(Schedule.randomTimeDivider));
     return _MutableTimer(
         date: DateFormat("'PT'HH:m:s").parse(dateValue),
-        randomTime: DateFormat("'A'HH:m:s").parse(randomValue));
+        randomTime: DateFormat("'A'HH:m:s").parse(randomValue),);
   }
 
   static _MutableTimer _parseFirstTypeOfRecurringTimer(String time) {
@@ -178,25 +178,25 @@ class Timer extends ScheduleType {
         time.substring(time.indexOf(Schedule.timeDivider) + 1, time.length);
     return _MutableTimer(
         recurrence: recurrence,
-        date: DateFormat(Schedule.timePattern).parse(timeValue));
+        date: DateFormat(Schedule.timePattern).parse(timeValue),);
   }
 
   static _MutableTimer _parseSecondTypeOfRecurringTimer(String time) {
     final timeValue = time.substring(4, time.length);
     return _MutableTimer(
-        date: DateFormat(Schedule.timePattern).parse(timeValue));
+        date: DateFormat(Schedule.timePattern).parse(timeValue),);
   }
 
   static _MutableTimer _parseRecurringRandomTimer(String time) {
     final recurrence = int.parse(time.substring(1, time.indexOf('/')));
     final timeValue = time.substring(time.indexOf(Schedule.timeDivider) + 1,
-        time.indexOf(Schedule.randomTimeDivider));
+        time.indexOf(Schedule.randomTimeDivider),);
     final randomValue = time.substring(
-        time.indexOf(Schedule.randomTimeDivider) + 1, time.length);
+        time.indexOf(Schedule.randomTimeDivider) + 1, time.length,);
     return _MutableTimer(
         recurrence: recurrence,
         date: DateFormat(Schedule.timePattern).parse(timeValue),
-        randomTime: DateFormat(Schedule.timePattern).parse(randomValue));
+        randomTime: DateFormat(Schedule.timePattern).parse(randomValue),);
   }
 
   String getFormattedTime() {

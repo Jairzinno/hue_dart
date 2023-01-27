@@ -34,8 +34,8 @@ class SceneApi {
 
   Future<List<Light>> _lights(Scene scene) async {
     final result = <Light>[];
-    for (final _id in scene.lightIds!) {
-      result.add(await _completeLight(int.parse(_id)));
+    for (final id in scene.lightIds!) {
+      result.add(await _completeLight(int.parse(id)));
     }
     return result;
   }

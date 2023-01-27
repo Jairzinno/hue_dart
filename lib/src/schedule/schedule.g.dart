@@ -16,7 +16,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
 
   @override
   Iterable<Object?> serialize(Serializers serializers, Schedule object,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
@@ -24,63 +24,63 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
       result
         ..add('id')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.description;
     if (value != null) {
       result
         ..add('description')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.time;
     if (value != null) {
       result
         ..add('localtime')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.status;
     if (value != null) {
       result
         ..add('status')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(String),),);
     }
     value = object.autoDelete;
     if (value != null) {
       result
         ..add('autodelete')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+            serializers.serialize(value, specifiedType: const FullType(bool)),);
     }
     value = object.command;
     if (value != null) {
       result
         ..add('command')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(Command)));
+            specifiedType: const FullType(Command),),);
     }
     return result;
   }
 
   @override
   Schedule deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified,}) {
     final result = new ScheduleBuilder();
 
     final iterator = serialized.iterator;
@@ -91,35 +91,35 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'description':
           result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'localtime':
           result.time = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String),) as String;
           break;
         case 'autodelete':
           result.autoDelete = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'recycle':
           result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool),) as bool;
           break;
         case 'command':
           result.command.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Command))! as Command);
+              specifiedType: const FullType(Command),)! as Command,);
           break;
       }
     }
@@ -158,7 +158,7 @@ class _$Schedule extends Schedule {
       this.status,
       this.autoDelete,
       this.recycle,
-      this.command})
+      this.command,})
       : super._();
 
   @override
@@ -193,12 +193,12 @@ class _$Schedule extends Schedule {
                 $jc(
                     $jc(
                         $jc($jc($jc(0, id.hashCode), name.hashCode),
-                            description.hashCode),
-                        time.hashCode),
-                    status.hashCode),
-                autoDelete.hashCode),
-            recycle.hashCode),
-        command.hashCode));
+                            description.hashCode,),
+                        time.hashCode,),
+                    status.hashCode,),
+                autoDelete.hashCode,),
+            recycle.hashCode,),
+        command.hashCode,),);
   }
 
   @override
@@ -282,9 +282,9 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
 
   @override
   _$Schedule build() {
-    _$Schedule _$result;
+    _$Schedule $result;
     try {
-      _$result = _$v ??
+      $result = _$v ??
           new _$Schedule._(
               id: id,
               name: name,
@@ -293,20 +293,20 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
               status: status,
               autoDelete: autoDelete,
               recycle: recycle,
-              command: _command?.build());
+              command: _command?.build(),);
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'command';
+        $failedField = 'command';
         _command?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Schedule', _$failedField, e.toString());
+            'Schedule', $failedField, e.toString(),);
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 
