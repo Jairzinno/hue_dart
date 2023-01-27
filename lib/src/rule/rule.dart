@@ -43,7 +43,7 @@ abstract class Rule with BridgeObject implements Built<Rule, RuleBuilder> {
 
   static Serializer<Rule> get serializer => _$ruleSerializer;
 
-  factory Rule([Function(RuleBuilder b) updates]) = _$Rule;
+  factory Rule([Function(RuleBuilder b) updates]) = $Rule;
 
   Rule._();
 

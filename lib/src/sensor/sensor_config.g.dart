@@ -11,13 +11,16 @@ Serializer<SensorConfig> _$sensorConfigSerializer =
 
 class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
   @override
-  final Iterable<Type> types = const [SensorConfig, _$SensorConfig];
+  final Iterable<Type> types = const [SensorConfig, $SensorConfig];
   @override
   final String wireName = 'SensorConfig';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SensorConfig object,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SensorConfig object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.on;
@@ -25,14 +28,16 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
       result
         ..add('on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)),);
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.reachable;
     if (value != null) {
       result
         ..add('reachable')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)),);
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.battery;
     if (value != null) {
@@ -45,8 +50,10 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
 
   @override
   SensorConfig deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SensorConfigBuilder();
 
     final iterator = serialized.iterator;
@@ -56,16 +63,22 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
       final Object? value = iterator.current;
       switch (key) {
         case 'on':
-          result.on = serializers.deserialize(value,
-              specifiedType: const FullType(bool),) as bool;
+          result.on = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'reachable':
-          result.reachable = serializers.deserialize(value,
-              specifiedType: const FullType(bool),) as bool;
+          result.reachable = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'battery':
-          result.battery = serializers.deserialize(value,
-              specifiedType: const FullType(int),) as int;
+          result.battery = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           break;
       }
     }
@@ -74,7 +87,7 @@ class _$SensorConfigSerializer implements StructuredSerializer<SensorConfig> {
   }
 }
 
-class _$SensorConfig extends SensorConfig {
+class $SensorConfig extends SensorConfig {
   @override
   final bool? on;
   @override
@@ -82,10 +95,10 @@ class _$SensorConfig extends SensorConfig {
   @override
   final int? battery;
 
-  factory _$SensorConfig([void Function(SensorConfigBuilder)? updates]) =>
+  factory $SensorConfig([void Function(SensorConfigBuilder)? updates]) =>
       (new SensorConfigBuilder()..update(updates)).build();
 
-  _$SensorConfig._({this.on, this.reachable, this.battery}) : super._();
+  $SensorConfig._({this.on, this.reachable, this.battery}) : super._();
 
   @override
   SensorConfig rebuild(void Function(SensorConfigBuilder) updates) =>
@@ -106,7 +119,8 @@ class _$SensorConfig extends SensorConfig {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, on.hashCode), reachable.hashCode), battery.hashCode),);
+      $jc($jc($jc(0, on.hashCode), reachable.hashCode), battery.hashCode),
+    );
   }
 
   @override
@@ -121,7 +135,7 @@ class _$SensorConfig extends SensorConfig {
 
 class SensorConfigBuilder
     implements Builder<SensorConfig, SensorConfigBuilder> {
-  _$SensorConfig? _$v;
+  $SensorConfig? _$v;
 
   bool? _on;
   bool? get on => _$this._on;
@@ -151,7 +165,7 @@ class SensorConfigBuilder
   @override
   void replace(SensorConfig other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$SensorConfig;
+    _$v = other as $SensorConfig;
   }
 
   @override
@@ -160,9 +174,9 @@ class SensorConfigBuilder
   }
 
   @override
-  _$SensorConfig build() {
+  $SensorConfig build() {
     final $result = _$v ??
-        new _$SensorConfig._(on: on, reachable: reachable, battery: battery);
+        new $SensorConfig._(on: on, reachable: reachable, battery: battery);
     replace($result);
     return $result;
   }

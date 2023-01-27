@@ -10,13 +10,16 @@ Serializer<GroupState> _$groupStateSerializer = new _$GroupStateSerializer();
 
 class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
   @override
-  final Iterable<Type> types = const [GroupState, _$GroupState];
+  final Iterable<Type> types = const [GroupState, $GroupState];
   @override
   final String wireName = 'GroupState';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GroupState object,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    GroupState object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.anyOn;
@@ -24,21 +27,26 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
       result
         ..add('any_on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)),);
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.allOn;
     if (value != null) {
       result
         ..add('all_on')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)),);
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     return result;
   }
 
   @override
-  GroupState deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+  GroupState deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new GroupStateBuilder();
 
     final iterator = serialized.iterator;
@@ -48,12 +56,16 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
       final Object? value = iterator.current;
       switch (key) {
         case 'any_on':
-          result.anyOn = serializers.deserialize(value,
-              specifiedType: const FullType(bool),) as bool;
+          result.anyOn = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'all_on':
-          result.allOn = serializers.deserialize(value,
-              specifiedType: const FullType(bool),) as bool;
+          result.allOn = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
       }
     }
@@ -62,16 +74,16 @@ class _$GroupStateSerializer implements StructuredSerializer<GroupState> {
   }
 }
 
-class _$GroupState extends GroupState {
+class $GroupState extends GroupState {
   @override
   final bool? anyOn;
   @override
   final bool? allOn;
 
-  factory _$GroupState([void Function(GroupStateBuilder)? updates]) =>
+  factory $GroupState([void Function(GroupStateBuilder)? updates]) =>
       (new GroupStateBuilder()..update(updates)).build();
 
-  _$GroupState._({this.anyOn, this.allOn}) : super._();
+  $GroupState._({this.anyOn, this.allOn}) : super._();
 
   @override
   GroupState rebuild(void Function(GroupStateBuilder) updates) =>
@@ -101,7 +113,7 @@ class _$GroupState extends GroupState {
 }
 
 class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
-  _$GroupState? _$v;
+  $GroupState? _$v;
 
   bool? _anyOn;
   bool? get anyOn => _$this._anyOn;
@@ -126,7 +138,7 @@ class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
   @override
   void replace(GroupState other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GroupState;
+    _$v = other as $GroupState;
   }
 
   @override
@@ -135,8 +147,8 @@ class GroupStateBuilder implements Builder<GroupState, GroupStateBuilder> {
   }
 
   @override
-  _$GroupState build() {
-    final $result = _$v ?? new _$GroupState._(anyOn: anyOn, allOn: allOn);
+  $GroupState build() {
+    final $result = _$v ?? new $GroupState._(anyOn: anyOn, allOn: allOn);
     replace($result);
     return $result;
   }

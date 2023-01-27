@@ -27,7 +27,7 @@ abstract class WhiteListItem
   static Serializer<WhiteListItem> get serializer => _$whiteListItemSerializer;
 
   factory WhiteListItem([Function(WhiteListItemBuilder b) updates]) =
-      _$WhiteListItem;
+      $WhiteListItem;
 
   WhiteListItem._();
 

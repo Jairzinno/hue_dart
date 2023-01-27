@@ -51,7 +51,10 @@ class ColorHelper {
   /// returns an [HueColor] with the [red], [green], [blue] values ranging from 0 to 1 converted to
   /// hue, saturation and brightness.
   HueColor rgbToHueSaturationBrightness(num red, num green, num blue) {
-    num hue, saturation, brightness;
+    num hue;
+    num saturation;
+    num brightness;
+
     final min = [red, green, blue].reduce(math.min);
     final max = [red, green, blue].reduce(math.max);
     if (min != max) {
@@ -117,7 +120,10 @@ class ColorHelper {
   /// returns an [HueColor] with the [hue] ranging from 0 to 360, [saturation] and [brightness] both ranging from 0 to 1 converted to
   /// red, green and blue.
   HueColor _hsbToRGB(num hue, num saturation, num brightness) {
-    num red, green, blue;
+    num red;
+    num green;
+    num blue;
+
     if (saturation == 0) {
       red = brightness;
       green = brightness;
@@ -236,7 +242,9 @@ class ColorHelper {
   /// Sources: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/ and
   /// https://github.com/neilbartlett/color-temperature/blob/master/index.js
   HueColor _colorTemperatureToRGB(num temperature) {
-    num red, green, blue;
+    num red;
+    num green;
+    num blue;
 
     final temperatureCalculated = temperature / 100;
     if (temperatureCalculated <= 66) {

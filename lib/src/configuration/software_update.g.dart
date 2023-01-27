@@ -12,13 +12,16 @@ Serializer<SoftwareUpdate> _$softwareUpdateSerializer =
 class _$SoftwareUpdateSerializer
     implements StructuredSerializer<SoftwareUpdate> {
   @override
-  final Iterable<Type> types = const [SoftwareUpdate, _$SoftwareUpdate];
+  final Iterable<Type> types = const [SoftwareUpdate, $SoftwareUpdate];
   @override
   final String wireName = 'SoftwareUpdate';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SoftwareUpdate object,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SoftwareUpdate object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.checkForUpdate;
@@ -26,43 +29,62 @@ class _$SoftwareUpdateSerializer
       result
         ..add('checkforupdate')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)),);
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.lastChange;
     if (value != null) {
       result
         ..add('lastchange')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String),),);
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.state;
     if (value != null) {
       result
         ..add('state')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String),),);
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.bridge;
     if (value != null) {
       result
         ..add('bridge')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(SoftwareUpdateBridge),),);
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(SoftwareUpdateBridge),
+          ),
+        );
     }
     value = object.autoInstall;
     if (value != null) {
       result
         ..add('autoinstall')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(AutoInstall),),);
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(AutoInstall),
+          ),
+        );
     }
     return result;
   }
 
   @override
   SoftwareUpdate deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SoftwareUpdateBuilder();
 
     final iterator = serialized.iterator;
@@ -72,25 +94,38 @@ class _$SoftwareUpdateSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'checkforupdate':
-          result.checkForUpdate = serializers.deserialize(value,
-              specifiedType: const FullType(bool),) as bool;
+          result.checkForUpdate = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'lastchange':
-          result.lastChange = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.lastChange = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'state':
-          result.state = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.state = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'bridge':
-          result.bridge.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(SoftwareUpdateBridge),)!
-              as SoftwareUpdateBridge,);
+          result.bridge.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(SoftwareUpdateBridge),
+            )! as SoftwareUpdateBridge,
+          );
           break;
         case 'autoinstall':
-          result.autoInstall.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AutoInstall),)! as AutoInstall,);
+          result.autoInstall.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(AutoInstall),
+            )! as AutoInstall,
+          );
           break;
       }
     }
@@ -99,7 +134,7 @@ class _$SoftwareUpdateSerializer
   }
 }
 
-class _$SoftwareUpdate extends SoftwareUpdate {
+class $SoftwareUpdate extends SoftwareUpdate {
   @override
   final bool? checkForUpdate;
   @override
@@ -111,16 +146,16 @@ class _$SoftwareUpdate extends SoftwareUpdate {
   @override
   final AutoInstall? autoInstall;
 
-  factory _$SoftwareUpdate([void Function(SoftwareUpdateBuilder)? updates]) =>
+  factory $SoftwareUpdate([void Function(SoftwareUpdateBuilder)? updates]) =>
       (new SoftwareUpdateBuilder()..update(updates)).build();
 
-  _$SoftwareUpdate._(
-      {this.checkForUpdate,
-      this.lastChange,
-      this.state,
-      this.bridge,
-      this.autoInstall,})
-      : super._();
+  $SoftwareUpdate._({
+    this.checkForUpdate,
+    this.lastChange,
+    this.state,
+    this.bridge,
+    this.autoInstall,
+  }) : super._();
 
   @override
   SoftwareUpdate rebuild(void Function(SoftwareUpdateBuilder) updates) =>
@@ -143,12 +178,18 @@ class _$SoftwareUpdate extends SoftwareUpdate {
 
   @override
   int get hashCode {
-    return $jf($jc(
+    return $jf(
+      $jc(
         $jc(
-            $jc($jc($jc(0, checkForUpdate.hashCode), lastChange.hashCode),
-                state.hashCode,),
-            bridge.hashCode,),
-        autoInstall.hashCode,),);
+          $jc(
+            $jc($jc(0, checkForUpdate.hashCode), lastChange.hashCode),
+            state.hashCode,
+          ),
+          bridge.hashCode,
+        ),
+        autoInstall.hashCode,
+      ),
+    );
   }
 
   @override
@@ -165,7 +206,7 @@ class _$SoftwareUpdate extends SoftwareUpdate {
 
 class SoftwareUpdateBuilder
     implements Builder<SoftwareUpdate, SoftwareUpdateBuilder> {
-  _$SoftwareUpdate? _$v;
+  $SoftwareUpdate? _$v;
 
   bool? _checkForUpdate;
   bool? get checkForUpdate => _$this._checkForUpdate;
@@ -209,7 +250,7 @@ class SoftwareUpdateBuilder
   @override
   void replace(SoftwareUpdate other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$SoftwareUpdate;
+    _$v = other as $SoftwareUpdate;
   }
 
   @override
@@ -218,16 +259,17 @@ class SoftwareUpdateBuilder
   }
 
   @override
-  _$SoftwareUpdate build() {
-    _$SoftwareUpdate $result;
+  $SoftwareUpdate build() {
+    $SoftwareUpdate $result;
     try {
       $result = _$v ??
-          new _$SoftwareUpdate._(
-              checkForUpdate: checkForUpdate,
-              lastChange: lastChange,
-              state: state,
-              bridge: _bridge?.build(),
-              autoInstall: _autoInstall?.build(),);
+          new $SoftwareUpdate._(
+            checkForUpdate: checkForUpdate,
+            lastChange: lastChange,
+            state: state,
+            bridge: _bridge?.build(),
+            autoInstall: _autoInstall?.build(),
+          );
     } catch (_) {
       late String $failedField;
       try {
@@ -237,7 +279,10 @@ class SoftwareUpdateBuilder
         _autoInstall?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'SoftwareUpdate', $failedField, e.toString(),);
+          'SoftwareUpdate',
+          $failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

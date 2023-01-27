@@ -31,7 +31,7 @@ abstract class SoftwareUpdate
       _$softwareUpdateSerializer;
 
   factory SoftwareUpdate([Function(SoftwareUpdateBuilder b) updates]) =
-      _$SoftwareUpdate;
+      $SoftwareUpdate;
 
   SoftwareUpdate._();
 

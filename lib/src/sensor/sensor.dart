@@ -59,7 +59,7 @@ abstract class Sensor
 
   static Serializer<Sensor> get serializer => _$sensorSerializer;
 
-  factory Sensor([Function(SensorBuilder b) updates]) = _$Sensor;
+  factory Sensor([Function(SensorBuilder b) updates]) = $Sensor;
 
   Sensor._();
 

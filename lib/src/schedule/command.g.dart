@@ -10,32 +10,46 @@ Serializer<Command> _$commandSerializer = new _$CommandSerializer();
 
 class _$CommandSerializer implements StructuredSerializer<Command> {
   @override
-  final Iterable<Type> types = const [Command, _$Command];
+  final Iterable<Type> types = const [Command, $Command];
   @override
   final String wireName = 'Command';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Command object,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Command object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'address',
-      serializers.serialize(object.address,
-          specifiedType: const FullType(String),),
+      serializers.serialize(
+        object.address,
+        specifiedType: const FullType(String),
+      ),
       'method',
-      serializers.serialize(object.method,
-          specifiedType: const FullType(String),),
+      serializers.serialize(
+        object.method,
+        specifiedType: const FullType(String),
+      ),
       'body',
-      serializers.serialize(object.body,
-          specifiedType: const FullType(BuiltMap,
-              const [const FullType(String), const FullType(String)],),),
+      serializers.serialize(
+        object.body,
+        specifiedType: const FullType(
+          BuiltMap,
+          const [const FullType(String), const FullType(String)],
+        ),
+      ),
     ];
 
     return result;
   }
 
   @override
-  Command deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Command deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new CommandBuilder();
 
     final iterator = serialized.iterator;
@@ -45,17 +59,27 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
       final Object? value = iterator.current;
       switch (key) {
         case 'address':
-          result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.address = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'method':
-          result.method = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.method = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'body':
-          result.body.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)],),)!,);
+          result.body.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                BuiltMap,
+                const [const FullType(String), const FullType(String)],
+              ),
+            )!,
+          );
           break;
       }
     }
@@ -64,7 +88,7 @@ class _$CommandSerializer implements StructuredSerializer<Command> {
   }
 }
 
-class _$Command extends Command {
+class $Command extends Command {
   @override
   final String address;
   @override
@@ -72,10 +96,10 @@ class _$Command extends Command {
   @override
   final BuiltMap<String, String> body;
 
-  factory _$Command([void Function(CommandBuilder)? updates]) =>
+  factory $Command([void Function(CommandBuilder)? updates]) =>
       (new CommandBuilder()..update(updates)).build();
 
-  _$Command._({required this.address, required this.method, required this.body})
+  $Command._({required this.address, required this.method, required this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(address, 'Command', 'address');
     BuiltValueNullFieldError.checkNotNull(method, 'Command', 'method');
@@ -101,7 +125,8 @@ class _$Command extends Command {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode),);
+      $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode),
+    );
   }
 
   @override
@@ -115,7 +140,7 @@ class _$Command extends Command {
 }
 
 class CommandBuilder implements Builder<Command, CommandBuilder> {
-  _$Command? _$v;
+  $Command? _$v;
 
   String? _address;
   String? get address => _$this._address;
@@ -146,7 +171,7 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   @override
   void replace(Command other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Command;
+    _$v = other as $Command;
   }
 
   @override
@@ -155,16 +180,23 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
   }
 
   @override
-  _$Command build() {
-    _$Command $result;
+  $Command build() {
+    $Command $result;
     try {
       $result = _$v ??
-          new _$Command._(
-              address: BuiltValueNullFieldError.checkNotNull(
-                  address, 'Command', 'address',),
-              method: BuiltValueNullFieldError.checkNotNull(
-                  method, 'Command', 'method',),
-              body: body.build(),);
+          new $Command._(
+            address: BuiltValueNullFieldError.checkNotNull(
+              address,
+              'Command',
+              'address',
+            ),
+            method: BuiltValueNullFieldError.checkNotNull(
+              method,
+              'Command',
+              'method',
+            ),
+            body: body.build(),
+          );
     } catch (_) {
       late String $failedField;
       try {
@@ -172,7 +204,10 @@ class CommandBuilder implements Builder<Command, CommandBuilder> {
         body.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Command', $failedField, e.toString(),);
+          'Command',
+          $failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

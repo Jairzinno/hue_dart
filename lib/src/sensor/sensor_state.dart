@@ -19,7 +19,7 @@ abstract class SensorState implements Built<SensorState, SensorStateBuilder> {
 
   static Serializer<SensorState> get serializer => _$sensorStateSerializer;
 
-  factory SensorState([Function(SensorStateBuilder b) updates]) = _$SensorState;
+  factory SensorState([Function(SensorStateBuilder b) updates]) = $SensorState;
 
   SensorState._();
 

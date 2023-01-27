@@ -85,7 +85,7 @@ abstract class Scene with BridgeObject implements Built<Scene, SceneBuilder> {
 
   static Serializer<Scene> get serializer => _$sceneSerializer;
 
-  factory Scene([Function(SceneBuilder b) updates]) = _$Scene;
+  factory Scene([Function(SceneBuilder b) updates]) = $Scene;
 
   Scene._();
 

@@ -25,7 +25,7 @@ abstract class DiscoveryResult
       _$discoveryResultSerializer;
 
   factory DiscoveryResult([Function(DiscoveryResultBuilder b) updates]) =
-      _$DiscoveryResult;
+      $DiscoveryResult;
 
   DiscoveryResult._();
 

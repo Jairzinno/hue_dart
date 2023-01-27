@@ -179,7 +179,7 @@ abstract class Configuration
   static Serializer<Configuration> get serializer => _$configurationSerializer;
 
   factory Configuration([Function(ConfigurationBuilder b) updates]) =
-      _$Configuration;
+      $Configuration;
 
   Configuration._();
 

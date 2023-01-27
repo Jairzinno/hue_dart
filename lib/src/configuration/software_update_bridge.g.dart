@@ -14,22 +14,28 @@ class _$SoftwareUpdateBridgeSerializer
   @override
   final Iterable<Type> types = const [
     SoftwareUpdateBridge,
-    _$SoftwareUpdateBridge
+    $SoftwareUpdateBridge
   ];
   @override
   final String wireName = 'SoftwareUpdateBridge';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, SoftwareUpdateBridge object,
-      {FullType specifiedType = FullType.unspecified,}) {
+    Serializers serializers,
+    SoftwareUpdateBridge object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'state',
-      serializers.serialize(object.state,
-          specifiedType: const FullType(String),),
+      serializers.serialize(
+        object.state,
+        specifiedType: const FullType(String),
+      ),
       'lastinstall',
-      serializers.serialize(object.lastInstall,
-          specifiedType: const FullType(String),),
+      serializers.serialize(
+        object.lastInstall,
+        specifiedType: const FullType(String),
+      ),
     ];
 
     return result;
@@ -37,8 +43,10 @@ class _$SoftwareUpdateBridgeSerializer
 
   @override
   SoftwareUpdateBridge deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SoftwareUpdateBridgeBuilder();
 
     final iterator = serialized.iterator;
@@ -48,12 +56,16 @@ class _$SoftwareUpdateBridgeSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'state':
-          result.state = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.state = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'lastinstall':
-          result.lastInstall = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.lastInstall = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
       }
     }
@@ -62,23 +74,30 @@ class _$SoftwareUpdateBridgeSerializer
   }
 }
 
-class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
+class $SoftwareUpdateBridge extends SoftwareUpdateBridge {
   @override
   final String state;
   @override
   final String lastInstall;
   DateTime? __lastInstallDate;
 
-  factory _$SoftwareUpdateBridge(
-          [void Function(SoftwareUpdateBridgeBuilder)? updates,]) =>
+  factory $SoftwareUpdateBridge([
+    void Function(SoftwareUpdateBridgeBuilder)? updates,
+  ]) =>
       (new SoftwareUpdateBridgeBuilder()..update(updates)).build();
 
-  _$SoftwareUpdateBridge._({required this.state, required this.lastInstall})
+  $SoftwareUpdateBridge._({required this.state, required this.lastInstall})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        state, 'SoftwareUpdateBridge', 'state',);
+      state,
+      'SoftwareUpdateBridge',
+      'state',
+    );
     BuiltValueNullFieldError.checkNotNull(
-        lastInstall, 'SoftwareUpdateBridge', 'lastInstall',);
+      lastInstall,
+      'SoftwareUpdateBridge',
+      'lastInstall',
+    );
   }
 
   @override
@@ -86,7 +105,8 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
 
   @override
   SoftwareUpdateBridge rebuild(
-          void Function(SoftwareUpdateBridgeBuilder) updates,) =>
+    void Function(SoftwareUpdateBridgeBuilder) updates,
+  ) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -117,7 +137,7 @@ class _$SoftwareUpdateBridge extends SoftwareUpdateBridge {
 
 class SoftwareUpdateBridgeBuilder
     implements Builder<SoftwareUpdateBridge, SoftwareUpdateBridgeBuilder> {
-  _$SoftwareUpdateBridge? _$v;
+  $SoftwareUpdateBridge? _$v;
 
   String? _state;
   String? get state => _$this._state;
@@ -142,7 +162,7 @@ class SoftwareUpdateBridgeBuilder
   @override
   void replace(SoftwareUpdateBridge other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$SoftwareUpdateBridge;
+    _$v = other as $SoftwareUpdateBridge;
   }
 
   @override
@@ -151,13 +171,20 @@ class SoftwareUpdateBridgeBuilder
   }
 
   @override
-  _$SoftwareUpdateBridge build() {
+  $SoftwareUpdateBridge build() {
     final $result = _$v ??
-        new _$SoftwareUpdateBridge._(
-            state: BuiltValueNullFieldError.checkNotNull(
-                state, 'SoftwareUpdateBridge', 'state',),
-            lastInstall: BuiltValueNullFieldError.checkNotNull(
-                lastInstall, 'SoftwareUpdateBridge', 'lastInstall',),);
+        new $SoftwareUpdateBridge._(
+          state: BuiltValueNullFieldError.checkNotNull(
+            state,
+            'SoftwareUpdateBridge',
+            'state',
+          ),
+          lastInstall: BuiltValueNullFieldError.checkNotNull(
+            lastInstall,
+            'SoftwareUpdateBridge',
+            'lastInstall',
+          ),
+        );
     replace($result);
     return $result;
   }

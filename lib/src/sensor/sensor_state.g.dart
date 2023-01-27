@@ -10,13 +10,16 @@ Serializer<SensorState> _$sensorStateSerializer = new _$SensorStateSerializer();
 
 class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
   @override
-  final Iterable<Type> types = const [SensorState, _$SensorState];
+  final Iterable<Type> types = const [SensorState, $SensorState];
   @override
   final String wireName = 'SensorState';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, SensorState object,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    SensorState object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.presence;
@@ -24,14 +27,19 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
       result
         ..add('presence')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)),);
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.lastUpdated;
     if (value != null) {
       result
         ..add('lastupdated')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String),),);
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.temperature;
     if (value != null) {
@@ -49,15 +57,22 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
     if (value != null) {
       result
         ..add('daylight')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String),),);
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }
 
   @override
-  SensorState deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+  SensorState deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SensorStateBuilder();
 
     final iterator = serialized.iterator;
@@ -67,24 +82,34 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
       final Object? value = iterator.current;
       switch (key) {
         case 'presence':
-          result.presence = serializers.deserialize(value,
-              specifiedType: const FullType(bool),) as bool;
+          result.presence = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'lastupdated':
-          result.lastUpdated = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.lastUpdated = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'temperature':
-          result.temperature = serializers.deserialize(value,
-              specifiedType: const FullType(int),) as int;
+          result.temperature = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           break;
         case 'buttonevent':
-          result.buttonEvent = serializers.deserialize(value,
-              specifiedType: const FullType(int),) as int;
+          result.buttonEvent = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           break;
         case 'daylight':
-          result.daylight = serializers.deserialize(value,
-              specifiedType: const FullType(String),) as String;
+          result.daylight = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
       }
     }
@@ -93,7 +118,7 @@ class _$SensorStateSerializer implements StructuredSerializer<SensorState> {
   }
 }
 
-class _$SensorState extends SensorState {
+class $SensorState extends SensorState {
   @override
   final bool? presence;
   @override
@@ -105,16 +130,16 @@ class _$SensorState extends SensorState {
   @override
   final String? daylight;
 
-  factory _$SensorState([void Function(SensorStateBuilder)? updates]) =>
+  factory $SensorState([void Function(SensorStateBuilder)? updates]) =>
       (new SensorStateBuilder()..update(updates)).build();
 
-  _$SensorState._(
-      {this.presence,
-      this.lastUpdated,
-      this.temperature,
-      this.buttonEvent,
-      this.daylight,})
-      : super._();
+  $SensorState._({
+    this.presence,
+    this.lastUpdated,
+    this.temperature,
+    this.buttonEvent,
+    this.daylight,
+  }) : super._();
 
   @override
   SensorState rebuild(void Function(SensorStateBuilder) updates) =>
@@ -136,12 +161,18 @@ class _$SensorState extends SensorState {
 
   @override
   int get hashCode {
-    return $jf($jc(
+    return $jf(
+      $jc(
         $jc(
-            $jc($jc($jc(0, presence.hashCode), lastUpdated.hashCode),
-                temperature.hashCode,),
-            buttonEvent.hashCode,),
-        daylight.hashCode,),);
+          $jc(
+            $jc($jc(0, presence.hashCode), lastUpdated.hashCode),
+            temperature.hashCode,
+          ),
+          buttonEvent.hashCode,
+        ),
+        daylight.hashCode,
+      ),
+    );
   }
 
   @override
@@ -157,7 +188,7 @@ class _$SensorState extends SensorState {
 }
 
 class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
-  _$SensorState? _$v;
+  $SensorState? _$v;
 
   bool? _presence;
   bool? get presence => _$this._presence;
@@ -197,7 +228,7 @@ class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
   @override
   void replace(SensorState other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$SensorState;
+    _$v = other as $SensorState;
   }
 
   @override
@@ -206,14 +237,15 @@ class SensorStateBuilder implements Builder<SensorState, SensorStateBuilder> {
   }
 
   @override
-  _$SensorState build() {
+  $SensorState build() {
     final $result = _$v ??
-        new _$SensorState._(
-            presence: presence,
-            lastUpdated: lastUpdated,
-            temperature: temperature,
-            buttonEvent: buttonEvent,
-            daylight: daylight,);
+        new $SensorState._(
+          presence: presence,
+          lastUpdated: lastUpdated,
+          temperature: temperature,
+          buttonEvent: buttonEvent,
+          daylight: daylight,
+        );
     replace($result);
     return $result;
   }

@@ -55,7 +55,7 @@ abstract class ResourceLink
   static Serializer<ResourceLink> get serializer => _$resourceLinkSerializer;
 
   factory ResourceLink([Function(ResourceLinkBuilder b) updates]) =
-      _$ResourceLink;
+      $ResourceLink;
 
   ResourceLink._();
 

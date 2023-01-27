@@ -19,9 +19,9 @@ abstract class SoftwareUpdateBridge
   static Serializer<SoftwareUpdateBridge> get serializer =>
       _$softwareUpdateBridgeSerializer;
 
-  factory SoftwareUpdateBridge(
-          [Function(SoftwareUpdateBridgeBuilder b) updates,]) =
-      _$SoftwareUpdateBridge;
+  factory SoftwareUpdateBridge([
+    Function(SoftwareUpdateBridgeBuilder b) updates,
+  ]) = $SoftwareUpdateBridge;
 
   SoftwareUpdateBridge._();
 

@@ -20,7 +20,7 @@ abstract class Command
 
   static Serializer<Command> get serializer => _$commandSerializer;
 
-  factory Command([Function(CommandBuilder b) updates]) = _$Command;
+  factory Command([Function(CommandBuilder b) updates]) = $Command;
 
   Command._();
 

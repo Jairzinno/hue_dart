@@ -15,7 +15,7 @@ abstract class AppData implements Built<AppData, AppDataBuilder> {
 
   static Serializer<AppData> get serializer => _$appDataSerializer;
 
-  factory AppData([Function(AppDataBuilder b) updates]) = _$AppData;
+  factory AppData([Function(AppDataBuilder b) updates]) = $AppData;
 
   AppData._();
 

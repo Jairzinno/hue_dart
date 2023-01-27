@@ -14,7 +14,7 @@ abstract class RuleAction implements Built<RuleAction, RuleActionBuilder> {
 
   static Serializer<RuleAction> get serializer => _$ruleActionSerializer;
 
-  factory RuleAction([Function(RuleActionBuilder b) updates]) = _$RuleAction;
+  factory RuleAction([Function(RuleActionBuilder b) updates]) = $RuleAction;
 
   RuleAction._();
 

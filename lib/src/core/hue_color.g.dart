@@ -10,13 +10,16 @@ Serializer<HueColor> _$hueColorSerializer = new _$HueColorSerializer();
 
 class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   @override
-  final Iterable<Type> types = const [HueColor, _$HueColor];
+  final Iterable<Type> types = const [HueColor, $HueColor];
   @override
   final String wireName = 'HueColor';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, HueColor object,
-      {FullType specifiedType = FullType.unspecified,}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    HueColor object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.hue;
@@ -53,9 +56,13 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
     if (value != null) {
       result
         ..add('xy')
-        ..add(serializers.serialize(value,
+        ..add(
+          serializers.serialize(
+            value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(num)]),),);
+                const FullType(BuiltList, const [const FullType(num)]),
+          ),
+        );
     }
     value = object.red;
     if (value != null) {
@@ -79,8 +86,11 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   }
 
   @override
-  HueColor deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified,}) {
+  HueColor deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new HueColorBuilder();
 
     final iterator = serialized.iterator;
@@ -90,42 +100,61 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
       final Object? value = iterator.current;
       switch (key) {
         case 'hue':
-          result.hue = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.hue = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'saturation':
-          result.saturation = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.saturation = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'brightness':
-          result.brightness = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.brightness = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'temperature':
-          result.temperature = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.temperature = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'ct':
-          result.ct = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.ct = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'xy':
-          result.xy.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(num)]),)!
-              as BuiltList<Object>,);
+          result.xy.replace(
+            serializers.deserialize(
+              value,
+              specifiedType:
+                  const FullType(BuiltList, const [const FullType(num)]),
+            )! as BuiltList<Object>,
+          );
           break;
         case 'red':
-          result.red = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.red = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'green':
-          result.green = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.green = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
         case 'blue':
-          result.blue = serializers.deserialize(value,
-              specifiedType: const FullType(num),) as num;
+          result.blue = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           break;
       }
     }
@@ -134,7 +163,7 @@ class _$HueColorSerializer implements StructuredSerializer<HueColor> {
   }
 }
 
-class _$HueColor extends HueColor {
+class $HueColor extends HueColor {
   @override
   final num? hue;
   @override
@@ -154,20 +183,20 @@ class _$HueColor extends HueColor {
   @override
   final num? blue;
 
-  factory _$HueColor([void Function(HueColorBuilder)? updates]) =>
+  factory $HueColor([void Function(HueColorBuilder)? updates]) =>
       (new HueColorBuilder()..update(updates)).build();
 
-  _$HueColor._(
-      {this.hue,
-      this.saturation,
-      this.brightness,
-      this.temperature,
-      this.ct,
-      this.xy,
-      this.red,
-      this.green,
-      this.blue,})
-      : super._();
+  $HueColor._({
+    this.hue,
+    this.saturation,
+    this.brightness,
+    this.temperature,
+    this.ct,
+    this.xy,
+    this.red,
+    this.green,
+    this.blue,
+  }) : super._();
 
   @override
   HueColor rebuild(void Function(HueColorBuilder) updates) =>
@@ -193,20 +222,30 @@ class _$HueColor extends HueColor {
 
   @override
   int get hashCode {
-    return $jf($jc(
+    return $jf(
+      $jc(
         $jc(
+          $jc(
             $jc(
+              $jc(
                 $jc(
-                    $jc(
-                        $jc(
-                            $jc($jc($jc(0, hue.hashCode), saturation.hashCode),
-                                brightness.hashCode,),
-                            temperature.hashCode,),
-                        ct.hashCode,),
-                    xy.hashCode,),
-                red.hashCode,),
-            green.hashCode,),
-        blue.hashCode,),);
+                  $jc(
+                    $jc($jc(0, hue.hashCode), saturation.hashCode),
+                    brightness.hashCode,
+                  ),
+                  temperature.hashCode,
+                ),
+                ct.hashCode,
+              ),
+              xy.hashCode,
+            ),
+            red.hashCode,
+          ),
+          green.hashCode,
+        ),
+        blue.hashCode,
+      ),
+    );
   }
 
   @override
@@ -226,7 +265,7 @@ class _$HueColor extends HueColor {
 }
 
 class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
-  _$HueColor? _$v;
+  $HueColor? _$v;
 
   num? _hue;
   num? get hue => _$this._hue;
@@ -286,7 +325,7 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
   @override
   void replace(HueColor other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$HueColor;
+    _$v = other as $HueColor;
   }
 
   @override
@@ -295,20 +334,21 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
   }
 
   @override
-  _$HueColor build() {
-    _$HueColor $result;
+  $HueColor build() {
+    $HueColor $result;
     try {
       $result = _$v ??
-          new _$HueColor._(
-              hue: hue,
-              saturation: saturation,
-              brightness: brightness,
-              temperature: temperature,
-              ct: ct,
-              xy: _xy?.build(),
-              red: red,
-              green: green,
-              blue: blue,);
+          new $HueColor._(
+            hue: hue,
+            saturation: saturation,
+            brightness: brightness,
+            temperature: temperature,
+            ct: ct,
+            xy: _xy?.build(),
+            red: red,
+            green: green,
+            blue: blue,
+          );
     } catch (_) {
       late String $failedField;
       try {
@@ -316,7 +356,10 @@ class HueColorBuilder implements Builder<HueColor, HueColorBuilder> {
         _xy?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'HueColor', $failedField, e.toString(),);
+          'HueColor',
+          $failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

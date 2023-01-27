@@ -20,7 +20,7 @@ abstract class InternetServices
       _$internetServicesSerializer;
 
   factory InternetServices([Function(InternetServicesBuilder b) updates]) =
-      _$InternetServices;
+      $InternetServices;
 
   InternetServices._();
 

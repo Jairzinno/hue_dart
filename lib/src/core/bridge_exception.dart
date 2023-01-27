@@ -16,7 +16,7 @@ abstract class BridgeException
       _$bridgeExceptionSerializer;
 
   factory BridgeException([Function(BridgeExceptionBuilder b) updates]) =
-      _$BridgeException;
+      $BridgeException;
 
   BridgeException._();
 
