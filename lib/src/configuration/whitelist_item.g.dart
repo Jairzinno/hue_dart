@@ -106,7 +106,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
           result.name = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
-          ) as String;
+          ) as HueApiDeviceType;
           break;
       }
     }
@@ -123,7 +123,7 @@ class $WhiteListItem extends WhiteListItem {
   @override
   final String? createDate;
   @override
-  final String? name;
+  final HueApiDeviceType? name;
   DateTime? __lastUsed;
   DateTime? __created;
 
@@ -200,9 +200,9 @@ class WhiteListItemBuilder
   String? get createDate => _$this._createDate;
   set createDate(String? createDate) => _$this._createDate = createDate;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
+  HueApiDeviceType? _name;
+  HueApiDeviceType? get name => _$this._name;
+  set name(HueApiDeviceType? name) => _$this._name = name;
 
   WhiteListItemBuilder();
 

@@ -22,10 +22,11 @@ Future<void> main(List<String> arguments) async {
   final bridge = Bridge(client, discoveryResult.ipAddress!);
 
   /// create a user, press the push link button before calling this
-  final whiteListItem = await bridge.createUser('dart_hue#example');
+  final whiteListItem = await bridge.createUser();
 
   // use username for consequent calls to the bridge
   bridge.username = whiteListItem.username!;
+  print('This is your username for the api calls: ${whiteListItem.username!}');
 
   /// get lights
   final lights = await bridge.lights();
@@ -51,10 +52,12 @@ LightState lightStateForColorOnly(Light light) {
   } else if (light.state!.colorMode == 'ct') {
     state = LightState((b) => b..ct = light.state!.ct);
   } else {
-    state = LightState((b) => b
-      ..hue = light.state!.hue
-      ..saturation = light.state!.saturation
-      ..brightness = light.state!.brightness,);
+    state = LightState(
+      (b) => b
+        ..hue = light.state!.hue
+        ..saturation = light.state!.saturation
+        ..brightness = light.state!.brightness,
+    );
   }
   return state;
 }

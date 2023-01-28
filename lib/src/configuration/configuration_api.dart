@@ -17,20 +17,29 @@ class ConfigurationApi {
   /// Once a new user has been created, the user key is added to a ‘whitelist’, allowing access to API commands that require a whitelisted user.
   ///  At present, all other API commands require a whitelisted user.
   // TODO: Make this function work
-  Future<WhiteListItem> createUser(String deviceType) async {
+  Future<WhiteListItem> createUser({
+    HueApiDeviceType deviceType = HueApiDeviceType.device2,
+  }) async {
     const url = '/api/';
-    final response =
-        await _client.post(url, {'devicetype': deviceType}, 'username');
+    final response = await _client.post(
+      url,
+      {'devicetype': deviceType.name},
+      'username',
+    );
     final createDate = DateFormat("yyyy-MM-dd'T'HH:m:s").format(DateTime.now());
-    return WhiteListItem((w) => w
-      ..username = response.key as String?
-      ..name = deviceType
-      ..createDate = createDate
-      ..lastUsedDate = createDate,);
+    return WhiteListItem(
+      (w) => w
+        ..username = response.key as String?
+        ..name = deviceType
+        ..createDate = createDate
+        ..lastUsedDate = createDate,
+    );
   }
 
   Future<BridgeResponse> deleteUser(
-      String username, String deletingUsername,) async {
+    String username,
+    String deletingUsername,
+  ) async {
     final url = '/api/$username/config/whitelist/$deletingUsername';
     return _client.delete(url);
   }
@@ -53,8 +62,15 @@ class ConfigurationApi {
 
   /// Allows the user to set some configuration values.
   Future<BridgeResponse> update(
-      String username, Configuration configuration,) async {
+    String username,
+    Configuration configuration,
+  ) async {
     final url = '/api/$username/config';
     return _client.put(url, configuration.toBridgeObject());
   }
+}
+
+enum HueApiDeviceType {
+  device1,
+  device2,
 }
