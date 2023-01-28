@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:http/http.dart';
 import 'package:hue_dart/hue_dart.dart';
-import 'package:hue_dart/src/configuration/configuration_api.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -104,7 +103,7 @@ void main() {
         mockPost(
           '[{"success":{"username":"19156256a1cc24112436792453e8ae7"}}]',
         );
-        final response = await sut.createUser(HueApiDeviceType.device2);
+        final response = await sut.createUser();
         expect(response.username, '19156256a1cc24112436792453e8ae7');
         expect(response.name, 'deviceType');
         final body = {'devicetype': 'deviceType'};
