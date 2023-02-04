@@ -211,4 +211,31 @@ class Bridge {
 
   Future<BridgeResponse> deleteSensor(Sensor sensor) async =>
       _sensorApi.delete(sensor);
+
+  /// Waiting for user to click the button on top of the Philips Hue hub.
+  /// When it will be clicked it will return the created user id
+  Future<String> brideLoopToAwaitPushlinkForUserId({
+    HueApiDeviceType deviceType = HueApiDeviceType.device2,
+    int delayInSeconds = 15,
+  }) async {
+    String username;
+
+    while (true) {
+      try {
+        final whiteListItem = await createUser(deviceType: deviceType);
+        final String? usernameTemp = whiteListItem.username;
+        if (usernameTemp != null) {
+          username = usernameTemp;
+          break;
+        }
+        print('Returned user name is null, this is an error');
+      } catch (error) {
+        print('Waiting Pushlink to be clicked, pleas click the button on top'
+            ' of the Philips Hue Hub');
+      }
+      await Future.delayed(Duration(seconds: delayInSeconds));
+    }
+
+    return username;
+  }
 }

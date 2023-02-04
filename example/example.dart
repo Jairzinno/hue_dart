@@ -19,20 +19,21 @@ Future<void> main(List<String> arguments) async {
   final discoveryResult = discoverResults.first;
 
   //create bridge
-  final bridge = Bridge(client, discoveryResult.ipAddress!);
+  final Bridge bridge = Bridge(client, discoveryResult.ipAddress!);
 
-  /// create a user, press the push link button before calling this
-  final whiteListItem = await bridge.createUser();
+  /// Getting approved user name to interact with hub
+  final String userNameId = await bridge.brideLoopToAwaitPushlinkForUserId();
 
-  // use username for consequent calls to the bridge
-  bridge.username = whiteListItem.username!;
-  print('This is your username for the api calls: ${whiteListItem.username!}');
+  /// Inserting the user name to our bridge
+  bridge.username = userNameId;
+
+  print('This is your username for the api calls: $userNameId');
 
   /// get lights
   final lights = await bridge.lights();
 
   // update light state
-  final light = lights.first.changeColor(red: 1.0, green: 0.5, blue: 1.0);
+  final light = lights.first;
   final state = lightStateForColorOnly(light).rebuild(
     (s) => s
       ..on = true
