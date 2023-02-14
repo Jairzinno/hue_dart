@@ -101,6 +101,9 @@ abstract class GroupAction
     if (colorMode != null) {
       body['colormode'] = colorMode;
     }
+    if (scene != null) {
+      body['scene'] = scene;
+    }
     return body;
   }
 }
