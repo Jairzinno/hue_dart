@@ -12,64 +12,93 @@ Serializer<DiscoveryResult> _$discoveryResultSerializer =
 class _$DiscoveryResultSerializer
     implements StructuredSerializer<DiscoveryResult> {
   @override
-  final Iterable<Type> types = const [DiscoveryResult, _$DiscoveryResult];
+  final Iterable<Type> types = const [DiscoveryResult, $DiscoveryResult];
   @override
   final String wireName = 'DiscoveryResult';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, DiscoveryResult object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    DiscoveryResult object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
     if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.mac;
     if (value != null) {
       result
         ..add('mac')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.apiVersion;
     if (value != null) {
       result
         ..add('apiversion')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.ipAddress;
     if (value != null) {
       result
         ..add('internalipaddress')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.swVersion;
     if (value != null) {
       result
         ..add('swversion')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }
 
   @override
   DiscoveryResult deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new DiscoveryResultBuilder();
 
     final iterator = serialized.iterator;
@@ -79,28 +108,40 @@ class _$DiscoveryResultSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.id = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.name = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'mac':
-          result.mac = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.mac = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'apiversion':
-          result.apiVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.apiVersion = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'internalipaddress':
-          result.ipAddress = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.ipAddress = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'swversion':
-          result.swVersion = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.swVersion = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
       }
     }
@@ -109,7 +150,7 @@ class _$DiscoveryResultSerializer
   }
 }
 
-class _$DiscoveryResult extends DiscoveryResult {
+class $DiscoveryResult extends DiscoveryResult {
   @override
   final String? id;
   @override
@@ -123,17 +164,17 @@ class _$DiscoveryResult extends DiscoveryResult {
   @override
   final String? swVersion;
 
-  factory _$DiscoveryResult([void Function(DiscoveryResultBuilder)? updates]) =>
+  factory $DiscoveryResult([void Function(DiscoveryResultBuilder)? updates]) =>
       (new DiscoveryResultBuilder()..update(updates)).build();
 
-  _$DiscoveryResult._(
-      {this.id,
-      this.name,
-      this.mac,
-      this.apiVersion,
-      this.ipAddress,
-      this.swVersion})
-      : super._();
+  $DiscoveryResult._({
+    this.id,
+    this.name,
+    this.mac,
+    this.apiVersion,
+    this.ipAddress,
+    this.swVersion,
+  }) : super._();
 
   @override
   DiscoveryResult rebuild(void Function(DiscoveryResultBuilder) updates) =>
@@ -157,12 +198,18 @@ class _$DiscoveryResult extends DiscoveryResult {
 
   @override
   int get hashCode {
-    return $jf($jc(
+    return $jf(
+      $jc(
         $jc(
-            $jc($jc($jc($jc(0, id.hashCode), name.hashCode), mac.hashCode),
-                apiVersion.hashCode),
-            ipAddress.hashCode),
-        swVersion.hashCode));
+          $jc(
+            $jc($jc($jc(0, id.hashCode), name.hashCode), mac.hashCode),
+            apiVersion.hashCode,
+          ),
+          ipAddress.hashCode,
+        ),
+        swVersion.hashCode,
+      ),
+    );
   }
 
   @override
@@ -180,7 +227,7 @@ class _$DiscoveryResult extends DiscoveryResult {
 
 class DiscoveryResultBuilder
     implements Builder<DiscoveryResult, DiscoveryResultBuilder> {
-  _$DiscoveryResult? _$v;
+  $DiscoveryResult? _$v;
 
   String? _id;
   String? get id => _$this._id;
@@ -225,7 +272,7 @@ class DiscoveryResultBuilder
   @override
   void replace(DiscoveryResult other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$DiscoveryResult;
+    _$v = other as $DiscoveryResult;
   }
 
   @override
@@ -234,17 +281,18 @@ class DiscoveryResultBuilder
   }
 
   @override
-  _$DiscoveryResult build() {
-    final _$result = _$v ??
-        new _$DiscoveryResult._(
-            id: id,
-            name: name,
-            mac: mac,
-            apiVersion: apiVersion,
-            ipAddress: ipAddress,
-            swVersion: swVersion);
-    replace(_$result);
-    return _$result;
+  $DiscoveryResult build() {
+    final $result = _$v ??
+        new $DiscoveryResult._(
+          id: id,
+          name: name,
+          mac: mac,
+          apiVersion: apiVersion,
+          ipAddress: ipAddress,
+          swVersion: swVersion,
+        );
+    replace($result);
+    return $result;
   }
 }
 

@@ -16,7 +16,7 @@ abstract class Condition
 
   static Serializer<Condition> get serializer => _$conditionSerializer;
 
-  factory Condition([Function(ConditionBuilder b) updates]) = _$Condition;
+  factory Condition([Function(ConditionBuilder b) updates]) = $Condition;
 
   Condition._();
 

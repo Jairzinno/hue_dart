@@ -11,50 +11,71 @@ Serializer<WhiteListItem> _$whiteListItemSerializer =
 
 class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
   @override
-  final Iterable<Type> types = const [WhiteListItem, _$WhiteListItem];
+  final Iterable<Type> types = const [WhiteListItem, $WhiteListItem];
   @override
   final String wireName = 'WhiteListItem';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, WhiteListItem object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    WhiteListItem object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.username;
     if (value != null) {
       result
         ..add('username')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.lastUsedDate;
     if (value != null) {
       result
         ..add('last use date')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.createDate;
     if (value != null) {
       result
         ..add('create date')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }
 
   @override
   WhiteListItem deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new WhiteListItemBuilder();
 
     final iterator = serialized.iterator;
@@ -64,20 +85,28 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
       final Object? value = iterator.current;
       switch (key) {
         case 'username':
-          result.username = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.username = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'last use date':
-          result.lastUsedDate = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.lastUsedDate = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'create date':
-          result.createDate = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.createDate = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.name = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as HueApiDeviceType;
           break;
       }
     }
@@ -86,7 +115,7 @@ class _$WhiteListItemSerializer implements StructuredSerializer<WhiteListItem> {
   }
 }
 
-class _$WhiteListItem extends WhiteListItem {
+class $WhiteListItem extends WhiteListItem {
   @override
   final String? username;
   @override
@@ -94,16 +123,19 @@ class _$WhiteListItem extends WhiteListItem {
   @override
   final String? createDate;
   @override
-  final String? name;
+  final HueApiDeviceType? name;
   DateTime? __lastUsed;
   DateTime? __created;
 
-  factory _$WhiteListItem([void Function(WhiteListItemBuilder)? updates]) =>
+  factory $WhiteListItem([void Function(WhiteListItemBuilder)? updates]) =>
       (new WhiteListItemBuilder()..update(updates)).build();
 
-  _$WhiteListItem._(
-      {this.username, this.lastUsedDate, this.createDate, this.name})
-      : super._();
+  $WhiteListItem._({
+    this.username,
+    this.lastUsedDate,
+    this.createDate,
+    this.name,
+  }) : super._();
 
   @override
   DateTime get lastUsed => __lastUsed ??= super.lastUsed;
@@ -130,10 +162,15 @@ class _$WhiteListItem extends WhiteListItem {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, username.hashCode), lastUsedDate.hashCode),
-            createDate.hashCode),
-        name.hashCode));
+    return $jf(
+      $jc(
+        $jc(
+          $jc($jc(0, username.hashCode), lastUsedDate.hashCode),
+          createDate.hashCode,
+        ),
+        name.hashCode,
+      ),
+    );
   }
 
   @override
@@ -149,7 +186,7 @@ class _$WhiteListItem extends WhiteListItem {
 
 class WhiteListItemBuilder
     implements Builder<WhiteListItem, WhiteListItemBuilder> {
-  _$WhiteListItem? _$v;
+  $WhiteListItem? _$v;
 
   String? _username;
   String? get username => _$this._username;
@@ -163,9 +200,9 @@ class WhiteListItemBuilder
   String? get createDate => _$this._createDate;
   set createDate(String? createDate) => _$this._createDate = createDate;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
+  HueApiDeviceType? _name;
+  HueApiDeviceType? get name => _$this._name;
+  set name(HueApiDeviceType? name) => _$this._name = name;
 
   WhiteListItemBuilder();
 
@@ -184,7 +221,7 @@ class WhiteListItemBuilder
   @override
   void replace(WhiteListItem other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$WhiteListItem;
+    _$v = other as $WhiteListItem;
   }
 
   @override
@@ -193,15 +230,16 @@ class WhiteListItemBuilder
   }
 
   @override
-  _$WhiteListItem build() {
-    final _$result = _$v ??
-        new _$WhiteListItem._(
-            username: username,
-            lastUsedDate: lastUsedDate,
-            createDate: createDate,
-            name: name);
-    replace(_$result);
-    return _$result;
+  $WhiteListItem build() {
+    final $result = _$v ??
+        new $WhiteListItem._(
+          username: username,
+          lastUsedDate: lastUsedDate,
+          createDate: createDate,
+          name: name,
+        );
+    replace($result);
+    return $result;
   }
 }
 

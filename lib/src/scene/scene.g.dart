@@ -10,72 +10,101 @@ Serializer<Scene> _$sceneSerializer = new _$SceneSerializer();
 
 class _$SceneSerializer implements StructuredSerializer<Scene> {
   @override
-  final Iterable<Type> types = const [Scene, _$Scene];
+  final Iterable<Type> types = const [Scene, $Scene];
   @override
   final String wireName = 'Scene';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Scene object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Scene object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
     if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.lightIds;
     if (value != null) {
       result
         ..add('lights')
-        ..add(serializers.serialize(value,
+        ..add(
+          serializers.serialize(
+            value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+                const FullType(BuiltList, const [const FullType(String)]),
+          ),
+        );
     }
     value = object.sceneLights;
     if (value != null) {
       result
         ..add('sceneLights')
-        ..add(serializers.serialize(value,
+        ..add(
+          serializers.serialize(
+            value,
             specifiedType:
-                const FullType(BuiltList, const [const FullType(Light)])));
+                const FullType(BuiltList, const [const FullType(Light)]),
+          ),
+        );
     }
     value = object.owner;
     if (value != null) {
       result
         ..add('owner')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.locked;
     if (value != null) {
       result
         ..add('locked')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.lastUpdated;
     if (value != null) {
       result
         ..add('lastupdated')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.version;
     if (value != null) {
@@ -87,22 +116,33 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
     if (value != null) {
       result
         ..add('appdata')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(AppData)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(AppData),
+          ),
+        );
     }
     value = object.picture;
     if (value != null) {
       result
         ..add('picture')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }
 
   @override
-  Scene deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Scene deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new SceneBuilder();
 
     final iterator = serialized.iterator;
@@ -112,52 +152,80 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.id = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.name = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'lights':
-          result.lightIds.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object>);
+          result.lightIds.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                BuiltList,
+                const [const FullType(String)],
+              ),
+            )! as BuiltList<Object>,
+          );
           break;
         case 'sceneLights':
-          result.sceneLights.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(Light)]))!
-              as BuiltList<Object>);
+          result.sceneLights.replace(
+            serializers.deserialize(
+              value,
+              specifiedType:
+                  const FullType(BuiltList, const [const FullType(Light)]),
+            )! as BuiltList<Object>,
+          );
           break;
         case 'owner':
-          result.owner = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.owner = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'recycle':
-          result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+          result.recycle = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'locked':
-          result.locked = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+          result.locked = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'lastupdated':
-          result.lastUpdated = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.lastUpdated = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'version':
-          result.version = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+          result.version = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           break;
         case 'appdata':
-          result.appData.replace(serializers.deserialize(value,
-              specifiedType: const FullType(AppData))! as AppData);
+          result.appData.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(AppData),
+            )! as AppData,
+          );
           break;
         case 'picture':
-          result.picture = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.picture = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
       }
     }
@@ -166,7 +234,7 @@ class _$SceneSerializer implements StructuredSerializer<Scene> {
   }
 }
 
-class _$Scene extends Scene {
+class $Scene extends Scene {
   @override
   final String? id;
   @override
@@ -190,22 +258,22 @@ class _$Scene extends Scene {
   @override
   final String? picture;
 
-  factory _$Scene([void Function(SceneBuilder)? updates]) =>
+  factory $Scene([void Function(SceneBuilder)? updates]) =>
       (new SceneBuilder()..update(updates)).build();
 
-  _$Scene._(
-      {this.id,
-      this.name,
-      this.lightIds,
-      this.sceneLights,
-      this.owner,
-      this.recycle,
-      this.locked,
-      this.lastUpdated,
-      this.version,
-      this.appData,
-      this.picture})
-      : super._();
+  $Scene._({
+    this.id,
+    this.name,
+    this.lightIds,
+    this.sceneLights,
+    this.owner,
+    this.recycle,
+    this.locked,
+    this.lastUpdated,
+    this.version,
+    this.appData,
+    this.picture,
+  }) : super._();
 
   @override
   Scene rebuild(void Function(SceneBuilder) updates) =>
@@ -233,24 +301,36 @@ class _$Scene extends Scene {
 
   @override
   int get hashCode {
-    return $jf($jc(
+    return $jf(
+      $jc(
         $jc(
+          $jc(
             $jc(
+              $jc(
                 $jc(
+                  $jc(
                     $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                        lightIds.hashCode),
-                                    sceneLights.hashCode),
-                                owner.hashCode),
-                            recycle.hashCode),
-                        locked.hashCode),
-                    lastUpdated.hashCode),
-                version.hashCode),
-            appData.hashCode),
-        picture.hashCode));
+                      $jc(
+                        $jc($jc(0, id.hashCode), name.hashCode),
+                        lightIds.hashCode,
+                      ),
+                      sceneLights.hashCode,
+                    ),
+                    owner.hashCode,
+                  ),
+                  recycle.hashCode,
+                ),
+                locked.hashCode,
+              ),
+              lastUpdated.hashCode,
+            ),
+            version.hashCode,
+          ),
+          appData.hashCode,
+        ),
+        picture.hashCode,
+      ),
+    );
   }
 
   @override
@@ -272,7 +352,7 @@ class _$Scene extends Scene {
 }
 
 class SceneBuilder implements Builder<Scene, SceneBuilder> {
-  _$Scene? _$v;
+  $Scene? _$v;
 
   String? _id;
   String? get id => _$this._id;
@@ -345,7 +425,7 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
   @override
   void replace(Scene other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Scene;
+    _$v = other as $Scene;
   }
 
   @override
@@ -354,40 +434,44 @@ class SceneBuilder implements Builder<Scene, SceneBuilder> {
   }
 
   @override
-  _$Scene build() {
-    _$Scene _$result;
+  $Scene build() {
+    $Scene $result;
     try {
-      _$result = _$v ??
-          new _$Scene._(
-              id: id,
-              name: name,
-              lightIds: _lightIds?.build(),
-              sceneLights: _sceneLights?.build(),
-              owner: owner,
-              recycle: recycle,
-              locked: locked,
-              lastUpdated: lastUpdated,
-              version: version,
-              appData: _appData?.build(),
-              picture: picture);
+      $result = _$v ??
+          new $Scene._(
+            id: id,
+            name: name,
+            lightIds: _lightIds?.build(),
+            sceneLights: _sceneLights?.build(),
+            owner: owner,
+            recycle: recycle,
+            locked: locked,
+            lastUpdated: lastUpdated,
+            version: version,
+            appData: _appData?.build(),
+            picture: picture,
+          );
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'lightIds';
+        $failedField = 'lightIds';
         _lightIds?.build();
-        _$failedField = 'sceneLights';
+        $failedField = 'sceneLights';
         _sceneLights?.build();
 
-        _$failedField = 'appData';
+        $failedField = 'appData';
         _appData?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Scene', _$failedField, e.toString());
+          'Scene',
+          $failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

@@ -10,28 +10,38 @@ Serializer<BackUp> _$backUpSerializer = new _$BackUpSerializer();
 
 class _$BackUpSerializer implements StructuredSerializer<BackUp> {
   @override
-  final Iterable<Type> types = const [BackUp, _$BackUp];
+  final Iterable<Type> types = const [BackUp, $BackUp];
   @override
   final String wireName = 'BackUp';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BackUp object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    BackUp object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[
       'status',
-      serializers.serialize(object.status,
-          specifiedType: const FullType(String)),
+      serializers.serialize(
+        object.status,
+        specifiedType: const FullType(String),
+      ),
       'errorcode',
-      serializers.serialize(object.errorCode,
-          specifiedType: const FullType(int)),
+      serializers.serialize(
+        object.errorCode,
+        specifiedType: const FullType(int),
+      ),
     ];
 
     return result;
   }
 
   @override
-  BackUp deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  BackUp deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new BackUpBuilder();
 
     final iterator = serialized.iterator;
@@ -41,12 +51,16 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
       final Object? value = iterator.current;
       switch (key) {
         case 'status':
-          result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.status = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'errorcode':
-          result.errorCode = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+          result.errorCode = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           break;
       }
     }
@@ -55,16 +69,16 @@ class _$BackUpSerializer implements StructuredSerializer<BackUp> {
   }
 }
 
-class _$BackUp extends BackUp {
+class $BackUp extends BackUp {
   @override
   final String status;
   @override
   final int errorCode;
 
-  factory _$BackUp([void Function(BackUpBuilder)? updates]) =>
+  factory $BackUp([void Function(BackUpBuilder)? updates]) =>
       (new BackUpBuilder()..update(updates)).build();
 
-  _$BackUp._({required this.status, required this.errorCode}) : super._() {
+  $BackUp._({required this.status, required this.errorCode}) : super._() {
     BuiltValueNullFieldError.checkNotNull(status, 'BackUp', 'status');
     BuiltValueNullFieldError.checkNotNull(errorCode, 'BackUp', 'errorCode');
   }
@@ -99,7 +113,7 @@ class _$BackUp extends BackUp {
 }
 
 class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
-  _$BackUp? _$v;
+  $BackUp? _$v;
 
   String? _status;
   String? get status => _$this._status;
@@ -124,7 +138,7 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
   @override
   void replace(BackUp other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$BackUp;
+    _$v = other as $BackUp;
   }
 
   @override
@@ -133,15 +147,22 @@ class BackUpBuilder implements Builder<BackUp, BackUpBuilder> {
   }
 
   @override
-  _$BackUp build() {
-    final _$result = _$v ??
-        new _$BackUp._(
-            status: BuiltValueNullFieldError.checkNotNull(
-                status, 'BackUp', 'status'),
-            errorCode: BuiltValueNullFieldError.checkNotNull(
-                errorCode, 'BackUp', 'errorCode'));
-    replace(_$result);
-    return _$result;
+  $BackUp build() {
+    final $result = _$v ??
+        new $BackUp._(
+          status: BuiltValueNullFieldError.checkNotNull(
+            status,
+            'BackUp',
+            'status',
+          ),
+          errorCode: BuiltValueNullFieldError.checkNotNull(
+            errorCode,
+            'BackUp',
+            'errorCode',
+          ),
+        );
+    replace($result);
+    return $result;
   }
 }
 

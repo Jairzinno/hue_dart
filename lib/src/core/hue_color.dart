@@ -44,7 +44,7 @@ abstract class HueColor implements Built<HueColor, HueColorBuilder> {
 
   static Serializer<HueColor> get serializer => _$hueColorSerializer;
 
-  factory HueColor([Function(HueColorBuilder b) updates]) = _$HueColor;
+  factory HueColor([Function(HueColorBuilder b) updates]) = $HueColor;
 
   HueColor._();
 

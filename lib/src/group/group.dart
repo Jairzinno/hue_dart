@@ -65,17 +65,23 @@ abstract class Group with BridgeObject implements Built<Group, GroupBuilder> {
       return colorHelper.ctToRGB(action!.ct!);
     } else if (action!.colorMode == 'hs') {
       return colorHelper.hueSaturationBrightnessToRGB(
-          action!.hue!, action!.saturation!, action!.brightness!);
+        action!.hue!,
+        action!.saturation!,
+        action!.brightness!,
+      );
     } else if (action!.colorMode == 'xy') {
       return colorHelper.xyToRGB(
-          action!.xy![0], action!.xy![1], action!.brightness);
+        action!.xy![0],
+        action!.xy![1],
+        action!.brightness,
+      );
     }
     return null;
   }
 
   static Serializer<Group> get serializer => _$groupSerializer;
 
-  factory Group([Function(GroupBuilder b) updates]) = _$Group;
+  factory Group([Function(GroupBuilder b) updates]) = $Group;
 
   Group._();
 

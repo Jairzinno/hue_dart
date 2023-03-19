@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:hue_dart/src/configuration/configuration_api.dart';
 import 'package:hue_dart/src/configuration/pushlink_storage.dart';
 import 'package:hue_dart/src/core/bloc_base.dart';
 import 'package:hue_dart/src/core/bridge.dart';
@@ -34,8 +35,8 @@ class PushlinkBloc extends BlocBase {
   StreamController<Bridge> _bridge = StreamController();
   Sink<Bridge> get bridge => _bridge.sink;
 
-  StreamController<String> _start = StreamController();
-  Sink<String> get start => _start.sink;
+  StreamController<HueApiDeviceType> _start = StreamController();
+  Sink<HueApiDeviceType> get start => _start.sink;
 
   PushlinkBloc(this._pushlinkStorage, this._discovery);
 
@@ -63,13 +64,13 @@ class PushlinkBloc extends BlocBase {
     });
   }
 
-  Future<void> _startPushlink(String deviceType) async {
+  Future<void> _startPushlink(HueApiDeviceType deviceType) async {
     _restart.add(false);
     for (var i = 1; i <= 30; i++) {
       await Future.delayed(const Duration(seconds: 1));
       _progress.add(i);
       final bridge = await _bridge.stream.last;
-      final response = await bridge.createUser(deviceType);
+      final response = await bridge.createUser(deviceType: deviceType);
       final hasUsername = response.username != null;
       if (hasUsername) {
         final savedUsername =

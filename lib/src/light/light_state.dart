@@ -58,7 +58,7 @@ abstract class LightState
 
   static Serializer<LightState> get serializer => _$lightStateSerializer;
 
-  factory LightState([Function(LightStateBuilder b) updates]) = _$LightState;
+  factory LightState([Function(LightStateBuilder b) updates]) = $LightState;
 
   LightState._();
 

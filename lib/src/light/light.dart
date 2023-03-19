@@ -63,10 +63,16 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
       return colorHelper.ctToRGB(state!.ct!);
     } else if (state!.colorMode == 'hs') {
       return colorHelper.hueSaturationBrightnessToRGB(
-          state!.hue!, state!.saturation!, state!.brightness!);
+        state!.hue!,
+        state!.saturation!,
+        state!.brightness!,
+      );
     } else if (state!.colorMode == 'xy') {
       return colorHelper.xyToRGB(
-          state!.xy![0], state!.xy![1], state!.brightness);
+        state!.xy![0],
+        state!.xy![1],
+        state!.brightness,
+      );
     }
     return null;
   }
@@ -76,7 +82,7 @@ abstract class Light with BridgeObject implements Built<Light, LightBuilder> {
 
   static Serializer<Light> get serializer => _$lightSerializer;
 
-  factory Light([Function(LightBuilder b) updates]) = _$Light;
+  factory Light([Function(LightBuilder b) updates]) = $Light;
 
   Light._();
 

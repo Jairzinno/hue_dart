@@ -62,13 +62,15 @@ abstract class GroupAction
 
   static Serializer<GroupAction> get serializer => _$groupActionSerializer;
 
-  factory GroupAction([Function(GroupActionBuilder b) updates]) = _$GroupAction;
+  factory GroupAction([Function(GroupActionBuilder b) updates]) = $GroupAction;
 
   GroupAction._();
 
   static GroupAction? fromJson(String jsonString) {
     return serializers.deserializeWith(
-        GroupAction.serializer, json.decode(jsonString));
+      GroupAction.serializer,
+      json.decode(jsonString),
+    );
   }
 
   @override

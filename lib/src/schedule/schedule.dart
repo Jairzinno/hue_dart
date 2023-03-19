@@ -84,7 +84,7 @@ abstract class Schedule
 
   static Serializer<Schedule> get serializer => _$scheduleSerializer;
 
-  factory Schedule([Function(ScheduleBuilder b) updates]) = _$Schedule;
+  factory Schedule([Function(ScheduleBuilder b) updates]) = $Schedule;
 
   Schedule._();
 

@@ -34,8 +34,8 @@ class GroupApi {
 
   Future<List<Light>> _lights(Group group) async {
     final result = <Light>[];
-    for (final _light in group.lightIds!) {
-      result.add(await _completeLight(int.parse(_light)));
+    for (final light in group.lightIds!) {
+      result.add(await _completeLight(int.parse(light)));
     }
     return result;
   }

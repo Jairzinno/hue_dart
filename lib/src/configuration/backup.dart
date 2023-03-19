@@ -12,7 +12,7 @@ abstract class BackUp implements Built<BackUp, BackUpBuilder> {
 
   static Serializer<BackUp> get serializer => _$backUpSerializer;
 
-  factory BackUp([Function(BackUpBuilder b) updates]) = _$BackUp;
+  factory BackUp([Function(BackUpBuilder b) updates]) = $BackUp;
 
   BackUp._();
 

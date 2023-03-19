@@ -10,43 +10,63 @@ Serializer<RuleAction> _$ruleActionSerializer = new _$RuleActionSerializer();
 
 class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
   @override
-  final Iterable<Type> types = const [RuleAction, _$RuleAction];
+  final Iterable<Type> types = const [RuleAction, $RuleAction];
   @override
   final String wireName = 'RuleAction';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, RuleAction object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    RuleAction object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.address;
     if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.method;
     if (value != null) {
       result
         ..add('method')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.body;
     if (value != null) {
       result
         ..add('body')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltMap,
-                const [const FullType(String), const FullType(String)])));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(
+              BuiltMap,
+              const [const FullType(String), const FullType(String)],
+            ),
+          ),
+        );
     }
     return result;
   }
 
   @override
-  RuleAction deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  RuleAction deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new RuleActionBuilder();
 
     final iterator = serialized.iterator;
@@ -56,17 +76,27 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
       final Object? value = iterator.current;
       switch (key) {
         case 'address':
-          result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.address = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'method':
-          result.method = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.method = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'body':
-          result.body.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)]))!);
+          result.body.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                BuiltMap,
+                const [const FullType(String), const FullType(String)],
+              ),
+            )!,
+          );
           break;
       }
     }
@@ -75,7 +105,7 @@ class _$RuleActionSerializer implements StructuredSerializer<RuleAction> {
   }
 }
 
-class _$RuleAction extends RuleAction {
+class $RuleAction extends RuleAction {
   @override
   final String? address;
   @override
@@ -83,10 +113,10 @@ class _$RuleAction extends RuleAction {
   @override
   final BuiltMap<String, String>? body;
 
-  factory _$RuleAction([void Function(RuleActionBuilder)? updates]) =>
+  factory $RuleAction([void Function(RuleActionBuilder)? updates]) =>
       (new RuleActionBuilder()..update(updates)).build();
 
-  _$RuleAction._({this.address, this.method, this.body}) : super._();
+  $RuleAction._({this.address, this.method, this.body}) : super._();
 
   @override
   RuleAction rebuild(void Function(RuleActionBuilder) updates) =>
@@ -107,7 +137,8 @@ class _$RuleAction extends RuleAction {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode));
+      $jc($jc($jc(0, address.hashCode), method.hashCode), body.hashCode),
+    );
   }
 
   @override
@@ -121,7 +152,7 @@ class _$RuleAction extends RuleAction {
 }
 
 class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
-  _$RuleAction? _$v;
+  $RuleAction? _$v;
 
   String? _address;
   String? get address => _$this._address;
@@ -152,7 +183,7 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
   @override
   void replace(RuleAction other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$RuleAction;
+    _$v = other as $RuleAction;
   }
 
   @override
@@ -161,25 +192,31 @@ class RuleActionBuilder implements Builder<RuleAction, RuleActionBuilder> {
   }
 
   @override
-  _$RuleAction build() {
-    _$RuleAction _$result;
+  $RuleAction build() {
+    $RuleAction $result;
     try {
-      _$result = _$v ??
-          new _$RuleAction._(
-              address: address, method: method, body: _body?.build());
+      $result = _$v ??
+          new $RuleAction._(
+            address: address,
+            method: method,
+            body: _body?.build(),
+          );
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'body';
+        $failedField = 'body';
         _body?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'RuleAction', _$failedField, e.toString());
+          'RuleAction',
+          $failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

@@ -10,77 +10,109 @@ Serializer<Schedule> _$scheduleSerializer = new _$ScheduleSerializer();
 
 class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
   @override
-  final Iterable<Type> types = const [Schedule, _$Schedule];
+  final Iterable<Type> types = const [Schedule, $Schedule];
   @override
   final String wireName = 'Schedule';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Schedule object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Schedule object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.id;
     if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.name;
     if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.description;
     if (value != null) {
       result
         ..add('description')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.time;
     if (value != null) {
       result
         ..add('localtime')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.status;
     if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.autoDelete;
     if (value != null) {
       result
         ..add('autodelete')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.recycle;
     if (value != null) {
       result
         ..add('recycle')
         ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+          serializers.serialize(value, specifiedType: const FullType(bool)),
+        );
     }
     value = object.command;
     if (value != null) {
       result
         ..add('command')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(Command)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(Command),
+          ),
+        );
     }
     return result;
   }
 
   @override
-  Schedule deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Schedule deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new ScheduleBuilder();
 
     final iterator = serialized.iterator;
@@ -90,36 +122,54 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
       final Object? value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.id = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.name = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'description':
-          result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.description = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'localtime':
-          result.time = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.time = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'status':
-          result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.status = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'autodelete':
-          result.autoDelete = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+          result.autoDelete = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'recycle':
-          result.recycle = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+          result.recycle = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           break;
         case 'command':
-          result.command.replace(serializers.deserialize(value,
-              specifiedType: const FullType(Command))! as Command);
+          result.command.replace(
+            serializers.deserialize(
+              value,
+              specifiedType: const FullType(Command),
+            )! as Command,
+          );
           break;
       }
     }
@@ -128,7 +178,7 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
   }
 }
 
-class _$Schedule extends Schedule {
+class $Schedule extends Schedule {
   @override
   final String? id;
   @override
@@ -147,19 +197,19 @@ class _$Schedule extends Schedule {
   final Command? command;
   ScheduleType? __type;
 
-  factory _$Schedule([void Function(ScheduleBuilder)? updates]) =>
+  factory $Schedule([void Function(ScheduleBuilder)? updates]) =>
       (new ScheduleBuilder()..update(updates)).build();
 
-  _$Schedule._(
-      {this.id,
-      this.name,
-      this.description,
-      this.time,
-      this.status,
-      this.autoDelete,
-      this.recycle,
-      this.command})
-      : super._();
+  $Schedule._({
+    this.id,
+    this.name,
+    this.description,
+    this.time,
+    this.status,
+    this.autoDelete,
+    this.recycle,
+    this.command,
+  }) : super._();
 
   @override
   ScheduleType get type => __type ??= super.type;
@@ -187,18 +237,27 @@ class _$Schedule extends Schedule {
 
   @override
   int get hashCode {
-    return $jf($jc(
+    return $jf(
+      $jc(
         $jc(
+          $jc(
             $jc(
+              $jc(
                 $jc(
-                    $jc(
-                        $jc($jc($jc(0, id.hashCode), name.hashCode),
-                            description.hashCode),
-                        time.hashCode),
-                    status.hashCode),
-                autoDelete.hashCode),
-            recycle.hashCode),
-        command.hashCode));
+                  $jc($jc(0, id.hashCode), name.hashCode),
+                  description.hashCode,
+                ),
+                time.hashCode,
+              ),
+              status.hashCode,
+            ),
+            autoDelete.hashCode,
+          ),
+          recycle.hashCode,
+        ),
+        command.hashCode,
+      ),
+    );
   }
 
   @override
@@ -217,7 +276,7 @@ class _$Schedule extends Schedule {
 }
 
 class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
-  _$Schedule? _$v;
+  $Schedule? _$v;
 
   String? _id;
   String? get id => _$this._id;
@@ -272,7 +331,7 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
   @override
   void replace(Schedule other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Schedule;
+    _$v = other as $Schedule;
   }
 
   @override
@@ -281,32 +340,36 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
   }
 
   @override
-  _$Schedule build() {
-    _$Schedule _$result;
+  $Schedule build() {
+    $Schedule $result;
     try {
-      _$result = _$v ??
-          new _$Schedule._(
-              id: id,
-              name: name,
-              description: description,
-              time: time,
-              status: status,
-              autoDelete: autoDelete,
-              recycle: recycle,
-              command: _command?.build());
+      $result = _$v ??
+          new $Schedule._(
+            id: id,
+            name: name,
+            description: description,
+            time: time,
+            status: status,
+            autoDelete: autoDelete,
+            recycle: recycle,
+            command: _command?.build(),
+          );
     } catch (_) {
-      late String _$failedField;
+      late String $failedField;
       try {
-        _$failedField = 'command';
+        $failedField = 'command';
         _command?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Schedule', _$failedField, e.toString());
+          'Schedule',
+          $failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
-    replace(_$result);
-    return _$result;
+    replace($result);
+    return $result;
   }
 }
 

@@ -12,28 +12,39 @@ Serializer<BridgeException> _$bridgeExceptionSerializer =
 class _$BridgeExceptionSerializer
     implements StructuredSerializer<BridgeException> {
   @override
-  final Iterable<Type> types = const [BridgeException, _$BridgeException];
+  final Iterable<Type> types = const [BridgeException, $BridgeException];
   @override
   final String wireName = 'BridgeException';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BridgeException object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    BridgeException object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.address;
     if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.description;
     if (value != null) {
       result
         ..add('description')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.type;
     if (value != null) {
@@ -46,8 +57,10 @@ class _$BridgeExceptionSerializer
 
   @override
   BridgeException deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new BridgeExceptionBuilder();
 
     final iterator = serialized.iterator;
@@ -57,16 +70,22 @@ class _$BridgeExceptionSerializer
       final Object? value = iterator.current;
       switch (key) {
         case 'address':
-          result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.address = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'description':
-          result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.description = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'type':
-          result.type = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+          result.type = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           break;
       }
     }
@@ -75,7 +94,7 @@ class _$BridgeExceptionSerializer
   }
 }
 
-class _$BridgeException extends BridgeException {
+class $BridgeException extends BridgeException {
   @override
   final String? address;
   @override
@@ -83,10 +102,10 @@ class _$BridgeException extends BridgeException {
   @override
   final int? type;
 
-  factory _$BridgeException([void Function(BridgeExceptionBuilder)? updates]) =>
+  factory $BridgeException([void Function(BridgeExceptionBuilder)? updates]) =>
       (new BridgeExceptionBuilder()..update(updates)).build();
 
-  _$BridgeException._({this.address, this.description, this.type}) : super._();
+  $BridgeException._({this.address, this.description, this.type}) : super._();
 
   @override
   BridgeException rebuild(void Function(BridgeExceptionBuilder) updates) =>
@@ -107,8 +126,12 @@ class _$BridgeException extends BridgeException {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc(0, address.hashCode), description.hashCode), type.hashCode));
+    return $jf(
+      $jc(
+        $jc($jc(0, address.hashCode), description.hashCode),
+        type.hashCode,
+      ),
+    );
   }
 
   @override
@@ -123,7 +146,7 @@ class _$BridgeException extends BridgeException {
 
 class BridgeExceptionBuilder
     implements Builder<BridgeException, BridgeExceptionBuilder> {
-  _$BridgeException? _$v;
+  $BridgeException? _$v;
 
   String? _address;
   String? get address => _$this._address;
@@ -153,7 +176,7 @@ class BridgeExceptionBuilder
   @override
   void replace(BridgeException other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$BridgeException;
+    _$v = other as $BridgeException;
   }
 
   @override
@@ -162,12 +185,15 @@ class BridgeExceptionBuilder
   }
 
   @override
-  _$BridgeException build() {
-    final _$result = _$v ??
-        new _$BridgeException._(
-            address: address, description: description, type: type);
-    replace(_$result);
-    return _$result;
+  $BridgeException build() {
+    final $result = _$v ??
+        new $BridgeException._(
+          address: address,
+          description: description,
+          type: type,
+        );
+    replace($result);
+    return $result;
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:hue_dart/src/configuration/configuration_api.dart';
 import 'package:hue_dart/src/core/serializers.dart';
 import 'package:intl/intl.dart';
 
@@ -22,12 +23,12 @@ abstract class WhiteListItem
   @memoized
   DateTime get created => DateFormat("yyyy-MM-dd'T'HH:m:s").parse(createDate!);
 
-  String? get name;
+  HueApiDeviceType? get name;
 
   static Serializer<WhiteListItem> get serializer => _$whiteListItemSerializer;
 
   factory WhiteListItem([Function(WhiteListItemBuilder b) updates]) =
-      _$WhiteListItem;
+      $WhiteListItem;
 
   WhiteListItem._();
 

@@ -10,42 +10,60 @@ Serializer<Condition> _$conditionSerializer = new _$ConditionSerializer();
 
 class _$ConditionSerializer implements StructuredSerializer<Condition> {
   @override
-  final Iterable<Type> types = const [Condition, _$Condition];
+  final Iterable<Type> types = const [Condition, $Condition];
   @override
   final String wireName = 'Condition';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Condition object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Condition object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = <Object?>[];
     Object? value;
     value = object.address;
     if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.operator;
     if (value != null) {
       result
         ..add('operator')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     value = object.value;
     if (value != null) {
       result
         ..add('value')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add(
+          serializers.serialize(
+            value,
+            specifiedType: const FullType(String),
+          ),
+        );
     }
     return result;
   }
 
   @override
-  Condition deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Condition deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final result = new ConditionBuilder();
 
     final iterator = serialized.iterator;
@@ -55,16 +73,22 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
       final Object? value = iterator.current;
       switch (key) {
         case 'address':
-          result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.address = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'operator':
-          result.operator = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.operator = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
         case 'value':
-          result.value = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+          result.value = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           break;
       }
     }
@@ -73,7 +97,7 @@ class _$ConditionSerializer implements StructuredSerializer<Condition> {
   }
 }
 
-class _$Condition extends Condition {
+class $Condition extends Condition {
   @override
   final String? address;
   @override
@@ -81,10 +105,10 @@ class _$Condition extends Condition {
   @override
   final String? value;
 
-  factory _$Condition([void Function(ConditionBuilder)? updates]) =>
+  factory $Condition([void Function(ConditionBuilder)? updates]) =>
       (new ConditionBuilder()..update(updates)).build();
 
-  _$Condition._({this.address, this.operator, this.value}) : super._();
+  $Condition._({this.address, this.operator, this.value}) : super._();
 
   @override
   Condition rebuild(void Function(ConditionBuilder) updates) =>
@@ -105,7 +129,8 @@ class _$Condition extends Condition {
   @override
   int get hashCode {
     return $jf(
-        $jc($jc($jc(0, address.hashCode), operator.hashCode), value.hashCode));
+      $jc($jc($jc(0, address.hashCode), operator.hashCode), value.hashCode),
+    );
   }
 
   @override
@@ -119,7 +144,7 @@ class _$Condition extends Condition {
 }
 
 class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
-  _$Condition? _$v;
+  $Condition? _$v;
 
   String? _address;
   String? get address => _$this._address;
@@ -149,7 +174,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   @override
   void replace(Condition other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Condition;
+    _$v = other as $Condition;
   }
 
   @override
@@ -158,11 +183,11 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   }
 
   @override
-  _$Condition build() {
-    final _$result = _$v ??
-        new _$Condition._(address: address, operator: operator, value: value);
-    replace(_$result);
-    return _$result;
+  $Condition build() {
+    final $result = _$v ??
+        new $Condition._(address: address, operator: operator, value: value);
+    replace($result);
+    return $result;
   }
 }
 

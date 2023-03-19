@@ -16,7 +16,7 @@ abstract class AutoInstall implements Built<AutoInstall, AutoInstallBuilder> {
 
   static Serializer<AutoInstall> get serializer => _$autoInstallSerializer;
 
-  factory AutoInstall([Function(AutoInstallBuilder b) updates]) = _$AutoInstall;
+  factory AutoInstall([Function(AutoInstallBuilder b) updates]) = $AutoInstall;
 
   AutoInstall._();
 

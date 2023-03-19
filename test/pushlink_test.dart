@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:hue_dart/hue_dart.dart';
-import 'package:hue_dart/src/configuration/pushlink_bloc.dart';
-import 'package:hue_dart/src/core/bridge_exception.dart';
-import 'package:hue_dart/src/core/discovery_result.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

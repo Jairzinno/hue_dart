@@ -37,26 +37,28 @@ class Bridge {
   /// create a bridge with a platform specific [client]. Setting the optional [username] enables the use of calls on the bridge that require a username
   Bridge(Client client, String address, [String username = ''])
       : this._withApi(
-            ConfigurationApi(BridgeClient(client, address)),
-            GroupApi(BridgeClient(client, address)),
-            LightApi(BridgeClient(client, address)),
-            ResourceLinkApi(BridgeClient(client, address)),
-            RuleApi(BridgeClient(client, address)),
-            SceneApi(BridgeClient(client, address)),
-            ScheduleApi(BridgeClient(client, address)),
-            SensorApi(BridgeClient(client, address)),
-            username);
+          ConfigurationApi(BridgeClient(client, address)),
+          GroupApi(BridgeClient(client, address)),
+          LightApi(BridgeClient(client, address)),
+          ResourceLinkApi(BridgeClient(client, address)),
+          RuleApi(BridgeClient(client, address)),
+          SceneApi(BridgeClient(client, address)),
+          ScheduleApi(BridgeClient(client, address)),
+          SensorApi(BridgeClient(client, address)),
+          username,
+        );
 
   Bridge._withApi(
-      this._configurationApi,
-      this._groupApi,
-      this._lightApi,
-      this._resourceLinkApi,
-      this._ruleApi,
-      this._sceneApi,
-      this._scheduleApi,
-      this._sensorApi,
-      [String username = '']) {
+    this._configurationApi,
+    this._groupApi,
+    this._lightApi,
+    this._resourceLinkApi,
+    this._ruleApi,
+    this._sceneApi,
+    this._scheduleApi,
+    this._sensorApi, [
+    String username = '',
+  ]) {
     this.username = username;
   }
 
@@ -79,15 +81,18 @@ class Bridge {
   Future<Configuration> configuration() async =>
       _configurationApi.configuration(_username);
 
-  Future<WhiteListItem> createUser(String deviceType) async =>
-      _configurationApi.createUser(deviceType);
+  Future<WhiteListItem> createUser({
+    HueApiDeviceType deviceType = HueApiDeviceType.device2,
+  }) async =>
+      _configurationApi.createUser(deviceType: deviceType);
 
   Future<BridgeResponse> deleteUser(String deletingUsername) async =>
       _configurationApi.deleteUser(_username, deletingUsername);
 
   /// update the bridge's configuration. Check the docs to see what can be changed
   Future<BridgeResponse> updateConfiguration(
-          Configuration configuration) async =>
+    Configuration configuration,
+  ) async =>
       _configurationApi.update(_username, configuration);
 
   Future<List<Group>> groups() async => _groupApi.all();
@@ -112,8 +117,9 @@ class Bridge {
   Future<Light> light(int id) async => _lightApi.single(id);
 
   /// initiate a search for new lights. Optional serial numbers can be sent as [deviceIds].
-  Future<BridgeResponse> searchLights(
-          [List<String> deviceIds = const []]) async =>
+  Future<BridgeResponse> searchLights([
+    List<String> deviceIds = const [],
+  ]) async =>
       _lightApi.search(deviceIds);
 
   /// return the lights found in the last search for new lights
@@ -160,7 +166,9 @@ class Bridge {
       _sceneApi.attributes(scene);
 
   Future<BridgeResponse> updateSceneLightState(
-          Scene scene, Light light) async =>
+    Scene scene,
+    Light light,
+  ) async =>
       _sceneApi.state(scene, light);
 
   Future<Scene> createScene(Scene scene) async => _sceneApi.create(scene);
@@ -203,4 +211,31 @@ class Bridge {
 
   Future<BridgeResponse> deleteSensor(Sensor sensor) async =>
       _sensorApi.delete(sensor);
+
+  /// Waiting for user to click the button on top of the Philips Hue hub.
+  /// When it will be clicked it will return the created user id
+  Future<String> brideLoopToAwaitPushlinkForUserId({
+    HueApiDeviceType deviceType = HueApiDeviceType.device2,
+    int delayInSeconds = 15,
+  }) async {
+    String username;
+
+    while (true) {
+      try {
+        final whiteListItem = await createUser(deviceType: deviceType);
+        final String? usernameTemp = whiteListItem.username;
+        if (usernameTemp != null) {
+          username = usernameTemp;
+          break;
+        }
+        print('Returned user name is null, this is an error');
+      } catch (error) {
+        print('Waiting Pushlink to be clicked, pleas click the button on top'
+            ' of the Philips Hue Hub');
+      }
+      await Future.delayed(Duration(seconds: delayInSeconds));
+    }
+
+    return username;
+  }
 }
