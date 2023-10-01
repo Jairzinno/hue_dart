@@ -4,20 +4,17 @@ version: 0.3.0
 homepage: https://github.com/Jairzinno/hue_dart
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <4.0.0'
 
 dependencies:
  built_collection: ^5.1.1
- built_value: ^8.4.4
- http: ^0.13.5
- intl: ^0.18.0
- # TODO: Switch to the pub.dev pacakge whenever there is newer version then 3.0.0 as it missing
- # mdns features
- network_tools: ^3.2.0
-
+ built_value: ^8.6.3
+ http: ^1.1.0
+ intl: ^0.18.1
+ network_tools: ^4.0.1
 
 dev_dependencies:
- built_value_generator: ^8.4.4
- lint: ^2.0.1
- mockito: ^5.3.2
- test: ^1.23.1
+ built_value_generator: ^8.6.3
+ lint: ^2.1.2
+ mockito: ^5.4.2
+ test: ^1.24.6
