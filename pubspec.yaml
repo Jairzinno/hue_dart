@@ -11,7 +11,7 @@ dependencies:
  built_value: ^8.6.3
  http: ^1.1.0
  intl: ^0.18.1
- network_tools: ^4.0.1
+ network_tools: ^3.2.1
 
 dev_dependencies:
  built_value_generator: ^8.6.3
